@@ -32,7 +32,7 @@ import json
 from PIL import Image
 
 api_line = ""
-api_key=str(api_line)
+api_key=api_line
 openai.api_key = api_key
 history = []
 
@@ -240,7 +240,7 @@ def AiMG():
 st.image(_image,use_column_width='auto')
 keyy = st.text_input("Set API-KEY",placeholder="apl3jkhuisfdbw328jkyhf73")
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
-
+api_line = keyy
 with st.sidebar:
     st.info('BlackButler SETTINGS', icon="ℹ️")
     st.image(bottom_image,use_column_width=True)
@@ -333,8 +333,7 @@ with tab2:
 
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:blackbots@techie.com?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
-while True:
-    api_line = keyy
+
     
     
     
