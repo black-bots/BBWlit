@@ -5,5 +5,4 @@ openai
 prompt_toolkit
 PyPDF2
 textract
-json
 PIL
