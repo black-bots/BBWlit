@@ -239,8 +239,27 @@ def AiMG():
 ###############################
 
 st.image(_image,use_column_width='auto')
+
 keyy = st.text_input("Set Token",placeholder="apl3jkhuisfdbw328jkyhf73",type="password",help="Enter a Token to use our Ai System")
-openai.api_key = keyy
+
+def obfuscate(text): 
+    result = ""
+    for letter in text: 
+        result += chr(ord(letter) + 1) 
+    return result
+
+black-key = obfuscate(keyy) 
+
+###########################################
+###########################################
+def deobfuscate(text): 
+    result = "" 
+    for letter in text: 
+    	result += chr(ord(letter) - 1) 
+    return result
+
+deobfuscated_text = deobfuscate(black-key)  
+openai.api_key = deobfuscated_text
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
 with st.sidebar:
     st.info('BlackButler SETTINGS', icon="ℹ️")
