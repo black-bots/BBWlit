@@ -51,6 +51,14 @@ _image = Image.open('static/3.png')
 st.markdown("""
         <style>
         <br><hr><center>
+            --primary-color{
+                color: #FF4B4B;
+            }
+            --background-color{
+                color: #0E1117;
+            }
+            --secondary-background-color{
+                color: #FAFAFA;
             button:hover {
                 background-color: #3DD56D;
                 transition: all 0.3s ease-in-out;
