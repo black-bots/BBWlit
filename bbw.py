@@ -18,7 +18,6 @@ import sys
 import requests
 try:import speech_recognition as sr
 except:pass
-import keyboard
 import streamlit as st
 import openai
 import datetime
