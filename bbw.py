@@ -238,7 +238,7 @@ def AiMG():
 ###############################
 
 st.image(_image,use_column_width='auto')
-api_line = st.input("Set API-KEY",placeholder="apl3jkhuisfdbw328jkyhf73")
+api_line = st.text_input("Set API-KEY",placeholder="apl3jkhuisfdbw328jkyhf73")
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
 
 with st.sidebar:
