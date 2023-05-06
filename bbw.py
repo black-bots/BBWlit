@@ -236,7 +236,7 @@ def AiMG():
 ###############################
 
 st.image(_image,use_column_width='auto')
-keyy = st.text_input("Set API-KEY",placeholder="apl3jkhuisfdbw328jkyhf73",type="password")
+keyy = st.text_input("Set Token",placeholder="apl3jkhuisfdbw328jkyhf73",type="password",help="Enter a Token to use our Ai System")
 openai.api_key = keyy
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
 with st.sidebar:
