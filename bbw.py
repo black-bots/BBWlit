@@ -263,6 +263,7 @@ openai.api_key = deobfuscated_text
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
 with st.sidebar:
     st.info('BlackButler SETTINGS', icon="ℹ️")
+    Tokens = st.button("○•○ Get Black-Key Code •○•")
     st.image(bottom_image,use_column_width=True)
     dropdown_menu = st.selectbox(
             'Set Ai',
