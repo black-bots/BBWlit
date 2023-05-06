@@ -90,7 +90,7 @@ st.markdown("""
                 background: #FFBD45;
             }
             .st-co{
-                color: black;
+                color: white;
             }
             .css-10y5sf6{
                 color: #FFBD45;
