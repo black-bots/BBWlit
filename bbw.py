@@ -152,8 +152,8 @@ st.markdown("""
     #RGB: 255, 189, 69 RGBA: 255, 189, 69, 1
 def Rec():
     
-    Rec = st.button("🎤 Speak", help="Speak to BlackButler", key='3213', use_container_width=True)
-    Rec.set_disabled(True)
+    Rec = st.button("🎤 Speak", help="Speak to BlackButler",set_disabled=True, key='3213', use_container_width=True)
+    
     if Rec:
         r = sr.Recognizer()
         with sr.Microphone() as source:
