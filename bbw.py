@@ -31,21 +31,7 @@ import textract
 import json
 from PIL import Image
 
-f = open("key.txt").readlines()
 api_line = ""
-#with open('key.txt') as f:
-for line in f:
-    api_line=line.strip()
-    tuo = line.strip()[48:]
-    wun = line.strip()[:3]
-    print("\n\nApi-Key Set: " + wun + "*"*45 + tuo)
-    if len(wun+"*"*45+tuo) != 51:
-        print("\n\nPlease provide Api-Key in key.text file")
-        sleep(3)
-        os._exit(0)
-    else:
-        pass
-
 api_key=str(api_line)
 openai.api_key = api_key
 history = []
@@ -252,7 +238,7 @@ def AiMG():
 ###############################
 
 st.image(_image,use_column_width='auto')
-
+api_line = st.input("Set API-KEY",placeholder="apl3jkhuisfdbw328jkyhf73")
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
 
 with st.sidebar:
