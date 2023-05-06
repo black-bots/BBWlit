@@ -241,7 +241,6 @@ def AiMG():
 st.image(_image,use_column_width='auto')
 keyy = st.text_input("Set API-KEY",placeholder="apl3jkhuisfdbw328jkyhf73",type="password")
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
-api_line = keyy
 with st.sidebar:
     st.info('BlackButler SETTINGS', icon="ℹ️")
     st.image(bottom_image,use_column_width=True)
@@ -273,7 +272,7 @@ with tab1:
     res_box.markdown(f':blue[BlackButler:  ]')
 
     if ok:
-
+        api_line = keyy
         if selected:
             report = []
             for resp in openai.Completion.create(model='text-davinci-003',
