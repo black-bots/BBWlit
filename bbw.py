@@ -238,7 +238,7 @@ def AiMG():
 ###############################
 
 st.image(_image,use_column_width='auto')
-api_line = st.text_input("Set API-KEY",placeholder="apl3jkhuisfdbw328jkyhf73")
+keyy = st.text_input("Set API-KEY",placeholder="apl3jkhuisfdbw328jkyhf73")
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
 
 with st.sidebar:
@@ -333,3 +333,9 @@ with tab2:
 
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:blackbots@techie.com?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
+while True:
+    api_line = keyy
+    
+    
+    
+    
