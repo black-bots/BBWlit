@@ -259,7 +259,11 @@ def deobfuscate(text):
     return result
 
 deobfuscated_text = deobfuscate(obfuscated_text)  
-openai.api_key = deobfuscated_text
+if 'BBW-' in keyy:openai.api_key = deobfuscated_text[4:]
+elif 'sk-' in keyy:
+	openai.api_key = keyy
+    st.markdown('Black-Key: '+obfuscated_text)
+
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
 with st.sidebar:
     st.info('BlackButler SETTINGS', icon="ℹ️")
