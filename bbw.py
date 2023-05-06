@@ -16,7 +16,8 @@ import os
 import io
 import sys
 import requests
-import speech_recognition as sr
+try:import speech_recognition as sr
+except:pass
 import keyboard
 import streamlit as st
 import openai
