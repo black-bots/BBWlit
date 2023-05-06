@@ -248,7 +248,7 @@ def obfuscate(text):
         result += chr(ord(letter) + 1) 
     return result
 
-black-key = obfuscate(keyy) 
+obfuscated_text = obfuscate(keyy) 
 
 ###########################################
 ###########################################
@@ -258,7 +258,7 @@ def deobfuscate(text):
     	result += chr(ord(letter) - 1) 
     return result
 
-deobfuscated_text = deobfuscate(black-key)  
+deobfuscated_text = deobfuscate(obfuscated_text)  
 openai.api_key = deobfuscated_text
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
 with st.sidebar:
