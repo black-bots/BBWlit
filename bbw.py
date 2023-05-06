@@ -87,7 +87,10 @@ st.markdown("""
                 border-color: #FFBD45;
             }
             .st-e9{
-                background: #3DD56D;
+                background: #FFBD45;
+            }
+            .st-co{
+                color: black;
             }
             .css-10y5sf6{
                 color: #FFBD45;
