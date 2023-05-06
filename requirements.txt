@@ -4,7 +4,6 @@ streamlit
 openai
 prompt_toolkit
 PyPDF2
-tempfile
 textract
 json
 PIL
