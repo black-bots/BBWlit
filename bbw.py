@@ -152,7 +152,7 @@ st.markdown("""
     #RGB: 255, 189, 69 RGBA: 255, 189, 69, 1
 def Rec():
     
-    Rec = st.button("🎤 Speak", help="Speak to BlackButler",set_disabled=True, key='3213', use_container_width=True)
+    Rec = st.button("🎤 Speak", help="Speak to BlackButler", disabled=True, key='3213', use_container_width=True)
     
     if Rec:
         r = sr.Recognizer()
@@ -239,7 +239,7 @@ def AiMG():
 ###############################
 
 st.image(_image,use_column_width='auto')
-keyy = st.text_input("Set API-KEY",placeholder="apl3jkhuisfdbw328jkyhf73")
+keyy = st.text_input("Set API-KEY",placeholder="apl3jkhuisfdbw328jkyhf73",type="password")
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
 api_line = keyy
 with st.sidebar:
