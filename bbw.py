@@ -240,7 +240,7 @@ def AiMG():
 
 st.image(_image,use_column_width='auto')
 
-keyy = st.text_input("Set Token",placeholder="apl3jkhuisfdbw328jkyhf73",type="password",help="Enter a Token to use our Ai System")
+keyy = st.text_input("Set Token","apl3jkhuisfdbw328jkyhf73",type="password",help="Enter a Token to use our Ai System")
 
 def obfuscate(text): 
     result = ""
