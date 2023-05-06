@@ -153,6 +153,7 @@ st.markdown("""
 def Rec():
     
     Rec = st.button("🎤 Speak", help="Speak to BlackButler", key='3213', use_container_width=True)
+    Rec.set_disabled(True)
     if Rec:
         r = sr.Recognizer()
         with sr.Microphone() as source:
