@@ -31,9 +31,6 @@ import textract
 import json
 from PIL import Image
 
-api_line = ""
-api_key=api_line
-openai.api_key = api_key
 history = []
 
 icob = Image.open('static/-.ico')
@@ -240,6 +237,7 @@ def AiMG():
 
 st.image(_image,use_column_width='auto')
 keyy = st.text_input("Set API-KEY",placeholder="apl3jkhuisfdbw328jkyhf73",type="password")
+openai.api_key = keyy
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
 with st.sidebar:
     st.info('BlackButler SETTINGS', icon="ℹ️")
