@@ -15,8 +15,11 @@ st.header("Featured Movies")
 col1, col2, col3, col4= st.columns(4)
 
 with col1:
-   st.write("the Super Mario Bros Movie")
+   st.write("the Super Mario Bros")
+   st.text("Trailer")
    st.video('https://youtu.be/TnGl01FkMMo')
+   st.write("🎥👉 Watch Movie")
+   
 
 with col2:
    st.write("Evil Dead")
