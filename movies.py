@@ -124,5 +124,5 @@ with st.sidebar:
     cols[2].write('Scream VI')
     cols[3].write('John Wick')
     cols[4].write('Ant-Man and the Wasp')
-    cols[5].write('Shazam!)
+    cols[5].write('Shazam!')
 
