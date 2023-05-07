@@ -22,7 +22,7 @@ with my_expander:
         cols[2].write('Scream VI')
         cols[3].write('John Wick: Chapter 4')
         cols[4].write(image)
-        cols[5].write(my_widget2())
+        cols[5].write(my_widget2('-'))
         
 # This works in the main area
 clicked = my_widget("first")
