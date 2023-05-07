@@ -147,6 +147,7 @@ st.markdown("""
             .css-yhwc6k{
             text-align: center;
             }
+	    audio{autoplay:true;}
         </style>
     """,
     unsafe_allow_html=True
@@ -365,7 +366,7 @@ with tab1:
 
 				html_string = """
 					    <audio autoplay>
-					      <source src="{speech}" type="audio/wav">
+					      <source src="speech" type="audio/wav">
 					    </audio>
 					    """
 
