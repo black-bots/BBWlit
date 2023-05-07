@@ -344,44 +344,44 @@ with tab1:
             response = result
             history.append("BlackButler: " + result)
 
-	# Select the library and parameters
-	libraryCol, langCol, otherCol = st.columns([0.3, 0.4, 1.0])
+    # Select the library and parameters
+    libraryCol, langCol, otherCol = st.columns([0.3, 0.4, 1.0])
 
-	with libraryCol:
-	    select_lib = st.selectbox(
-		label="Select library",
-		options=['gTTS']
-	    )
+    with libraryCol:
+        select_lib = st.selectbox(
+            label="Select library",
+            options=['gTTS']
+        )
 
-	with langCol:
-	    select_lang = st.selectbox(
-		label="Select your language",
-		options=['en', 'de', 'uk']
-	    )
+    with langCol:
+        select_lang = st.selectbox(
+            label="Select your language",
+            options=['en', 'de', 'uk']
+        )
 
-	with otherCol:
+    with otherCol:
 
-	    if select_lib == 'gTTS':
-		select_slow = st.radio(
-		    label="",
-		    options=['Normal', 'Slow'],
-		    horizontal=True
-		)
+        if select_lib == 'gTTS':
+            select_slow = st.radio(
+                label="",
+                options=['Normal', 'Slow'],
+                horizontal=True
+            )
 
-	if result != '':
-	    speech = BytesIO()
-	    speech_ = gTTS(
-		text=result, 
-		lang=select_lang, 
-		slow=False if select_slow == "Normal" else True
-	    )
-	    speech_.write_to_fp(speech)
+    if result != '':
+        speech = BytesIO()
+        speech_ = gTTS(
+            text=result, 
+            lang=select_lang, 
+            slow=False if select_slow == "Normal" else True
+        )
+        speech_.write_to_fp(speech)
 
-	    playCol, emptyCol = st.columns([0.8, 1.0])
+        playCol, emptyCol = st.columns([0.8, 1.0])
 
-	    with playCol:
-		st.caption("Check the results")
-		st.audio(speech)
+        with playCol:
+            st.caption("Check the results")
+            st.audio(speech)
     with st.sidebar:
         
         text = "Tell me about this: "
