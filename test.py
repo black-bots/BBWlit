@@ -286,13 +286,8 @@ with st.sidebar:
 		'Set Ai',
 		('BlackButler', 'Generic'),help="Select default Ai")
 
-	selected = st.checkbox('Speak responses?', value=True,help="Speak Ai reponses out-loud")
-	select_slow = st.radio(
-		    label="",
-		    options=['Normal', 'Slow'],
-		    horizontal=True
-	)
-	selected2 = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
+	selected2 = st.checkbox('Speak responses?', value=True,help="Speak Ai reponses out-loud")
+	selected = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
 	slider_value = st.slider(':orange[Response style]', 0.1, 1.0, 0.70, step=0.10,help="Set the personality of the Ai (0.10 Predicatble - 1.00 Creative)")
 
 	if dropdown_menu == 'BlackButler':
@@ -319,7 +314,7 @@ with tab1:
     
 	if ok:
 		api_line = keyy
-		if selected & selected2:
+		if selected:
 			report = []
 			for resp in openai.Completion.create(model='text-davinci-003',
 							prompt=prompto + user_input,
@@ -330,16 +325,16 @@ with tab1:
 					result = "".join(report).strip()
 					result = result.replace("\n", "")
 					res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
-					speech = BytesIO()
-					speech_ = gTTS(
-						text=result, 
-						lang='en', 
-						slow=False
-					)
-					speech_.write_to_fp(speech)
-			st.caption("Check the results")
-			st.audio(speech)
-
+			if selected2:
+				speech = BytesIO()
+				speech_ = gTTS(
+					text=result, 
+					lang='en', 
+					slow=False
+				)
+				speech_.write_to_fp(speech)
+				st.caption("Check the results")
+				st.audio(speech)
 			st.download_button('Save Response', result,key="847*")
 			st.markdown("----")
 
@@ -356,15 +351,16 @@ with tab1:
 		history.append("You: " + user_input)
 		prompt = "\n".join(history)
 		response = result
-		speech = BytesIO()
-		speech_ = gTTS(
-			text=result, 
-			lang='en', 
-			slow=False
-		)
-		speech_.write_to_fp(speech)
-		st.caption("Check the results")
-		st.audio(speech)
+		if selected2:
+			speech = BytesIO()
+			speech_ = gTTS(
+				text=result, 
+				lang='en', 
+				slow=False
+			)
+			speech_.write_to_fp(speech)
+			st.caption("Check the results")
+			st.audio(speech)
 		history.append("BlackButler: " + result)
 
 	with st.sidebar:
