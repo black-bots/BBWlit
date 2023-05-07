@@ -305,41 +305,41 @@ with st.sidebar:
 	slider = slider_value
 
 with tab1:
-    res_box = st.empty()
-    Rec()
-    #############################################################################
-    user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
+	res_box = st.empty()
+	Rec()
+	#############################################################################
+	user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
 
-    ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
+	ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
-    memory = []
+	memory = []
 
-    res_box.markdown(f':blue[BlackButler:  ]')
+	res_box.markdown(f':blue[BlackButler:  ]')
 
     
-    if ok:
-        api_line = keyy
-        if selected & selected2:
-		report = []
-		for resp in openai.Completion.create(model='text-davinci-003',
-                                                prompt=prompto + user_input,
-                                                max_tokens=1012, 
-                                                temperature = slider,
-                                                stream = True):
-		report.append(resp.choices[0].text)
-		result = "".join(report).strip()
-		result = result.replace("\n", "")
-		res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
+	if ok:
+		api_line = keyy
+		if selected & selected2:
+			report = []
+			for resp in openai.Completion.create(model='text-davinci-003',
+							prompt=prompto + user_input,
+							max_tokens=1012, 
+							temperature = slider,
+							stream = True):
+			report.append(resp.choices[0].text)
+			result = "".join(report).strip()
+			result = result.replace("\n", "")
+			res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
 
 	st.download_button('Save Response', result,key="847*")
 	st.markdown("----")
 
 	else:
 		completions = openai.Completion.create(model='text-davinci-003',
-						prompt=prompto + user_input,
-						max_tokens=1012, 
-						temperature = slider,
-						stream = False)
+							prompt=prompto + user_input,
+							max_tokens=1012, 
+							temperature = slider,
+							stream = False)
 		result = completions.choices[0].text
 
 		res_box.write(result)
