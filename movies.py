@@ -74,19 +74,14 @@ with expd2:
        st.write("🎥👉 [Watch Movie](https://direct-link.net/674202/free-john-wick-chapter-4)")
 
 ##############################################
-st.subheader("Movies List")
-
-expd = st.expander("Expand", expanded=False)
-with expd:
-        cols = st.columns(6)
-        cols[0].write('the Super Mario Movie')
-        cols[1].write('Evil Dead Rise')
-        cols[2].write('Scream VI')
-        cols[3].write('John Wick: Chapter 4')
-        cols[4].write(image)
-        cols[5].write(my_widget2('-'))
 
 with st.sidebar:
-        cols = st.columns(2)
-        cols[0].write('the Super Mario Movie')
-        cols[1].write('Evil Dead Rise')
+    st.subheader("NOW SHOWING")
+
+    cols = st.columns(6)
+    cols[0].write('the Super Mario Movie')
+    cols[1].write('Evil Dead Rise')
+    cols[2].write('Scream VI')
+    cols[3].write('John Wick: Chapter 4')
+    cols[4].write(image)
+    cols[5].write(my_widget2('-'))
