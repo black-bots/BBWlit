@@ -30,6 +30,8 @@ import tempfile
 import textract
 import json
 from PIL import Image
+import wincl
+#import win32com.client as wincl
 
 history = []
 
@@ -284,7 +286,9 @@ with st.sidebar:
 	dropdown_menu = st.selectbox(
 		'Set Ai',
 		('BlackButler', 'Generic'),help="Select default Ai")
-	selected = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
+
+	selected = st.checkbox('Speak responses?', value=True,help="Speak Ai reponses out-loud")
+	selected2 = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
 	slider_value = st.slider(':orange[Response style]', 0.1, 1.0, 0.70, step=0.10,help="Set the personality of the Ai (0.10 Predicatble - 1.00 Creative)")
 
 	if dropdown_menu == 'BlackButler':
@@ -308,9 +312,15 @@ with tab1:
 
     res_box.markdown(f':blue[BlackButler:  ]')
 
+
+
+
+    speak = wincl.Dispatch("SAPI.SpVoice")
+
+    
     if ok:
         api_line = keyy
-        if selected:
+        if selected & selected2:
             report = []
             for resp in openai.Completion.create(model='text-davinci-003',
                                                 prompt=prompto + user_input,
@@ -321,6 +331,7 @@ with tab1:
                 result = "".join(report).strip()
                 result = result.replace("\n", "")
                 res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
+		speak.Speak(result)
             st.download_button('Save Response', result,key="847*")
             st.markdown("----")
 
@@ -338,6 +349,7 @@ with tab1:
             prompt = "\n".join(history)
             response = result
             history.append("BlackButler: " + result)
+	    speak.Speak(result)
     with st.sidebar:
         
         text = "Tell me about this: "
