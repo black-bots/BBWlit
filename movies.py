@@ -41,6 +41,18 @@ with col4:
    st.video('https://youtu.be/qEVUtrk8_B4')
    st.write("🎥👉 [Watch Movie](https://direct-link.net/674202/free-john-wick-chapter-4)")
 
+st.header("How to Watch Movies for FREE")
+st.write("""
+Click on the link (next to 🎥👉)
+
+Click on “Free Access” on the Linkvertise page that opens up (You DO NOT need to purchase Premium)
+
+Click on “Discover articles” under ‘Complete the follow steps’ – It will open a popup titled “Interesting articles from the web!” 
+
+– Click the black X on the right hand side. – Might have to wait 10 seconds. – Then click “Continue”
+
+For Mobile: IF “Download an App” Step appears – Click on this and then click “Download” so the App store opens but DO NOT download the game. Take 60 seconds to chill or roll up, then return to your browser, to the page and the small window that had the “Download” button should be gone and you can continue to the movie.
+""")
 
 expd2 = st.expander("View More", expanded=False)
 with expd2:
