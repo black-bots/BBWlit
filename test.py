@@ -336,12 +336,9 @@ with tab1:
 				speech_.write_to_fp(speech)
 				
 				def autoplay_audio(file_path: str):
-					with open(file_path, "rb") as f:
-						data = f.read()
-						b64 = base64.b64encode(data).decode()
 						md = f"""
 						    <audio autoplay="true">
-						    <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+						    <source src="data:audio/mp3;base64,{speech}" type="audio/mp3">
 						    </audio>
 						    """
 						st.markdown(
@@ -349,7 +346,7 @@ with tab1:
 						    unsafe_allow_html=True,
 						)
 				st.write("Auto-playing Audio!")
-				autoplay_audio(speech_)
+				autoplay_audio(speech)
 				
 				
 			st.download_button('Save Response', result,key="847*")
@@ -378,12 +375,9 @@ with tab1:
 			speech_.write_to_fp(speech)
 			
 			def autoplay_audio(file_path: str):
-				with open(file_path, "rb") as f:
-					data = f.read()
-					b64 = base64.b64encode(data).decode()
 					md = f"""
 					    <audio autoplay="true">
-					    <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+					    <source src="data:audio/mp3;base64,{speech}" type="audio/mp3">
 					    </audio>
 					    """
 					st.markdown(
@@ -391,7 +385,7 @@ with tab1:
 					    unsafe_allow_html=True,
 					)
 			st.write("Auto-playing Audio!")
-			autoplay_audio(speech_)
+			autoplay_audio(speech)
 			
 		history.append("BlackButler: " + result)
 
