@@ -334,60 +334,47 @@ with tab1:
 					slow=False
 				)
 				speech_.write_to_fp(speech)
-				
-				def autoplay_audio(file_path: str):
-						md = f"""
-						    <audio autoplay="true">
-						    <source src="data:audio/mp3;base64,{speech}" type="audio/mp3">
-						    </audio>
-						    """
-						st.markdown(
-						    md,
-						    unsafe_allow_html=True,
-						)
+
 				st.write("Auto-playing Audio!")
-				autoplay_audio(speech)
-				
+				st.audio(speech)				
 				
 			st.download_button('Save Response', result,key="847*")
 			st.markdown("----")
 
-	else:
-		completions = openai.Completion.create(model='text-davinci-003',
-							prompt=prompto + user_input,
-							max_tokens=1012, 
-							temperature = slider,
-							stream = False)
-		result = completions.choices[0].text
+		else:
+			completions = openai.Completion.create(model='text-davinci-003',
+								prompt=prompto + user_input,
+								max_tokens=1012, 
+								temperature = slider,
+								stream = False)
+			result = completions.choices[0].text
 
-		res_box.write(result)
-		st.download_button('Save Response', result)
-		history.append("You: " + user_input)
-		prompt = "\n".join(history)
-		response = result
-		if ok & selected2:
-			speech = BytesIO()
-			speech_ = gTTS(
-				text=result, 
-				lang='en', 
-				slow=False
-			)
-			speech_.write_to_fp(speech)
-			
-			def autoplay_audio(file_path: str):
-					md = f"""
-					    <audio autoplay="true">
-					    <source src="data:audio/mp3;base64,{speech}" type="audio/mp3">
+			res_box.write(result)
+			st.download_button('Save Response', result)
+			history.append("You: " + user_input)
+			prompt = "\n".join(history)
+			response = result
+			if ok & selected2:
+				speech = BytesIO()
+				speech_ = gTTS(
+					text=result, 
+					lang='en', 
+					slow=False
+				)
+				speech_.write_to_fp(speech)
+
+
+				html_string = """
+					    <audio controls autoplay>
+					      <source src={speech} type="audio/mp3">
 					    </audio>
 					    """
-					st.markdown(
-					    md,
-					    unsafe_allow_html=True,
-					)
-			st.write("Auto-playing Audio!")
-			autoplay_audio(speech)
-			
-		history.append("BlackButler: " + result)
+
+				sound = st.empty()
+				sound.markdown(html_string, unsafe_allow_html=True)  # will display a st.audio with the sound you specified in the "src" of the html_string and autoplay it
+				time.sleep(2)  # wait for 2 seconds to finish the playing of the audio
+				sound.empty()  # optionally delete the element afterwards
+			history.append("BlackButler: " + result)
 
 	with st.sidebar:
         
