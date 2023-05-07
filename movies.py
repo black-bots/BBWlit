@@ -23,58 +23,46 @@ with expd:
         cols[4].write(image)
         cols[5].write(my_widget2('-'))
 ################################
-st.subheader("Featured Movies")
+st.header("Featured Movies")
 col1, col2, col3, col4= st.columns(4)
 
 with col1:
-   st.header("the Super Mario Bros Movie")
+   st.write("the Super Mario Bros Movie")
    st.video('https://youtu.be/TnGl01FkMMo')
 
 with col2:
-   st.header("Evil Dead")
-   st.image('https://youtu.be/0lmBDnliqKs')
+   st.write("Evil Dead")
+   st.video('https://youtu.be/0lmBDnliqKs')
 
 with col3:
-   st.header("Scream VI")
-   st.image('https://youtu.be/1Ie2qmAOc6Q')
+   st.write("Scream VI")
+   st.video('https://youtu.be/1Ie2qmAOc6Q')
     
 with col4:
-   st.header("John Wick: Chapter 4")
-   st.image('https://youtu.be/qEVUtrk8_B4')
+   st.write("John Wick: Chapter 4")
+   st.video('https://youtu.be/qEVUtrk8_B4')
 
 expd2 = st.expander("View More", expanded=False)
 with expd2:
     col1, col2, col3, col4= st.columns(4)
 
     with col1:
-       st.header("the Super Mario Bros Movie")
+       st.write("the Super Mario Bros Movie")
        st.video('https://youtu.be/TnGl01FkMMo')
 
     with col2:
-       st.header("Evil Dead")
-       st.image('https://youtu.be/0lmBDnliqKs')
+       st.write("Evil Dead")
+       st.video('https://youtu.be/0lmBDnliqKs')
 
     with col3:
-       st.header("Scream VI")
-       st.image('https://youtu.be/1Ie2qmAOc6Q')
+       st.write("Scream VI")
+       st.video('https://youtu.be/1Ie2qmAOc6Q')
 
     with col4:
-       st.header("John Wick: Chapter 4")
-       st.image('https://youtu.be/qEVUtrk8_B4')
+       st.write("John Wick: Chapter 4")
+       st.video('https://youtu.be/qEVUtrk8_B4')
 ##############################################
-col1, col2, col3 = st.columns(3)
 
-with col1:
-   st.header("A cat")
-   st.image(image)
-
-with col2:
-   st.header("A dog")
-   st.image(image)
-
-with col3:
-   st.header("An owl")
-   st.image(image)
 
 with st.sidebar:
         cols = st.columns(2)
