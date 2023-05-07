@@ -49,12 +49,41 @@ st.write(f"""
 
 :blue[3: ]Click on “Discover articles” under ‘Complete the follow steps’ – It will open a popup titled “Interesting articles from the web!” 
 
-:orange[3.1: ] Click the black X on the right hand side. – Might have to wait 10 seconds. – Then click “Continue”
+:blue[3.1: ] Click the black X on the right hand side. – Might have to wait 10 seconds. – Then click “Continue”
 
 :red[For Mobile:] IF “Download an App” Step appears – Click on this and then click “Download” so the App store opens but DO NOT download the game. Take 60 seconds to chill or roll up, then return to your browser, to the page and the small window that had the “Download” button should be gone and you can continue to the movie.
 """)
 
-expd2 = st.expander("View More", expanded=False)
+col1, col2, col3, col4= st.columns(4)
+
+with col1:
+   st.write("the Super Mario Bros")
+   st.text("Trailer")
+   st.video('https://youtu.be/TnGl01FkMMo')
+   st.write("🎥👉 [Watch Movi](https://link-center.net/674202/free-mario-bros-movie)")
+   
+
+with col2:
+   st.write("Evil Dead")
+   st.text("Trailer")
+   st.video('https://youtu.be/0lmBDnliqKs')
+   st.write("🎥👉 [Watch Movie](https://direct-link.net/674202/free-evil-dead-rise-movie)")
+
+
+with col3:
+   st.write("Scream VI")
+   st.text("Trailer")
+   st.video('https://youtu.be/1Ie2qmAOc6Q')
+   st.write("🎥👉 [Watch Movie](https://link-hub.net/674202/free-scream-iv-movie)")
+
+    
+with col4:
+   st.write("John Wick: Chapter 4")
+   st.text("Trailer")
+   st.video('https://youtu.be/qEVUtrk8_B4')
+   st.write("🎥👉 [Watch Movie](https://direct-link.net/674202/free-john-wick-chapter-4)")
+
+expd2 = st.expander("View More Movies", expanded=False)
 with expd2:
     col1, col2, col3, col4= st.columns(4)
 
