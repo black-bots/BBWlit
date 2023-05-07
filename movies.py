@@ -34,12 +34,6 @@ select = st.selectbox("Choose your movie", column_names)
 
 st.write("Your selection",select)
 
-fig = plt.figure()
-ax = fig.add_subplot(1,1,1)
-
-plt.hist(select)
-
-st.write(fig)
 
 with st.sidebar:
         cols = st.columns(2)
