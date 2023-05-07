@@ -6,7 +6,10 @@ image = Image.open('static/ori_3748732_mkqg8a0irpybxk8xtejrqetwi9j3f3011wq3dyi1_
 st.image(image,use_column_width=True)
 
 def my_widget(key):
-    st.subheader('Hello there!')
+    st.subheader('Hello there! tavos')
+    return st.button("Click me " + key)
+def my_widget2(key):
+    st.subheader('gooodbyeees')
     return st.button("Click me " + key)
 
 #############################
@@ -14,7 +17,7 @@ st.title("Movies List")
 my_expander = st.expander("Expand", expanded=True)
 with my_expander:
         cols = st.columns(4)
-        cols[0].write('the Super Mario Movie')
+        cols[0].write('the Super Mario Movie',my_widget("Click"))
         cols[1].write('Evil Dead Rise')
         cols[2].write('Scream VI')
         cols[3].write('John Wick: Chapter 4')
