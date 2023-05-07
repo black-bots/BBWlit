@@ -331,7 +331,6 @@ with tab1:
                 result = "".join(report).strip()
                 result = result.replace("\n", "")
                 res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
-	    speak.Speak(result)
             st.download_button('Save Response', result,key="847*")
             st.markdown("----")
 
