@@ -23,13 +23,11 @@ df = pd.DataFrame(
    np.random.randn(50, 20),
    columns=('col %d' % i for i in range(20)))
 
-st.dataframe(df)  # Same as st.write(df)
-
 # link is the column with hyperlinks
 df['link'] = df['link'].apply(make_clickable)
 df = df.to_html(escape=False)
 st.write(df, unsafe_allow_html=True)
-
+st.dataframe(df)  # Same as st.write(df)
 my_expander = st.expander("Expand", expanded=True)
 with my_expander:
         cols = st.columns(6)
