@@ -35,7 +35,19 @@ with expd2:
 
     st.write("Your selection",select)
 ##############################################
+col1, col2, col3 = st.columns(3)
 
+with col1:
+   st.header("A cat")
+   st.image(image)
+
+with col2:
+   st.header("A dog")
+   st.image(image)
+
+with col3:
+   st.header("An owl")
+   st.image(image)
 
 with st.sidebar:
         cols = st.columns(2)
