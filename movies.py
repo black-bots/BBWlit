@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 from PIL import Image
 
 image = Image.open('static/ori_3748732_mkqg8a0irpybxk8xtejrqetwi9j3f3011wq3dyi1_online-cinema-banner-vector-realistic-computer-monitor-movie-brochure-design-template-banner-for-movie-premiere-show-marketing-luxury-poster-illustration.jpg')
@@ -17,6 +18,12 @@ def make_clickable(link):
     # extract clickable text to display for your link
     text = link.split('=')[1]
     return f'<a target="_blank" href="{link}">{text}</a>'
+
+df = pd.DataFrame(
+   np.random.randn(50, 20),
+   columns=('col %d' % i for i in range(20)))
+
+st.dataframe(df)  # Same as st.write(df)
 
 # link is the column with hyperlinks
 df['link'] = df['link'].apply(make_clickable)
