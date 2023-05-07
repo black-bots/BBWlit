@@ -57,17 +57,17 @@ st.write(f"""
 col1, col2, col3, col4= st.columns(4)
 
 with col1:
-   st.write("the Super Mario Bros")
+   st.write("Ant-Man and the Wasp: Quantumania")
    st.text("Trailer")
-   st.video('https://youtu.be/TnGl01FkMMo')
-   st.write("🎥👉 [Watch Movi](https://link-center.net/674202/free-mario-bros-movie)")
+   st.video('https://youtu.be/ZlNFpri-Y40')
+   st.write("🎥👉 [Watch Movi](https://link-target.net/674202/free-new-movies-2023)")
    
 
 with col2:
-   st.write("Evil Dead")
+   st.write("Shazam! Fury of the Gods")
    st.text("Trailer")
-   st.video('https://youtu.be/0lmBDnliqKs')
-   st.write("🎥👉 [Watch Movie](https://direct-link.net/674202/free-evil-dead-rise-movie)")
+   st.video('https://youtu.be/Zi88i4CpHe4')
+   st.write("🎥👉 [Watch Movie](https://link-center.net/674202/free-mario-bros-movie)")
 
 
 with col3:
