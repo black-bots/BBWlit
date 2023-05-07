@@ -11,19 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import PyV8
-ctx = PyV8.JSContext()
-ctx.enter()
-
-js = """
-var xA = document.getElementById("audio");
-xA.autoplay = true;
-xA.load();
-""".replace("document.write", "return ")
-
-print ctx.eval(js.replace("document.write", "return "))
-
-
 import os
 import io
 import sys
@@ -160,7 +147,7 @@ st.markdown("""
             .css-yhwc6k{
             text-align: center;
             }
-	    audio{autoplay:true;}
+	    #audio{autoplay:true;}
         </style>
     """,
     unsafe_allow_html=True
