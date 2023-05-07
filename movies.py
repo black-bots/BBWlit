@@ -25,7 +25,7 @@ with my_expander:
 ################################
 st.title("Pandas Dataframe selection")
 
-data = pd.read_csv('https://gist.github.com/arwahab/2e7a514b057908881ac6e3fa56b18f8d#file-top_100_movies-csv')
+data = pd.read_csv('https://gist.github.com/KonuTech/5ef61b6754b03f00c0baf393bbe66691#file-movies_data-csv')
 data
 
 column_names = list(data.columns)
