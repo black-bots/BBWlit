@@ -326,7 +326,7 @@ with tab1:
 					result = "".join(report).strip()
 					result = result.replace("\n", "")
 					res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
-			if selected2:
+			if ok & selected2:
 				speech = BytesIO()
 				speech_ = gTTS(
 					text=result, 
@@ -368,7 +368,7 @@ with tab1:
 		history.append("You: " + user_input)
 		prompt = "\n".join(history)
 		response = result
-		if selected2:
+		if ok & selected2:
 			speech = BytesIO()
 			speech_ = gTTS(
 				text=result, 
