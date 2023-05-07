@@ -247,20 +247,17 @@ with st.sidebar:
 	keyy = st.text_input("Set Black-Key Code","BBW-apl3jkhuisfdbw328jkyhf73",type="password",help="Enter a Token to use our Ai System")
 
 	def obfuscate(text): 
-	    result = ""
-	    for letter in text: 
-		result += chr(ord(letter) + 1) 
-	    return result
+		result = ""
+		for letter in text: 
+			result += chr(ord(letter) + 1) 
+		return result
 
 	obfuscated_text = obfuscate(keyy) 
-
-	###########################################
-	###########################################
 	def deobfuscate(text): 
-	    result = "" 
-	    for letter in text: 
-		result += chr(ord(letter) - 1) 
-	    return result
+		result = "" 
+		for letter in text: 
+			result += chr(ord(letter) - 1) 
+		return result
 
 	deobfuscated_text = deobfuscate(obfuscated_text)  
 	if 'BBW-' in keyy:openai.api_key = deobfuscated_text[4:]
