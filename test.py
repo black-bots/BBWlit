@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import pythoncom
 import os
 import io
 import sys
@@ -30,7 +29,8 @@ import tempfile
 import textract
 import json
 from PIL import Image
-import win32com.client as wincl
+from gtts import gTTS
+from io import BytesIO
 
 history = []
 
@@ -312,10 +312,7 @@ with tab1:
     res_box.markdown(f':blue[BlackButler:  ]')
 
 
-
-
-    speak = wincl.Dispatch("SAPI.SpVoice")
-
+    sound_file = BytesIO()
     
     if ok:
         api_line = keyy
@@ -330,6 +327,9 @@ with tab1:
                 result = "".join(report).strip()
                 result = result.replace("\n", "")
                 res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
+	    tts = gTTS(result, lang='en')
+	    tts.write_to_fp(sound_file)
+	    st.audio(sound_file)
             st.download_button('Save Response', result,key="847*")
             st.markdown("----")
 
