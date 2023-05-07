@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-idef my_widget(key):
+def my_widget(key):
     st.subheader('Hello there!')
     return st.button("Click me " + key)
 
