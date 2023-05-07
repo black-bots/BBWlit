@@ -330,6 +330,15 @@ with tab1:
 					result = "".join(report).strip()
 					result = result.replace("\n", "")
 					res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
+					speech = BytesIO()
+					speech_ = gTTS(
+						text=result, 
+						lang='en', 
+						slow=False
+					)
+					speech_.write_to_fp(speech)
+			st.caption("Check the results")
+			st.audio(speech)
 
 			st.download_button('Save Response', result,key="847*")
 			st.markdown("----")
@@ -351,7 +360,7 @@ with tab1:
 		speech_ = gTTS(
 			text=result, 
 			lang='en', 
-			slow=False if select_slow == "Normal" else True
+			slow=False
 		)
 		speech_.write_to_fp(speech)
 		st.caption("Check the results")
