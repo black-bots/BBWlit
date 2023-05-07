@@ -30,7 +30,7 @@ st.markdown("---")
 mygrid = make_grid(3,(2,4,4))
 
 # Row 0
-popgrowth = "pop"
+popgrowth = 2
 worldgrowth = popgrowth[popgrowth['Country name'] == 'World']
 
 fig, ax = plt.subplots()
