@@ -327,9 +327,7 @@ with tab1:
                 result = "".join(report).strip()
                 result = result.replace("\n", "")
                 res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
-	    tts = gTTS(result, lang='en')
-	    tts.write_to_fp(sound_file)
-	    st.audio(sound_file)
+
             st.download_button('Save Response', result,key="847*")
             st.markdown("----")
 
