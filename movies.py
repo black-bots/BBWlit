@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+from PIL import Image
+
 image = Image.open('static/-.ico')
 def my_widget(key):
     st.subheader('Hello there!')
