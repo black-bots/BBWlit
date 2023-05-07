@@ -5,3 +5,7 @@ openai
 prompt_toolkit
 PyPDF2
 textract
+pymongo==4.1.1
+dnspython==2.2.1
+streamlit_player
+gTTS==2.2.4
