@@ -23,7 +23,6 @@ with st.sidebar:
 st.title("Movies List")
 my_expander = st.expander("Expand", expanded=True)
 with my_expander:
-    for i in range(1, 5):
         cols = st.columns(4)
         cols[0].write('the Super Mario Movie')
         cols[1].write('Evil Dead Rise')
