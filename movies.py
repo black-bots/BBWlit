@@ -11,10 +11,10 @@ def my_widget2(key):
     return st.button("Click me " + key)
 
 #############################
-st.title("Movies List")
+st.subheader("Movies List")
 
-my_expander = st.expander("Expand", expanded=True)
-with my_expander:
+expd = st.expander("Expand", expanded=False)
+with expd:
         cols = st.columns(6)
         cols[0].write('the Super Mario Movie')
         cols[1].write('Evil Dead Rise')
@@ -23,16 +23,17 @@ with my_expander:
         cols[4].write(image)
         cols[5].write(my_widget2('-'))
 ################################
-st.title("Pandas Dataframe selection")
+st.subheader("Movie List")
+expd2 = st.expander("Expand", expanded=False)
+with expd2:
+    data = pd.read_csv('https://gist.githubusercontent.com/KonuTech/5ef61b6754b03f00c0baf393bbe66691/raw/c7924c7906f290a53714c3d8bdaa04cbd0ebcc05/movies_data.csv')
+    data
 
-data = pd.read_csv('https://gist.githubusercontent.com/KonuTech/5ef61b6754b03f00c0baf393bbe66691/raw/c7924c7906f290a53714c3d8bdaa04cbd0ebcc05/movies_data.csv')
-data
+    column_names = list(data.columns)
 
-column_names = list(data.columns)
+    select = st.selectbox("Choose your movie", column_names)
 
-select = st.selectbox("Choose your movie", column_names)
-
-st.write("Your selection",select)
+    st.write("Your selection",select)
 
 
 with st.sidebar:
