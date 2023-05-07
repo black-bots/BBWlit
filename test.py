@@ -345,43 +345,23 @@ with tab1:
             history.append("BlackButler: " + result)
 
     # Select the library and parameters
-    libraryCol, langCol, otherCol = st.columns([0.3, 0.4, 1.0])
-
-    with libraryCol:
-        select_lib = st.selectbox(
-            label="Select library",
-            options=['gTTS']
-        )
-
-    with langCol:
-        select_lang = st.selectbox(
-            label="Select your language",
-            options=['en', 'de', 'uk']
-        )
-
-    with otherCol:
-
-        if select_lib == 'gTTS':
-            select_slow = st.radio(
+    select_slow = st.radio(
                 label="",
                 options=['Normal', 'Slow'],
                 horizontal=True
             )
 
-    if result != '':
+    if response != '':
         speech = BytesIO()
         speech_ = gTTS(
-            text=result, 
-            lang=select_lang, 
+            text=response, 
+            lang='en', 
             slow=False if select_slow == "Normal" else True
         )
         speech_.write_to_fp(speech)
+        st.caption("Check the results")
+        st.audio(speech)
 
-        playCol, emptyCol = st.columns([0.8, 1.0])
-
-        with playCol:
-            st.caption("Check the results")
-            st.audio(speech)
     with st.sidebar:
         
         text = "Tell me about this: "
