@@ -26,6 +26,7 @@ from threading import Thread
 import prompt_toolkit
 import PyPDF2
 import tempfile
+import base64
 import textract
 import json
 from PIL import Image
@@ -333,8 +334,24 @@ with tab1:
 					slow=False
 				)
 				speech_.write_to_fp(speech)
-				st.caption("Check the results")
-				st.audio(speech)
+				
+				def autoplay_audio(file_path: str):
+					with open(file_path, "rb") as f:
+						data = f.read()
+						b64 = base64.b64encode(data).decode()
+						md = f"""
+						    <audio controls autoplay="true">
+						    <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+						    </audio>
+						    """
+						st.markdown(
+						    md,
+						    unsafe_allow_html=True,
+						)
+				st.write("# Auto-playing Audio!")
+				autoplay_audio(speech)
+				
+				
 			st.download_button('Save Response', result,key="847*")
 			st.markdown("----")
 
@@ -359,8 +376,21 @@ with tab1:
 				slow=False
 			)
 			speech_.write_to_fp(speech)
-			st.caption("Check the results")
-			st.audio(speech)
+			def autoplay_audio(file_path: str):
+				with open(file_path, "rb") as f:
+					data = f.read()
+					b64 = base64.b64encode(data).decode()
+					md = f"""
+					    <audio controls autoplay="true">
+					    <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+					    </audio>
+					    """
+					st.markdown(
+					    md,
+					    unsafe_allow_html=True,
+					)
+			st.write("# Auto-playing Audio!")
+			autoplay_audio(speech)
 		history.append("BlackButler: " + result)
 
 	with st.sidebar:
