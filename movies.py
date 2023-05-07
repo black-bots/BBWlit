@@ -36,7 +36,7 @@ with expd2:
     st.write("Your selection",select)
 ##############################################
 st.subheader("Movie List")
-expd3 = st.expander("Expand", expanded=False)
+expd3 = st.expander("Expand", expanded=False,key='12321')
 with expd3:
     data = ''
     data
