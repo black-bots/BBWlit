@@ -240,32 +240,33 @@ def AiMG():
 
 st.image(_image,use_column_width='auto')
 
-def obfuscate(text): 
-    result = ""
-    for letter in text: 
-        result += chr(ord(letter) + 1) 
-    return result
-
-obfuscated_text = obfuscate(keyy) 
-
-###########################################
-###########################################
-def deobfuscate(text): 
-    result = "" 
-    for letter in text: 
-    	result += chr(ord(letter) - 1) 
-    return result
-
-deobfuscated_text = deobfuscate(obfuscated_text)  
-if 'BBW-' in keyy:openai.api_key = deobfuscated_text[4:]
-elif 'sk-' in keyy:
-	openai.api_key = keyy
-	st.markdown('Black-Key: '+obfuscated_text)
 
 tab1, tab2 = st.tabs(["GPT", "Image Search"])
 with st.sidebar:
 	st.info('BlackButler SETTINGS', icon="ℹ️")
 	keyy = st.text_input("Set Black-Key Code","BBW-apl3jkhuisfdbw328jkyhf73",type="password",help="Enter a Token to use our Ai System")
+
+	def obfuscate(text): 
+	    result = ""
+	    for letter in text: 
+		result += chr(ord(letter) + 1) 
+	    return result
+
+	obfuscated_text = obfuscate(keyy) 
+
+	###########################################
+	###########################################
+	def deobfuscate(text): 
+	    result = "" 
+	    for letter in text: 
+		result += chr(ord(letter) - 1) 
+	    return result
+
+	deobfuscated_text = deobfuscate(obfuscated_text)  
+	if 'BBW-' in keyy:openai.api_key = deobfuscated_text[4:]
+	elif 'sk-' in keyy:
+		openai.api_key = keyy
+		st.markdown('Black-Key: '+obfuscated_text)
 	Tokens = st.button("○•○ Get Black-Key Code •○•")
 	st.image(bottom_image,use_column_width=True)
 	dropdown_menu = st.selectbox(
