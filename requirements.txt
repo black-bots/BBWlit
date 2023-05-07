@@ -1,4 +1,4 @@
-js2py
+PyV8
 requests
 speechrecognition
 streamlit
