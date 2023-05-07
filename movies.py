@@ -18,14 +18,14 @@ with col1:
    st.write("the Super Mario Bros")
    st.text("Trailer")
    st.video('https://youtu.be/TnGl01FkMMo')
-   st.write("🎥👉 Watch Movie[link]()")
+   st.write("🎥👉 Watch Movie[Here](https://link-center.net/674202/free-mario-bros-movie)")
    
 
 with col2:
    st.write("Evil Dead")
    st.text("Trailer")
    st.video('https://youtu.be/0lmBDnliqKs')
-   st.write("🎥👉 Watch Movie[link]()")
+   st.write("🎥👉 Watch Movie[link](https://direct-link.net/674202/free-evil-dead-rise-movie)")
 
 
 with col3:
