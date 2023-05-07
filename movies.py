@@ -28,12 +28,3 @@ for i in range(1, 10):
     cols[2].write(f'{i * i * i}')
     cols[3].write('x' * i)
 ################################
-col1, col2 = st.columns(2)
-
-original = Image.open(image)
-col1.header("Original")
-col1.image(original, use_column_width=True)
-
-grayscale = original.convert('LA')
-col2.header("Grayscale")
-col2.image(grayscale, use_column_width=True)
