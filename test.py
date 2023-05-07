@@ -326,13 +326,13 @@ with tab1:
 							max_tokens=1012, 
 							temperature = slider,
 							stream = True):
-			report.append(resp.choices[0].text)
-			result = "".join(report).strip()
-			result = result.replace("\n", "")
-			res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
+					report.append(resp.choices[0].text)
+					result = "".join(report).strip()
+					result = result.replace("\n", "")
+					res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
 
-	st.download_button('Save Response', result,key="847*")
-	st.markdown("----")
+			st.download_button('Save Response', result,key="847*")
+			st.markdown("----")
 
 	else:
 		completions = openai.Completion.create(model='text-davinci-003',
