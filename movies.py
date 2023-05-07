@@ -30,7 +30,6 @@ with expd2:
     data
 
     column_names = list(data.columns)
-    data[0].write('the Super Mario Movie')
     select = st.selectbox("Choose your movie", column_names)
 
     st.write("Your selection",select)
