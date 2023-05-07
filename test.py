@@ -347,19 +347,16 @@ with tab1:
             history.append("You: " + user_input)
             prompt = "\n".join(history)
             response = result
-            history.append("BlackButler: " + result)
-
-
-
             speech = BytesIO()
             speech_ = gTTS(
-                text=response, 
+                text=result, 
                 lang='en', 
                 slow=False if select_slow == "Normal" else True
             )
             speech_.write_to_fp(speech)
             st.caption("Check the results")
             st.audio(speech)
+	    history.append("BlackButler: " + result)
 
     with st.sidebar:
         
