@@ -1,4 +1,3 @@
-PyV8
 requests
 speechrecognition
 streamlit
