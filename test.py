@@ -348,7 +348,6 @@ with tab1:
             prompt = "\n".join(history)
             response = result
             history.append("BlackButler: " + result)
-	    speak.Speak(result)
     with st.sidebar:
         
         text = "Tell me about this: "
