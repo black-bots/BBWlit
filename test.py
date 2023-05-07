@@ -363,17 +363,15 @@ with tab1:
 				)
 				speech_.write_to_fp(speech)
 
-
 				html_string = """
-					    <audio controls autoplay>
+					    <audio autoplay>
 					      <source src={speech} type="audio/mp3">
 					    </audio>
 					    """
 
 				sound = st.empty()
 				sound.markdown(html_string, unsafe_allow_html=True)  # will display a st.audio with the sound you specified in the "src" of the html_string and autoplay it
-				time.sleep(2)  # wait for 2 seconds to finish the playing of the audio
-				sound.empty()  # optionally delete the element afterwards
+
 			history.append("BlackButler: " + result)
 
 	with st.sidebar:
