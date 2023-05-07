@@ -18,20 +18,29 @@ with col1:
    st.write("the Super Mario Bros")
    st.text("Trailer")
    st.video('https://youtu.be/TnGl01FkMMo')
-   st.write("🎥👉 Watch Movie")
+   st.write("🎥👉 Watch Movie[link]()")
    
 
 with col2:
    st.write("Evil Dead")
+   st.text("Trailer")
    st.video('https://youtu.be/0lmBDnliqKs')
+   st.write("🎥👉 Watch Movie[link]()")
+
 
 with col3:
    st.write("Scream VI")
+   st.text("Trailer")
    st.video('https://youtu.be/1Ie2qmAOc6Q')
+   st.write("🎥👉 Watch Movie[link]()")
+
     
 with col4:
    st.write("John Wick: Chapter 4")
+   st.text("Trailer")
    st.video('https://youtu.be/qEVUtrk8_B4')
+   st.write("🎥👉 Watch Movie[link]()")
+
 
 expd2 = st.expander("View More", expanded=False)
 with expd2:
@@ -39,19 +48,31 @@ with expd2:
 
     with col1:
        st.write("the Super Mario Bros Movie")
+       st.text("Trailer")
        st.video('https://youtu.be/TnGl01FkMMo')
+       st.write("🎥👉 Watch Movie[link]()")
+
 
     with col2:
        st.write("Evil Dead")
+       st.text("Trailer")
        st.video('https://youtu.be/0lmBDnliqKs')
+       st.write("🎥👉 Watch Movie[link]()")
+
 
     with col3:
        st.write("Scream VI")
+       st.text("Trailer")
        st.video('https://youtu.be/1Ie2qmAOc6Q')
+       st.write("🎥👉 Watch Movie[link]()")
+
 
     with col4:
        st.write("John Wick: Chapter 4")
+       st.text("Trailer")
        st.video('https://youtu.be/qEVUtrk8_B4')
+       st.write("🎥👉 Watch Movie[link]()")
+
 ##############################################
 st.subheader("Movies List")
 
