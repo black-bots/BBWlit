@@ -11,6 +11,17 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import js2py
+
+js = """
+var xA = document.getElementById("audio");
+xA.autoplay = true;
+xA.load();
+""".replace("document.write", "return ")
+
+result = js2py.eval_js(js) 
+
+
 import os
 import io
 import sys
