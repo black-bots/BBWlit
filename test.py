@@ -287,11 +287,11 @@ with st.sidebar:
 		('BlackButler', 'Generic'),help="Select default Ai")
 
 	selected = st.checkbox('Speak responses?', value=True,help="Speak Ai reponses out-loud")
-        select_slow = st.radio(
-                    label="",
-                    options=['Normal', 'Slow'],
-                    horizontal=True
-                )
+	select_slow = st.radio(
+		    label="",
+		    options=['Normal', 'Slow'],
+		    horizontal=True
+	)
 	selected2 = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
 	slider_value = st.slider(':orange[Response style]', 0.1, 1.0, 0.70, step=0.10,help="Set the personality of the Ai (0.10 Predicatble - 1.00 Creative)")
 
