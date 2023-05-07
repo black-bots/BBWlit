@@ -13,21 +13,6 @@ def my_widget2(key):
 #############################
 st.title("Movies List")
 
-def make_clickable(link):
-    # target _blank to open new window
-    # extract clickable text to display for your link
-    text = link.split('=')[1]
-    return f'<a target="_blank" href="{link}">{text}</a>'
-
-df = pd.DataFrame(
-   np.random.randn(50, 20),
-   columns=('col %d' % i for i in range(20)))
-
-# link is the column with hyperlinks
-df['link'] = df['link'].apply(make_clickable)
-df = df.to_html(escape=False)
-st.write(df, unsafe_allow_html=True)
-st.dataframe(df)  # Same as st.write(df)
 my_expander = st.expander("Expand", expanded=True)
 with my_expander:
         cols = st.columns(6)
@@ -38,6 +23,24 @@ with my_expander:
         cols[4].write(image)
         cols[5].write(my_widget2('-'))
 ################################
+st.title("Pandas Dataframe selection")
+
+data = pd.read_csv('top_100_movies.csv.html')
+data
+
+column_names = list(data.columns)
+
+select = st.selectbox("Choose your movie", column_names)
+
+st.write("Your selection",select)
+
+fig = plt.figure()
+ax = fig.add_subplot(1,1,1)
+
+plt.hist(select)
+
+st.write(fig)
+
 with st.sidebar:
         cols = st.columns(2)
         cols[0].write('the Super Mario Movie')
