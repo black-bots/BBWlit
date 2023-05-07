@@ -34,7 +34,18 @@ with expd2:
     select = st.selectbox("Choose your movie", column_names)
 
     st.write("Your selection",select)
+##############################################
+st.subheader("Movie List")
+expd3 = st.expander("Expand", expanded=False)
+with expd3:
+    data = ''
+    data
+    column_names = list(data.columns)
+    column_names[0].write('the Super Mario Movie')
+    data[1].write('the Super Mario Movie')
+    select = st.selectbox("Choose your movie", column_names)
 
+    st.write("Your selection",select)
 
 with st.sidebar:
         cols = st.columns(2)
