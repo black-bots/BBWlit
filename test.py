@@ -348,10 +348,8 @@ with tab1:
 						    md,
 						    unsafe_allow_html=True,
 						)
-
-
 				st.write("Auto-playing Audio!")
-				autoplay_audio(speech)
+				autoplay_audio(speech_)
 				
 				
 			st.download_button('Save Response', result,key="847*")
@@ -392,11 +390,8 @@ with tab1:
 					    md,
 					    unsafe_allow_html=True,
 					)
-
-
 			st.write("Auto-playing Audio!")
-			autoplay_audio(speech)
-			st.markdown(audio_tag, unsafe_allow_html=True)
+			autoplay_audio(speech_)
 			
 		history.append("BlackButler: " + result)
 
