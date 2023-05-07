@@ -14,3 +14,4 @@ pydub
 fake_useragent 
 wit
 pydantic
+tls_client 
