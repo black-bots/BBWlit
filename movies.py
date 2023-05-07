@@ -11,6 +11,18 @@ def my_widget2(key):
 
 #############################
 st.title("Movies List")
+
+def make_clickable(link):
+    # target _blank to open new window
+    # extract clickable text to display for your link
+    text = link.split('=')[1]
+    return f'<a target="_blank" href="{link}">{text}</a>'
+
+# link is the column with hyperlinks
+df['link'] = df['link'].apply(make_clickable)
+df = df.to_html(escape=False)
+st.write(df, unsafe_allow_html=True)
+
 my_expander = st.expander("Expand", expanded=True)
 with my_expander:
         cols = st.columns(6)
