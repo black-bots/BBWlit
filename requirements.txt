@@ -5,4 +5,4 @@ openai
 prompt_toolkit
 PyPDF2
 textract
-pywin32
+pypiwin32
