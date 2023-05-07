@@ -20,11 +20,13 @@ with st.sidebar:
     clicked = my_widget("third")
     
 #############################
-st.title("Let's create a table!")
-for i in range(1, 10):
-    cols = st.columns(4)
-    cols[0].write(f'{i}')
-    cols[1].write('Black Bots 1')
-    cols[2].write(f'{i * i * i}')
-    cols[3].write('Black Bots 3')
+st.title("Movies List")
+my_expander = st.expander("Expand", expanded=True)
+with my_expander:
+    for i in range(1, 5):
+        cols = st.columns(4)
+        cols[0].write('the Super Mario Movie')
+        cols[1].write('Evil Dead Rise')
+        cols[2].write('Scream VI')
+        cols[3].write('John Wick: Chapter 4')
 ################################
