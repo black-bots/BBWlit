@@ -30,8 +30,7 @@ import tempfile
 import textract
 import json
 from PIL import Image
-import wincl
-#import win32com.client as wincl
+import win32com.client as wincl
 
 history = []
 
