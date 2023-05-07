@@ -118,9 +118,11 @@ with expd2:
 
 with st.sidebar:
     st.subheader("NOW SHOWING")
-    cols = st.columns(4)
-    cols[0].write('the Super Mario Movie')
-    cols[1].write('Evil Dead Rise')
+    cols = st.columns(6)
+    cols[0].write('Super Mario Bros')
+    cols[1].write('Evil Dead')
     cols[2].write('Scream VI')
-    cols[3].write('John Wick: Chapter 4')
+    cols[3].write('John Wick')
+    cols[4].write('Ant-Man and the Wasp')
+    cols[5].write('Shazam!)
 
