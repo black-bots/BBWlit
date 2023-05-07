@@ -41,7 +41,6 @@ with expd3:
     data = ''
     data
     column_names = list(data.columns)
-    column_names[0].write('the Super Mario Movie')
     data[1].write('the Super Mario Movie')
     select = st.selectbox("Choose your movie", column_names)
 
