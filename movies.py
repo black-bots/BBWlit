@@ -17,9 +17,9 @@ st.title("Movies List")
 my_expander = st.expander("Expand", expanded=True)
 with my_expander:
         cols = st.columns(4)
-        cols[0].write('the Super Mario Movie',my_widget("Click"))
+        cols[0].write('the Super Mario Movie')
         cols[1].write('Evil Dead Rise')
-        cols[2].write('Scream VI')
+        cols[2].write('Scream VI')(my_widget("Click"))
         cols[3].write('John Wick: Chapter 4')
 # This works in the main area
 clicked = my_widget("first")
