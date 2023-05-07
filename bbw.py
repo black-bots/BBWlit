@@ -243,8 +243,7 @@ st.image(_image,use_column_width='auto')
 
 tab1, tab2 = st.tabs(["Ai Query", "Image Search"])
 with st.sidebar:
-	st.image(bottom_image,use_column_width=True)
-	#st.markdown('[BlackBots]('www.blackbots.net')')
+	st.image(bottom_image,use_column_width=True,link="https://www.blackbots.net")
 	st.info('BlackButler SETTINGS', icon="ℹ️")
 	keyy = st.text_input("Set Black-Key Code","BBW-apl3jkhuisfdbw328jkyhf73",type="password",help="Enter a Token to use our Ai System")
 
