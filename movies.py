@@ -16,11 +16,14 @@ def my_widget2(key):
 st.title("Movies List")
 my_expander = st.expander("Expand", expanded=True)
 with my_expander:
-        cols = st.columns(4)
+        cols = st.columns(6)
         cols[0].write('the Super Mario Movie')
         cols[1].write('Evil Dead Rise')
-        cols[2].write('Scream VI')(my_widget("Click"))
+        cols[2].write('Scream VI')
         cols[3].write('John Wick: Chapter 4')
+        cols[4].write(image)
+        cols[5].write(my_widget("Click"))
+        
 # This works in the main area
 clicked = my_widget("first")
 ################################
