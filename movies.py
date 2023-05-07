@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+image = Image.open('static/-.ico')
 def my_widget(key):
     st.subheader('Hello there!')
     return st.button("Click me " + key)
