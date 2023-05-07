@@ -50,7 +50,7 @@ But, the growth rate is below 1%, less than half its peak rate of growth - of 2.
 mygrid[0][2].pyplot(fig)
 
 # Row 1
-popdf = ""popdf
+popdf = "popdf"
 worldpop = popdf[popdf['Country name'] == 'World']
 
 fig, ax = plt.subplots()
