@@ -2,23 +2,13 @@ import streamlit as st
 import pandas as pd
 from PIL import Image
 
-image = Image.open('static/1.png')
+image = Image.open('static/static/ori_3748732_mkqg8a0irpybxk8xtejrqetwi9j3f3011wq3dyi1_online-cinema-banner-vector-realistic-computer-monitor-movie-brochure-design-template-banner-for-movie-premiere-show-marketing-luxury-poster-illustration.jpg')
+st.image(bottom_image,use_column_width=True)
+
 def my_widget(key):
     st.subheader('Hello there!')
     return st.button("Click me " + key)
 
-# This works in the main area
-clicked = my_widget("first")
-
-# And within an expander
-my_expander = st.expander("Expand", expanded=True)
-with my_expander:
-    clicked = my_widget("second")
-
-# AND in st.sidebar!
-with st.sidebar:
-    clicked = my_widget("third")
-    
 #############################
 st.title("Movies List")
 my_expander = st.expander("Expand", expanded=True)
@@ -28,4 +18,8 @@ with my_expander:
         cols[1].write('Evil Dead Rise')
         cols[2].write('Scream VI')
         cols[3].write('John Wick: Chapter 4')
+# This works in the main area
+clicked = my_widget("first")
 ################################
+with st.sidebar:
+    clicked = my_widget("third")
