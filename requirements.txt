@@ -11,4 +11,5 @@ dnspython==2.2.1
 streamlit_player
 gTTS==2.2.4
 pydub
+fake_useragent 
 wit
