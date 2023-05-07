@@ -23,16 +23,44 @@ with expd:
         cols[4].write(image)
         cols[5].write(my_widget2('-'))
 ################################
-st.subheader("Movie List")
-expd2 = st.expander("Expand", expanded=False)
+st.subheader("Featured Movies")
+col1, col2, col3, col4= st.columns(4)
+
+with col1:
+   st.header("the Super Mario Bros Movie")
+   st.video('https://youtu.be/TnGl01FkMMo')
+
+with col2:
+   st.header("Evil Dead")
+   st.image('https://youtu.be/0lmBDnliqKs')
+
+with col3:
+   st.header("Scream VI")
+   st.image('https://youtu.be/1Ie2qmAOc6Q')
+    
+with col4:
+   st.header("John Wick: Chapter 4")
+   st.image('https://youtu.be/qEVUtrk8_B4')
+
+expd2 = st.expander("View More", expanded=False)
 with expd2:
-    data = pd.read_csv('https://gist.githubusercontent.com/KonuTech/5ef61b6754b03f00c0baf393bbe66691/raw/c7924c7906f290a53714c3d8bdaa04cbd0ebcc05/movies_data.csv')
-    data
+    col1, col2, col3, col4= st.columns(4)
 
-    column_names = list(data.columns)
-    select = st.selectbox("Choose your movie", column_names)
+    with col1:
+       st.header("the Super Mario Bros Movie")
+       st.video('https://youtu.be/TnGl01FkMMo')
 
-    st.write("Your selection",select)
+    with col2:
+       st.header("Evil Dead")
+       st.image('https://youtu.be/0lmBDnliqKs')
+
+    with col3:
+       st.header("Scream VI")
+       st.image('https://youtu.be/1Ie2qmAOc6Q')
+
+    with col4:
+       st.header("John Wick: Chapter 4")
+       st.image('https://youtu.be/qEVUtrk8_B4')
 ##############################################
 col1, col2, col3 = st.columns(3)
 
