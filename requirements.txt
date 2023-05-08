@@ -1,6 +1,5 @@
 matplotlib
 requests
-tkinter
 streamlit
 openai
 prompt_toolkit
