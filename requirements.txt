@@ -5,6 +5,7 @@ openai
 prompt_toolkit
 PyPDF2
 chromedriver_autoinstaller
+undetected_chromedriver
 webdriverdownloader
 textract
 pymongo==4.1.1
