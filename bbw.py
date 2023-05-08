@@ -210,7 +210,7 @@ tab1, tab2 = st.tabs(["Ai Query", "Image Search"])
 with st.sidebar:
 	st.image(bottom_image,use_column_width=True)
 	st.info('Ai SETTINGS', icon="ℹ️")
-	keyy = st.text_input("Set Black-Key Code","BBW-apl3jkhuisfdbw328jkyhf73",type="password",help="Enter a Token to use our Ai System")
+	keyy = st.text_input("Set Black-Key Code","",type="password",help="Enter a Token to use our Ai System")
 
 	def obfuscate(text): 
 		result = ""
