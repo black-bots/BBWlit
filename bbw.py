@@ -25,7 +25,6 @@ import prompt_toolkit
 import PyPDF2
 import tempfile
 import base64
-import textract
 import json
 from PIL import Image
 from gtts import gTTS
