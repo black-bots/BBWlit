@@ -4,6 +4,7 @@ streamlit
 openai
 prompt_toolkit
 PyPDF2
+instaloader
 selenium
 undetected-chromedriver
 seleniumbase
