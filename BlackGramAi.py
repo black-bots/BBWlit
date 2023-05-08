@@ -1,19 +1,12 @@
 import os
+
 import streamlit as st
-import logging
-import shutil
-import time
-from pathlib import Path
-import undetected_chromedriver as uc
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.by import By
 
-browser_executable_path = shutil.which("chromium")
-print(browser_executable_path)
-
-# delete old log file
-Path('selenium.log').unlink(missing_ok=True)
-time.sleep(1)
-
-options = uc.ChromeOptions()
+options = Options()
 options.add_argument("--headless")
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
@@ -37,11 +30,7 @@ def show_selenium_log():
 
 def run_selenium():
     name = str()
-    with uc.Chrome(browser_executable_path=browser_executable_path,
-                # debug=False,
-                # headless=True,
-                options=options,
-                use_subprocess=False) as driver:
+    with webdriver.Chrome(options=options, service_log_path='selenium.log') as driver:
         url = "https://www.unibet.fr/sport/football/europa-league/europa-league-matchs"
         driver.get(url)
         xpath = '//*[@class="ui-mainview-block eventpath-wrapper"]'
@@ -73,4 +62,3 @@ if __name__ == "__main__":
         st.info(f'Result -> {result}')
         st.info('Successful finished. Selenium log file is shown below...')
         show_selenium_log()
-
