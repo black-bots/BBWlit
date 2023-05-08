@@ -423,13 +423,13 @@ def Bot():
 while True:
    
     if __name__ == "__main__":
-        ok = st.button('Start',key='1')
+        ok = st.button('Start',key='1k')
 
-        username_str = 	st.text_input("Username","username",help="Enter your Instagram Username",key='2')
-        password_str = st.text_input("Password","pass123",type="password",help="Enter your Instagram Password",key='3')
-        word = st.text_input("#Tag","movies",help="Enter your Focus Word",key='4')
+        username_str = 	st.text_input("Username","username",help="Enter your Instagram Username",key='o2')
+        password_str = st.text_input("Password","pass123",type="password",help="Enter your Instagram Password",key='l3')
+        word = st.text_input("#Tag","movies",help="Enter your Focus Word",key='u4')
 
-        api_key = st.text_input("api-key","sk-2J9D32BD8QN32",type="password",help="Enter your OpenAi Api-Key",key='5')
+        api_key = st.text_input("api-key","sk-2J9D32BD8QN32",type="password",help="Enter your OpenAi Api-Key",key='j5')
             
         openai.api_key = api_key
         
