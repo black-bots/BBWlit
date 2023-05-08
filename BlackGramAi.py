@@ -4,10 +4,10 @@ import instaloader
 st.header("Your friendly neighborhood Instabot")
 name = st.text_input("Enter user name")
 password = st.text_input("Enter password", type="password")
+    L = instaloader.Instaloader()
 
 Go = st.button('Get Ghost list')
 if Go:
-    L = instaloader.Instaloader()
     # Login or load session
     L.login(name, password)        # (login)
 
