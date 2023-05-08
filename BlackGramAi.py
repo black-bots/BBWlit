@@ -419,18 +419,15 @@ def Bot():
     st.write("Loading..")
     st.write("Starting..")
 
+ok = st.button('Start',key='19h32k')
+username_str = 	st.text_input("Username","username",help="Enter your Instagram Username",key='o2')
+password_str = st.text_input("Password","pass123",type="password",help="Enter your Instagram Password",key='l3')
+word = st.text_input("#Tag","movies",help="Enter your Focus Word",key='u4')
 
+api_key = st.text_input("api-key","sk-2J9D32BD8QN32",type="password",help="Enter your OpenAi Api-Key",key='j5')
 while True:
    
-    if __name__ == "__main__":
-        ok = st.button('Start',key='1k')
-
-        username_str = 	st.text_input("Username","username",help="Enter your Instagram Username",key='o2')
-        password_str = st.text_input("Password","pass123",type="password",help="Enter your Instagram Password",key='l3')
-        word = st.text_input("#Tag","movies",help="Enter your Focus Word",key='u4')
-
-        api_key = st.text_input("api-key","sk-2J9D32BD8QN32",type="password",help="Enter your OpenAi Api-Key",key='j5')
-            
+    if __name__ == "__main__":        
         openai.api_key = api_key
         
 
