@@ -1,12 +1,12 @@
 import streamlit as st
 import instaloader
 
-st.header("Your friendly neighborhood Instabot")
+st.header("Who's not following back?")
 name = st.text_input("Enter user name")
 password = st.text_input("Enter password", type="password")
 L = instaloader.Instaloader()
 
-Go = st.button('Get Ghost list')
+Go = st.button('Check for Unfollowers')
 if Go:
     # Login or load session
     L.login(name, password)        # (login)
