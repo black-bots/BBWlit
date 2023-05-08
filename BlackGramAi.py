@@ -424,7 +424,6 @@ while True:
    
     if __name__ == "__main__":
         ok = st.button('Start')
-        event, values = window.read(timeout=100)
 
         username_str = 	st.text_input("Username","username",help="Enter your Instagram Username")
         password_str = st.text_input("Password","pass123",type="password",help="Enter your Instagram Password")
