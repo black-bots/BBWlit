@@ -275,7 +275,8 @@ with tab1:
 
 	res_box.markdown(f':blue[BlackButler:  ]')
 
-    
+    	if "sk" or "tl" not in keyy:
+		ok.disabled = True
 	if ok:
 		api_line = keyy
 		if selected:
