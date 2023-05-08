@@ -38,8 +38,6 @@ import re
 
 model=""
 
-sg.ChangeLookAndFeel('DarkBlack') # change style
-
 browser = ""
 
 _b=r'Add Photos to Folder!!'
