@@ -1,64 +1,34 @@
-import os
+import instaloader
 
-import streamlit as st
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.by import By
+username = 'Put your username inside this quote'
+password = 'Put your password inside this quote'
 
-options = Options()
-options.add_argument("--headless")
-options.add_argument("--no-sandbox")
-options.add_argument("--disable-dev-shm-usage")
-options.add_argument("--disable-gpu")
-options.add_argument("--disable-features=NetworkService")
-options.add_argument("--window-size=1920x1080")
-options.add_argument("--disable-features=VizDisplayCompositor")
+L = instaloader.Instaloader()
+# Login or load session
 
+L.login(username, password)#this should be your own username and #password
+profile = instaloader.Profile.from_username(L.context, username)
 
-def delete_selenium_log():
-    if os.path.exists('selenium.log'):
-        os.remove('selenium.log')
+# in the line above, replace the username field by the username of 
+#the person you want this bot to work for. If you want to find the 
+#list of persons who do not follow you back, replace username by 
+#your own username. If you want for someone else, use their username.
 
+main_followers = profile.followers
+follower_list = [] #people who follow you
+for person in profile.get_followers():
+  user_id = person.userid
+  follower_list.append(person.username)
 
-def show_selenium_log():
-    if os.path.exists('selenium.log'):
-        with open('selenium.log') as f:
-            content = f.read()
-            st.code(content)
+main_followees = profile.followees
+followee_list = [] #people whom you follow
+for person in profile.get_followees():
+  user_id = person.userid
+  followee_list.append(person.username)
 
+req = []
+for element in followee_list:
+  if element not in follower_list:
+req.append(element)
 
-def run_selenium():
-    name = str()
-    with webdriver.Chrome(options=options, service_log_path='selenium.log') as driver:
-        url = "https://www.unibet.fr/sport/football/europa-league/europa-league-matchs"
-        driver.get(url)
-        xpath = '//*[@class="ui-mainview-block eventpath-wrapper"]'
-        # Wait for the element to be rendered:
-        element = WebDriverWait(driver, 10).until(lambda x: x.find_elements(by=By.XPATH, value=xpath))
-        name = element[0].get_property('attributes')[0]['name']
-    return name
-
-
-if __name__ == "__main__":
-    delete_selenium_log()
-    st.set_page_config(page_title="Selenium Test", page_icon='✅',
-        initial_sidebar_state='collapsed')
-    st.title('🔨 Selenium Test for Streamlit Sharing')
-    st.markdown('''This app is only a very simple test for **Selenium** running on **Streamlit Sharing** runtime.<br>
-        The suggestion for this demo app came from a post on the Streamlit Community Forum.<br>
-        <https://discuss.streamlit.io/t/issue-with-selenium-on-a-streamlit-app/11563><br>
-        This is just a very very simple example and more a proof of concept.
-        A link is called and waited for the existence of a specific class and read it.
-        If there is no error message, the action was successful.
-        Afterwards the log file of chromium is read and displayed.
-        ---
-        ''', unsafe_allow_html=True)
-
-    st.balloons()
-    if st.button('Start Selenium run'):
-        st.info('Selenium is running, please wait...')
-        result = run_selenium()
-        st.info(f'Result -> {result}')
-        st.info('Successful finished. Selenium log file is shown below...')
-        show_selenium_log()
+print(sorted(req))
