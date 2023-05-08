@@ -15,8 +15,6 @@ import os
 import io
 import sys
 import requests
-try:import speech_recognition as sr
-except:pass
 import streamlit as st
 import openai
 import datetime
@@ -157,42 +155,7 @@ def Rec():
     
     Rec = st.button("🎤 Speak", help="Speak to BlackButler", disabled=True, key='3213', use_container_width=True)
     
-    if Rec:
-        r = sr.Recognizer()
-        with sr.Microphone() as source:
-            res_box.write(f':blue[BlackButler:  ]:green[*I am listening...*]')
-            audio = r.listen(source)
 
-        try:
-            text = r.recognize_google(audio)
-        except sr.UnknownValueError:
-            res_box.write(f':blue[BlackButler:  ]:green[*I could not understand you. Please try again.*]')
-            with sr.Microphone() as source:
-                res_box.write(f':blue[BlackButler:  ]:green[*I am still listening...*]')
-                audio = r.listen(source)
-            try:
-                text = r.recognize_google(audio)
-            except:
-                res_box.write('Could not understand you. Try again.')
-        except sr.RequestError as e:
-            res_box.write(f"Could not request results from Google Speech Recognition service; {e}")
-
-        report = []
-        for resp in openai.Completion.create(model='text-davinci-003',
-                                            prompt=prompto+text,
-                                            max_tokens=1012, 
-                                            temperature = 0.9,
-                                            stream = True):
-            report.append(resp.choices[0].text)
-            result = "".join(report).strip()
-            #result = result.replace("\n", "")
-
-            res_box.markdown(f':blue[BlackButler:  ]{result}') 
-
-            history.append("You: " + text)
-            prompt = "\n".join(history)
-            response = result
-            history.append("BlackButler: " + result)
 def imagy():
     from bs4 import BeautifulSoup
     from PIL import Image
