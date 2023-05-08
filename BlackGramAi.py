@@ -419,10 +419,6 @@ def Bot():
     st.write("Loading..")
     st.write("Starting..")
 
-f=open('Data\settings.txt', 'r')
-lines=f.readlines()    
-f.close()
-
 
 while True:
    
