@@ -274,10 +274,7 @@ with tab1:
 	memory = []
 
 	res_box.markdown(f':blue[BlackButler:  ]')
-
-
-	else:
-		pass
+	
 	if ok:
 		api_line = keyy
 		if selected:
