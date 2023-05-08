@@ -256,7 +256,7 @@ def start():
             st.write(str(posts))
             st.write('Comments: ')
             st.write(str(commentss))
-            st.write(Follows: ')
+            st.write('Follows: ')
             st.write(str(follows))
             next(browser)
         if postss >= 10:
