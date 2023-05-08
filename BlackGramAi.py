@@ -10,13 +10,7 @@ __status__ = "Production"
 
 __version__ = "6.6.21.0"
 
-import win32com,win32com.client
-shell=win32com.client.Dispatch('WScript.Shell')
-import win32gui
-Minimize=win32gui.FindWindow('ConsoleWindowClass','C:\\WINDOWS\\py.exe')
-import win32con
-try:win32gui.ShowWindow(Minimize,win32con.SW_MINIMIZE)
-except:pass
+
 from selenium import webdriver
 from datetime import datetime
 from time import sleep
