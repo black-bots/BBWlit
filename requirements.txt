@@ -3,6 +3,7 @@ requests
 speechrecognition
 streamlit
 openai
+pywin32
 prompt_toolkit
 PyPDF2
 textract
