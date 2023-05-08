@@ -1,0 +1,6 @@
+USERNAME "blackbots.tech"
+PASSWORD: "TwenTy2"
+FOCUS WORD: "movie"
+API-KEY: "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"
+LIKE%: "99"
+COMMENT%: "35"
