@@ -41,7 +41,6 @@ import os
 import pickle
 import shutil
 import ssl
-import fileinput
 import re
 
 model=""
