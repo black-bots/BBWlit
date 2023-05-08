@@ -89,24 +89,6 @@ unchecked = b'iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAKMGlDQ1BJQ0MgUHJvZm
 checkedd = True
 
 
-[sg.Text('Username', text_color='gold', size=(10, 1), key='__U__'), sg.InputText(font=('Consolas', 12), background_color="black", justification='LEFT', size=(12, 4), key='__USER__')],
-[sg.Text('Password', text_color='gold', size=(10, 1), key='__P__'), sg.InputText(font=('Consolas', 12), background_color="black", justification='LEFT', size=(12, 4), key='__PASS__', password_char='*')],
-[sg.Text('Focus Word', text_color='gold', size=(10, 1), key='__H__'), sg.InputText(font=('Consolas', 12), background_color="black", justification='LEFT', size=(12, 4), key='__HASH__')],
-[sg.Text('API-Key', text_color='gold', size=(10, 1), key='__A__'), sg.InputText(font=('Consolas', 12), background_color="black", justification='LEFT', size=(12, 4), key='__API__', password_char='*')],
-
-[sg.VPush()],
-[sg.Multiline("", no_scrollbar=True, visible=False, autoscroll=True, justification='center', font=('Courier New', 12), border_width=0 ,size=(WIN_W,2), key='_STLINE_', background_color='black')],
-[sg.Text('% to Like', text_color='gold', size=(12, 1), key='__L__'), sg.InputText(font=('Consolas', 12), background_color="black", justification='LEFT', size=(2, 4), key='__LIK__')],
-[sg.Text('% to Comment', text_color='gold', size=(12, 1), key='__C__'), sg.InputText(font=('Consolas', 12), background_color="black", justification='LEFT', size=(2, 4), key='__COM__')],
-[sg.Text('Hide?', text_color='gold', size=(8, 1), key='-CBT-'), sg.Text("" *5),sg.Checkbox("", default=False, key="-CB-", enable_events=True), sg.Text('', size=(7, 1), key='-HB-', justification='center', enable_events=True)],
-[sg.Text('Follow?', text_color='gold', size=(8, 1), key='-CBT2-'), sg.Text("" *5),sg.Checkbox("", default=False, key="-CB2-", enable_events=True), sg.Text('', size=(7, 1), key='-HB2-', justification='center', enable_events=True)],
-[sg.VPush()],
-[sg.Text('      (-START-)', font=('Courier New', 14), enable_events=True, text_color='white', key='__Next__'), sg.Text(font=('Lucida', 16), size=(4,4), key='C1', background_color=None)]
-
-[sg.MenubarCustom(menu_layout, text_color='white', pad=((1,1),(1,1)), bar_text_color='gold', background_color='black')],
-[sg.Text('        > BlackGram <', text_color='gold', justification='center', font=('Consolas', 10), size=(WIN_W, 1), key='_INFO_')],
-[sg.Push(), sg.Column(ColCent, element_justification='c')]
-
 def rsleep(self, minimum=1, maximum=5):
     t = randint(minimum, maximum)
 
