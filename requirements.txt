@@ -7,6 +7,9 @@ PyPDF2
 chromedriver_autoinstaller
 undetected_chromedriver
 webdriverdownloader
+selenium
+undetected-chromedriver
+seleniumbase
 textract
 pymongo==4.1.1
 dnspython==2.2.1
@@ -17,5 +20,4 @@ fake_useragent
 wit
 pydantic
 emoji
-selenium
 tls_client 
