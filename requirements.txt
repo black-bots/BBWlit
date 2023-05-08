@@ -5,8 +5,6 @@ openai
 prompt_toolkit
 PyPDF2
 selenium
-chromium
-chromium-driver
 undetected-chromedriver
 seleniumbase
 pymongo==4.1.1
