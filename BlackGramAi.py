@@ -272,7 +272,7 @@ def start():
         st.write(str(posts))
         st.write('Comments: ')
         st.write(str(commentss))
-        st.write(Follows: ')
+        st.write('Follows: ')
         st.write(str(follows))
 
         sleep(random.uniform(300, 1200))
