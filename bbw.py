@@ -11,7 +11,6 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 import os
 import io
 import sys
@@ -27,9 +26,12 @@ from threading import Thread
 import prompt_toolkit
 import PyPDF2
 import tempfile
+import base64
 import textract
 import json
 from PIL import Image
+from gtts import gTTS
+from io import BytesIO
 
 history = []
 
@@ -145,6 +147,7 @@ st.markdown("""
             .css-yhwc6k{
             text-align: center;
             }
+	    #audio{autoplay:true;}
         </style>
     """,
     unsafe_allow_html=True
@@ -284,6 +287,8 @@ with st.sidebar:
 	dropdown_menu = st.selectbox(
 		'Set Ai',
 		('BlackButler', 'Generic'),help="Select default Ai")
+
+	selected2 = st.checkbox('Speak responses?', value=True,help="Speak Ai reponses out-loud")
 	selected = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
 	slider_value = st.slider(':orange[Response style]', 0.1, 1.0, 0.70, step=0.10,help="Set the personality of the Ai (0.10 Predicatble - 1.00 Creative)")
 
@@ -297,81 +302,97 @@ with st.sidebar:
 	slider = slider_value
 
 with tab1:
-    res_box = st.empty()
-    Rec()
-    #############################################################################
-    user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
+	res_box = st.empty()
+	Rec()
+	#############################################################################
+	user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
 
-    ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
+	ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
-    memory = []
+	memory = []
 
-    res_box.markdown(f':blue[BlackButler:  ]')
+	res_box.markdown(f':blue[BlackButler:  ]')
 
-    if ok:
-        api_line = keyy
-        if selected:
-            report = []
-            for resp in openai.Completion.create(model='text-davinci-003',
-                                                prompt=prompto + user_input,
-                                                max_tokens=1012, 
-                                                temperature = slider,
-                                                stream = True):
-                report.append(resp.choices[0].text)
-                result = "".join(report).strip()
-                result = result.replace("\n", "")
-                res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
-            st.download_button('Save Response', result,key="847*")
-            st.markdown("----")
+    
+	if ok:
+		api_line = keyy
+		if selected:
+			report = []
+			for resp in openai.Completion.create(model='text-davinci-003',
+							prompt=prompto + user_input,
+							max_tokens=1012, 
+							temperature = slider,
+							stream = True):
+					report.append(resp.choices[0].text)
+					result = "".join(report).strip()
+					result = result.replace("\n", "")
+					res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
+			if ok & selected2:
+				speech = BytesIO()
+				speech_ = gTTS(
+					text=result, 
+					lang='en', 
+					slow=False
+				)
+				speech_.write_to_fp(speech)
+				st.audio(speech)				
+				
+			st.download_button('Save Response', result,key="847*")
+			st.markdown("----")
 
-        else:
-            completions = openai.Completion.create(model='text-davinci-003',
-                                                prompt=prompto + user_input,
-                                                max_tokens=1012, 
-                                                temperature = slider,
-                                                stream = False)
-            result = completions.choices[0].text
+		else:
+			completions = openai.Completion.create(model='text-davinci-003',
+								prompt=prompto + user_input,
+								max_tokens=1012, 
+								temperature = slider,
+								stream = False)
+			result = completions.choices[0].text
 
-            res_box.write(result)
-            st.download_button('Save Response', result)
-            history.append("You: " + user_input)
-            prompt = "\n".join(history)
-            response = result
-            history.append("BlackButler: " + result)
-    with st.sidebar:
+			res_box.write(result)
+			st.download_button('Save Response', result)
+			history.append("You: " + user_input)
+			prompt = "\n".join(history)
+			response = result
+			if ok & selected2:
+				speech = BytesIO()
+				speech_ = gTTS(
+					text=result, 
+					lang='en', 
+					slow=False
+				)
+				speech_.write_to_fp(speech)
+				st.audio(speech)
+			history.append("BlackButler: " + result)
+
+	with st.sidebar:
         
-        text = "Tell me about this: "
-        uploaded_file = st.file_uploader('Upload a CSV file',type=('csv'))
-    if uploaded_file is not None:
-        import pandas as pd
+		text = "Tell me about this: "
+		uploaded_file = st.file_uploader('Upload a CSV file',type=('csv'))
+	if uploaded_file is not None:
+		import pandas as pd
 
-        df = pd.read_csv(uploaded_file,encoding='latin-1')
-        df = df.to_json()
+		df = pd.read_csv(uploaded_file,encoding='latin-1')
+		df = df.to_json()
 
-        user_input = text + df
+		user_input = text + df
 
-        completions = openai.Completion.create(model='text-davinci-003',
+		completions = openai.Completion.create(model='text-davinci-003',
                                             prompt=user_input,
                                             max_tokens=1012, 
                                             temperature = 0.7,
                                             stream = False)
-        result = completions.choices[0].text
+		result = completions.choices[0].text
 
 
-        #with st.sidebar:
-        res_box.write(':blue[Butler:  ]' + f':green[{result}]')
-        st.markdown("----")
-        st.write(df)
-        st.markdown("----")
-        st.download_button('Save Response', result)
+		#with st.sidebar:
+		res_box.write(':blue[Butler:  ]' + f':green[{result}]')
+		st.markdown("----")
+		st.write(df)
+		st.markdown("----")
+		st.download_button('Save Response', result)
 with tab2:
-    AiMG()
+	AiMG()
 
 
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
-
-    
-    
-    
-    
