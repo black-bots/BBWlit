@@ -14,7 +14,6 @@ pydub
 fake_useragent 
 wit
 pydantic
-fileinput
 emoji
 selenium
 PySimpleGUI
