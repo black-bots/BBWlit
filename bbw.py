@@ -275,9 +275,10 @@ with tab1:
 
 	res_box.markdown(f':blue[BlackButler:  ]')
 
-	if "sk" or "tl" not in keyy:
-		if st.session_state.get("123", False):
-		    st.session_state.disabled = True
+	if "" in keyy:
+		if st.session_state.get("123", True):
+		    st.session_state.disabled = False
+		
 
 	else:
 		pass
