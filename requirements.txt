@@ -1,6 +1,5 @@
 matplotlib
 requests
-speechrecognition
 tkinter
 streamlit
 openai
