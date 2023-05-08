@@ -17,5 +17,4 @@ wit
 pydantic
 emoji
 selenium
-PySimpleGUI
 tls_client 
