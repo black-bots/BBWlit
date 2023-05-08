@@ -441,5 +441,3 @@ while True:
             except:
                 pass
 
-        window.refresh()
-
