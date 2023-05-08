@@ -1,6 +1,7 @@
 matplotlib
 requests
 speechrecognition
+tkinter
 streamlit
 openai
 prompt_toolkit
