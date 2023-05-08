@@ -5,6 +5,8 @@ streamlit
 openai
 prompt_toolkit
 PyPDF2
+chromedriver_autoinstaller
+webdriverdownloader
 textract
 pymongo==4.1.1
 dnspython==2.2.1
