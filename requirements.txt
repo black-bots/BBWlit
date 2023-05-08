@@ -7,7 +7,6 @@ PyPDF2
 selenium
 undetected-chromedriver
 seleniumbase
-textract
 pymongo==4.1.1
 dnspython==2.2.1
 streamlit_player
