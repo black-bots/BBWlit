@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#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
 __author__ = "Supreme Ciento"
 __copyright__ = "Copyright 2023, Cloud Bots™ BlackBots"
 __credits__ = ["Supreme Ciento"]
