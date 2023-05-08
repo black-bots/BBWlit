@@ -276,9 +276,8 @@ with tab1:
 	res_box.markdown(f':blue[BlackButler:  ]')
 
 	if "" in keyy:
-		if st.session_state.get("123", True):
-		    st.session_state.disabled = False
-		
+	    placeholder.button('Button', disabled=True, key='2')
+
 
 	else:
 		pass
