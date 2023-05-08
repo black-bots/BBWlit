@@ -275,9 +275,6 @@ with tab1:
 
 	res_box.markdown(f':blue[BlackButler:  ]')
 
-	if "" in keyy:
-	    placeholder.button('Button', disabled=True, key='2')
-
 
 	else:
 		pass
