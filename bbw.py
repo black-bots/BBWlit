@@ -260,7 +260,8 @@ with tab1:
 	user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
 	if 'sk-' in deobfuscated_text:
 		openai.api_key = deobfuscated_text
-		st.markdown(':blue[Black-Key: ]:green[Key Accepted]')
+		with st.sidebar:
+			st.markdown(':blue[Black-Key: ]:green[Key Accepted]')
 		ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
 		memory = []
