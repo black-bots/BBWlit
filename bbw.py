@@ -219,9 +219,7 @@ with st.sidebar:
 		return result
 
 	deobfuscated_text = deobfuscate(keyy)  
-	if 'sk-' in deobfuscated_text:
-		openai.api_key = deobfuscated_text
-		st.markdown(':blue[Black-Key: ]:green[Key Accepted]')
+
 	Tokens = st.button("○•○ Get Black-Key Code •○•")
 	if Tokens:
 		html_string = """
@@ -260,8 +258,10 @@ with tab1:
 	Rec()
 	#############################################################################
 	user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
-
-	ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
+	if 'sk-' in deobfuscated_text:
+		openai.api_key = deobfuscated_text
+		st.markdown(':blue[Black-Key: ]:green[Key Accepted]')
+		ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
 	memory = []
 
