@@ -212,13 +212,6 @@ with st.sidebar:
 	st.info('Ai SETTINGS', icon="ℹ️")
 	keyy = st.text_input("Set Black-Key Code","",type="password",help="Enter a Token to use our Ai System")
 
-	def obfuscate(text): 
-		result = ""
-		for letter in text: 
-			result += chr(ord(letter) + 1) 
-		return result
-
-	obfuscated_text = obfuscate(keyy) 
 	def deobfuscate(text): 
 		result = "" 
 		for letter in text: 
@@ -226,9 +219,8 @@ with st.sidebar:
 		return result
 
 	deobfuscated_text = deobfuscate(obfuscated_text)  
-	if 'BBW-' in keyy:openai.api_key = deobfuscated_text[4:]
-	elif 'sk-' in keyy:
-		openai.api_key = keyy
+	if 'sk-' in deobfuscated_text:
+		openai.api_key = deobfuscated_text
 		st.markdown(':blue[Black-Key: ]'+f':green[{obfuscated_text}]')
 	Tokens = st.button("○•○ Get Black-Key Code •○•")
 	if Tokens:
