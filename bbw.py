@@ -263,59 +263,59 @@ with tab1:
 		st.markdown(':blue[Black-Key: ]:green[Key Accepted]')
 		ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
-	memory = []
+		memory = []
 
-	res_box.markdown(f':blue[BlackButler:  ]')
-	
-	if ok:
-		api_line = keyy
-		if selected:
-			report = []
-			for resp in openai.Completion.create(model='text-davinci-003',
-							prompt=prompto + user_input,
-							max_tokens=1012, 
-							temperature = slider,
-							stream = True):
-					report.append(resp.choices[0].text)
-					result = "".join(report).strip()
-					result = result.replace("\n", "")
-					res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
-			if ok & selected2:
-				speech = BytesIO()
-				speech_ = gTTS(
-					text=result, 
-					lang='en', 
-					slow=False
-				)
-				speech_.write_to_fp(speech)
-				st.audio(speech)				
-				
-			st.download_button('Save Response', result,key="847*")
-			st.markdown("----")
+		res_box.markdown(f':blue[BlackButler:  ]')
 
-		else:
-			completions = openai.Completion.create(model='text-davinci-003',
+		if ok:
+			api_line = keyy
+			if selected:
+				report = []
+				for resp in openai.Completion.create(model='text-davinci-003',
 								prompt=prompto + user_input,
 								max_tokens=1012, 
 								temperature = slider,
-								stream = False)
-			result = completions.choices[0].text
+								stream = True):
+						report.append(resp.choices[0].text)
+						result = "".join(report).strip()
+						result = result.replace("\n", "")
+						res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
+				if ok & selected2:
+					speech = BytesIO()
+					speech_ = gTTS(
+						text=result, 
+						lang='en', 
+						slow=False
+					)
+					speech_.write_to_fp(speech)
+					st.audio(speech)				
 
-			res_box.write(result)
-			st.download_button('Save Response', result)
-			history.append("You: " + user_input)
-			prompt = "\n".join(history)
-			response = result
-			if ok & selected2:
-				speech = BytesIO()
-				speech_ = gTTS(
-					text=result, 
-					lang='en', 
-					slow=False
-				)
-				speech_.write_to_fp(speech)
-				st.audio(speech)
-			history.append("BlackButler: " + result)
+				st.download_button('Save Response', result,key="847*")
+				st.markdown("----")
+
+			else:
+				completions = openai.Completion.create(model='text-davinci-003',
+									prompt=prompto + user_input,
+									max_tokens=1012, 
+									temperature = slider,
+									stream = False)
+				result = completions.choices[0].text
+
+				res_box.write(result)
+				st.download_button('Save Response', result)
+				history.append("You: " + user_input)
+				prompt = "\n".join(history)
+				response = result
+				if ok & selected2:
+					speech = BytesIO()
+					speech_ = gTTS(
+						text=result, 
+						lang='en', 
+						slow=False
+					)
+					speech_.write_to_fp(speech)
+					st.audio(speech)
+				history.append("BlackButler: " + result)
 
 	with st.sidebar:
         
