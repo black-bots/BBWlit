@@ -218,10 +218,10 @@ with st.sidebar:
 			result += chr(ord(letter) - 1) 
 		return result
 
-	deobfuscated_text = deobfuscate(obfuscated_text)  
+	deobfuscated_text = deobfuscate(keyy)  
 	if 'sk-' in deobfuscated_text:
 		openai.api_key = deobfuscated_text
-		st.markdown(':blue[Black-Key: ]'+f':green[{obfuscated_text}]')
+		st.markdown(':blue[Black-Key: ]'+f':green[{Key Accepted}]')
 	Tokens = st.button("○•○ Get Black-Key Code •○•")
 	if Tokens:
 		html_string = """
