@@ -9,7 +9,9 @@ image = Image.open('static/ori_3748732_mkqg8a0irpybxk8xtejrqetwi9j3f3011wq3dyi1_
 st.image(image,use_column_width=True)
 
 st.markdown('Now Showing - :red[Server Undergoing Maintenance]')
-st.video('https://mixdrop.co/e/pkv976l3ijk0dq')
+featured = st.expander("Todays Featured Movie", expanded=False)
+with featured:
+    st.video('https://mixdrop.co/e/pkv976l3ijk0dq')
 
 def my_widget2(key):
     st.subheader('Watch Now')
