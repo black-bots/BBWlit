@@ -130,7 +130,7 @@ with st.sidebar:
     st.write('Guardians of the Galaxy Vol. 3 (2023)')
     st.write('The Super Mario Bros. Movie (2023)')
     st.write('Evil Dead Rise (2023)')
-    st.write('Are You There God? It's Me, Margaret. (2023)')
+    st.write("Are You There God? It's Me, Margaret. (2023)")
     st.write('Sisu (2023)')
                                                                                                                                              
                                                                                                                                              
