@@ -10,6 +10,8 @@ st.image(image,use_column_width=True)
 
 components.html('<iframe src="//mixdrop.co/e/pkv976l3ijk0dq" frameborder="0" allow-scripts allow-same-origin allowfullscreen></iframe>', width=560, height=315)
 st.video('https://mixdrop.co/e/pkv976l3ijk0dq')
+components.html('<iframe src="https://mixdrop.co/e/pkv976l3ijk0dq" frameborder="0" allow-scripts allow-same-origin allowfullscreen></iframe>', width=560, height=315)
+st.video('//mixdrop.co/e/pkv976l3ijk0dq')
 def my_widget2(key):
     st.subheader('Watch Now')
     return st.button("Click me " + key)
