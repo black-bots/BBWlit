@@ -8,7 +8,7 @@ from PIL import Image
 image = Image.open('static/ori_3748732_mkqg8a0irpybxk8xtejrqetwi9j3f3011wq3dyi1_online-cinema-banner-vector-realistic-computer-monitor-movie-brochure-design-template-banner-for-movie-premiere-show-marketing-luxury-poster-illustration.jpg')
 st.image(image,use_column_width=True)
 
-st.text("Now Showing: :red[-Server Undergoing Maintenance-]")
+st.text(f"Now Showing: :red[-Server Undergoing Maintenance-]")
 st.video('https://mixdrop.co/e/pkv976l3ijk0dq')
 
 def my_widget2(key):
