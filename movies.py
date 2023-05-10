@@ -93,31 +93,13 @@ with expd2:
     col1, col2, col3, col4= st.columns(4)
 
     with col1:
-       st.write("the Super Mario Bros")
-       st.text("Trailer")
-       st.video('https://youtu.be/TnGl01FkMMo')
-       st.write("🎥👉 [Watch Movi](https://link-center.net/674202/free-mario-bros-movie)")
-
-
+       st.write(":red[Server Undergoing Maintenance]")
     with col2:
-       st.write("Evil Dead")
-       st.text("Trailer")
-       st.video('https://youtu.be/0lmBDnliqKs')
-       st.write("🎥👉 [Watch Movie](https://direct-link.net/674202/free-evil-dead-rise-movie)")
-
-
+       st.write(":red[Server Undergoing Maintenance]")
     with col3:
-       st.write("Scream VI")
-       st.text("Trailer")
-       st.video('https://youtu.be/1Ie2qmAOc6Q')
-       st.write("🎥👉 [Watch Movie](https://link-hub.net/674202/free-scream-iv-movie)")
-
-
+       st.write(":red[Server Undergoing Maintenance]")
     with col4:
-       st.write("John Wick: Chapter 4")
-       st.text("Trailer")
-       st.video('https://youtu.be/qEVUtrk8_B4')
-       st.write("🎥👉 [Watch Movie](https://direct-link.net/674202/free-john-wick-chapter-4)")
+       st.write(":red[Server Undergoing Maintenance]")
 
 ##############################################
 
