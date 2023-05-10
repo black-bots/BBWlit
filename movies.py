@@ -7,7 +7,7 @@ image = Image.open('static/ori_3748732_mkqg8a0irpybxk8xtejrqetwi9j3f3011wq3dyi1_
 st.image(image,use_column_width=True)
 
 html = '<iframe width="560" height="315" src="//mixdrop.co/e/pkv976l3ijk0dq" frameborder="0" allowfullscreen></iframe>'
-st.components.v1.html(html, width=None, height=None, scrolling=False)
+st.components.v1.html(html, width=560, height=315, scrolling=False)
 def my_widget2(key):
     st.subheader('Watch Now')
     return st.button("Click me " + key)
