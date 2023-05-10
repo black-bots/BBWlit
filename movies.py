@@ -123,19 +123,15 @@ with expd2:
 
 with st.sidebar:
     st.subheader("NOW SHOWING")
-    st.write('John Wick: Chapter 4 (2023)')
-    st.write('Dungeons & Dragons: Honor Among Thieves (2023)')
-    st.write("The Pope's Exorcist (2023)")
-    st.write('Scream VI (2023)')
-    st.write('Guardians of the Galaxy Vol. 3 (2023)')
-    st.write('The Super Mario Bros. Movie (2023)')
-    st.write('Evil Dead Rise (2023)')
-    st.write("Are You There God? It's Me, Margaret. (2023)")
-    st.write('Sisu (2023)')
-                                                                                                                                             
-                                                                                                                                             
-                                                                                                                                             
-                                                                                                                                             
-                                                                                                                                             
-                                                                                                                                             
-                                                                                                                                             
+    st.write('[John Wick: Chapter 4 (2023)](https://direct-link.net/674202/free-evil-dead-rise-movie)')
+    st.write('[The Super Mario Bros. Movie (2023)](https://link-center.net/674202/free-mario-bros-movie)')
+    st.write('[Evil Dead Rise (2023)](https://direct-link.net/674202/free-evil-dead-rise-movie)')
+    st.write('[Scream VI (2023)](https://link-hub.net/674202/free-scream-iv-movie)')
+    st.write('[Ant-Man and the Wasp: Quantumania](https://link-target.net/674202/free-new-movies-2023)')
+    st.write("[Shazam! Fury of the Gods](https://link-target.net/674202/free-new-movies-2023)")
+    st.write('[Dungeons & Dragons: Honor Among Thieves (2023)](https://link-target.net/674202/free-new-movies-2023)')
+    st.write("[The Pope's Exorcist (2023)](https://link-target.net/674202/free-new-movies-2023)")
+    st.write('[Guardians of the Galaxy Vol. 3 (2023)](https://link-target.net/674202/free-new-movies-2023)')
+    st.write("[Are You There God? It's Me, Margaret. (2023)]()")
+    st.write('[Sisu (2023)]()')
+             
