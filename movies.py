@@ -123,11 +123,19 @@ with expd2:
 
 with st.sidebar:
     st.subheader("NOW SHOWING")
-    cols = st.columns(6)
-    cols[0].write('Super Mario Bros')
-    cols[1].write('Evil Dead')
-    cols[2].write('Scream VI')
-    cols[3].write('John Wick')
-    cols[4].write('Ant-Man and the Wasp')
-    cols[5].write('Shazam!')
-
+    st.write('John Wick: Chapter 4 (2023)')
+    st.write('Dungeons & Dragons: Honor Among Thieves (2023)')
+    st.write("The Pope's Exorcist (2023)")
+    st.write('Scream VI (2023)')
+    st.write('Guardians of the Galaxy Vol. 3 (2023)')
+    st.write('The Super Mario Bros. Movie (2023)')
+    st.write('Evil Dead Rise (2023)')
+    st.write('Are You There God? It's Me, Margaret. (2023)')
+    st.write('Sisu (2023)')
+                                                                                                                                             
+                                                                                                                                             
+                                                                                                                                             
+                                                                                                                                             
+                                                                                                                                             
+                                                                                                                                             
+                                                                                                                                             
