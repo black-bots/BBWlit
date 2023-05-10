@@ -3,7 +3,7 @@ import streamlit.components.v1 as components
 import pandas as pd
 import numpy as np
 from PIL import Image
-STREAMLIT_SERVER_ENABLE_STATIC_SERVING=true
+#STREAMLIT_SERVER_ENABLE_STATIC_SERVING=true
 
 image = Image.open('static/ori_3748732_mkqg8a0irpybxk8xtejrqetwi9j3f3011wq3dyi1_online-cinema-banner-vector-realistic-computer-monitor-movie-brochure-design-template-banner-for-movie-premiere-show-marketing-luxury-poster-illustration.jpg')
 st.image(image,use_column_width=True)
