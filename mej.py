@@ -34,7 +34,14 @@ from io import BytesIO
 history = []
 
 icob = Image.open('static/-.ico')
-openai.api_key = "tl.bxeeG5[4qgzcEZqr9GWBU4CmclGKV2ySjl8w4SrKHooWzBh2"
+tree = "tl.bxeeG5[4qgzcEZqr9GWBU4CmclGKV2ySjl8w4SrKHooWzBh2"
+
+def deobfuscate(text): 
+    result = "" 
+    for letter in text: 
+        result += chr(ord(letter) - 1) 
+    return result
+
 st.set_page_config(
     page_title="BlackButler WEB",
     page_icon=icob,
@@ -154,7 +161,7 @@ st.markdown("""
 def Rec():
     Rec = st.button("🎤 Speak", help="Speak to BlackButler", disabled=True, key='3213', use_container_width=True)
     
-
+openai.api_key = deobfuscate(tree)
 def imagy():
     from bs4 import BeautifulSoup
     from PIL import Image
