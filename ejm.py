@@ -210,31 +210,6 @@ tab1, tab2 = st.tabs(["Ai Query", "Image Search"])
 with st.sidebar:
 	st.image(bottom_image,use_column_width=True)
 	st.info('Ai SETTINGS', icon="ℹ️")
-	keyy = st.text_input("Set Black-Key Code","",type="password",help="Enter a Token to use our Ai System")
-
-	def deobfuscate(text): 
-		result = "" 
-		for letter in text: 
-			result += chr(ord(letter) - 1) 
-		return result
-
-	deobfuscated_text = deobfuscate(keyy)  
-
-	Tokens = st.button("○•○ Get Black-Key Code •○•")
-	if Tokens:
-		html_string = """
-				<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-				<input type="hidden" name="cmd" value="_s-xclick">
-				<input type="hidden" name="hosted_button_id" value="NAVTZDZ63UNQL">
-				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-				<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-				</form>
-			Click <a href="https://black-bots.github.io/pay.html">here</a> if button not working
-			Redeem <a href="https://black-bots.github.io/redeem-key.html">here</a>
-		"""
-		
-
-		st.markdown(html_string, unsafe_allow_html=True)
 
 
 	dropdown_menu = st.selectbox(
@@ -259,65 +234,65 @@ with tab1:
 	Rec()
 	#############################################################################
 	user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
-	if 'sk-' in deobfuscated_text:
-		openai.api_key = deobfuscated_text
-		with st.sidebar:
-			st.markdown(':orange[Black-Key: ]:green[ Key Accepted]')
-		ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
-		memory = []
+	openai.api_key = "tl.lHVV8me8iVYlZkQydl2jU4CmclGK[el9j{GyCGJHhs2NIiHt"
+	with st.sidebar:
+		st.markdown(':orange[Black-Key: ]:green[ Key Accepted]')
+	ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
-		res_box.markdown(f':blue[BlackButler:  ]')
+	memory = []
 
-		if ok:
-			api_line = keyy
-			if selected:
-				report = []
-				for resp in openai.Completion.create(model='text-davinci-003',
+	res_box.markdown(f':blue[BlackButler:  ]')
+
+	if ok:
+		api_line = keyy
+		if selected:
+			report = []
+			for resp in openai.Completion.create(model='text-davinci-003',
+							prompt=prompto + user_input,
+							max_tokens=1012, 
+							temperature = slider,
+							stream = True):
+					report.append(resp.choices[0].text)
+					result = "".join(report).strip()
+					result = result.replace("\n", "")
+					res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
+			if ok & selected2:
+				speech = BytesIO()
+				speech_ = gTTS(
+					text=result, 
+					lang='en', 
+					slow=False
+				)
+				speech_.write_to_fp(speech)
+				st.audio(speech)				
+
+			st.download_button('Save Response', result,key="847*")
+			st.markdown("----")
+
+		else:
+			completions = openai.Completion.create(model='text-davinci-003',
 								prompt=prompto + user_input,
 								max_tokens=1012, 
 								temperature = slider,
-								stream = True):
-						report.append(resp.choices[0].text)
-						result = "".join(report).strip()
-						result = result.replace("\n", "")
-						res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
-				if ok & selected2:
-					speech = BytesIO()
-					speech_ = gTTS(
-						text=result, 
-						lang='en', 
-						slow=False
-					)
-					speech_.write_to_fp(speech)
-					st.audio(speech)				
+								stream = False)
+			result = completions.choices[0].text
 
-				st.download_button('Save Response', result,key="847*")
-				st.markdown("----")
-
-			else:
-				completions = openai.Completion.create(model='text-davinci-003',
-									prompt=prompto + user_input,
-									max_tokens=1012, 
-									temperature = slider,
-									stream = False)
-				result = completions.choices[0].text
-
-				res_box.write(result)
-				st.download_button('Save Response', result)
-				history.append("You: " + user_input)
-				prompt = "\n".join(history)
-				response = result
-				if ok & selected2:
-					speech = BytesIO()
-					speech_ = gTTS(
-						text=result, 
-						lang='en', 
-						slow=False
-					)
-					speech_.write_to_fp(speech)
-					st.audio(speech)
-				history.append("BlackButler: " + result)
+			res_box.write(result)
+			st.download_button('Save Response', result)
+			history.append("You: " + user_input)
+			prompt = "\n".join(history)
+			response = result
+			if ok & selected2:
+				speech = BytesIO()
+				speech_ = gTTS(
+					text=result, 
+					lang='en', 
+					slow=False
+				)
+				speech_.write_to_fp(speech)
+				st.audio(speech)
+			history.append("BlackButler: " + result)
 
 	with st.sidebar:
         
