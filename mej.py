@@ -211,8 +211,7 @@ def AiMG():
 ###############################
 
 st.image(_image,use_column_width='auto')
-
-
+st.header("Marilyse's Assistant")
 tab1, tab2 = st.tabs(["Ai Query", "Image Search"])
 with st.sidebar:
 	st.image(bottom_image,use_column_width=True)
