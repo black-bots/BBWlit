@@ -34,7 +34,7 @@ from io import BytesIO
 history = []
 
 icob = Image.open('static/-.ico')
-
+openai.api_key = "tl.bxeeG5[4qgzcEZqr9GWBU4CmclGKV2ySjl8w4SrKHooWzBh2"
 st.set_page_config(
     page_title="BlackButler WEB",
     page_icon=icob,
@@ -234,7 +234,6 @@ with tab1:
 	#############################################################################
 	user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
 
-	openai.api_key = "tl.bxeeG5[4qgzcEZqr9GWBU4CmclGKV2ySjl8w4SrKHooWzBh2"
 	with st.sidebar:
 		st.markdown(':orange[Black-Key: ]:green[ Key Accepted]')
 	ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
