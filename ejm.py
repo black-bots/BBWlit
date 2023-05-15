@@ -47,7 +47,7 @@ main_image = Image.open('static/-.ico')
 top_image = Image.open('static/4.png')
 _image = Image.open('static/3.png')
 
-
+openai.api_key = "tl.lHVV8me8iVYlZkQydl2jU4CmclGK[el9j{GyCGJHhs2NIiHt"
 st.markdown("""
         <style>
         <br><hr><center>
@@ -235,7 +235,6 @@ with tab1:
 	#############################################################################
 	user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
 
-	openai.api_key = "tl.lHVV8me8iVYlZkQydl2jU4CmclGK[el9j{GyCGJHhs2NIiHt"
 	with st.sidebar:
 		st.markdown(':orange[Black-Key: ]:green[ Key Accepted]')
 	ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
