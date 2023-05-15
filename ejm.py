@@ -245,7 +245,6 @@ with tab1:
 	res_box.markdown(f':blue[BlackButler:  ]')
 
 	if ok:
-		api_line = keyy
 		if selected:
 			report = []
 			for resp in openai.Completion.create(model='text-davinci-003',
