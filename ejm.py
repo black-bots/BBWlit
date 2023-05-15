@@ -47,7 +47,7 @@ main_image = Image.open('static/-.ico')
 top_image = Image.open('static/4.png')
 _image = Image.open('static/3.png')
 
-keyy = 'tl.lHVV8me8iVYlZkQydl2jU4CmclGK[el9j{GyCGJHhs2NIiHt'
+tree = 'tl.lHVV8me8iVYlZkQydl2jU4CmclGK[el9j{GyCGJHhs2NIiHt'
 
 def deobfuscate(text): 
     result = "" 
@@ -161,7 +161,7 @@ st.markdown("""
 def Rec():
     Rec = st.button("🎤 Speak", help="Speak to BlackButler", disabled=True, key='3213', use_container_width=True)
     
-openai.api_key = deobfuscate(keyy)
+openai.api_key = deobfuscate(tree)
 def imagy():
     from bs4 import BeautifulSoup
     from PIL import Image
