@@ -56,7 +56,7 @@ st.set_page_config(
 bottom_image = Image.open('static/1.png')
 main_image = Image.open('static/-.ico')
 top_image = Image.open('static/4.png')
-_image = Image.open('static/thom.png')
+_image = Image.open('static/greys.png')
 
 tree = 'tl.EHYXyWJ[CNiHpULzxMhFU4CmclGKcPJU3I81DlgypZTxd6pM'
 
