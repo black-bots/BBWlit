@@ -23,7 +23,7 @@ with st.expander(label='Todays Featured Movie:', expanded=True):
 			elements[0].style.fontWeight = 'bold';
 		<script>
 		<iframe src="https://drive.google.com/file/d/0ByipROp4etgUZ3lOYTFtNmtrMDQ/preview" width="640" height="480"></iframe>
-	""", height=0, width=0)
+	""", height=800, width=640)
 
 def my_widget2(key):
     st.subheader('Watch Now')
