@@ -532,7 +532,7 @@ with tab1:
 
 		#with st.sidebar:
 
-		res_box.write(':blue[Butler:  ]' + f':green[{result}]')
+		res_box.write(":blue[Grey's Assistant:  ]" + f':green[{result}]')
 
 		st.markdown("----")
 
