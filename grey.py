@@ -76,7 +76,7 @@ main_image = Image.open('static/-.ico')
 
 top_image = Image.open('static/4.png')
 
-_image = Image.open('static/3.png')
+_image = Image.open('https://e7.pngegg.com/pngimages/396/973/png-clipart-thomas-the-tank-engine-thomas-friends-train-sodor-day-out-with-thomas-train-transport-train.png')
 
 tree = 'tl.EHYXyWJ[CNiHpULzxMhFU4CmclGKcPJU3I81DlgypZTxd6pM'
 
@@ -374,7 +374,7 @@ def AiMG():
 
 st.image(_image,use_column_width='auto')
 
-st.header("Ej's Assistant")
+st.header("Grey's Assistant")
 
 tab1, tab2 = st.tabs(["Ai Query", "Image Search"])
 
