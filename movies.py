@@ -13,8 +13,8 @@ featured = st.expander("Todays Featured Movie: 40 Year Old Virgin", expanded=Tru
 with featured:
     components.html("""<iframe src="https://drive.google.com/file/d/0ByipROp4etgUZ3lOYTFtNmtrMDQ/preview" width="640" height="480" />""")
 
-with st.expander(label='KPI', expanded=True):
-    st.write("I am expanded")
+with st.expander(label='Todays Featured Movie: 40 Year Old Virgin', expanded=True):
+	st.write("I am expanded")
 
 hvar = """ <script>
 		var elements = window-parent.document.querySelectorall('.streamlit-expanderHeader');
