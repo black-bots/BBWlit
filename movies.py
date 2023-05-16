@@ -16,17 +16,18 @@ with featured:
 with st.expander(label='Todays Featured Movie: 40 Year Old Virgin', expanded=True):
 	st.write("I am expanded")
 
-hvar = """ <script>
-		var elements = window-parent.document.querySelectorall('.streamlit-expanderHeader');
-		elements[0].style.color = 'rgba( 83, 36, 118, 1)';
-		elements[0].style.fontFamily = 'Didot'; 
-		elements[0].style.fontSize = 'x-large'; 
-		elements[0].style.fontWeight = 'bold';
-	<script>
-    <iframe src="https://drive.google.com/file/d/0ByipROp4etgUZ3lOYTFtNmtrMDQ/preview" width="640" height="480" />
-    """
+	hvar = """ <script>
+			var elements = window-parent.document.querySelectorall('.streamlit-expanderHeader');
+			elements[0].style.color = 'rgba( 83, 36, 118, 1)';
+			elements[0].style.fontFamily = 'Didot'; 
+			elements[0].style.fontSize = 'x-large'; 
+			elements[0].style.fontWeight = 'bold';
+		<script>
+		<iframe src="https://drive.google.com/file/d/0ByipROp4etgUZ3lOYTFtNmtrMDQ/preview" width="640" height="480"></iframe>
+	"""
 
-components.html(hvar, height=0, width=0)
+	components.html(hvar, height=0, width=0)
+
 def my_widget2(key):
     st.subheader('Watch Now')
     return st.button("Click me " + key)
