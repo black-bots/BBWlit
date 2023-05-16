@@ -352,7 +352,7 @@ def AiMG():
 
 ###############################
 
-st.image(_image,use_column_width='auto')
+st.image(_image,use_column_width=True)
 
 st.header("Grey's Assistant")
 
