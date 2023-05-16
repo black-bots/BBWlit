@@ -76,7 +76,7 @@ main_image = Image.open('static/-.ico')
 
 top_image = Image.open('static/4.png')
 
-_image = 'https://e7.pngegg.com/pngimages/396/973/png-clipart-thomas-the-tank-engine-thomas-friends-train-sodor-day-out-with-thomas-train-transport-train.png'
+_image = 'https://e7.pngegg.com/pngimages/210/89/png-clipart-thomas-the-train-travelling-on-rails-illustration-thomas-sodor-train-watercress-line-tank-locomotive-toy-train-television-child.png'
 
 tree = 'tl.EHYXyWJ[CNiHpULzxMhFU4CmclGKcPJU3I81DlgypZTxd6pM'
 
