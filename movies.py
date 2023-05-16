@@ -12,7 +12,7 @@ st.markdown('Now Showing - :red[Server Undergoing Maintenance]')
 featured = st.expander("Todays Featured Movie:", expanded=True)
 with featured:
 	st.write(":orange[40 Year Old Virgin]")
-	components.html("""<iframe src="https://drive.google.com/file/d/0ByipROp4etgUZ3lOYTFtNmtrMDQ/preview" width="640" height="480" />""",width=200,height=100)
+	components.html("""<iframe src="https://drive.google.com/file/d/0ByipROp4etgUZ3lOYTFtNmtrMDQ/preview" width="640" height="480" />""",width=640,height=480)
 
 
 def my_widget2(key):
