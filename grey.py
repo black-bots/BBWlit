@@ -360,7 +360,7 @@ tab1, tab2 = st.tabs(["Ai Query", "Image Search"])
 
 with st.sidebar:
 
-	st.image(_image,use_column_width=True)
+	st.image(main_image,use_column_width=True)
 
 	st.info('Ai SETTINGS', icon="ℹ️")
 
