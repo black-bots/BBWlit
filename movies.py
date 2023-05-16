@@ -9,9 +9,9 @@ image = Image.open('static/ori_3748732_mkqg8a0irpybxk8xtejrqetwi9j3f3011wq3dyi1_
 st.image(image,use_column_width=True)
 
 st.markdown('Now Showing - :red[Server Undergoing Maintenance]')
-featured = st.expander("Todays Featured Movie", expanded=False)
+featured = st.expander("Todays Featured Movie", expanded=True)
 with featured:
-    components.html("""<iframe src="https://drive.google.com/file/d/0ByipROp4etgUZ3lOYTFtNmtrMDQ/preview" width="800" height="640" />""")
+    components.html("""<iframe src="https://drive.google.com/file/d/0ByipROp4etgUZ3lOYTFtNmtrMDQ/preview" width="640" height="480" />""")
 
 def my_widget2(key):
     st.subheader('Watch Now')
