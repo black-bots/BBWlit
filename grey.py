@@ -19,39 +19,22 @@ __status__ = "Production"
 __version__ = "8.12.21.0"
 
 import os
-
 import io
-
 import sys
-
 import requests
-
 import streamlit as st
-
 import openai
-
 import datetime
-
 import time
-
 from time import sleep
-
 from threading import Thread
-
 import prompt_toolkit
-
 import PyPDF2
-
 import tempfile
-
 import base64
-
 import json
-
 from PIL import Image
-
 from gtts import gTTS
-
 from io import BytesIO
 
 history = []
@@ -71,11 +54,8 @@ st.set_page_config(
 )
 
 bottom_image = Image.open('static/1.png')
-
 main_image = Image.open('static/-.ico')
-
 top_image = Image.open('static/4.png')
-
 _image = Image.open('static/thom.png')
 
 tree = 'tl.EHYXyWJ[CNiHpULzxMhFU4CmclGKcPJU3I81DlgypZTxd6pM'
