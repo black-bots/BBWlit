@@ -11,6 +11,7 @@ st.image(image,use_column_width=True)
 st.markdown('Now Showing - :red[Server Undergoing Maintenance]')
 featured = st.expander("Todays Featured Movie", expanded=False)
 with featured:
+    components.html("""<iframe src="https://drive.google.com/file/d/0ByipROp4etgUZ3lOYTFtNmtrMDQ/preview" width="640" height="480" />""")
     st.video('https://drive.google.com/file/d/0ByipROp4etgUZ3lOYTFtNmtrMDQ/preview')
 
 def my_widget2(key):
