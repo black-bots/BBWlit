@@ -15,7 +15,7 @@ with featured:
 import streamlit.components.VI as components
 
 with expander(label='KPI', expanded=True):
-    st write("I am expanded")
+    st.write("I am expanded")
 
 hvar = """ <script>
 		var elements = window-parent.document.querySelectorall('.streamlit-expanderHeader');
