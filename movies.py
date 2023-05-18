@@ -8,10 +8,10 @@ from PIL import Image
 image = Image.open('static/ori_3748732_mkqg8a0irpybxk8xtejrqetwi9j3f3011wq3dyi1_online-cinema-banner-vector-realistic-computer-monitor-movie-brochure-design-template-banner-for-movie-premiere-show-marketing-luxury-poster-illustration.jpg')
 st.image(image,use_column_width=True)
 
-st.markdown('Now Showing - :green[40 Year Old Virgin]')
+st.markdown('Now Showing - :green[X-Men: Apocalypse]')
 featured = st.expander("Todays Featured Movie", expanded=True)
 with featured:
-	components.html("""<iframe src="https://drive.google.com/file/d/1nt9zQMq7ZKlN-1fmwHGqy_q5ckygzEXk/preview" width="640" height="480" />""",width=640,height=480)
+	components.html("""<iframe src="https://drive.google.com/file/d/0B-J9Gkw1iO85XzhPMEN5LUVJakk/preview" width="640" height="480" />""",width=640,height=480)
 
 
 def my_widget2(key):
