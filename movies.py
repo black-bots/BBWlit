@@ -26,7 +26,7 @@ with col1:
    st.write("the Super Mario Bros")
    st.text("Trailer")
    st.video('https://youtu.be/TnGl01FkMMo')
-   st.write("🎥👉 [Watch Movi](https://link-center.net/674202/free-mario-bros-movie)")
+   st.write("🎥👉 [Watch Movie](https://link-center.net/674202/free-mario-bros-movie)")
    
 
 with col2:
@@ -68,7 +68,7 @@ with col1:
    st.write("Ant-Man and the Wasp: Quantumania")
    st.text("Trailer")
    st.video('https://youtu.be/ZlNFpri-Y40')
-   st.write("🎥👉 [Watch Movi](https://link-target.net/674202/free-new-movies-2023)")
+   st.write("🎥👉 [Watch Movie](https://link-target.net/674202/free-new-movies-2023)")
    
 
 with col2:
