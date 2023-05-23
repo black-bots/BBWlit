@@ -433,6 +433,7 @@ if ok:
 					label_visibility=st.session_state.visibility,
 					disabled=st.session_state.disabled,
 					placeholder=f":orange[*{result}*]",
+					key="18h2",
 				)
 
 
