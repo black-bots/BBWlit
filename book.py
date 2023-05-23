@@ -390,13 +390,14 @@ Rec()
 
 #############################################################################
 
-user_input = st.text_area(":orange[Write ☺]", key='input', help="Type your message here")
+user_input = st.text_area(":orange[Write ☺]", key='input', help="Type your message here", placeholder=st.session_state.placeholder)
 
 ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
 memory = []
 
 res_box.markdown(f":blue[Bellatrix:  ]")
+
 
 if ok:
 
@@ -421,6 +422,7 @@ if ok:
 				result = result.replace("\n", "")
 
 				res_box.markdown(f":blue[Grey's Assistant:  ]:green[*{result}*]")
+				st.text_input(f"Placeholder for the other text input widget", "{result}", key="placeholder")
 
 		if ok & selected2:
 
