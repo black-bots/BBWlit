@@ -390,7 +390,7 @@ Rec()
 
 #############################################################################
 
-user_input = st.text_area(":orange[Write ☺]", key='input', help="Type your message here")
+user_input = st.text_area(":orange[Write ☺]", help="Type your message here",key="placeholder")
 
 ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
@@ -421,7 +421,7 @@ if ok:
 
 				result = result.replace("\n", "")
 
-				res_box.markdown(f":blue[Grey's Assistant:  ]:green[*{result}*]",key="placeholder")
+				res_box.markdown(f":blue[Grey's Assistant:  ]:green[*{result}*]")
 				# Store the initial value of widgets in session state
 				if "visibility" not in st.session_state:
 				    st.session_state.visibility = "visible"
