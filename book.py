@@ -392,7 +392,7 @@ user_input = st.text_area(":orange[What should we write about?]", "ie: 'Start wr
 ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 col1, col2, col3, col4 = st.columns(4)
 with col1:
-	Rewrite = st.button("Rewrite", help="Rewrite", key='123', use_container_width=False)
+	Rewrite = st.button("Rewrite", help="Rewrite", key='996', use_container_width=False)
 	if Rewrite:
 		report = []
 
@@ -483,11 +483,11 @@ with col1:
 		history.append("Bellatrix: " + result)
 
 with col2:
-	Summarize = st.button("Summarize", help="Summarize", key='123', use_container_width=False)
+	Summarize = st.button("Summarize", help="Summarize", key='994', use_container_width=False)
 with col3:
-	Brainstorm = st.button("Brainstorm", help="Summarize", key='123', use_container_width=False)
+	Brainstorm = st.button("Brainstorm", help="Summarize", key='992', use_container_width=False)
 with col4:
-	Title = st.button("Create Title", help="Create Titles", key='123', use_container_width=False)
+	Title = st.button("Create Title", help="Create Titles", key='990', use_container_width=False)
 memory = []
 
 res_box.markdown(f":blue[Bellatrix:  ]")
