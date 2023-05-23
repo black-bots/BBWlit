@@ -387,7 +387,14 @@ with st.sidebar:
 res_box = st.empty()
 
 #############################################################################
-
+txt = st.text_area('Text to analyze', '''
+    It was the best of times, it was the worst of times, it was
+    the age of wisdom, it was the age of foolishness, it was
+    the epoch of belief, it was the epoch of incredulity, it
+    was the season of Light, it was the season of Darkness, it
+    was the spring of hope, it was the winter of despair, (...)
+    ''')
+st.write('Sentiment:', run_sentiment_analysis(txt))
 user_input = st.text_area(":orange[What should we write about?]", "ie: 'Start writing a science fiction novel about Vampires' - Write Here", help="Type what you want to write about",key="placeholder")
 ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 col1, col2, col3, col4 = st.columns(4)
