@@ -390,7 +390,17 @@ with st.sidebar:
 
 	slider = slider_value
 
-Rewrite = st.button("Rewrite", help="Rewrite", key='996', use_container_width=False)
+col1, col2, col3, col4 = st.columns([1,1,1,1])
+
+with col1:
+	Rewrite = st.button("Rewrite", help="Rewrite", key='996', use_container_width=False)
+with col2:
+	Summarize = st.button("Summarize", help="Summarize", key='994', use_container_width=False)
+with col3:
+	Brainstorm = st.button("Brainstorm", help="Summarize", key='992', use_container_width=False)
+with col4:
+	Title = st.button("Create Title", help="Create Titles", key='990', use_container_width=False)
+	
 if Rewrite:
 	report = []
 	for resp in openai.Completion.create(model='text-davinci-003',
@@ -415,7 +425,6 @@ if Rewrite:
 	st.download_button('Save Response', result,key="847*")
 
 
-Summarize = st.button("Summarize", help="Summarize", key='994', use_container_width=False)
 if Summarize:
 	report = []
 	for resp in openai.Completion.create(model='text-davinci-003',
@@ -438,7 +447,6 @@ if Summarize:
 		speech_.write_to_fp(speech)
 		st.audio(speech)				
 	st.download_button('Save Response', result,key="847*")
-Brainstorm = st.button("Brainstorm", help="Summarize", key='992', use_container_width=False)
 if Brainstorm:
 	report = []
 	for resp in openai.Completion.create(model='text-davinci-003',
@@ -461,7 +469,6 @@ if Brainstorm:
 		speech_.write_to_fp(speech)
 		st.audio(speech)				
 	st.download_button('Save Response', result,key="847*")		
-Title = st.button("Create Title", help="Create Titles", key='990', use_container_width=False)
 if Title:
 	report = []
 	for resp in openai.Completion.create(model='text-davinci-003',
