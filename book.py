@@ -369,24 +369,11 @@ with st.sidebar:
 
 		('Bellatrix','Neutral','Assertive','Cooperative','Curious','Encouraging','Formal','Friendly','Informal','Optimistic','Pessimistic','Sincere','Surprised','Worried'),help="Select writing tone")
 
-	Genre = st.text_input('What genre are we writing about?','Fiction', help="Writing Genre")
+	Genre = st.text_input('Set Genre for Title generating?','Fiction', help="Write the themed Genre")
 	selected2 = st.checkbox('Speak responses?', value=True,help="Speak reponses out-loud")
-
 	selected = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
 
 	slider_value = st.slider(':orange[Response style]', 0.1, 1.0, 0.70, step=0.10,help="Set the personality of the Ai (0.10 Predicatble - 1.00 Creative)")
-
-	if dropdown_menu == 'Bellatrix':
-		
-		st.write(':orange[Tone: ]:green[ Set]')
-
-		prompto = "You will write with a sassy tone"
-
-	elif dropdown_menu == 'Neutral':
-
-		st.write(':orange[Tone: ]:green[ Set]')
-
-		prompto = "You will write with a neutral tone"
 
 	slider = slider_value
 
