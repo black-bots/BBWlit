@@ -450,7 +450,7 @@ if ok:
 					placeholder=st.session_state.placeholder,
 				    )
 
-				    if text_input:
+				if text_input:
 					st.write("You entered: ", text_input)
 
 		if ok & selected2:
