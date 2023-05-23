@@ -390,7 +390,7 @@ Rec()
 
 #############################################################################
 
-user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
+user_input = st.text_area(":orange[Write ☺]", key='input', help="Type your message here")
 
 ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
