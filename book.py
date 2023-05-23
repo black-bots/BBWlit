@@ -492,9 +492,7 @@ memory = []
 
 res_box.markdown(f":blue[Bellatrix:  ]")
 
-if "visibility" not in st.session_state:
-	st.session_state.visibility = "visible"
-	st.session_state.disabled = False
+
 if ok:
 
 	if selected:
