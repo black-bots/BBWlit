@@ -350,9 +350,6 @@ def AiMG():
 
 st.image(_image,use_column_width="auto")
 
-st.header("Bellatrix")
-
-tab1, tab2 = st.tabs(["Ai Query", "Image Search"])
 
 with st.sidebar:
 
@@ -386,29 +383,70 @@ with st.sidebar:
 
 	slider = slider_value
 
-with tab1:
 
-	res_box = st.empty()
+res_box = st.empty()
 
-	Rec()
+Rec()
 
-	#############################################################################
+#############################################################################
 
-	user_input = st.text_input(":orange[Say or Ask something]", key='input', help="Type your message here")
+user_input = st.text_input(":orange[Say or Ask something]", key='input', help="Type your message here")
 
-	ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
+ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
-	memory = []
+memory = []
 
-	res_box.markdown(f":blue[Bellatrix:  ]")
+res_box.markdown(f":blue[Bellatrix:  ]")
 
-	if ok:
+if ok:
 
-		if selected:
+	if selected:
 
-			report = []
+		report = []
 
-			for resp in openai.Completion.create(model='text-davinci-003',
+		for resp in openai.Completion.create(model='text-davinci-003',
+
+						prompt=prompto + user_input,
+
+						max_tokens=1012, 
+
+						temperature = slider,
+
+						stream = True):
+
+				report.append(resp.choices[0].text)
+
+				result = "".join(report).strip()
+
+				result = result.replace("\n", "")
+
+				res_box.markdown(f":blue[Grey's Assistant:  ]:green[*{result}*]")
+
+		if ok & selected2:
+
+			speech = BytesIO()
+
+			speech_ = gTTS(
+
+				text=result, 
+
+				lang='en', 
+
+				slow=False
+
+			)
+
+			speech_.write_to_fp(speech)
+
+			st.audio(speech)				
+
+		st.download_button('Save Response', result,key="847*")
+
+		st.markdown("----")
+
+	else:
+
+		completions = openai.Completion.create(model='text-davinci-003',
 
 							prompt=prompto + user_input,
 
@@ -416,81 +454,39 @@ with tab1:
 
 							temperature = slider,
 
-							stream = True):
+							stream = False)
 
-					report.append(resp.choices[0].text)
+		result = completions.choices[0].text
 
-					result = "".join(report).strip()
+		res_box.write(result)
 
-					result = result.replace("\n", "")
+		st.download_button('Save Response', result)
 
-					res_box.markdown(f":blue[Grey's Assistant:  ]:green[*{result}*]")
+		history.append("You: " + user_input)
 
-			if ok & selected2:
+		prompt = "\n".join(history)
 
-				speech = BytesIO()
+		response = result
 
-				speech_ = gTTS(
+		if ok & selected2:
 
-					text=result, 
+			speech = BytesIO()
 
-					lang='en', 
+			speech_ = gTTS(
 
-					slow=False
+				text=result, 
 
-				)
+				lang='en', 
 
-				speech_.write_to_fp(speech)
+				slow=False
 
-				st.audio(speech)				
+			)
 
-			st.download_button('Save Response', result,key="847*")
+			speech_.write_to_fp(speech)
 
-			st.markdown("----")
+			st.audio(speech)
 
-		else:
-
-			completions = openai.Completion.create(model='text-davinci-003',
-
-								prompt=prompto + user_input,
-
-								max_tokens=1012, 
-
-								temperature = slider,
-
-								stream = False)
-
-			result = completions.choices[0].text
-
-			res_box.write(result)
-
-			st.download_button('Save Response', result)
-
-			history.append("You: " + user_input)
-
-			prompt = "\n".join(history)
-
-			response = result
-
-			if ok & selected2:
-
-				speech = BytesIO()
-
-				speech_ = gTTS(
-
-					text=result, 
-
-					lang='en', 
-
-					slow=False
-
-				)
-
-				speech_.write_to_fp(speech)
-
-				st.audio(speech)
-
-			history.append("Grey's Assistant: " + result)
+		history.append("Grey's Assistant: " + result)
 
 	with st.sidebar:
 
@@ -534,9 +530,7 @@ with tab1:
 
 		st.download_button('Save Response', result)
 
-with tab2:
 
-	AiMG()
 
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
 
