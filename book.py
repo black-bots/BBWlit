@@ -398,7 +398,9 @@ memory = []
 
 res_box.markdown(f":blue[Bellatrix:  ]")
 
-
+if "visibility" not in st.session_state:
+	st.session_state.visibility = "visible"
+	st.session_state.disabled = False
 if ok:
 
 	if selected:
@@ -422,10 +424,6 @@ if ok:
 				result = result.replace("\n", "")
 
 				#res_box.markdown(f":blue[Grey's Assistant:  ]:green[*{result}*]")
-
-				if "visibility" not in st.session_state:
-				    st.session_state.visibility = "visible"
-				    st.session_state.disabled = False
 
 
 				text_input = st.text_input(
@@ -506,7 +504,6 @@ if ok:
 	with st.sidebar:
 
         
-
 		text = "Tell me about this: "
 
 		uploaded_file = st.file_uploader('Upload a CSV file',type=('csv'))
