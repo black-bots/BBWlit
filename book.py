@@ -350,46 +350,6 @@ def AiMG():
 
 st.image(_image,use_column_width="auto")
 
-
-with st.sidebar:
-
-	st.image(top_image,use_column_width=True)
-
-	st.info('Settings', icon="ℹ️")
-
-	dropdown_menu = st.selectbox(
-
-		'Set Tone',
-
-		('Bellatrix','Neutral','Assertive','Cooperative','Curious','Encouraging','Formal','Friendly','Informal','Optimistic','Pessimistic','Sincere','Surprised','Worried'),help="Select writing tone")
-
-	Genre = st.text_input('What genre are we writing about?','Fiction', help="Writing Genre")
-	selected2 = st.checkbox('Speak responses?', value=True,help="Speak reponses out-loud")
-
-	selected = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
-
-	slider_value = st.slider(':orange[Response style]', 0.1, 1.0, 0.70, step=0.10,help="Set the personality of the Ai (0.10 Predicatble - 1.00 Creative)")
-
-	if dropdown_menu == 'Bellatrix':
-		
-		st.write(':orange[Tone: ]:green[ Set]')
-
-		prompto = "You will write with a sassy tone"
-
-	elif dropdown_menu == 'Neutral':
-
-		st.write(':orange[Tone: ]:green[ Set]')
-
-		prompto = "You will write with a neutral tone"
-
-	slider = slider_value
-
-
-res_box = st.empty()
-#############################################################################
-
-user_input = st.text_area(":orange[What should we write about?]", "ie: 'Start writing a science fiction novel about Vampires' - Write Here", help="Type what you want to write about",key="placeholder")
-
 def Col():
 	col1, col2, col3, col4 = st.columns(4)
 	with col1:
@@ -492,6 +452,46 @@ def Col():
 				st.audio(speech)				
 			st.download_button('Save Response', result,key="847*")		
 	memory = []
+
+with st.sidebar:
+
+	st.image(top_image,use_column_width=True)
+
+	st.info('Settings', icon="ℹ️")
+	Col()
+	dropdown_menu = st.selectbox(
+
+		'Set Tone',
+
+		('Bellatrix','Neutral','Assertive','Cooperative','Curious','Encouraging','Formal','Friendly','Informal','Optimistic','Pessimistic','Sincere','Surprised','Worried'),help="Select writing tone")
+
+	Genre = st.text_input('What genre are we writing about?','Fiction', help="Writing Genre")
+	selected2 = st.checkbox('Speak responses?', value=True,help="Speak reponses out-loud")
+
+	selected = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
+
+	slider_value = st.slider(':orange[Response style]', 0.1, 1.0, 0.70, step=0.10,help="Set the personality of the Ai (0.10 Predicatble - 1.00 Creative)")
+
+	if dropdown_menu == 'Bellatrix':
+		
+		st.write(':orange[Tone: ]:green[ Set]')
+
+		prompto = "You will write with a sassy tone"
+
+	elif dropdown_menu == 'Neutral':
+
+		st.write(':orange[Tone: ]:green[ Set]')
+
+		prompto = "You will write with a neutral tone"
+
+	slider = slider_value
+
+
+res_box = st.empty()
+#############################################################################
+
+user_input = st.text_area(":orange[What should we write about?]", "ie: 'Start writing a science fiction novel about Vampires' - Write Here", help="Type what you want to write about",key="placeholder")
+
 
 Rewrite = st.button("Rewrite", help="Rewrite", key='996', use_container_width=False)
 
