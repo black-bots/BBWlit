@@ -453,6 +453,12 @@ def Col():
 			st.download_button('Save Response', result,key="847*")		
 	memory = []
 
+
+res_box = st.empty()
+#############################################################################
+
+user_input = st.text_area(":orange[What should we write about?]", "ie: 'Start writing a science fiction novel about Vampires' - Write Here", help="Type what you want to write about",key="placeholder")
+
 with st.sidebar:
 
 	st.image(top_image,use_column_width=True)
@@ -485,13 +491,6 @@ with st.sidebar:
 		prompto = "You will write with a neutral tone"
 
 	slider = slider_value
-
-
-res_box = st.empty()
-#############################################################################
-
-user_input = st.text_area(":orange[What should we write about?]", "ie: 'Start writing a science fiction novel about Vampires' - Write Here", help="Type what you want to write about",key="placeholder")
-
 
 Rewrite = st.button("Rewrite", help="Rewrite", key='996', use_container_width=False)
 
