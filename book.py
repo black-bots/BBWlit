@@ -363,7 +363,7 @@ with st.sidebar:
 
 		('Bellatrix','Neutral','Assertive','Cooperative','Curious','Encouraging','Formal','Friendly','Informal','Optimistic','Pessimistic','Sincere','Surprised','Worried'),help="Select writing tone")
 
-	Genre = st.input_text('What genre are we writing about?','Fiction', help="Writing Genre")
+	Genre = st.text_input('What genre are we writing about?','Fiction', help="Writing Genre")
 	selected2 = st.checkbox('Speak responses?', value=True,help="Speak reponses out-loud")
 
 	selected = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
