@@ -386,14 +386,19 @@ with st.sidebar:
 
 res_box = st.empty()
 
-Rec()
-
 #############################################################################
 
-user_input = st.text_area(":orange[Write ☺]", help="Type your message here",key="placeholder")
-
+user_input = st.text_area(":orange[What should we write about?]", "ie: Start writing a science fiction novel about Vampires", help="Type what you want to write about",key="placeholder")
 ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
-
+col1, col2, col3, col4 = st.columns(4)
+with col1:
+	Rewrite = st.button("Rewrite", help="Rewrite", key='123', use_container_width=False)
+with col2:
+	Summarize = st.button("Summarize", help="Summarize", key='123', use_container_width=False)
+with col3:
+	Brainstorm = st.button("Brainstorm", help="Summarize", key='123', use_container_width=False)
+with col4:
+	Title = st.button("Create Title", help="Create Titles", key='123', use_container_width=False)
 memory = []
 
 res_box.markdown(f":blue[Bellatrix:  ]")
