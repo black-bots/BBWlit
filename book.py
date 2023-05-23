@@ -363,7 +363,8 @@ with st.sidebar:
 
 		('Bellatrix','Neutral','Assertive','Cooperative','Curious','Encouraging','Formal','Friendly','Informal','Optimistic','Pessimistic','Sincere','Surprised','Worried'),help="Select writing tone")
 
-	selected2 = st.checkbox('Speak responses?', value=True,help="Speak Ai reponses out-loud")
+	Genre = st.input_text('What genre are we writing about?','Fiction', help="Writing Genre")
+	selected2 = st.checkbox('Speak responses?', value=True,help="Speak reponses out-loud")
 
 	selected = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
 
@@ -385,116 +386,110 @@ with st.sidebar:
 
 
 res_box = st.empty()
-
 #############################################################################
-txt = st.text_area('Text to analyze', '''
-    It was the best of times, it was the worst of times, it was
-    the age of wisdom, it was the age of foolishness, it was
-    the epoch of belief, it was the epoch of incredulity, it
-    was the season of Light, it was the season of Darkness, it
-    was the spring of hope, it was the winter of despair, (...)
-    ''')
-st.write('Sentiment:', run_sentiment_analysis(txt))
+
 user_input = st.text_area(":orange[What should we write about?]", "ie: 'Start writing a science fiction novel about Vampires' - Write Here", help="Type what you want to write about",key="placeholder")
 ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 col1, col2, col3, col4 = st.columns(4)
 with col1:
 	Rewrite = st.button("Rewrite", help="Rewrite", key='996', use_container_width=False)
+	
 	if Rewrite:
 		report = []
-
 		for resp in openai.Completion.create(model='text-davinci-003',
-
-						prompt="Rewrite this using a" + dropdown_menu + " tone:" + user_input,
-
+						prompt="Rewrite this, " + user_input + ", using a" + dropdown_menu + " tone:",
 						max_tokens=1012, 
-
 						temperature = slider,
-
 						stream = True):
-
 				report.append(resp.choices[0].text)
-
 				result = "".join(report).strip()
-
 				result = result.replace("\n", "")
-
 				res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
 
-
-
 		if Rewrite & selected2:
-
 			speech = BytesIO()
-
 			speech_ = gTTS(
-
 				text=result, 
-
 				lang='en', 
-
 				slow=False
-
 			)
-
 			speech_.write_to_fp(speech)
-
 			st.audio(speech)				
-
 		st.download_button('Save Response', result,key="847*")
 
-		st.markdown("----")
-
-	else:
-
-		completions = openai.Completion.create(model='text-davinci-003',
-
-							prompt="Rewrite this using a" + dropdown_menu + " tone:" + user_input,
-
-							max_tokens=1012, 
-
-							temperature = slider,
-
-							stream = False)
-
-		result = completions.choices[0].text
-
-		res_box.write(result)
-
-		st.download_button('Save Response', result)
-
-		history.append("You: " + user_input)
-
-		prompt = "\n".join(history)
-
-		response = result
-
-		if Rewrite & selected2:
-
-			speech = BytesIO()
-
-			speech_ = gTTS(
-
-				text=result, 
-
-				lang='en', 
-
-				slow=False
-
-			)
-
-			speech_.write_to_fp(speech)
-
-			st.audio(speech)
-
-		history.append("Bellatrix: " + result)
 
 with col2:
 	Summarize = st.button("Summarize", help="Summarize", key='994', use_container_width=False)
+	if Summarize:
+		report = []
+		for resp in openai.Completion.create(model='text-davinci-003',
+						prompt="Summarize this, " + user_input + ", using a" + dropdown_menu + " tone:",
+						max_tokens=1012, 
+						temperature = slider,
+						stream = True):
+				report.append(resp.choices[0].text)
+				result = "".join(report).strip()
+				result = result.replace("\n", "")
+				res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
+
+		if Rewrite & selected2:
+			speech = BytesIO()
+			speech_ = gTTS(
+				text=result, 
+				lang='en', 
+				slow=False
+			)
+			speech_.write_to_fp(speech)
+			st.audio(speech)				
+		st.download_button('Save Response', result,key="847*")
 with col3:
 	Brainstorm = st.button("Brainstorm", help="Summarize", key='992', use_container_width=False)
+	if Brainstorm:
+		report = []
+		for resp in openai.Completion.create(model='text-davinci-003',
+						prompt="Brainstorm and create a list of 10-20 creative writing ideas.",
+						max_tokens=1012, 
+						temperature = slider,
+						stream = True):
+				report.append(resp.choices[0].text)
+				result = "".join(report).strip()
+				result = result.replace("\n", "")
+				res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
+
+		if Rewrite & selected2:
+			speech = BytesIO()
+			speech_ = gTTS(
+				text=result, 
+				lang='en', 
+				slow=False
+			)
+			speech_.write_to_fp(speech)
+			st.audio(speech)				
+		st.download_button('Save Response', result,key="847*")		
 with col4:
 	Title = st.button("Create Title", help="Create Titles", key='990', use_container_width=False)
+	if Title:
+		report = []
+		for resp in openai.Completion.create(model='text-davinci-003',
+						prompt="Create a list of Titles to begin writing about with a" + Genre + " theme and a " + dropdown_menu + " tone.,
+						max_tokens=1012, 
+						temperature = slider,
+						stream = True):
+				report.append(resp.choices[0].text)
+				result = "".join(report).strip()
+				result = result.replace("\n", "")
+				res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
+
+		if Rewrite & selected2:
+			speech = BytesIO()
+			speech_ = gTTS(
+				text=result, 
+				lang='en', 
+				slow=False
+			)
+			speech_.write_to_fp(speech)
+			st.audio(speech)				
+		st.download_button('Save Response', result,key="847*")		
 memory = []
 
 res_box.markdown(f":blue[Bellatrix:  ]")
