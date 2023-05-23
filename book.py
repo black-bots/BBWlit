@@ -389,7 +389,7 @@ res_box = st.empty()
 #############################################################################
 
 user_input = st.text_area(":orange[What should we write about?]", "ie: 'Start writing a science fiction novel about Vampires' - Write Here", help="Type what you want to write about",key="placeholder")
-ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
+
 col1, col2, col3, col4 = st.columns(4)
 with col1:
 	Rewrite = st.button("Rewrite", help="Rewrite", key='996', use_container_width=False)
@@ -493,13 +493,6 @@ with col4:
 memory = []
 
 res_box.markdown(f":blue[Bellatrix:  ]")
-
-
-if ok:
-	res_box.write(":blue[You wrote:  ]" + user_input)
-
-
-
 
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
 
