@@ -471,7 +471,7 @@ with col4:
 	if Title:
 		report = []
 		for resp in openai.Completion.create(model='text-davinci-003',
-						prompt="Create a list of Titles to begin writing about with a" + Genre + " theme and a " + dropdown_menu + " tone.,
+						prompt="Create a list of Titles to begin writing about with a" + Genre + " theme and a " + dropdown_menu + " tone.",
 						max_tokens=1012, 
 						temperature = slider,
 						stream = True):
