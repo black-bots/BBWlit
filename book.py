@@ -355,13 +355,13 @@ with st.sidebar:
 
 	st.image(top_image,use_column_width=True)
 
-	st.info('Bellatrix Settings', icon="ℹ️")
+	st.info('Settings', icon="ℹ️")
 
 	dropdown_menu = st.selectbox(
 
-		'Set Ai',
+		'Set Tone',
 
-		('Greys Assistant', 'Generic'),help="Select default Ai")
+		('Neutral','Assertive','Cooperative','Curious','Encouraging','Formal','Friendly','Informal','Optimistic','Pessimistic','Sincere','Surprised','Worried'),help="Select writing tone")
 
 	selected2 = st.checkbox('Speak responses?', value=True,help="Speak Ai reponses out-loud")
 
@@ -390,7 +390,7 @@ Rec()
 
 #############################################################################
 
-user_input = st.text_input(":orange[Say or Ask something]", key='input', help="Type your message here")
+user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
 
 ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
