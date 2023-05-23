@@ -421,7 +421,7 @@ if ok:
 
 				result = result.replace("\n", "")
 
-				res_box.markdown(f":blue[Grey's Assistant:  ]:green[*{result}*]")
+				#res_box.markdown(f":blue[Grey's Assistant:  ]:green[*{result}*]")
 
 				if "visibility" not in st.session_state:
 				    st.session_state.visibility = "visible"
@@ -432,7 +432,7 @@ if ok:
 					"Bellatrix Wrote 👇",
 					label_visibility=st.session_state.visibility,
 					disabled=st.session_state.disabled,
-					placeholder={result},
+					placeholder=f":orange[*{result}*]",
 				)
 
 
