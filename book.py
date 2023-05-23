@@ -426,12 +426,11 @@ if ok:
 				#res_box.markdown(f":blue[Grey's Assistant:  ]:green[*{result}*]")
 
 
-				text_input = st.text_input(
+				txt_input = st.text_input(
 					"Bellatrix Wrote 👇",
 					label_visibility=st.session_state.visibility,
 					disabled=st.session_state.disabled,
-					placeholder=f":orange[*{result}*]",
-					key="18h2",
+					placeholder={result},
 				)
 
 
