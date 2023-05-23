@@ -350,108 +350,6 @@ def AiMG():
 
 st.image(_image,use_column_width="auto")
 
-def Col():
-	col1, col2, col3, col4 = st.columns(4)
-	with col1:
-		Rewrite = st.button("Rewrite", help="Rewrite", key='996', use_container_width=False)
-
-		if Rewrite:
-			report = []
-			for resp in openai.Completion.create(model='text-davinci-003',
-							prompt="Rewrite this, " + user_input + ", using a" + dropdown_menu + " tone:",
-							max_tokens=1012, 
-							temperature = slider,
-							stream = True):
-					report.append(resp.choices[0].text)
-					result = "".join(report).strip()
-					result = result.replace("\n", "")
-					res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
-
-			if Rewrite & selected2:
-				speech = BytesIO()
-				speech_ = gTTS(
-					text=result, 
-					lang='en', 
-					slow=False
-				)
-				speech_.write_to_fp(speech)
-				st.audio(speech)				
-			st.download_button('Save Response', result,key="847*")
-
-
-	with col2:
-		Summarize = st.button("Summarize", help="Summarize", key='994', use_container_width=False)
-		if Summarize:
-			report = []
-			for resp in openai.Completion.create(model='text-davinci-003',
-							prompt="Summarize this, " + user_input + ", using a" + dropdown_menu + " tone:",
-							max_tokens=1012, 
-							temperature = slider,
-							stream = True):
-					report.append(resp.choices[0].text)
-					result = "".join(report).strip()
-					result = result.replace("\n", "")
-					res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
-
-			if Rewrite & selected2:
-				speech = BytesIO()
-				speech_ = gTTS(
-					text=result, 
-					lang='en', 
-					slow=False
-				)
-				speech_.write_to_fp(speech)
-				st.audio(speech)				
-			st.download_button('Save Response', result,key="847*")
-	with col3:
-		Brainstorm = st.button("Brainstorm", help="Summarize", key='992', use_container_width=False)
-		if Brainstorm:
-			report = []
-			for resp in openai.Completion.create(model='text-davinci-003',
-							prompt="Brainstorm and create a list of 10-20 creative writing ideas.",
-							max_tokens=1012, 
-							temperature = slider,
-							stream = True):
-					report.append(resp.choices[0].text)
-					result = "".join(report).strip()
-					result = result.replace("\n", "")
-					res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
-
-			if Rewrite & selected2:
-				speech = BytesIO()
-				speech_ = gTTS(
-					text=result, 
-					lang='en', 
-					slow=False
-				)
-				speech_.write_to_fp(speech)
-				st.audio(speech)				
-			st.download_button('Save Response', result,key="847*")		
-	with col4:
-		Title = st.button("Create Title", help="Create Titles", key='990', use_container_width=False)
-		if Title:
-			report = []
-			for resp in openai.Completion.create(model='text-davinci-003',
-							prompt="Create a list of Titles to begin writing about with a" + Genre + " theme and a " + dropdown_menu + " tone.",
-							max_tokens=1012, 
-							temperature = slider,
-							stream = True):
-					report.append(resp.choices[0].text)
-					result = "".join(report).strip()
-					result = result.replace("\n", "")
-					res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
-
-			if Rewrite & selected2:
-				speech = BytesIO()
-				speech_ = gTTS(
-					text=result, 
-					lang='en', 
-					slow=False
-				)
-				speech_.write_to_fp(speech)
-				st.audio(speech)				
-			st.download_button('Save Response', result,key="847*")		
-	memory = []
 
 
 res_box = st.empty()
@@ -462,9 +360,104 @@ user_input = st.text_area(":orange[What should we write about?]", "ie: 'Start wr
 with st.sidebar:
 
 	st.image(top_image,use_column_width=True)
+	Rewrite = st.button("Rewrite", help="Rewrite", key='996', use_container_width=False)
+	if Rewrite:
+		report = []
+		for resp in openai.Completion.create(model='text-davinci-003',
+						prompt="Rewrite this, " + user_input + ", using a" + dropdown_menu + " tone:",
+						max_tokens=1012, 
+						temperature = slider,
+						stream = True):
+				report.append(resp.choices[0].text)
+				result = "".join(report).strip()
+				result = result.replace("\n", "")
+				res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
+
+		if Rewrite & selected2:
+			speech = BytesIO()
+			speech_ = gTTS(
+				text=result, 
+				lang='en', 
+				slow=False
+			)
+			speech_.write_to_fp(speech)
+			st.audio(speech)				
+		st.download_button('Save Response', result,key="847*")
+
+
+	Summarize = st.button("Summarize", help="Summarize", key='994', use_container_width=False)
+	if Summarize:
+		report = []
+		for resp in openai.Completion.create(model='text-davinci-003',
+						prompt="Summarize this, " + user_input + ", using a" + dropdown_menu + " tone:",
+						max_tokens=1012, 
+						temperature = slider,
+						stream = True):
+				report.append(resp.choices[0].text)
+				result = "".join(report).strip()
+				result = result.replace("\n", "")
+				res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
+
+		if Rewrite & selected2:
+			speech = BytesIO()
+			speech_ = gTTS(
+				text=result, 
+				lang='en', 
+				slow=False
+			)
+			speech_.write_to_fp(speech)
+			st.audio(speech)				
+		st.download_button('Save Response', result,key="847*")
+	Brainstorm = st.button("Brainstorm", help="Summarize", key='992', use_container_width=False)
+	if Brainstorm:
+		report = []
+		for resp in openai.Completion.create(model='text-davinci-003',
+						prompt="Brainstorm and create a list of 10-20 creative writing ideas.",
+						max_tokens=1012, 
+						temperature = slider,
+						stream = True):
+				report.append(resp.choices[0].text)
+				result = "".join(report).strip()
+				result = result.replace("\n", "")
+				res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
+
+		if Rewrite & selected2:
+			speech = BytesIO()
+			speech_ = gTTS(
+				text=result, 
+				lang='en', 
+				slow=False
+			)
+			speech_.write_to_fp(speech)
+			st.audio(speech)				
+		st.download_button('Save Response', result,key="847*")		
+	Title = st.button("Create Title", help="Create Titles", key='990', use_container_width=False)
+	if Title:
+		report = []
+		for resp in openai.Completion.create(model='text-davinci-003',
+						prompt="Create a list of Titles to begin writing about with a" + Genre + " theme and a " + dropdown_menu + " tone.",
+						max_tokens=1012, 
+						temperature = slider,
+						stream = True):
+				report.append(resp.choices[0].text)
+				result = "".join(report).strip()
+				result = result.replace("\n", "")
+				res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
+
+		if Rewrite & selected2:
+			speech = BytesIO()
+			speech_ = gTTS(
+				text=result, 
+				lang='en', 
+				slow=False
+			)
+			speech_.write_to_fp(speech)
+			st.audio(speech)				
+		st.download_button('Save Response', result,key="847*")		
+	memory = []
 
 	st.info('Settings', icon="ℹ️")
-	Col()
+
 	dropdown_menu = st.selectbox(
 
 		'Set Tone',
@@ -492,102 +485,6 @@ with st.sidebar:
 
 	slider = slider_value
 
-Rewrite = st.button("Rewrite", help="Rewrite", key='996', use_container_width=False)
-
-if Rewrite:
-	report = []
-	for resp in openai.Completion.create(model='text-davinci-003',
-					prompt="Rewrite this, " + user_input + ", using a" + dropdown_menu + " tone:",
-					max_tokens=1012, 
-					temperature = slider,
-					stream = True):
-			report.append(resp.choices[0].text)
-			result = "".join(report).strip()
-			result = result.replace("\n", "")
-			res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
-
-	if Rewrite & selected2:
-		speech = BytesIO()
-		speech_ = gTTS(
-			text=result, 
-			lang='en', 
-			slow=False
-		)
-		speech_.write_to_fp(speech)
-		st.audio(speech)				
-	st.download_button('Save Response', result,key="847*")
-
-
-Summarize = st.button("Summarize", help="Summarize", key='994', use_container_width=False)
-if Summarize:
-	report = []
-	for resp in openai.Completion.create(model='text-davinci-003',
-					prompt="Summarize this, " + user_input + ", using a" + dropdown_menu + " tone:",
-					max_tokens=1012, 
-					temperature = slider,
-					stream = True):
-			report.append(resp.choices[0].text)
-			result = "".join(report).strip()
-			result = result.replace("\n", "")
-			res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
-
-	if Rewrite & selected2:
-		speech = BytesIO()
-		speech_ = gTTS(
-			text=result, 
-			lang='en', 
-			slow=False
-		)
-		speech_.write_to_fp(speech)
-		st.audio(speech)				
-	st.download_button('Save Response', result,key="847*")
-Brainstorm = st.button("Brainstorm", help="Summarize", key='992', use_container_width=False)
-if Brainstorm:
-	report = []
-	for resp in openai.Completion.create(model='text-davinci-003',
-					prompt="Brainstorm and create a list of 10-20 creative writing ideas.",
-					max_tokens=1012, 
-					temperature = slider,
-					stream = True):
-			report.append(resp.choices[0].text)
-			result = "".join(report).strip()
-			result = result.replace("\n", "")
-			res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
-
-	if Rewrite & selected2:
-		speech = BytesIO()
-		speech_ = gTTS(
-			text=result, 
-			lang='en', 
-			slow=False
-		)
-		speech_.write_to_fp(speech)
-		st.audio(speech)				
-	st.download_button('Save Response', result,key="847*")		
-Title = st.button("Create Title", help="Create Titles", key='990', use_container_width=False)
-if Title:
-	report = []
-	for resp in openai.Completion.create(model='text-davinci-003',
-					prompt="Create a list of Titles to begin writing about with a" + Genre + " theme and a " + dropdown_menu + " tone.",
-					max_tokens=1012, 
-					temperature = slider,
-					stream = True):
-			report.append(resp.choices[0].text)
-			result = "".join(report).strip()
-			result = result.replace("\n", "")
-			res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
-
-	if Rewrite & selected2:
-		speech = BytesIO()
-		speech_ = gTTS(
-			text=result, 
-			lang='en', 
-			slow=False
-		)
-		speech_.write_to_fp(speech)
-		st.audio(speech)				
-	st.download_button('Save Response', result,key="847*")		
-memory = []
 
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
 
