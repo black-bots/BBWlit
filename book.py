@@ -69,6 +69,7 @@ def deobfuscate(text):
 
     return result
 
+
 st.markdown("""
 
         <style>
