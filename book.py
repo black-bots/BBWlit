@@ -423,15 +423,8 @@ if ok:
 
 				result = result.replace("\n", "")
 
-				#res_box.markdown(f":blue[Grey's Assistant:  ]:green[*{result}*]")
+				res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
 
-
-				txt_input = st.text_input(
-					"Bellatrix Wrote 👇",
-					label_visibility=st.session_state.visibility,
-					disabled=st.session_state.disabled,
-					placeholder={result},
-				)
 
 
 		if ok & selected2:
@@ -498,7 +491,7 @@ if ok:
 
 			st.audio(speech)
 
-		history.append("Grey's Assistant: " + result)
+		history.append("Bellatrix: " + result)
 
 	with st.sidebar:
 
