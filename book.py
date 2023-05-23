@@ -422,21 +422,19 @@ if ok:
 				result = result.replace("\n", "")
 
 				res_box.markdown(f":blue[Grey's Assistant:  ]:green[*{result}*]")
-				# Store the initial value of widgets in session state
+
 				if "visibility" not in st.session_state:
 				    st.session_state.visibility = "visible"
 				    st.session_state.disabled = False
 
 
 				text_input = st.text_input(
-					"Enter some text 👇",
+					"Bellatrix Wrote 👇",
 					label_visibility=st.session_state.visibility,
 					disabled=st.session_state.disabled,
-					placeholder=st.session_state.placeholder,
+					placeholder={result},
 				)
 
-				if text_input:
-					st.write("You entered: ", text_input)
 
 		if ok & selected2:
 
