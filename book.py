@@ -388,11 +388,100 @@ res_box = st.empty()
 
 #############################################################################
 
-user_input = st.text_area(":orange[What should we write about?]", "ie: Start writing a science fiction novel about Vampires", help="Type what you want to write about",key="placeholder")
+user_input = st.text_area(":orange[What should we write about?]", "ie: 'Start writing a science fiction novel about Vampires' - Write Here", help="Type what you want to write about",key="placeholder")
 ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 col1, col2, col3, col4 = st.columns(4)
 with col1:
 	Rewrite = st.button("Rewrite", help="Rewrite", key='123', use_container_width=False)
+	if Rewrite:
+		report = []
+
+		for resp in openai.Completion.create(model='text-davinci-003',
+
+						prompt="Rewrite this using a" + dropdown_menu + " tone:" + user_input,
+
+						max_tokens=1012, 
+
+						temperature = slider,
+
+						stream = True):
+
+				report.append(resp.choices[0].text)
+
+				result = "".join(report).strip()
+
+				result = result.replace("\n", "")
+
+				res_box.markdown(f":blue[Bellaxtrix:  ]:green[*{result}*]")
+
+
+
+		if Rewrite & selected2:
+
+			speech = BytesIO()
+
+			speech_ = gTTS(
+
+				text=result, 
+
+				lang='en', 
+
+				slow=False
+
+			)
+
+			speech_.write_to_fp(speech)
+
+			st.audio(speech)				
+
+		st.download_button('Save Response', result,key="847*")
+
+		st.markdown("----")
+
+	else:
+
+		completions = openai.Completion.create(model='text-davinci-003',
+
+							prompt="Rewrite this using a" + dropdown_menu + " tone:" + user_input,
+
+							max_tokens=1012, 
+
+							temperature = slider,
+
+							stream = False)
+
+		result = completions.choices[0].text
+
+		res_box.write(result)
+
+		st.download_button('Save Response', result)
+
+		history.append("You: " + user_input)
+
+		prompt = "\n".join(history)
+
+		response = result
+
+		if Rewrite & selected2:
+
+			speech = BytesIO()
+
+			speech_ = gTTS(
+
+				text=result, 
+
+				lang='en', 
+
+				slow=False
+
+			)
+
+			speech_.write_to_fp(speech)
+
+			st.audio(speech)
+
+		history.append("Bellatrix: " + result)
+
 with col2:
 	Summarize = st.button("Summarize", help="Summarize", key='123', use_container_width=False)
 with col3:
