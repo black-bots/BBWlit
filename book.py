@@ -154,7 +154,7 @@ st.image(_image,use_column_width="auto")
 res_box = st.empty()
 #############################################################################
 
-user_input = st.text_area(":orange[What should we write about?]", "ie: 'Start writing a science fiction novel about Vampires' - Write Here", help="Type what you want to write about",key="placeholder")
+user_input = st.text_area(":orange[Write for yourself or Speak with Bellatrix]", "ie: 'Tell me about hippos.' - Write Here", help="Type what you want to write about",key="placeholder")
 
 with st.sidebar:
 
