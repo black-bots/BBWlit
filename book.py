@@ -176,6 +176,24 @@ with st.sidebar:
 
 	slider = slider_value
 
+	
+ok = st.button("Bellatrix", help="Send Message", key='123gg', use_container_width=False)
+
+memory = []
+
+res_box.markdown(f":blue[Bellatrix:  ]")
+
+if ok:
+	report = []
+	for resp in openai.Completion.create(model='text-davinci-003',
+					prompt=prompto + user_input,
+					max_tokens=1012, 
+					temperature = slider,
+					stream = True):
+			report.append(resp.choices[0].text)
+			result = "".join(report).strip()
+			result = result.replace("\n", "")
+			res_box.markdown(f":blue[Bellatrix:  ]:green[*{result}*]")
 col1, col2, col3, col4 = st.columns([1,1,1,1])
 
 with col1:
