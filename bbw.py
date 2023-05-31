@@ -38,7 +38,7 @@ from gtts import gTTS
 from io import BytesIO
 history=[]
 icob=Image.open(_F)
-st.set_page_config(page_title='BlackButler WEB',page_icon=icob,layout='centered',initial_sidebar_state='auto')
+st.set_page_config(page_title='BlackButler WEB',page_icon=icob,layout='centered',initial_sidebar_state='collapsed')
 bottom_image=Image.open('static/1.png')
 main_image=Image.open(_F)
 top_image=Image.open('static/4.png')
