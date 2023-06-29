@@ -298,35 +298,35 @@ with tab1:
 		st.download_button('Save Response', result,key="847*")
 		st.markdown("----")
 	
-    else:
-		print('')
-
-    with st.sidebar:
-
-            text = "Tell me about this: "
-            uploaded_file = st.file_uploader('Upload a CSV file',type=('csv'))
-    if uploaded_file is not None:
-            import pandas as pd
-
-            df = pd.read_csv(uploaded_file,encoding='latin-1')
-            df = df.to_json()
-
-            user_input = text + df
-
-            completions = openai.Completion.create(model='text-davinci-003',
-                                        prompt=user_input,
-                                        max_tokens=1012, 
-                                        temperature = 0.7,
-                                        stream = False)
-            result = completions.choices[0].text
-
-
-            #with st.sidebar:
-            res_box.write(':blue[Butler:  ]' + f':green[{result}]')
-            st.markdown("----")
-            st.write(df)
-            st.markdown("----")
-            st.download_button('Save Response', result)
+	    else:
+			print('')
+	
+	    with st.sidebar:
+	
+	            text = "Tell me about this: "
+	            uploaded_file = st.file_uploader('Upload a CSV file',type=('csv'))
+	    if uploaded_file is not None:
+	            import pandas as pd
+	
+	            df = pd.read_csv(uploaded_file,encoding='latin-1')
+	            df = df.to_json()
+	
+	            user_input = text + df
+	
+	            completions = openai.Completion.create(model='text-davinci-003',
+	                                        prompt=user_input,
+	                                        max_tokens=1012, 
+	                                        temperature = 0.7,
+	                                        stream = False)
+	            result = completions.choices[0].text
+	
+	
+	            #with st.sidebar:
+	            res_box.write(':blue[Butler:  ]' + f':green[{result}]')
+	            st.markdown("----")
+	            st.write(df)
+	            st.markdown("----")
+	            st.download_button('Save Response', result)
 with tab2:
 	AiMG()
 
