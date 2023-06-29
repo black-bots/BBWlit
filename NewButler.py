@@ -279,7 +279,7 @@ with tab1:
 	
 	res_box.markdown(f':blue[BlackButler:  ]')
 	if ok:
-	
+		print(bard.get_answer(user_input)['content'])
 		result = bard.get_answer(user_input)['content']
 		res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
 		st.markdown("----")
