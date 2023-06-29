@@ -280,11 +280,11 @@ with tab1:
 	res_box.markdown(f':blue[BlackButler:  ]')
 	if ok:
 		result = bard.get_answer(user_input)['content']
-		res_box.write(':blue[try1:  ]' + f':green[{result}]')
+		res_box.write(result)
 		st.markdown("----")
-		res_box.markdown(f':blue[try2:  ]:green[*{result}*]')
+		res_box.markdown(result)
 		st.markdown("----")
-		st.write('try3: ' + result)
+		st.write(result)
 		st.markdown("----")
 		
 		speech = BytesIO()
