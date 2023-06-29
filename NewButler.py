@@ -278,11 +278,13 @@ with tab1:
     ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 
     res_box.markdown(f':blue[BlackButler:  ]')
-    text = user_input
     if ok:
 
-            result = bard.get_answer(text)['content']
+            result = bard.get_answer(user_input)['content']
             res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
+            st.markdown("----")
+	    st.write(result)
+
 
             speech = BytesIO()
             speech_ = gTTS(
