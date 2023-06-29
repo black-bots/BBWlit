@@ -282,13 +282,13 @@ with tab1:
 	if ok:
 		result = bard.get_answer(user_input)['content']
 		bard_output = Bard().get_answer(user_input)['content']
-		res_box.write(result)
+		#res_box.write(result)
 		res_box.write(bard_output)
 		st.markdown("----")
-		res_box.markdown(result)
+		#res_box.markdown(result)
 		res_box.markdown(bard_output)
 		st.markdown("----")
-		st.write(result)
+		#st.write(result)
 		st.write(bard_output)
 		st.markdown("----")
 		
