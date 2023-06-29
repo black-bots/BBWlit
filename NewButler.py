@@ -271,35 +271,35 @@ with st.sidebar:
 	slider = slider_value
 
 with tab1:
-    res_box = st.empty()
-    Rec()
-    #############################################################################
-    user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
-    ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
-
-    res_box.markdown(f':blue[BlackButler:  ]')
-    if ok:
-
-	result = bard.get_answer(user_input)['content']
-	res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
-	st.markdown("----")
-	st.write(result)
+	res_box = st.empty()
+	Rec()
+	#############################################################################
+	user_input = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
+	ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
 	
+	res_box.markdown(f':blue[BlackButler:  ]')
+	if ok:
 	
-	speech = BytesIO()
-	speech_ = gTTS(
-	    text=result, 
-	    lang='en', 
-	    slow=False
-	)
-	speech_.write_to_fp(speech)
-	st.audio(speech)				
+		result = bard.get_answer(user_input)['content']
+		res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')
+		st.markdown("----")
+		st.write(result)
+		
+		
+		speech = BytesIO()
+		speech_ = gTTS(
+		    text=result, 
+		    lang='en', 
+		    slow=False
+		)
+		speech_.write_to_fp(speech)
+		st.audio(speech)				
+		
+		st.download_button('Save Response', result,key="847*")
+		st.markdown("----")
 	
-	st.download_button('Save Response', result,key="847*")
-	st.markdown("----")
-
     else:
-            print('')
+		print('')
 
     with st.sidebar:
 
