@@ -161,6 +161,9 @@ res_box.markdown(f':blue[BlackButler:  ]')
 if ok:
 
     result = bard.get_answer(text)['content']
+    huh=bard.get(text)
+    res_box.markdown(huh)
+	
     res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
 
     st.download_button('Save Response', result,key="847*")
