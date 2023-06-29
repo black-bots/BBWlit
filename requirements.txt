@@ -1,3 +1,4 @@
+bardapi
 matplotlib
 requests
 streamlit
