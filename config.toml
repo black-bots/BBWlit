@@ -5,6 +5,7 @@ base = 'dark'
 port = 8080
 enableCORS=false
 enableXsrfProtection=false
+enableWebsocketCompression = false
 
 [browser]
 gatherUsageStats = false
