@@ -33,6 +33,7 @@ session.headers = {
 session.cookies.set("__Secure-1PSID", os.getenv("_BARD_API_KEY")) 
 
 bard = Bard(token=token, session=session, timeout=30)
+bard_inproxy = Bard(timeout=10)
 
 history = []
 from PIL import Image
@@ -161,8 +162,6 @@ res_box.markdown(f':blue[BlackButler:  ]')
 if ok:
 
     result = bard.get_answer(text)['content']
-    huh=bard.get(text)
-    res_box.markdown(huh)
 	
     res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
 
