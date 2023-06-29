@@ -33,6 +33,7 @@ from gtts import gTTS
 from io import BytesIO
 
 os.environ['_BARD_API_KEY'] = 'XQjnNMzBnXOMYBEOJLu5wPojuZhWgMriCO46knG8HAZlFMWaII5_qu3QdhHFRSMEmBsDYw.'
+token='XQjnNMzBnXOMYBEOJLu5wPojuZhWgMriCO46knG8HAZlFMWaII5_qu3QdhHFRSMEmBsDYw.'
 
 session = requests.Session()
 session.headers = {
@@ -45,7 +46,7 @@ session.headers = {
         }
 session.cookies.set("__Secure-1PSID", os.getenv("_BARD_API_KEY")) 
 
-bard = Bard(token=os.getenv("_BARD_API_KEY"), session=session, timeout=30)
+bard = Bard(token=token, session=session, timeout=30)
 
 history = []
 
