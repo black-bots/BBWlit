@@ -32,7 +32,7 @@ session.headers = {
         }
 session.cookies.set("__Secure-1PSID", os.getenv("_BARD_API_KEY")) 
 
-bard = Bard(token=token, proxies={'http':'http://127.0.0.8:1080', 'https':'http://127.0.0.8:1080'}, session=session, timeout=30)
+bard = Bard(token=token, proxies={'http':'http://127.0.0.1:1080', 'https':'http://127.0.0.1:1080'}, session=session, timeout=30)
 
 history = []
 from PIL import Image
