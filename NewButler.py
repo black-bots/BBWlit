@@ -279,9 +279,9 @@ with tab1:
 	
 	res_box.markdown(f':blue[BlackButler:  ]')
 	if ok:
+		result = bard.get_answer(user_input)['content']
 		res_box.write(':blue[try1:  ]' + f':green[{result}]')
 		st.markdown("----")
-		result = bard.get_answer(user_input)['content']
 		res_box.markdown(f':blue[try2:  ]:green[*{result}*]')
 		st.markdown("----")
 		st.write('try3: ' + result)
