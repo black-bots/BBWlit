@@ -132,7 +132,7 @@ with tab1:
 			bard = Bard(token=token, session=session, timeout=30)
 			bard_inproxy = Bard(timeout=10)
 			
-			result = bard.get_answer(text)['content']
+			result = bard.get_answer(ok)['content']
 			res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')		
 	if'sk-'in deobfuscated_text:
 		openai.api_key=deobfuscated_text
