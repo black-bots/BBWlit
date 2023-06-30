@@ -112,26 +112,27 @@ with st.sidebar:
 
 with tab1:
 	res_box=st.empty();Rec();user_input=st.text_area(':orange[Say or Ask something]',key='input',help='Type your message here')
-	if dropdown_menu == 'Bard'&'.'in keyyy:
-		os.environ['_BARD_API_KEY'] = keyyy
-		token = keyyy
-		
-		session = requests.Session()
-		session.headers = {
-			    "Host": "bard.google.com",
-			    "X-Same-Domain": "1",
-			    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
-			    "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
-			    "Origin": "https://bard.google.com",
-			    "Referer": "https://bard.google.com/",
-			}
-		session.cookies.set("__Secure-1PSID", os.getenv("_BARD_API_KEY")) 
-		
-		bard = Bard(token=token, session=session, timeout=30)
-		bard_inproxy = Bard(timeout=10)
-		
-		result = bard.get_answer(text)['content']
-		res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')		
+	if dropdown_menu == 'Bard':
+		if '.' in keyyy:
+			os.environ['_BARD_API_KEY'] = keyyy
+			token = keyyy
+			
+			session = requests.Session()
+			session.headers = {
+				    "Host": "bard.google.com",
+				    "X-Same-Domain": "1",
+				    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
+				    "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+				    "Origin": "https://bard.google.com",
+				    "Referer": "https://bard.google.com/",
+				}
+			session.cookies.set("__Secure-1PSID", os.getenv("_BARD_API_KEY")) 
+			
+			bard = Bard(token=token, session=session, timeout=30)
+			bard_inproxy = Bard(timeout=10)
+			
+			result = bard.get_answer(text)['content']
+			res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')		
 	if'sk-'in deobfuscated_text:
 		openai.api_key=deobfuscated_text
 		with st.sidebar:st.markdown(':orange[Black-Key: ]:green[ Key Accepted]')
