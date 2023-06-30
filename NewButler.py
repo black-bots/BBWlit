@@ -91,7 +91,7 @@ with st.sidebar:
 	if Tokens:html_string="<a href='https://www.fatfreecartpro.com/ecom/gb.php?&c=single&cl=395816&i=1781255' onclick='return EJEJC_lc(this);' style='display:inline-block;background: #e6c700 url(https://www.e-junkie.com/ej/images/newbuynow.png) center/100px no-repeat;border: none;padding: 7px 55px;border-radius: 3px;box-shadow: 1px 2px 2px rgba(0,0,0,0.2);text-decoration: none;' target='ej_ejc' class='ec_ejc_thkbx'>&nbsp;</a>";st.markdown(html_string,unsafe_allow_html=_A)
 	dropdown_menu = st.selectbox(
 		'Set Ai',
-		('BlackButler', 'Generic'),help="Select default Ai")
+		('BlackButler', 'Bard', 'Generic'),help="Select default Ai")
 	
 	selected2 = st.checkbox('Speak responses?', value=True,help="Speak Ai reponses out-loud")
 	selected = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
