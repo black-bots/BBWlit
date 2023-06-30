@@ -1,5 +1,6 @@
 bardapi
 matplotlib
+speechrecognition
 requests
 streamlit
 openai
