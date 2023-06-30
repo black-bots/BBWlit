@@ -112,6 +112,7 @@ with st.sidebar:
 
 with tab1:
 	res_box=st.empty();Rec();user_input=st.text_area(':orange[Say or Ask something]',key='input',help='Type your message here')
+	ok=st.button('📩',help=_G,key='123',use_container_width=_B);memory=[];res_box.markdown(f":blue[BlackButler:  ]")
 	if dropdown_menu == 'Bard':
 		if ok&'.' in keyyy:
 			os.environ['_BARD_API_KEY'] = keyyy
