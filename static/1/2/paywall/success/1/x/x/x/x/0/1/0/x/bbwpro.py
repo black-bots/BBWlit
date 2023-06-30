@@ -93,18 +93,18 @@ with tab1:
         uploaded_file2 = st.file_uploader("Choose a file")
         if uploaded_file2 is not None:
             # To read file as bytes:
-            bytes_data = uploaded_file.getvalue()
+            bytes_data = uploaded_file2.getvalue()
             st.write(bytes_data)
             user_input=text+bytes_data;completions=openai.Completion.create(model=_C,prompt=user_input,max_tokens=1012,temperature=0.7,stream=_B);result=completions.choices[0].text;res_box.write(':blue[Butler:\xa0 ]'+f":green[{result}]");st.markdown(_E);st.write(df);st.markdown(_E);st.download_button(_D,result)
             # To convert to a string based IO:
-            stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+            stringio = StringIO(uploaded_file2.getvalue().decode("utf-8"))
             st.write(stringio)
             user_input=text+stringio;completions=openai.Completion.create(model=_C,prompt=user_input,max_tokens=1012,temperature=0.7,stream=_B);result=completions.choices[0].text;res_box.write(':blue[Butler:\xa0 ]'+f":green[{result}]");st.markdown(_E);st.write(df);st.markdown(_E);st.download_button(_D,result)
             # To read file as string:
             string_data = stringio.read()
             st.write(string_data)
             user_input=text+string_data;completions=openai.Completion.create(model=_C,prompt=user_input,max_tokens=1012,temperature=0.7,stream=_B);result=completions.choices[0].text;res_box.write(':blue[Butler:\xa0 ]'+f":green[{result}]");st.markdown(_E);st.write(df);st.markdown(_E);st.download_button(_D,result)
-            dataframe = pd.read_csv(uploaded_file)
+            dataframe = pd.read_csv(uploaded_file2)
             st.write(dataframe)
             user_input=text+dataframe;completions=openai.Completion.create(model=_C,prompt=user_input,max_tokens=1012,temperature=0.7,stream=_B);result=completions.choices[0].text;res_box.write(':blue[Butler:\xa0 ]'+f":green[{result}]");st.markdown(_E);st.write(df);st.markdown(_E);st.download_button(_D,result)
 
