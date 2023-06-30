@@ -90,6 +90,24 @@ with tab1:
                                 history.append('BlackButler: '+result)
         with st.sidebar:text='Tell me about this: ';uploaded_file=st.file_uploader('Upload a CSV file',type='csv')
         if uploaded_file is not None:import pandas as pd;df=pd.read_csv(uploaded_file,encoding='latin-1');df=df.to_json();user_input=text+df;completions=openai.Completion.create(model=_C,prompt=user_input,max_tokens=1012,temperature=0.7,stream=_B);result=completions.choices[0].text;res_box.write(':blue[Butler:\xa0 ]'+f":green[{result}]");st.markdown(_E);st.write(df);st.markdown(_E);st.download_button(_D,result)
+        uploaded_file2 = st.file_uploader("Choose a file")
+        if uploaded_file2 is not None:
+            # To read file as bytes:
+            bytes_data = uploaded_file.getvalue()
+            st.write(bytes_data)
+            user_input=text+bytes_data;completions=openai.Completion.create(model=_C,prompt=user_input,max_tokens=1012,temperature=0.7,stream=_B);result=completions.choices[0].text;res_box.write(':blue[Butler:\xa0 ]'+f":green[{result}]");st.markdown(_E);st.write(df);st.markdown(_E);st.download_button(_D,result)
+            # To convert to a string based IO:
+            stringio = StringIO(uploaded_file.getvalue().decode("utf-8"))
+            st.write(stringio)
+            user_input=text+stringio;completions=openai.Completion.create(model=_C,prompt=user_input,max_tokens=1012,temperature=0.7,stream=_B);result=completions.choices[0].text;res_box.write(':blue[Butler:\xa0 ]'+f":green[{result}]");st.markdown(_E);st.write(df);st.markdown(_E);st.download_button(_D,result)
+            # To read file as string:
+            string_data = stringio.read()
+            st.write(string_data)
+            user_input=text+string_data;completions=openai.Completion.create(model=_C,prompt=user_input,max_tokens=1012,temperature=0.7,stream=_B);result=completions.choices[0].text;res_box.write(':blue[Butler:\xa0 ]'+f":green[{result}]");st.markdown(_E);st.write(df);st.markdown(_E);st.download_button(_D,result)
+            dataframe = pd.read_csv(uploaded_file)
+            st.write(dataframe)
+            user_input=text+dataframe;completions=openai.Completion.create(model=_C,prompt=user_input,max_tokens=1012,temperature=0.7,stream=_B);result=completions.choices[0].text;res_box.write(':blue[Butler:\xa0 ]'+f":green[{result}]");st.markdown(_E);st.write(df);st.markdown(_E);st.download_button(_D,result)
+
 with tab2:AiMG()
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>",unsafe_allow_html=_A)
 st.markdown('<style> footer {visibility: hidden;} </style>',unsafe_allow_html=_A)
