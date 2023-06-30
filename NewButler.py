@@ -111,7 +111,7 @@ with st.sidebar:
 
 
 with tab1:
-        res_box=st.empty();Rec();user_input=st.text_area(':orange[Say or Ask something]',key='input',help='Type your message here')
+	res_box=st.empty();Rec();user_input=st.text_area(':orange[Say or Ask something]',key='input',help='Type your message here')
 	if dropdown_menu == 'Bard'&'.'in keyyy:
 		os.environ['_BARD_API_KEY'] = keyyy
 		token = keyyy
@@ -132,23 +132,23 @@ with tab1:
 		
 		result = bard.get_answer(text)['content']
 		res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')		
-        if'sk-'in deobfuscated_text:
-                openai.api_key=deobfuscated_text
-                with st.sidebar:st.markdown(':orange[Black-Key: ]:green[ Key Accepted]')
-                ok=st.button('📩',help=_G,key='123',use_container_width=_B);memory=[];res_box.markdown(f":blue[BlackButler:  ]")
-                if ok:
-                        api_line=keyy
-                        if selected:
-                                report=[]
-                                for resp in openai.Completion.create(model=_C,prompt=prompto+user_input,max_tokens=1012,temperature=slider,stream=_A):report.append(resp.choices[0].text);result=''.join(report).strip();result=result.replace('\n','');res_box.markdown(f":blue[BlackButler:  ]:green[*{result}*]")
-                                if ok&selected2:speech=BytesIO();speech_=gTTS(text=result,lang='en',slow=_B);speech_.write_to_fp(speech);st.audio(speech)
-                                st.download_button(_D,result,key='847*');st.markdown(_E)
-                        else:
-                                completions=openai.Completion.create(model=_C,prompt=prompto+user_input,max_tokens=1012,temperature=slider,stream=_B);result=completions.choices[0].text;res_box.write(result);st.download_button(_D,result);history.append('You: '+user_input);prompt='\n'.join(history);response=result
-                                if ok&selected2:speech=BytesIO();speech_=gTTS(text=result,lang='en',slow=_B);speech_.write_to_fp(speech);st.audio(speech)
-                                history.append('BlackButler: '+result)
-        with st.sidebar:text='Tell me about this: ';uploaded_file=st.file_uploader('Upload a CSV file',type='csv')
-        if uploaded_file is not None:import pandas as pd;df=pd.read_csv(uploaded_file,encoding='latin-1');df=df.to_json();user_input=text+df;completions=openai.Completion.create(model=_C,prompt=user_input,max_tokens=1012,temperature=0.7,stream=_B);result=completions.choices[0].text;res_box.write(':blue[Butler:\xa0 ]'+f":green[{result}]");st.markdown(_E);st.write(df);st.markdown(_E);st.download_button(_D,result)
+	if'sk-'in deobfuscated_text:
+		openai.api_key=deobfuscated_text
+		with st.sidebar:st.markdown(':orange[Black-Key: ]:green[ Key Accepted]')
+		ok=st.button('📩',help=_G,key='123',use_container_width=_B);memory=[];res_box.markdown(f":blue[BlackButler:  ]")
+		if ok:
+			api_line=keyy
+			if selected:
+				report=[]
+				for resp in openai.Completion.create(model=_C,prompt=prompto+user_input,max_tokens=1012,temperature=slider,stream=_A):report.append(resp.choices[0].text);result=''.join(report).strip();result=result.replace('\n','');res_box.markdown(f":blue[BlackButler:  ]:green[*{result}*]")
+				if ok&selected2:speech=BytesIO();speech_=gTTS(text=result,lang='en',slow=_B);speech_.write_to_fp(speech);st.audio(speech)
+				st.download_button(_D,result,key='847*');st.markdown(_E)
+			else:
+				completions=openai.Completion.create(model=_C,prompt=prompto+user_input,max_tokens=1012,temperature=slider,stream=_B);result=completions.choices[0].text;res_box.write(result);st.download_button(_D,result);history.append('You: '+user_input);prompt='\n'.join(history);response=result
+				if ok&selected2:speech=BytesIO();speech_=gTTS(text=result,lang='en',slow=_B);speech_.write_to_fp(speech);st.audio(speech)
+				history.append('BlackButler: '+result)
+	with st.sidebar:text='Tell me about this: ';uploaded_file=st.file_uploader('Upload a CSV file',type='csv')
+	if uploaded_file is not None:import pandas as pd;df=pd.read_csv(uploaded_file,encoding='latin-1');df=df.to_json();user_input=text+df;completions=openai.Completion.create(model=_C,prompt=user_input,max_tokens=1012,temperature=0.7,stream=_B);result=completions.choices[0].text;res_box.write(':blue[Butler:\xa0 ]'+f":green[{result}]");st.markdown(_E);st.write(df);st.markdown(_E);st.download_button(_D,result)
 with tab2:AiMG()
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>",unsafe_allow_html=_A)
 st.markdown('<style> footer {visibility: hidden;} </style>',unsafe_allow_html=_A)
