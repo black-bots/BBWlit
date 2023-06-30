@@ -112,7 +112,7 @@ with st.sidebar:
 
 with tab1:
 	res_box=st.empty();Rec();user_input=st.text_area(':orange[Say or Ask something]',key='input',help='Type your message here')
-	ok=st.button('📩',help=_G,key='123',use_container_width=_B);memory=[];res_box.markdown(f":blue[BlackButler:  ]")
+	ok=st.button('📩',help=_G,key='123',use_container_width=_B);memory=[]
 	if dropdown_menu == 'Bard':
 		if ok:
 			os.environ['_BARD_API_KEY'] = keyyy
@@ -133,7 +133,7 @@ with tab1:
 			bard_inproxy = Bard(timeout=10)
 			
 			result = bard.get_answer(ok)['content']
-			res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')		
+			res_box.markdown(f':blue[Bard:  ]:green[*{result}*]')		
 	if'sk-'in deobfuscated_text:
 		openai.api_key=deobfuscated_text
 		with st.sidebar:st.markdown(':orange[Black-Key: ]:green[ Key Accepted]')
