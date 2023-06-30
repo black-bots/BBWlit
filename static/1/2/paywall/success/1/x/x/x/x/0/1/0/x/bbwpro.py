@@ -91,8 +91,9 @@ with tab1:
         with st.sidebar:text='Tell me about this: ';uploaded_file=st.file_uploader('Upload a CSV file',type='csv')
         if uploaded_file is not None:import pandas as pd;df=pd.read_csv(uploaded_file,encoding='latin-1');df=df.to_json();user_input=text+df;completions=openai.Completion.create(model=_C,prompt=user_input,max_tokens=1012,temperature=0.7,stream=_B);result=completions.choices[0].text;res_box.write(':blue[Butler:\xa0 ]'+f":green[{result}]");st.markdown(_E);st.write(df);st.markdown(_E);st.download_button(_D,result)
         uploaded_file2 = st.file_uploader("Choose a file")
+        text='Tell me about this files contents: '
+
         if uploaded_file2 is not None:
-            text='Tell me about this: '
             # To read file as bytes:
             bytes_data = uploaded_file2.getvalue()
             st.write(bytes_data)
