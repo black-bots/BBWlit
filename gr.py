@@ -9,14 +9,14 @@ import prompt_toolkit
 import streamlit as st
 
 st.header("IG BlackMarket")
-name = st.text_input("Enter user name")
-password = st.text_input("Enter password", type="password")
-
+name = st.text_input("Enter Username:")
+password = st.text_input("Enter Password:", type="password")
+Keyy = st.text_input("Set API-Key:")
 Go = st.button('Start')
 if Go:
   cl = Client()
   cl.login(name, password)
-  openai.api_key = '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'
+  openai.api_key = Keyy
   find_value = 20
   def generate_response(prompt):
       response = openai.Completion.create(
