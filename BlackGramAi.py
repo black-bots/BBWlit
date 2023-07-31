@@ -18,7 +18,7 @@ APIkey = st.text_input("Enter API-Key", type="password")
 Start = st.button('Run BlackGram')
 if Start:
     cl = Client()
-    cl.login(name, password)
+    cl.login(str(name), str(password))
     openai.api_key = APIkey
     find_value = 20
     def generate_response(prompt):
