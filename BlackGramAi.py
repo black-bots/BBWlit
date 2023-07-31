@@ -33,7 +33,7 @@ if Start:
         message = response.choices[0].text.strip()
         return message
     while True:
-        username_str = 'erikrai.tech'
+        username_str = name
         # List of Hashtags To Fetch
         hashtag_list = ["like", "follow", "follow", "chatgpt", "ai", "chatai"]
     
