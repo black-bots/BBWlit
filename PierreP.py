@@ -11,9 +11,29 @@ st.image(image,use_column_width=True)
 
 st.markdown('-:green[Supremely Refined]')
 featured = st.expander("Todays Featured Piece", expanded=True)
-with featured:
-	st.image(image1), st.image('https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg', width=300)
 
+with featured:
+	
+	sunset_imgs = [
+	    'static/p1.jpg',
+	    'https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg',
+	    'https://unsplash.com/photos/mOcdke2ZQoE/download?force=true',
+	    'https://unsplash.com/photos/GPPAjJicemU/download?force=true',
+	    'https://unsplash.com/photos/JFeOy62yjXk/download?force=true',
+	    'https://unsplash.com/photos/kEgJVDkQkbU/download?force=true',
+	    'https://unsplash.com/photos/i9Q9bc-WgfE/download?force=true',
+	    'https://unsplash.com/photos/tIL1v1jSoaY/download?force=true',
+	    'https://unsplash.com/photos/-G3rw6Y02D0/download?force=true',
+	    'https://unsplash.com/photos/xP_AGmeEa6s/download?force=true',
+	    'https://unsplash.com/photos/4iTVoGYY7bM/download?force=true',
+	    'https://unsplash.com/photos/mBQIfKlvowM/download?force=true',
+	    'https://unsplash.com/photos/A-11N8ItHZo/download?force=true',
+	    'https://unsplash.com/photos/kOqBCFsGTs8/download?force=true',
+	    'https://unsplash.com/photos/8DMuvdp-vso/download?force=true'
+	]
+	image_iterator = paginator("Select a sunset page", sunset_imgs)
+	indices_on_page, images_on_page = map(list, zip(*image_iterator))
+	st.image(images_on_page, width=100, caption=indices_on_page)
 def my_widget2(key):
     st.subheader('Watch Now')
     return st.button("Click me " + key)
