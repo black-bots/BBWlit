@@ -113,8 +113,8 @@ with expd2:
 
 with st.sidebar:
     st.subheader("MENU")
-    st.write('[Rings](https://./')
+    st.write('[Rings](https://./)')
     st.write('[Necklaces](https://./)')
-    st.write('[Bracelets](https://./')
+    st.write('[Bracelets](https://./)')
 
              
