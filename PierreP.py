@@ -29,9 +29,9 @@ def paginator(label, items, items_per_page=10, on_sidebar=False):
 st.markdown("""
   <style>
      /* Streamlit class name of the div that holds the expander's title*/
-    .st-emotion-cache-16idsys e1nzilvr5 p {
+    .st-emotion-cache-16idsys.e1nzilvr5 {
       font-size: 32px;
-      color: red;
+      color: green;
       }
     
      /* Streamlit class name of the div that holds the expander's text*/
