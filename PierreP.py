@@ -28,8 +28,11 @@ def paginator(label, items, items_per_page=10, on_sidebar=False):
 
 st.markdown("""
   <style>
-    body {
-    display: block;
+    html {
+	text-align: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
     }
     .st-emotion-cache-16idsys.e1nzilvr5 {
       font-weight: 900;
