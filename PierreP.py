@@ -35,10 +35,10 @@ st.markdown("""
 	margin-right: auto;
     }
 
-    .footer { 
+    footer { 
         display: none; 
     } 
-    .footer:after { 
+    footer:after { 
         content: "This text replaces the original."; 
     } 
     .st-emotion-cache-1v0mbdj {
