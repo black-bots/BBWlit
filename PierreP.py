@@ -46,9 +46,9 @@ def paginator(label, items, items_per_page=10, on_sidebar=True):
 
     # Figure out where to display the paginator
     if on_sidebar:
-	location = st.sidebar.empty()
+        location = st.sidebar.empty()
     else:
-	location = st.empty()
+        location = st.empty()
 
     # Display a pagination selectbox in the specified location.
     items = list(items)
