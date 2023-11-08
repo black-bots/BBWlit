@@ -31,7 +31,7 @@ def paginator(label, items, items_per_page=1, on_sidebar=False):
 with featured:
 	features = [
 	    image1,
-	    'https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg'
+	    'https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg'
 	]
 	image_iterator = paginator("Diamond Saucer", features)
 	indices_on_page, images_on_page = map(list, zip(*image_iterator))
@@ -81,34 +81,19 @@ st.write(f"""
 :red[For Mobile:] IF “Download an App” Step appears – Click on this and then click “Download” so the App store opens but DO NOT download the game. Take 60 seconds to chill or roll up, then return to your browser, to the page and the small window that had the “Download” button should be gone and you can continue to the movie.
 """)
 
-col1, col2, col3, col4= st.columns(4)
-
-with col1:
-   st.write("Ant-Man and the Wasp: Quantumania")
-   st.text("Trailer")
-   st.video('https://youtu.be/ZlNFpri-Y40')
-   st.write("🎥👉 [Watch Movie](https://link-target.net/674202/free-new-movies-2023)")
-   
-
-with col2:
-   st.write("Shazam! Fury of the Gods")
-   st.text("Trailer")
-   st.video('https://youtu.be/Zi88i4CpHe4')
-   st.write("🎥👉 [Watch Movie](https://link-center.net/674202/free-mario-bros-movie)")
-
-
-with col3:
-   st.write("Scream VI")
-   st.text("Trailer")
-   st.video('https://youtu.be/1Ie2qmAOc6Q')
-   st.write("🎥👉 [Watch Movie](https://link-hub.net/674202/free-scream-iv-movie)")
-
-    
-with col4:
-   st.write("John Wick: Chapter 4")
-   st.text("Trailer")
-   st.video('https://youtu.be/qEVUtrk8_B4')
-   st.write("🎥👉 [Watch Movie](https://direct-link.net/674202/free-john-wick-chapter-4)")
+Page1 = [
+	'https://static.wixstatic.com/media/0dfae7_5ba237552d6746c1aa8459751237a8cb~mv2.jpg/v1/fill/w_274,h_274,al_c,q_80,usm_0.66_1.00_0.01/0dfae7_5ba237552d6746c1aa8459751237a8cb~mv2.jpg',
+	'https://static.wixstatic.com/media/0dfae7_50700c2ac4a1434c9149ecd7d16f2f73~mv2.jpg',
+	'https://static.wixstatic.com/media/0dfae7_7af924f0a89d4c28b11d36f51a3df542~mv2.jpg',
+	'https://static.wixstatic.com/media/0dfae7_0f27f377533746b580637d433e7326c4~mv2.jpg',
+	'https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg',
+	'https://static.wixstatic.com/media/0dfae7_67c2f9eb5c61465ca54def74b745e1f2~mv2.jpg',
+	'https://static.wixstatic.com/media/0dfae7_f545a5f877d64bf3afeb4e28dcb1394c~mv2.jpg',
+	'https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg'
+]
+image_iterator = paginator("Rings", Page1)
+indices_on_page, images_on_page = map(list, zip(*image_iterator))
+st.image(images_on_page, width=300, caption=indices_on_page)
 
 expd2 = st.expander("View More Movies", expanded=False)
 with expd2:
