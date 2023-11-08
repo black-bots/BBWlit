@@ -8,10 +8,10 @@ from PIL import Image
 image = Image.open('static/p1.png')
 st.image(image,use_column_width=True)
 
-st.markdown('Now Showing - :green[Aliens vs Predator Requiem]')
-featured = st.expander("Todays Featured Movie", expanded=True)
+st.markdown('-:green[Supremely Refined]')
+featured = st.expander("Todays Featured Piece", expanded=True)
 with featured:
-	components.html("""<iframe src="https://drive.google.com/file/d/0B4MqvPThrYNjZE9sX2wwbkRZbXc/preview" width="640" height="480" />""",width=707,height=400)
+	components.html("""<iframe src="https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg" width="300" height="300" />""",width=301,height=301)
 
 
 def my_widget2(key):
