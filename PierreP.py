@@ -84,7 +84,7 @@ col1, col2, col3, col4= st.columns(4)
 with col1:
    st.write("Set1")
    st.text("RandomName")
-   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=200)
+   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=175)
    st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
    
 
