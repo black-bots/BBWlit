@@ -54,9 +54,8 @@ st.markdown("""
   </style>
 """, unsafe_allow_html=True)
 with st.expander("Pierre Polis",expanded=False):
-	st.write(f"""
+	st.write(\"\"\"
 	:blue[Engagement & Fashion Jewelry from Pierre Polie]
- 	<br></br>
 	:green[What is the perfect way to dress up any outfit or add your own flare? Accessorizing with jewelry, of course! 
 	From sparkling diamond necklaces and fashionable layered bracelets to statement earrings to sophisticated but trendy stackable rings, 
 	Pierre Polie has the perfect jewelry piece to accentuate your wardrobe, your lifestyle and your budget. 
@@ -72,7 +71,7 @@ with st.expander("Pierre Polis",expanded=False):
 	or even flower girl gift from our wedding party gift selection at Pierre Polie. Looking for a deal? 
 	Find amazing clearance jewelry in popular styles, such as birthstone jewelry , 
 	anniversary bands , fashion necklaces , and drop earrings .]
-	""")
+	\"\"\")
 
 
 st.write("Todays Featured Piece")
