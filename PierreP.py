@@ -11,7 +11,7 @@ st.image(image,use_column_width=True)
 
 st.markdown('-:green[Supremely Refined]')
 featured = st.expander("Todays Featured Piece", expanded=True)
-def paginator(label, items, items_per_page=1, on_sidebar=False):
+def paginator(label, items, items_per_page=10, on_sidebar=False):
     if on_sidebar:
         location = st.sidebar.empty()
     else:
@@ -30,12 +30,9 @@ def paginator(label, items, items_per_page=1, on_sidebar=False):
 
 with featured:
 	features = [
-	    image1,
-	    'https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg'
+	    st.image(image1, width=300)
+	    st.image('https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg', width=300)
 	]
-	image_iterator = paginator("Diamond Saucer", features)
-	indices_on_page, images_on_page = map(list, zip(*image_iterator))
-	st.image(images_on_page, width=300, caption=indices_on_page)
 
 ################################
 st.header("Featured Movies")
