@@ -29,10 +29,7 @@ def paginator(label, items, items_per_page=10, on_sidebar=False):
 
 
 with featured:
-	features = [
-	    st.image(image1, width=300)
-	    st.image('https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg', width=300)
-	]
+	st.image('https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg', width=300)
 
 ################################
 st.header("Featured Movies")
