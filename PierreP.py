@@ -76,7 +76,7 @@ st.write(f"""
 """)
 
 Page1 = [
-	'https://static.wixstatic.com/media/0dfae7_5ba237552d6746c1aa8459751237a8cb~mv2.jpg/v1/fill/w_274,h_274,al_c,q_80,usm_0.66_1.00_0.01/0dfae7_5ba237552d6746c1aa8459751237a8cb~mv2.jpg',
+	image1,
 	'https://static.wixstatic.com/media/0dfae7_50700c2ac4a1434c9149ecd7d16f2f73~mv2.jpg',
 	'https://static.wixstatic.com/media/0dfae7_7af924f0a89d4c28b11d36f51a3df542~mv2.jpg',
 	'https://static.wixstatic.com/media/0dfae7_0f27f377533746b580637d433e7326c4~mv2.jpg',
