@@ -45,7 +45,7 @@ st.markdown("""
       color: orange;
       }
     .st-emotion-cache-16idsys p {
-      font-size: 22px;
+      font-size: 16px;
       }
     p {
       font-family: bariol;
@@ -54,7 +54,7 @@ st.markdown("""
   </style>
 """, unsafe_allow_html=True)
 with st.expander("Pierre Polis",expanded=False):
-	st.write("""
+	st.write(f"""
 	:green[Engagement & Fashion Jewelry from Pierre Polie]
  
 	:blue[What is the perfect way to dress up any outfit or add your own flare? Accessorizing with jewelry, of course!
