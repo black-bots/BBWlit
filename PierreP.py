@@ -30,16 +30,12 @@ def paginator(label, items, items_per_page=1, on_sidebar=False):
 
 with featured:
 	features = [
-	    'static/p1.jpg',
+	    image1,
 	    'https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg'
 	]
 	image_iterator = paginator("Diamond Saucer", features)
 	indices_on_page, images_on_page = map(list, zip(*image_iterator))
 	st.image(images_on_page, width=300, caption=indices_on_page)
-
-def my_widget2(key):
-    st.subheader('Watch Now')
-    return st.button("Click me " + key)
 
 ################################
 st.header("Featured Movies")
