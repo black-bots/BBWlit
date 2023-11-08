@@ -26,41 +26,6 @@ def paginator(label, items, items_per_page=10, on_sidebar=False):
     import itertools
     return itertools.islice(enumerate(items), min_index, max_index)
 
-
-st.write("Todays Featured Piece")
-st.image('https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg', width=300)
-
-################################
-st.header("Featured Sets")
-col1, col2, col3, col4= st.columns(4)
-
-with col1:
-   st.write("Set1")
-   st.text("RandomName")
-   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=200)
-   st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
-   
-
-with col2:
-   st.write("Set2")
-   st.text("RandomName")
-   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=200)
-   st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
-
-
-with col3:
-   st.write("Set3")
-   st.text("RandomName")
-   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=200)
-   st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
-
-    
-with col4:
-   st.write("Set4")
-   st.text("RandomName")
-   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=200)
-   st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
-
 with st.expander("Pierre Polis",expanded=False):
 	st.write(f"""
 	:blue[Engagement & Fashion Jewelry from Pierre Polie]
@@ -80,6 +45,42 @@ with st.expander("Pierre Polis",expanded=False):
 	Find amazing clearance jewelry in popular styles, such as birthstone jewelry , 
 	anniversary bands , fashion necklaces , and drop earrings .]
 	""")
+
+
+st.write("Todays Featured Piece")
+st.image('https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg', width=300)
+
+################################
+st.header("Featured Sets")
+col1, col2, col3, col4= st.columns(4)
+
+with col1:
+   st.write("Set1")
+   st.text("RandomName")
+   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=200)
+   st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
+   
+
+with col2:
+   st.write("Set2")
+   st.text("RandomName")
+   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=175)
+   st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
+
+
+with col3:
+   st.write("Set3")
+   st.text("RandomName")
+   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=175)
+   st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
+
+    
+with col4:
+   st.write("Set4")
+   st.text("RandomName")
+   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=175)
+   st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
+
 
 Page1 = [
 	image1,
