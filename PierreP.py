@@ -56,6 +56,7 @@ st.markdown("""
 with st.expander("Pierre Polis",expanded=False):
 	st.write(f"""
 	:blue[Engagement & Fashion Jewelry from Pierre Polie]
+ 	<br></br>
 	:green[What is the perfect way to dress up any outfit or add your own flare? Accessorizing with jewelry, of course! 
 	From sparkling diamond necklaces and fashionable layered bracelets to statement earrings to sophisticated but trendy stackable rings, 
 	Pierre Polie has the perfect jewelry piece to accentuate your wardrobe, your lifestyle and your budget. 
@@ -143,5 +144,3 @@ with st.sidebar:
     st.write('[Rings](https://./)')
     st.write('[Necklaces](https://./)')
     st.write('[Bracelets](https://./)')
-
-             
