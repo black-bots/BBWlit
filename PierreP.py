@@ -34,6 +34,12 @@ st.markdown("""
 	margin-left: auto;
 	margin-right: auto;
     }
+    .st-emotion-cache-1v0mbdj {
+	text-align: center;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;    
+    }
     .st-emotion-cache-16idsys.e1nzilvr5 {
       font-weight: 900;
       color: orange;
