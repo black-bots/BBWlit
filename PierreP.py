@@ -78,9 +78,7 @@ ft = """
 	}
 	
 	.footer {
-	position: relative;
-	left: 0;
-	top:230px;
+  	position:fixed;
 	bottom: 0;
 	width: 100%;
 	background-color: transparent;
