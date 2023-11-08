@@ -78,8 +78,8 @@ with featured:
 	        st.write('%s. **%s**' % (i, fruit))
 	
 	
-	if __name__ == '__main__':
-	    demonstrate_paginator()	
+	#if __name__ == '__main__':
+	#    demonstrate_paginator()	
 	sunset_imgs = [
 	    'static/p1.jpg',
 	    'https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg',
@@ -97,7 +97,7 @@ with featured:
 	    'https://unsplash.com/photos/kOqBCFsGTs8/download?force=true',
 	    'https://unsplash.com/photos/8DMuvdp-vso/download?force=true'
 	]
-	image_iterator = paginator("Select a sunset page", sunset_imgs)
+	image_iterator = demonstrate_paginator("Select a sunset page", sunset_imgs)
 	indices_on_page, images_on_page = map(list, zip(*image_iterator))
 	st.image(images_on_page, width=100, caption=indices_on_page)
 def my_widget2(key):
