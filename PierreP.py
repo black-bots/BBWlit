@@ -49,7 +49,7 @@ st.markdown("""
       }
     p {
       font-family: bariol;
-      font-size: 20px;
+      font-size: 16px;
       }
   </style>
 """, unsafe_allow_html=True)
