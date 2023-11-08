@@ -83,7 +83,7 @@ ft = """
 	width: 100%;
 	background-color: transparent;
 	color: #808080; /* theme's text color hex code at 50 percent brightness*/
-	text-align: center;
+	text-align: left;
 	}
 </style>
 
