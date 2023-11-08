@@ -39,6 +39,7 @@ st.markdown("""
         display: none; 
     } 
     footer:after { 
+    	display: block;
         content: "This text replaces the original."; 
     } 
     .st-emotion-cache-1v0mbdj {
