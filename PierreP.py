@@ -38,28 +38,28 @@ col1, col2, col3, col4= st.columns(4)
 with col1:
    st.write("Set1")
    st.text("RandomName")
-   st.video('https://youtu.be/TnGl01FkMMo')
+   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=200)
    st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
    
 
 with col2:
    st.write("Set2")
    st.text("RandomName")
-   st.video('https://youtu.be/TnGl01FkMMo')
+   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=200)
    st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
 
 
 with col3:
    st.write("Set3")
    st.text("RandomName")
-   st.video('https://youtu.be/TnGl01FkMMo')
+   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=200)
    st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
 
     
 with col4:
    st.write("Set4")
    st.text("RandomName")
-   st.video('https://youtu.be/TnGl01FkMMo')
+   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=200)
    st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
 
 with st.expander("Pierre Polis",expanded=False):
