@@ -1,5 +1,7 @@
 import streamlit as st
 import streamlit.components.v1 as components
+from st_aggrid import GridOptionsBuilder, AgGrid, JsCode
+from st_aggrid.shared import ColumnsAutoSizeMode
 import pandas as pd
 import numpy as np
 from PIL import Image
@@ -98,7 +100,7 @@ ft = """
 </div>
 """
 st.write(ft, unsafe_allow_html=True)
-with st.expander("Pierre Polis",expanded=False):
+with st.expander("Pierre Polie",expanded=False):
 	st.write(f"""
 	:green[Engagement & Fashion Jewelry from Pierre Polie]
  
@@ -162,6 +164,7 @@ indices_on_page, images_on_page = map(list, zip(*image_iterator))
 st.image(images_on_page, width=300, caption=indices_on_page)
 
 expd2 = st.expander("View More Pieces", expanded=False)
+
 with expd2:
     col1, col2, col3, col4= st.columns(4)
 
