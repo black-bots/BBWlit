@@ -30,6 +30,7 @@ st.markdown("""
   <style>
     .st-emotion-cache-16idsys.e1nzilvr5 {
       font-size: 32px;
+      font-weight: 900;
       color: green;
       }    
     p {
