@@ -114,7 +114,7 @@ Page1 = [
 ]
 image_iterator = paginator("Rings", Page1)
 indices_on_page, images_on_page = map(list, zip(*image_iterator))
-st.image(images_on_page, width=300, caption=indices_on_page)
+st.image(images_on_page, width=300, caption='')
 
 expd2 = st.expander("View More Pieces", expanded=False)
 with expd2:
