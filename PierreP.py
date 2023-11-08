@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 #STREAMLIT_SERVER_ENABLE_STATIC_SERVING=true
 
-image = Image.open('static/ori_3748732_mkqg8a0irpybxk8xtejrqetwi9j3f3011wq3dyi1_online-cinema-banner-vector-realistic-computer-monitor-movie-brochure-design-template-banner-for-movie-premiere-show-marketing-luxury-poster-illustration.jpg')
+image = Image.open('https://static.wixstatic.com/media/0dfae7_2cb3cbeb07f341c483ff17ecf821aeaf~mv2.png/v1/crop/x_0,y_96,w_1415,h_526/fill/w_1415,h_525,al_c,q_90,enc_auto/pierre-polie-business-card.png')
 st.image(image,use_column_width=True)
 
 st.markdown('Now Showing - :green[Aliens vs Predator Requiem]')
