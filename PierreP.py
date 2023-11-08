@@ -62,8 +62,7 @@ with col4:
    st.video('https://youtu.be/TnGl01FkMMo')
    st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
 
-st.header("Pierre Polis")
-with st.expander("",expanded=False):
+with st.expander("Pierre Polis",expanded=False):
 	st.write(f"""
 	:blue[Engagement & Fashion Jewelry from Pierre Polie]
 	:green[What is the perfect way to dress up any outfit or add your own flare? Accessorizing with jewelry, of course! 
@@ -97,7 +96,7 @@ image_iterator = paginator("Rings", Page1)
 indices_on_page, images_on_page = map(list, zip(*image_iterator))
 st.image(images_on_page, width=300, caption=indices_on_page)
 
-expd2 = st.expander("View More Movies", expanded=False)
+expd2 = st.expander("View More Pieces", expanded=False)
 with expd2:
     col1, col2, col3, col4= st.columns(4)
 
