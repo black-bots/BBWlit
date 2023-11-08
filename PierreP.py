@@ -79,6 +79,7 @@ ft = """
 	
 	.footer {
   	position:fixed;
+	index: 999 ;
    	left: 0;
 	bottom: 0;
 	width: 100%;
@@ -91,8 +92,7 @@ ft = """
 <div id="page-container">
 
 <div class="footer">
-<p style='font-size: 0.875em;'>Made by <a style='display: inline; text-align: left;' href="https://blackbots.net/" target="_blank">BlackBots.net</a><br 'style= top:3px;'>
-<img src="https://em-content.zobj.net/source/skype/289/red-heart_2764-fe0f.png" alt="heart" height= "10"/></p>
+<p style='font-size: 0.875em;'>Made by <a style='display: inline; text-align: left;' href="https://blackbots.net/" target="_blank">BlackBots.net</a><br 'style= top:3px;'><img src="https://em-content.zobj.net/source/skype/289/red-heart_2764-fe0f.png" alt="heart" height= "10"/></p>
 </div>
 
 </div>
