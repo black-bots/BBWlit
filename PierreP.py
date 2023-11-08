@@ -6,12 +6,13 @@ from PIL import Image
 #STREAMLIT_SERVER_ENABLE_STATIC_SERVING=true
 
 image = Image.open('static/p1.png')
+image1 = Image.open('static/p1.jpg')
 st.image(image,use_column_width=True)
 
 st.markdown('-:green[Supremely Refined]')
 featured = st.expander("Todays Featured Piece", expanded=True)
 with featured:
-	st.image('static/p1.jpg') st.image('https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg', use_column_width=False)
+	st.image(image1) st.image('https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg', use_column_width=False)
 
 def my_widget2(key):
     st.subheader('Watch Now')
