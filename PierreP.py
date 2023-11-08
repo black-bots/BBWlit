@@ -83,15 +83,15 @@ ft = """
 	width: 100%;
 	background-color: transparent;
 	color: #808080; /* theme's text color hex code at 50 percent brightness*/
-	text-align: left; /* you can replace 'left' with 'center' or 'right' if you want*/
+	text-align: center;
 	}
 </style>
 
 <div id="page-container">
 
 <div class="footer">
-<p style='font-size: 0.875em;'>Made with <a style='display: inline; text-align: left;' href="https://streamlit.io/" target="_blank">Streamlit</a><br 'style= top:3px;'>
-with <img src="https://em-content.zobj.net/source/skype/289/red-heart_2764-fe0f.png" alt="heart" height= "10"/><a style='display: inline; text-align: left;' href="https://github.com/sape94" target="_blank"> by sape94</a></p>
+<p style='font-size: 0.875em;'>Made by <a style='display: inline; text-align: left;' href="https://blackbots.net/" target="_blank">BlackBots.net</a><br 'style= top:3px;'>
+<img src="https://em-content.zobj.net/source/skype/289/red-heart_2764-fe0f.png" alt="heart" height= "10"/></p>
 </div>
 
 </div>
