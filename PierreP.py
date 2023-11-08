@@ -64,11 +64,13 @@ with st.expander("Pierre Polis",expanded=False):
 	:blue[No matter if you're celebrating a first anniversary or a 25 year anniversary, a wedding anniversary gift is always cherished and appreciated. Let Pierre Polie be your guide in finding the perfect anniversary gift for him or for her today. Show your wedding party how much they mean to you with a beautiful bridesmaid gift, groomsman gift, or even flower girl gift from our wedding party gift selection at Pierre Polie.]
 	""")
 
+st.markdown("""---""")
 
 st.write("Todays Featured Piece")
 st.image('https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg', width=300)
 
-################################
+st.markdown("""---""")
+
 st.header("Featured Sets")
 col1, col2, col3, col4= st.columns(4)
 
