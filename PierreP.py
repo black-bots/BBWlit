@@ -35,7 +35,7 @@ st.markdown("""
       }
     
      /* Streamlit class name of the div that holds the expander's text*/
-    .css-nahz7x p {
+    p {
       font-family: bariol;
       font-size: 20px;
       }
