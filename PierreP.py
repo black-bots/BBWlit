@@ -8,9 +8,8 @@ from PIL import Image
 image = Image.open('static/p1.png')
 image1 = Image.open('static/p1.jpg')
 st.image(image,use_column_width=True)
-
 st.markdown('-:green[Supremely Refined]')
-featured = st.expander("Todays Featured Piece", expanded=True)
+
 def paginator(label, items, items_per_page=10, on_sidebar=False):
     if on_sidebar:
         location = st.sidebar.empty()
@@ -28,8 +27,8 @@ def paginator(label, items, items_per_page=10, on_sidebar=False):
     return itertools.islice(enumerate(items), min_index, max_index)
 
 
-with featured:
-	st.image('https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg', width=300)
+st.write("Todays Featured Piece")
+st.image('https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg', width=300)
 
 ################################
 st.header("Featured Sets")
