@@ -102,7 +102,7 @@ with col4:
    st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
 
 
-Page1 = [
+Rings = [
 	image1,
 	'https://static.wixstatic.com/media/0dfae7_50700c2ac4a1434c9149ecd7d16f2f73~mv2.jpg',
 	'https://static.wixstatic.com/media/0dfae7_7af924f0a89d4c28b11d36f51a3df542~mv2.jpg',
@@ -112,7 +112,7 @@ Page1 = [
 	'https://static.wixstatic.com/media/0dfae7_f545a5f877d64bf3afeb4e28dcb1394c~mv2.jpg',
 	'https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg'
 ]
-image_iterator = paginator("Rings", Page1)
+image_iterator = paginator("Rings", Rings)
 indices_on_page, images_on_page = map(list, zip(*image_iterator))
 st.image(images_on_page, width=300, caption=indices_on_page)
 
@@ -129,10 +129,11 @@ with expd2:
     with col4:
        st.write(":red[Server Undergoing Maintenance]")
 
-##############################################
-
 with st.sidebar:
     st.subheader("MENU")
-    st.write('[Rings](https://./)')
-    st.write('[Necklaces](https://./)')
-    st.write('[Bracelets](https://./)')
+    st.markdown("""---""")
+
+    st.write('[Rings]()')
+    st.write('[Necklaces]()')
+    st.write('[Bracelets]()')
+    st.markdown("""---""")
