@@ -28,6 +28,9 @@ def paginator(label, items, items_per_page=10, on_sidebar=False):
 
 st.markdown("""
   <style>
+    body {
+    display: block;
+    }
     .st-emotion-cache-16idsys.e1nzilvr5 {
       font-weight: 900;
       color: orange;
