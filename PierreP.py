@@ -26,6 +26,21 @@ def paginator(label, items, items_per_page=10, on_sidebar=False):
     import itertools
     return itertools.islice(enumerate(items), min_index, max_index)
 
+st.markdown("""
+  <style>
+     /* Streamlit class name of the div that holds the expander's title*/
+    .st-emotion-cache-16idsys e1nzilvr5 p {
+      font-size: 32px;
+      color: red;
+      }
+    
+     /* Streamlit class name of the div that holds the expander's text*/
+    .css-nahz7x p {
+      font-family: bariol;
+      font-size: 20px;
+      }
+  </style>
+""", unsafe_allow_html=True)
 with st.expander("Pierre Polis",expanded=False):
 	st.write(f"""
 	:blue[Engagement & Fashion Jewelry from Pierre Polie]
