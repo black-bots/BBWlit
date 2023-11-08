@@ -34,6 +34,9 @@ st.markdown("""
 	margin-left: auto;
 	margin-right: auto;
     }
+    footer {
+    	display:none;
+    }
     .st-emotion-cache-1v0mbdj {
 	text-align: center;
 	display: block;
