@@ -32,48 +32,42 @@ with featured:
 	st.image('https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg', width=300)
 
 ################################
-st.header("Featured Movies")
+st.header("Featured Sets")
 col1, col2, col3, col4= st.columns(4)
 
 with col1:
-   st.write("the Super Mario Bros")
-   st.text("Trailer")
+   st.write("Set1")
+   st.text("RandomName")
    st.video('https://youtu.be/TnGl01FkMMo')
-   st.write("🎥👉 [Watch Movie](https://link-center.net/674202/free-mario-bros-movie)")
+   st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
    
 
 with col2:
-   st.write("Evil Dead")
-   st.text("Trailer")
-   st.video('https://youtu.be/0lmBDnliqKs')
-   st.write("🎥👉 [Watch Movie](https://direct-link.net/674202/free-evil-dead-rise-movie)")
+   st.write("Set2")
+   st.text("RandomName")
+   st.video('https://youtu.be/TnGl01FkMMo')
+   st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
 
 
 with col3:
-   st.write("Scream VI")
-   st.text("Trailer")
-   st.video('https://youtu.be/1Ie2qmAOc6Q')
-   st.write("🎥👉 [Watch Movie](https://link-hub.net/674202/free-scream-iv-movie)")
+   st.write("Set3")
+   st.text("RandomName")
+   st.video('https://youtu.be/TnGl01FkMMo')
+   st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
 
     
 with col4:
-   st.write("John Wick: Chapter 4")
-   st.text("Trailer")
-   st.video('https://youtu.be/qEVUtrk8_B4')
-   st.write("🎥👉 [Watch Movie](https://direct-link.net/674202/free-john-wick-chapter-4)")
+   st.write("Set4")
+   st.text("RandomName")
+   st.video('https://youtu.be/TnGl01FkMMo')
+   st.write("💳👉 [Buy Now](https://link-center.net/674202/free-mario-bros-movie)")
 
-st.header("How to Watch Movies for FREE")
-st.write(f"""
-:blue[1: ]Click on the link (next to 🎥👉)
-
-:blue[2: ]Click on “Free Access” on the Linkvertise page that opens up (You DO NOT need to purchase Premium)
-
-:blue[3: ]Click on “Discover articles” under ‘Complete the follow steps’ – It will open a popup titled “Interesting articles from the web!” 
-
-:blue[3.1: ] Click the black X on the right hand side. – Might have to wait 10 seconds. – Then click “Continue”
-
-:red[For Mobile:] IF “Download an App” Step appears – Click on this and then click “Download” so the App store opens but DO NOT download the game. Take 60 seconds to chill or roll up, then return to your browser, to the page and the small window that had the “Download” button should be gone and you can continue to the movie.
-""")
+st.header("Pierre Polis")
+with st.expander("",expanded=False):
+	st.write(f"""
+	:blue[Engagement & Fashion Jewelry from Pierre Polie]
+        :green[What is the perfect way to dress up any outfit or add your own flare? Accessorizing with jewelry, of course! From sparkling diamond necklaces and fashionable layered bracelets to statement earrings to sophisticated but trendy stackable rings, Pierre Polie has the perfect jewelry piece to accentuate your wardrobe, your lifestyle and your budget. Who says men can't dress up their wardrobe too?! Find sophisticated and handsome jewelry for men such as necklaces and chains . Whether there's a major event or you're looking for something just because, our selection of men's jewelry and gift ideas has everything you need and more. Are you overwhelmed by the idea of finding an engagement ring and proposing? Let Pierre Polie guide you in the right direction with our seemingly endless possibilities of engagement ring styles. Need help finding the perfect gift for that special someone or special occasion? Pierre Polie has you covered with our Gift Hub filled with gift guides that cater to all different important events to help narrow down the right gift idea. No matter if you're celebrating a first anniversary or a 25 year anniversary, a wedding anniversary gift is always cherished and appreciated. Let Pierre Polie be your guide in finding the perfect anniversary gift for him or for her today. Show your wedding party how much they mean to you with a beautiful bridesmaid gift, groomsman gift, or even flower girl gift from our wedding party gift selection at Pierre Polie. Looking for a deal? Find amazing clearance jewelry in popular styles, such as birthstone jewelry , anniversary bands , fashion necklaces , and drop earrings .]
+	""")
 
 Page1 = [
 	image1,
