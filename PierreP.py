@@ -54,7 +54,7 @@ st.markdown("""
       font-family: bariol;
       font-size: 16px;
       }
-  </style>
+  </style><footer>BlackBots.net</footer>
 """, unsafe_allow_html=True)
 with st.expander("Pierre Polis",expanded=False):
 	st.write(f"""
