@@ -5,7 +5,7 @@ import numpy as np
 from PIL import Image
 #STREAMLIT_SERVER_ENABLE_STATIC_SERVING=true
 
-image = Image.open('https://static.wixstatic.com/media/0dfae7_2cb3cbeb07f341c483ff17ecf821aeaf~mv2.png/v1/crop/x_0,y_96,w_1415,h_526/fill/w_1415,h_525,al_c,q_90,enc_auto/pierre-polie-business-card.png')
+image = Image.open('static/p1.png')
 st.image(image,use_column_width=True)
 
 st.markdown('Now Showing - :green[Aliens vs Predator Requiem]')
