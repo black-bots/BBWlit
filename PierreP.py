@@ -11,7 +11,7 @@ st.image(image,use_column_width=True)
 
 st.markdown('-:green[Supremely Refined]')
 featured = st.expander("Todays Featured Piece", expanded=True)
-def paginator(label, items, items_per_page=2, on_sidebar=True):
+def paginator(label, items, items_per_page=1, on_sidebar=False):
     if on_sidebar:
         location = st.sidebar.empty()
     else:
@@ -22,8 +22,6 @@ def paginator(label, items, items_per_page=2, on_sidebar=True):
     n_pages = (len(items) - 1) // items_per_page + 1
     page_format_func = lambda i: "Page %s" % i
     page_number = location.selectbox(label, range(n_pages), format_func=page_format_func)
-
-    # Iterate over the items in the page to let the user display them.
     min_index = page_number * items_per_page
     max_index = min_index + items_per_page
     import itertools
@@ -31,26 +29,14 @@ def paginator(label, items, items_per_page=2, on_sidebar=True):
 
 
 with featured:
-	sunset_imgs = [
+	features = [
 	    'static/p1.jpg',
-	    'https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg',
-	    'https://unsplash.com/photos/mOcdke2ZQoE/download?force=true',
-	    'https://unsplash.com/photos/GPPAjJicemU/download?force=true',
-	    'https://unsplash.com/photos/JFeOy62yjXk/download?force=true',
-	    'https://unsplash.com/photos/kEgJVDkQkbU/download?force=true',
-	    'https://unsplash.com/photos/i9Q9bc-WgfE/download?force=true',
-	    'https://unsplash.com/photos/tIL1v1jSoaY/download?force=true',
-	    'https://unsplash.com/photos/-G3rw6Y02D0/download?force=true',
-	    'https://unsplash.com/photos/xP_AGmeEa6s/download?force=true',
-	    'https://unsplash.com/photos/4iTVoGYY7bM/download?force=true',
-	    'https://unsplash.com/photos/mBQIfKlvowM/download?force=true',
-	    'https://unsplash.com/photos/A-11N8ItHZo/download?force=true',
-	    'https://unsplash.com/photos/kOqBCFsGTs8/download?force=true',
-	    'https://unsplash.com/photos/8DMuvdp-vso/download?force=true'
+	    'https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg'
 	]
-	image_iterator = paginator("Select a sunset page", sunset_imgs)
+	image_iterator = paginator("Diamond Saucer", features)
 	indices_on_page, images_on_page = map(list, zip(*image_iterator))
-	st.image(images_on_page, width=100, caption=indices_on_page)
+	st.image(images_on_page, width=300, caption=indices_on_page)
+
 def my_widget2(key):
     st.subheader('Watch Now')
     return st.button("Click me " + key)
