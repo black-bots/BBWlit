@@ -11,7 +11,7 @@ st.image(image,use_column_width=True)
 st.markdown('-:green[Supremely Refined]')
 featured = st.expander("Todays Featured Piece", expanded=True)
 with featured:
-	components.html("""<iframe src="https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg" width="300" height="300" />""",width=301,height=301)
+	components.html("""<iframe src="https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg" width="300" height="300" />""")
 
 
 def my_widget2(key):
