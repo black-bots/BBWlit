@@ -29,10 +29,12 @@ def paginator(label, items, items_per_page=10, on_sidebar=False):
 st.markdown("""
   <style>
     .st-emotion-cache-16idsys.e1nzilvr5 {
-      font-size: 32px;
       font-weight: 900;
       color: orange;
-      }    
+      }
+    .st-emotion-cache-16idsys p {
+      font-size: 22px;
+      }
     p {
       font-family: bariol;
       font-size: 20px;
