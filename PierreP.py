@@ -35,10 +35,10 @@ st.markdown("""
 	margin-right: auto;
     }
 
-    footer { 
+    .st-emotion-cache-h5rgaw.ea3mdgi1 { 
         display: none; 
     } 
-    footer:after { 
+    .st-emotion-cache-h5rgaw.ea3mdgi1:after { 
     	display: block;
         content: "This text replaces the original."; 
     } 
