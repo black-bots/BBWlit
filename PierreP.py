@@ -11,7 +11,8 @@ st.image(image,use_column_width=True)
 st.markdown('-:green[Supremely Refined]')
 featured = st.expander("Todays Featured Piece", expanded=True)
 with featured:
-	st.image('https://static.wixstatic.com/media/0dfae7_8ebd2fd403514153a649d4fc899838e9~mv2.jpg',width=300,use_column_width=False)
+	st.image('static/p1.jpg',width=300,use_column_width=False)
+	st.image('static/p1.png',width=300,use_column_width=False)
 
 def my_widget2(key):
     st.subheader('Watch Now')
