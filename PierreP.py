@@ -361,7 +361,7 @@ with col1:
 	</html> 
 	
 	    """,
-	    height=300,
+	    height=301,
 	)
 	st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
 
