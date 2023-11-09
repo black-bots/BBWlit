@@ -9,7 +9,7 @@ from PIL import Image
 
 image = Image.open('static/p1.png')
 image1 = Image.open('static/p1.jpg')
-st.image(image,use_column_width=auto)
+st.image(image,use_column_width="auto")
 st.markdown("""---""")
 
 def paginator(label, items, items_per_page=10, on_sidebar=False):
