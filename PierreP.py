@@ -246,8 +246,8 @@ st.header("Featured Sets")
 col1, col2, col3, col4= st.columns(4)
 
 with col1:
-	st.write("Set1")
-	st.text("RandomName")
+	st.write("Rings")
+	st.text("Diamond's Ring")
 	components.html(
 	    """
 	<!DOCTYPE html>
@@ -286,18 +286,7 @@ with col1:
 	  position: absolute;
 	  top: 0;
 	}
-	
-	/* The dots/bullets/indicators */
-	.dot {
-	  height: 15px;
-	  width: 15px;
-	  margin: 0 2px;
-	  background-color: #bbb;
-	  border-radius: 50%;
-	  display: inline-block;
-	  transition: background-color 0.6s ease;
-	}
-	
+		
 	.active {
 	  background-color: #717171;
 	}
@@ -324,24 +313,15 @@ with col1:
 	<div class="slideshow-container">
 	
 	<div class="mySlides fade">
-	  <div class="numbertext">1 | 2</div>
 	  <img src="https://static.wixstatic.com/media/0dfae7_9d07e81adbd64d91935b29ae89621889~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%201.jpg" style="width:100%">
-	  <div class="text">Caption Text</div>
 	</div>
 	
 	<div class="mySlides fade">
-	  <div class="numbertext">2 | 2</div>
 	  <img src="https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg" style="width:100%">
-	  <div class="text">Caption Two</div>
 	</div>
 	
 	</div>
 	<br>
-	
-	<div style="text-align:center">
-	  <span class="dot"></span> 
-	  <span class="dot"></span> 
-	</div>
 	
 	<script>
 	let slideIndex = 0;
@@ -369,7 +349,7 @@ with col1:
 	</html> 
 	
 	    """,
-	    height=175,
+	    height=200,
 	)
 	st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
 
