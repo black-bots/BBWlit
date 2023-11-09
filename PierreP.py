@@ -243,7 +243,7 @@ function showSlides() {
 st.markdown("""---""")
 
 st.header("Featured Sets")
-col1, col2, col3, col4= st.columns(4)
+col1, col2 = st.columns(2)
 
 with col1:
 	st.write("Rings")
@@ -363,8 +363,6 @@ with col1:
 	    """,
 	    height=301,
 	)
-	st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
-
 
 with col2:
 	st.write("Rings")
@@ -484,22 +482,6 @@ with col2:
 	    """,
 	    height=301,
 	)
-	st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
-
-
-with col3:
-   st.write("Set3")
-   st.text("RandomName")
-   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=175)
-   st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
-
-    
-with col4:
-   st.write("Set4")
-   st.text("RandomName")
-   st.image('https://static.wixstatic.com/media/0dfae7_13f6f0f1de97447db6c8b31809dfd4d6~mv2.jpg', width=175)
-   st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
-
 
 Rings = [
 	image1,
