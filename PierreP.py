@@ -288,8 +288,8 @@ with col1:
 	}
 	/* The dots/bullets/indicators */
 	.dot {
-	  height: 8px;
-	  width: 8px;
+	  height: 6px;
+	  width: 6px;
 	  margin: 0 2px;
 	  background-color: #bbb;
 	  border-radius: 50%;
