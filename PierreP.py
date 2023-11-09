@@ -7,7 +7,7 @@ import numpy as np
 from PIL import Image
 #STREAMLIT_SERVER_ENABLE_STATIC_SERVING=true
 
-image = Image.open('static/p1.png')
+image = Image.open('static/p11.png')
 image1 = Image.open('static/p1.jpg')
 st.image(image,use_column_width="always")
 st.markdown("""---""")
