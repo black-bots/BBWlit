@@ -229,7 +229,7 @@ function showSlides() {
   }
   slides[slideIndex-1].style.display = "block";  
   dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 2000); // Change image every 2 seconds
+  setTimeout(showSlides, 2500); // Change image every 2 seconds
 }
 </script>
 
@@ -483,6 +483,8 @@ with col2:
 	    height=301,
 	)
 
+st.markdown("""---""")
+
 Rings = [
 	image1,
 	'https://static.wixstatic.com/media/0dfae7_50700c2ac4a1434c9149ecd7d16f2f73~mv2.jpg',
@@ -496,6 +498,8 @@ Rings = [
 image_iterator = paginator("Rings", Rings)
 indices_on_page, images_on_page = map(list, zip(*image_iterator))
 st.image(images_on_page, width=300, caption=indices_on_page)
+
+st.markdown("""---""")
 
 expd2 = st.expander("View More Pieces", expanded=False)
 
