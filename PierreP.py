@@ -320,10 +320,7 @@ with col1:
 	</style>
 	</head>
 	<body>
-	
-	<h2>Featured Piece</h2>
-	<p>"Diamond's Ring"</p>
-	
+		
 	<div class="slideshow-container">
 	
 	<div class="mySlides fade">
