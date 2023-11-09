@@ -288,8 +288,8 @@ with col1:
 	}
 	/* The dots/bullets/indicators */
 	.dot {
-	  height: 15px;
-	  width: 15px;
+	  height: 5px;
+	  width: 5px;
 	  margin: 0 2px;
 	  background-color: #bbb;
 	  border-radius: 50%;
@@ -361,7 +361,7 @@ with col1:
 	</html> 
 	
 	    """,
-	    height=200,
+	    height=225,
 	)
 	st.write("[View More](https://link-center.net/674202/free-mario-bros-movie)")
 
