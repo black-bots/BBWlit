@@ -286,7 +286,16 @@ with col1:
 	  position: absolute;
 	  top: 0;
 	}
-		
+	/* The dots/bullets/indicators */
+	.dot {
+	  height: 15px;
+	  width: 15px;
+	  margin: 0 2px;
+	  background-color: #bbb;
+	  border-radius: 50%;
+	  display: inline-block;
+	  transition: background-color 0.6s ease;
+	}		
 	.active {
 	  background-color: #717171;
 	}
@@ -322,7 +331,10 @@ with col1:
 	
 	</div>
 	<br>
-	
+	<div style="text-align:center">
+	  <span class="dot"></span> 
+	  <span class="dot"></span> 
+	</div>	
 	<script>
 	let slideIndex = 0;
 	showSlides();
