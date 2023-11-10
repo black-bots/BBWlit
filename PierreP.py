@@ -250,7 +250,7 @@ img {vertical-align: middle;}
 
 st.markdown("""---""")
 
-st.header("Featured Sets")
+st.header("Featured")
 col1, col2 = st.columns(2)
 
 with col1:
