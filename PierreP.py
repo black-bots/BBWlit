@@ -10,7 +10,8 @@ from PIL import Image
 st.set_page_config(
     page_title='Pierre Polie',
     page_icon='💍',
-    layout='wide',
+    layout='centered',
+    menu_items=None,
     initial_sidebar_state='collapsed'
 )
 
