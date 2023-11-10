@@ -329,12 +329,12 @@ with col1:
 	<div class="slideshow-container">
 	
 	<div class="mySlides fade">
-	  <img src="https://static.wixstatic.com/media/0dfae7_9d07e81adbd64d91935b29ae89621889~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%201.jpg" style="width:75%">
+	  <img src="https://static.wixstatic.com/media/0dfae7_9d07e81adbd64d91935b29ae89621889~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%201.jpg" style="width:100%">
 	</div>
 	  <div class="text">Buy Now</div>
 
 	<div class="mySlides fade">
-	  <img src="https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg" style="width:75%">
+	  <img src="https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg" style="width:100%">
 	</div>
 	  <div class="text">Buy Now</div>
 
@@ -370,7 +370,7 @@ with col1:
 	</html> 
 	
 	    """,
-	    height=301,
+	    height=300,
 	)
 
 with col2:
