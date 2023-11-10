@@ -121,78 +121,78 @@ with st.expander("Pierre Polie",expanded=False):
 
 st.markdown("""---""")
 
-components.html(
-    """
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-* {box-sizing: border-box;}
-body {font-family: Verdana, sans-serif;}
-.mySlides {display: none;}
-img {vertical-align: middle;}
+# components.html(
+#     """
+# <!DOCTYPE html>
+# <html>
+# <head>
+# <meta name="viewport" content="width=device-width, initial-scale=1">
+# <style>
+# * {box-sizing: border-box;}
+# body {font-family: Verdana, sans-serif;}
+# .mySlides {display: none;}
+# img {vertical-align: middle;}
 
-/* Slideshow container */
-.slideshow-container {
-  max-width: 700px;
-  position: relative;
-  margin: auto;
-}
+# /* Slideshow container */
+# .slideshow-container {
+#   max-width: 700px;
+#   position: relative;
+#   margin: auto;
+# }
 
-/* Caption text */
-.text {
-  color: #f2f2f2;
-  font-size: 15px;
-  padding: 8px 12px;
-  position: absolute;
-  bottom: 8px;
-  width: 100%;
-  text-align: center;
-}
+# /* Caption text */
+# .text {
+#   color: #f2f2f2;
+#   font-size: 15px;
+#   padding: 8px 12px;
+#   position: absolute;
+#   bottom: 8px;
+#   width: 100%;
+#   text-align: center;
+# }
 
-/* Number text (1/3 etc) */
-.numbertext {
-  color: #f2f2f2;
-  font-size: 12px;
-  padding: 8px 12px;
-  position: absolute;
-  top: 0;
-}
+# /* Number text (1/3 etc) */
+# .numbertext {
+#   color: #f2f2f2;
+#   font-size: 12px;
+#   padding: 8px 12px;
+#   position: absolute;
+#   top: 0;
+# }
 
-/* The dots/bullets/indicators */
-.dot {
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
+# /* The dots/bullets/indicators */
+# .dot {
+#   height: 15px;
+#   width: 15px;
+#   margin: 0 2px;
+#   background-color: #bbb;
+#   border-radius: 50%;
+#   display: inline-block;
+#   transition: background-color 0.6s ease;
+# }
 
-.active {
-  background-color: #717171;
-}
+# .active {
+#   background-color: #717171;
+# }
 
-/* Fading animation */
-.fade {
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
+# /* Fading animation */
+# .fade {
+#   animation-name: fade;
+#   animation-duration: 1.5s;
+# }
 
-@keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
-}
+# @keyframes fade {
+#   from {opacity: .4} 
+#   to {opacity: 1}
+# }
 
-/* On smaller screens, decrease text size */
-@media only screen and (max-width: 300px) {
-  .text {font-size: 11px}
-}
-</style>
-</head>
-<body>
+# /* On smaller screens, decrease text size */
+# @media only screen and (max-width: 300px) {
+#   .text {font-size: 11px}
+# }
+# </style>
+# </head>
+# <body>
 
 # <h2>Featured Piece</h2>
 # <p>"Diamond's Ring"</p>
@@ -249,7 +249,6 @@ img {vertical-align: middle;}
 # )
 
 st.markdown("""---""")
-
 st.header("Featured")
 col1, col2 = st.columns(2)
 
