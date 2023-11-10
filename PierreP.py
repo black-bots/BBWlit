@@ -192,15 +192,15 @@ img {vertical-align: middle;}
 <div class="slideshow-container">
 
 <div class="mySlides fade">
-  <div class="numbertext">1 | 2</div>
+  <div class="numbertext"></div>
   <img src="https://static.wixstatic.com/media/0dfae7_9d07e81adbd64d91935b29ae89621889~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%201.jpg" style="width:100%">
-  <div class="text">Caption Text</div>
+  <div class="text">Buy Now</div>
 </div>
 
 <div class="mySlides fade">
-  <div class="numbertext">2 | 2</div>
+  <div class="numbertext"></div>
   <img src="https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg" style="width:100%">
-  <div class="text">Caption Two</div>
+  <div class="text">Buy Now</div>
 </div>
 
 </div>
@@ -324,11 +324,13 @@ with col1:
 	<div class="mySlides fade">
 	  <img src="https://static.wixstatic.com/media/0dfae7_9d07e81adbd64d91935b29ae89621889~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%201.jpg" style="width:100%">
 	</div>
-	
+	  <div class="text">Buy Now</div>
+
 	<div class="mySlides fade">
 	  <img src="https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg" style="width:100%">
 	</div>
-	
+	  <div class="text">Buy Now</div>
+
 	</div>
 	<br>
 	<div style="text-align:center">
@@ -443,10 +445,12 @@ with col2:
 	<div class="mySlides fade">
 	  <img src="https://static.wixstatic.com/media/0dfae7_7158cf6a92c041dfaab52c6840092067~mv2.png" style="width:100%">
 	</div>
+	<div class="text">Buy Now</div>
 	
 	<div class="mySlides fade">
 	  <img src="https://static.wixstatic.com/media/0dfae7_67c2f9eb5c61465ca54def74b745e1f2~mv2.jpg" style="width:100%">
 	</div>
+ 	<div class="text">Buy Now</div>
 	
 	</div>
 	<br>
@@ -503,6 +507,18 @@ st.markdown("""---""")
 
 expd2 = st.expander("View More Pieces", expanded=False)
 
+components.html("""
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</html>
+</head>
+<body>
+	<script src="https://anvil.works/embed.js" async></script>
+	<iframe style="width:100%;" data-anvil-embed src="https://uoat3gfjfo4bqkqr.anvil.app/XS2STL3ERGZ5ZZI26ORTFFBB"></iframe>
+</body>
+""",height=301,)
 with expd2:
     col1, col2, col3, col4= st.columns(4)
 
