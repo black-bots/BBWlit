@@ -194,59 +194,59 @@ img {vertical-align: middle;}
 </head>
 <body>
 
-<h2>Featured Piece</h2>
-<p>"Diamond's Ring"</p>
+# <h2>Featured Piece</h2>
+# <p>"Diamond's Ring"</p>
 
-<div class="slideshow-container">
+# <div class="slideshow-container">
 
-<div class="mySlides fade">
-  <div class="numbertext"></div>
-  <img src="https://static.wixstatic.com/media/0dfae7_9d07e81adbd64d91935b29ae89621889~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%201.jpg" style="width:100%">
-  <div class="text">Buy Now</div>
-</div>
+# <div class="mySlides fade">
+#   <div class="numbertext"></div>
+#   <img src="https://static.wixstatic.com/media/0dfae7_9d07e81adbd64d91935b29ae89621889~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%201.jpg" style="width:100%">
+#   <div class="text">Buy Now</div>
+# </div>
 
-<div class="mySlides fade">
-  <div class="numbertext"></div>
-  <img src="https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg" style="width:100%">
-  <div class="text">Buy Now</div>
-</div>
+# <div class="mySlides fade">
+#   <div class="numbertext"></div>
+#   <img src="https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg" style="width:100%">
+#   <div class="text">Buy Now</div>
+# </div>
 
-</div>
-<br>
+# </div>
+# <br>
 
-<div style="text-align:center">
-  <span class="dot"></span> 
-  <span class="dot"></span> 
-</div>
+# <div style="text-align:center">
+#   <span class="dot"></span> 
+#   <span class="dot"></span> 
+# </div>
 
-<script>
-let slideIndex = 0;
-showSlides();
+# <script>
+# let slideIndex = 0;
+# showSlides();
 
-function showSlides() {
-  let i;
-  let slides = document.getElementsByClassName("mySlides");
-  let dots = document.getElementsByClassName("dot");
-  for (i = 0; i < slides.length; i++) {
-    slides[i].style.display = "none";  
-  }
-  slideIndex++;
-  if (slideIndex > slides.length) {slideIndex = 1}    
-  for (i = 0; i < dots.length; i++) {
-    dots[i].className = dots[i].className.replace(" active", "");
-  }
-  slides[slideIndex-1].style.display = "block";  
-  dots[slideIndex-1].className += " active";
-  setTimeout(showSlides, 2500); // Change image every 2 seconds
-}
-</script>
+# function showSlides() {
+#   let i;
+#   let slides = document.getElementsByClassName("mySlides");
+#   let dots = document.getElementsByClassName("dot");
+#   for (i = 0; i < slides.length; i++) {
+#     slides[i].style.display = "none";  
+#   }
+#   slideIndex++;
+#   if (slideIndex > slides.length) {slideIndex = 1}    
+#   for (i = 0; i < dots.length; i++) {
+#     dots[i].className = dots[i].className.replace(" active", "");
+#   }
+#   slides[slideIndex-1].style.display = "block";  
+#   dots[slideIndex-1].className += " active";
+#   setTimeout(showSlides, 2500); // Change image every 2 seconds
+# }
+# </script>
 
-</body>
-</html> 
+# </body>
+# </html> 
 
-    """,
-    height=300,
-)
+#     """,
+#     height=300,
+# )
 
 st.markdown("""---""")
 
