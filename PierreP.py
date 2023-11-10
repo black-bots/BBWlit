@@ -9,7 +9,7 @@ from PIL import Image
 
 st.set_page_config(
     page_title='Pierre Polie',
-    page_icon='📋',
+    page_icon='💍',
     layout='wide',
     initial_sidebar_state='collapsed'
 )
@@ -134,7 +134,7 @@ img {vertical-align: middle;}
 
 /* Slideshow container */
 .slideshow-container {
-  max-width: 1000px;
+  max-width: 700px;
   position: relative;
   margin: auto;
 }
@@ -200,13 +200,13 @@ img {vertical-align: middle;}
 
 <div class="mySlides fade">
   <div class="numbertext"></div>
-  <img src="https://static.wixstatic.com/media/0dfae7_9d07e81adbd64d91935b29ae89621889~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%201.jpg" style="width:50">
+  <img src="https://static.wixstatic.com/media/0dfae7_9d07e81adbd64d91935b29ae89621889~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%201.jpg" style="width:100%">
   <div class="text">Buy Now</div>
 </div>
 
 <div class="mySlides fade">
   <div class="numbertext"></div>
-  <img src="https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg" style="width:50%">
+  <img src="https://static.wixstatic.com/media/0dfae7_0827377152164dffb725932fa01092c9~mv2.jpg/v1/fill/w_1000,h_1000/ring%2020%20-%202.jpg" style="width:100%">
   <div class="text">Buy Now</div>
 </div>
 
