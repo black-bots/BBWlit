@@ -7,6 +7,13 @@ import numpy as np
 from PIL import Image
 #STREAMLIT_SERVER_ENABLE_STATIC_SERVING=true
 
+st.set_page_config(
+    page_title='Pierre Polie',
+    page_icon='📋',
+    layout='wide',
+    initial_sidebar_state='collapsed'
+)
+
 image = Image.open('static/p11.png')
 image1 = Image.open('static/p1.jpg')
 st.image(image,use_column_width="always")
@@ -531,7 +538,7 @@ with expd2:
     with col4:
        st.write(":red[Server Undergoing Maintenance]")
 
-with st.sidebar(expanded=False):
+with st.sidebar:
     st.subheader("MENU")
     st.markdown("""---""")
 
