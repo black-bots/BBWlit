@@ -488,6 +488,18 @@ with col2:
 	)
 
 st.markdown("""---""")
+components.html("""
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</html>
+</head>
+<body>
+	<script src="https://anvil.works/embed.js" async></script>
+	<iframe style="position:fixed; top:-50px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" data-anvil-embed src="https://uoat3gfjfo4bqkqr.anvil.app/XS2STL3ERGZ5ZZI26ORTFFBB"></iframe>
+</body>
+""",height=900,)
 
 Rings = [
 	image1,
@@ -507,18 +519,6 @@ st.markdown("""---""")
 
 expd2 = st.expander("View More Pieces", expanded=False)
 
-components.html("""
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-</html>
-</head>
-<body>
-	<script src="https://anvil.works/embed.js" async></script>
-	<iframe style="position:fixed; top:-50px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" data-anvil-embed src="https://uoat3gfjfo4bqkqr.anvil.app/XS2STL3ERGZ5ZZI26ORTFFBB"></iframe>
-</body>
-""",height=800,)
 with expd2:
     col1, col2, col3, col4= st.columns(4)
 
