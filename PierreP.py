@@ -104,7 +104,7 @@ ft = """
 <div class="footer">
 <p style='font-size: 0.875em;'> Made by <a style='display: inline; text-align: left;' href="https://blackbots.net/" target="_blank">BlackBots.net</a><img src="https://em-content.zobj.net/source/skype/289/red-heart_2764-fe0f.png" alt="heart" height= "10"/></p>
 </div>
-
+ 
 </div>
 """
 st.write(ft, unsafe_allow_html=True)
