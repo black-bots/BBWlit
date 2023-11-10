@@ -531,7 +531,7 @@ with expd2:
     with col4:
        st.write(":red[Server Undergoing Maintenance]")
 
-with st.sidebar:
+with st.sidebar(expanded=False):
     st.subheader("MENU")
     st.markdown("""---""")
 
