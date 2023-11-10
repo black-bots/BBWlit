@@ -496,8 +496,8 @@ components.html("""
 </html>
 </head>
 <body>
-	<script src="https://anvil.works/embed.js" async></script>
-	<iframe style="position:fixed; top:-50px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" data-anvil-embed src="https://uoat3gfjfo4bqkqr.anvil.app/XS2STL3ERGZ5ZZI26ORTFFBB"></iframe>
+    <script src="https://anvil.works/embed.js" async></script>
+    <iframe style="position:fixed; top:-50px; left:0px; bottom:0px; right:0px; width:100%; height:100%; border:none; margin:0; padding:0; overflow:hidden; z-index:999999;" data-anvil-embed src="https://uoat3gfjfo4bqkqr.anvil.app/XS2STL3ERGZ5ZZI26ORTFFBB"></iframe>
 </body>
 """,height=900,)
 
