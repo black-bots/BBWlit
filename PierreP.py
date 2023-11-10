@@ -244,7 +244,7 @@ function showSlides() {
 </html> 
 
     """,
-    height=600,
+    height=300,
 )
 
 st.markdown("""---""")
