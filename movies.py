@@ -8,7 +8,7 @@ from PIL import Image
 image = Image.open('static/ori_3748732_mkqg8a0irpybxk8xtejrqetwi9j3f3011wq3dyi1_online-cinema-banner-vector-realistic-computer-monitor-movie-brochure-design-template-banner-for-movie-premiere-show-marketing-luxury-poster-illustration.jpg')
 st.image(image,use_column_width=True)
 
-st.markdown('Now Showing - :green[Aliens vs Predator Requiem]')
+st.markdown('Now Showing - :green[You'll Never Find Me]')
 featured = st.expander("Todays Featured Movie", expanded=True)
 with featured:
 	components.html("""<iframe src="https://drive.google.com/file/d/1jkW4KaxA0HnVhmu0iIWRsFI_VZagRW6f/preview" width="640" height="480" />""",width=640,height=480)
