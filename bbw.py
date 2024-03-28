@@ -27,6 +27,7 @@ __version__ = "8.12.21.0"
 
 import os
 import requests
+from bs4 import BeautifulSoup
 import streamlit as st
 from PIL import Image
 #import g4f
@@ -194,16 +195,24 @@ st.markdown("""
 res_box = st.empty()
 
 #############################################################################
-text = st.text_area(":orange[Say or Ask something]", key='input', help="Type your message here")
-ok = st.button("📩", help="Send Message", key='123', use_container_width=False)
+text = st.text_input(":orange[CH. Url:]", key='input', help="Enter manga chapter here")
+ok = st.button("📩", help="Read", key='123', use_container_width=False)
 
 res_box.markdown(f':blue[BlackButler:  ]')
 
 if ok:
-	driver.get("https://black-bots-bbwlit-bbw-cdngjf.streamlit.app/")
+	manga = driver.get(text)
+	
+	try:
+		resp = requests.get(manga)
+	except Exception as e:
+		spk.Speak('Enter a valid URL before running.')
+		res_box.markdown(f':blue[BlackButler:  ]:green[*Enter a valid URL before running.*]')				
+		st.markdown(f':blue[BlackButler:  ]:green[*Enter a valid URL before running.*]')
+	
 	
 	st.code(driver.page_source)
-	#result =air(text)
+	result =____"
 	res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
 	st.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
 	
