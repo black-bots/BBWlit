@@ -60,8 +60,11 @@ if ok:
                     num_groups = 100
                     group_size = len(paragraphs) // num_groups
                     groups = [paragraphs[i:i + group_size] for i in range(0, len(paragraphs), group_size)]
-                    
-                    st.write(paragraphs)
+
+                    story = paragraphs
+                    story.replace('"<p>',"")
+                    story.replace('</p>"',"")
+                    st.write(story)
 
                     for group in groups:
                         group_text = ""
