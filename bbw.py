@@ -1,12 +1,19 @@
+# Standard library imports
 import os
-from gtts import gTTS
-from io import BytesIO
+import base64
 import time
 import tempfile
+from io import BytesIO
+
+# Third-party library imports
 import requests
-from bs4 import BeautifulSoup
-import streamlit as st
+from gtts import gTTS
 from PIL import Image
+
+# Streamlit imports
+import streamlit as st
+
+# Selenium imports
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -14,6 +21,8 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
+# BeautifulSoup imports
+from bs4 import BeautifulSoup
 
 history = []
 
