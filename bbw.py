@@ -102,9 +102,7 @@ with tab1:
                     res_box.markdown(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
             except Exception as e:
                 res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
-                
-        
-        st.download_button('Download Text', group_text, key="847*")
+                        
         st.markdown("____________________________________________________________")
 session_state = st.session_state
 
