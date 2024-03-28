@@ -193,15 +193,12 @@ st.markdown("""
 
 #with tab1:
 res_box = st.empty()
-
-#############################################################################
 text = st.text_input(":orange[CH. Url:]", key='input', help="Enter manga chapter here")
 ok = st.button("📩", help="Read", key='123', use_container_width=False)
-
+manga = driver.get(text)
 res_box.markdown(f':blue[BlackButler:  ]')
 
 if ok:
-    manga = driver.get(text)
     st.write(text)
     try:
         resp = requests.get(manga)
