@@ -7,6 +7,7 @@ from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
@@ -84,9 +85,47 @@ with tab1:
         
         st.download_button('Download Text', group_text, key="847*")
         st.markdown("____________________________________________________________")
-with tab2:
+session_state = st.session_state
+
+# Function to get image links from the provided URL
+def get_image_links(url):
+    # Assuming you have your driver initialized already
+    driver.get(url)
+    time.sleep(5)
+
+    image_links = []
+
+    img_elements = driver.find_elements(By.CSS_SELECTOR, 'img')
+
+    for img_element in img_elements:
+        img_src = img_element.get_attribute('src')
+
+        if img_src:
+            image_links.append(img_src)
+
+    return image_links
+
+with st.expander("Tab 2"):
     url = st.text_input(":orange[CH. Url:]", key='inputt', help="Enter manga chapter here")
     ok = st.button("📩", help="Read", key='1223', use_container_width=False)
+    
+    if ok:
+        session_state.image_links = get_image_links(url)
+        session_state.current_image_index = 0
+
+        if session_state.image_links:
+            st.image(session_state.image_links[0], use_column_width=True)
+
+        st.write(f"Total Images: {len(session_state.image_links)}")
+
+    if session_state.image_links:
+        next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
+
+        if next_button_clicked:
+            session_state.current_image_index += 1
+            if session_state.current_image_index >= len(session_state.image_links):
+                session_state.current_image_index = 0
+            st.image(session_state.image_links[session_state.current_image_index], use_column_width=True)
 
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
