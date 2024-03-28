@@ -41,7 +41,7 @@ res_box = st.empty()
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
     url = st.text_input(":orange[CH. Url:]", key='input', help="Enter manga chapter here")
-    ok = st.button("📩", help="Read", key='123', use_container_width=False)
+    ok = st.button("📚", help="Read", key='123', use_container_width=False)
     
     res_box.markdown(f':blue[Dao: Ready to read!]')
     
@@ -89,7 +89,6 @@ session_state = st.session_state
 
 # Function to get image links from the provided URL
 def get_image_links(url):
-    # Assuming you have your driver initialized already
     driver.get(url)
     time.sleep(5)
 
@@ -107,9 +106,9 @@ def get_image_links(url):
 
 with st.expander("Tab 2"):
     url = st.text_input(":orange[CH. Url:]", key='inputt', help="Enter manga chapter here")
-    ok = st.button("📩", help="Read", key='1223', use_container_width=False)
+    okk = st.button("🖼️", help="Read", key='1223', use_container_width=False)
     
-    if ok:
+    if okk:
         session_state.image_links = get_image_links(url)
         session_state.current_image_index = 0
 
