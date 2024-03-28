@@ -5,6 +5,7 @@ streamlit
 prompt_toolkit
 PyPDF2
 instaloader
+curl_cffi
 instagrapi
 g4f
 webdriver-manager
