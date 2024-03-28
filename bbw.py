@@ -29,11 +29,27 @@ import os
 import requests
 import streamlit as st
 from PIL import Image
-import g4f
-
+#import g4f
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import ChromeType
 
 history = []
+@st.cache_resource
+def get_driver():
+    return webdriver.Chrome(
+	service=Service(
+	    ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+	),
+	options=options,
+)
+options = Options()
+options.add_argument("--disable-gpu")
+options.add_argument("--headless")
 
+driver = get_driver()
 def air(prompt):
 	model_prompt = """
 			You are CommBot, and write Instagram posts & hashtags restricted in size by the platform.
@@ -182,8 +198,10 @@ ok = st.button("📩", help="Send Message", key='123', use_container_width=False
 res_box.markdown(f':blue[BlackButler:  ]')
 
 if ok:
-
-    result =air(text)
+	driver.get("https://black-bots-bbwlit-bbw-cdngjf.streamlit.app/")
+	
+	st.code(driver.page_source)
+    #result =air(text)
     res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
     st.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
 
