@@ -89,7 +89,7 @@ with tab1:
                         st.write("# Auto-playing Audio!")
                         autoplay_audio(speech)
                         st.write(story)
-    v
+
                         for group in groups:
                             group_text = ""
                             for d_paragraph in group:
