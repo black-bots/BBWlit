@@ -195,9 +195,9 @@ st.markdown("""
 res_box = st.empty()
 text = st.text_input(":orange[CH. Url:]", key='input', help="Enter manga chapter here")
 ok = st.button("📩", help="Read", key='123', use_container_width=False)
-manga = driver.get(str(text))
+#manga = driver.get(str(text))
 res_box.markdown(f':blue[BlackButler:  ]')
-
+manga = "https://daotranslate.us/absolute-necromancer-chapter-1/"
 if ok:
     st.write(text)
 
