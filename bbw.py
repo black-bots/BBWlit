@@ -37,6 +37,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
 history = []
+st.set_page_config(
+    page_title="BlackButler WEB",
+    page_icon=icob,
+    layout="centered",
+    initial_sidebar_state="collapsed"
+)
+
 @st.cache_resource
 def get_driver():
     return webdriver.Chrome(
@@ -68,13 +75,6 @@ def air(prompt):
 	return response
             
 icob = Image.open('static/-.ico')
-
-st.set_page_config(
-    page_title="BlackButler WEB",
-    page_icon=icob,
-    layout="centered",
-    initial_sidebar_state="collapsed"
-)
 
 bottom_image=Image.open('static/1.png')
 top_image=Image.open('static/4.png')
