@@ -1,5 +1,5 @@
 import os
-import system
+from platform import system
 import time
 import requests
 from bs4 import BeautifulSoup
