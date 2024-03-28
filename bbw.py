@@ -66,7 +66,8 @@ driver = get_driver()
 res_box = st.empty()
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
-    st.caption("(https://daotranslate.us/absolute-necromancer-chapter-1/)")
+    with expander("Need a link?"):
+        st.caption("(https://daotranslate.us/absolute-necromancer-chapter-1/)")
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/absolute-necromancer-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚", help="Read", key='123', use_container_width=False)
     
@@ -98,22 +99,19 @@ with tab1:
                         # Convert text to speech and save it as a temporary mp3 file
                         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                             tts = gTTS(text=story, lang='en', slow=False)
-                            tts.save(tmp_file.name)
-                            
-                            # Display message
-                            st.write("# Auto-playing Audio!")
-                            
-                            # Play the audio
+                            tts.save(tmp_file.name)                            
+
                             autoplay_audio(tmp_file.name)
                             
-                        st.write(story)
+                        with exapnder("Read"):
+                            st.write(f':green[*{story}*]')
 
                         for group in groups:
                             group_text = ""
                             for d_paragraph in group:
                                 group_text += d_paragraph.text + "\n"
                             res_box.markdown(f':blue[Dao: ]:green[*{group_text}*]')
-                            time.sleep(4)
+                            time.sleep(3)
                     else:
                         res_box.markdown(f':blue[Dao: ]:green[*No manga content found at the provided URL.*]')
                 else:
@@ -169,7 +167,7 @@ def get_image_links(url):
 
 with tab2:
     with st.expander("Need a link?"):
-        st.info("https://mangapark.io/title/248099-en-plunder-the-sky/8455452-ch-001", icon='ℹ️')
+        st.caption("https://mangapark.io/title/248099-en-plunder-the-sky/8455452-ch-001")
     url = st.text_input(":orange[CH. Url:]", placeholder="https://mangapark.io/title/248099-en-plunder-the-sky/8473991-ch-042", key='inputt', help="Enter manga chapter here")
     okk = st.button("🖼️", help="Read", key='1223', use_container_width=False)
 
