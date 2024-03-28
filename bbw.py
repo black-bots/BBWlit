@@ -206,9 +206,8 @@ if ok:
 	try:
 		resp = requests.get(manga)
 	except Exception as e:
-		spk.Speak('Enter a valid URL before running.')
-		res_box.markdown(f':blue[BlackButler:  ]:green[*Enter a valid URL before running.*]')				
-		st.markdown(f':blue[BlackButler:  ]:green[*Enter a valid URL before running.*]')
+		res_box.markdown(f':blue[BlackButler:  ]:green[*1Enter a valid URL before running.*]')				
+		st.markdown(f':blue[BlackButler:  ]:green[*2Enter a valid URL before running.*]')
 	
 	
 	st.code(driver.page_source)
