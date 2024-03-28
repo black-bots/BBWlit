@@ -201,8 +201,8 @@ ok = st.button("📩", help="Read", key='123', use_container_width=False)
 res_box.markdown(f':blue[BlackButler:  ]')
 
 if ok:
-	manga = driver.get(text)
-	
+	manga = driver.get(f"{text}")
+	st.write(manga)
 	try:
 		resp = requests.get(manga)
 	except Exception as e:
