@@ -40,7 +40,8 @@ driver = get_driver()
 res_box = st.empty()
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
-    st.info("https://daotranslate.us/absolute-necromancer-chapter-1/", icon='ℹ️')
+    with st.expander("Need a link?"):
+        st.info("https://daotranslate.us/absolute-necromancer-chapter-1/", icon='ℹ️')
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/absolute-necromancer-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚", help="Read", key='123', use_container_width=False)
     
@@ -131,7 +132,8 @@ def get_image_links(url):
     return image_links
 
 with tab2:
-    st.info("https://mangapark.io/title/248099-en-plunder-the-sky/8455452-ch-001", icon='ℹ️')
+    with st.expander("Need a link?"):
+        st.info("https://mangapark.io/title/248099-en-plunder-the-sky/8455452-ch-001", icon='ℹ️')
     url = st.text_input(":orange[CH. Url:]", placeholder="https://mangapark.io/title/248099-en-plunder-the-sky/8473991-ch-042", key='inputt', help="Enter manga chapter here")
     okk = st.button("🖼️", help="Read", key='1223', use_container_width=False)
     
