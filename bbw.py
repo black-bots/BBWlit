@@ -193,17 +193,17 @@ st.markdown("""
 
 #with tab1:
 res_box = st.empty()
-text = st.text_input(":orange[CH. Url:]", key='input', help="Enter manga chapter here")
+url = st.text_input(":orange[CH. Url:]", key='input', help="Enter manga chapter here")
 ok = st.button("📩", help="Read", key='123', use_container_width=False)
-#manga = driver.get(str(text))
+manga = driver.get(url)
 res_box.markdown(f':blue[BlackButler:  ]')
-manga = "https://daotranslate.us/absolute-necromancer-chapter-1/"
+
 if ok:
     st.write(text)
-
-    resp = requests.get(manga)
-			
-    
+    try:
+        resp = requests.get(url)
+res_box.markdown(f':blue[Dao:  ]:green[*Enter a valid URL before running.*]') 
+    except Exception as e:			
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.text, 'html.parser')
         d = soup.find("div", {"class": "epcontent entry-content"})
