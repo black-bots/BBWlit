@@ -11,11 +11,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
-if system() == 'Windows' or 'nt':
-    import win32com.client as wincl
-else:
-    print("Sorry, TTS client is not supported on Linux or MacOS")
-    exit()
+
 
 history = []
 
@@ -42,11 +38,6 @@ def get_driver():
     )
 
 driver = get_driver()
-
-spk = wincl.Dispatch("SAPI.SpVoice")
-vcs = spk.GetVoices()
-spk.Voice
-spk.SetVoice(vcs.Item(voice))
 
 res_box = st.empty()
 tab1,tab2=st.tabs(['Text Based','Image Based'])
@@ -81,6 +72,7 @@ with tab1:
                         for paragraph in paragraphs:
                             story += paragraph.text + "\n\n"
                         story = story.replace('<p>', '').replace('</p>', '')
+                        speech=BytesIO();speech_=gTTS(text=story,lang='en',slow=False);speech_.write_to_fp(speech);st.audio(speech)
                         st.write(story)
     
                         for group in groups:
