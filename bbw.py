@@ -37,6 +37,7 @@ def get_driver():
 driver = get_driver()
 
 res_box = st.empty()
+tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
     url = st.text_input(":orange[CH. Url:]", key='input', help="Enter manga chapter here")
     ok = st.button("📩", help="Read", key='123', use_container_width=False)
