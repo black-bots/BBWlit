@@ -63,7 +63,7 @@ if ok:
 
                     story = ""
                     for paragraph in paragraphs:
-                        story += paragraph.text + "\n"
+                        story += paragraph.text + "\n\n"
                     story = story.replace('<p>', '').replace('</p>', '')
                     st.write(story)
 
