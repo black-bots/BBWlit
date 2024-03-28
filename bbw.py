@@ -66,7 +66,7 @@ driver = get_driver()
 res_box = st.empty()
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
-    with expander("Need a link?"):
+    with st.expander("Need a link?"):
         st.caption("(https://daotranslate.us/absolute-necromancer-chapter-1/)")
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/absolute-necromancer-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚", help="Read", key='123', use_container_width=False)
