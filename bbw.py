@@ -41,7 +41,7 @@ res_box = st.empty()
 url = st.text_input(":orange[CH. Url:]", key='input', help="Enter manga chapter here")
 ok = st.button("📩", help="Read", key='123', use_container_width=False)
 
-res_box.markdown(f':blue[BlackButler: ]')
+res_box.markdown(f':blue[Dao: Ready to read!]')
 
 if ok:
     manga = driver.get(url)
@@ -60,13 +60,15 @@ if ok:
                     num_groups = 100
                     group_size = len(paragraphs) // num_groups
                     groups = [paragraphs[i:i + group_size] for i in range(0, len(paragraphs), group_size)]
+                    
+                    st.write(paragraphs)
 
                     for group in groups:
                         group_text = ""
                         for d_paragraph in group:
                             group_text += d_paragraph.text + "\n"
-                        res_box.markdown(f':blue[BlackButler: ]:green[*{group_text}*]')
-                        time.sleep(2)  # Introduce a 2-second delay
+                        res_box.markdown(f':blue[Dao: ]:green[*{group_text}*]')
+                        time.sleep(4)  # Introduce a 2-second delay
                 else:
                     res_box.markdown(f':blue[Dao: ]:green[*No manga content found at the provided URL.*]')
             else:
@@ -74,7 +76,7 @@ if ok:
         except Exception as e:
             res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
             
-    st.code(paragraphs)
+    
     st.download_button('Download Text', group_text, key="847*")
     st.markdown("____________________________________________________________")
 
