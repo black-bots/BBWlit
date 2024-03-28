@@ -220,12 +220,12 @@ if ok:
                         group_text = ""
                         for d_paragraph in group:
                             group_text += d_paragraph.text + "\n"
-			finished = False
+                        finished = False
 			while not finished:
-				res_box.markdown(f':blue[BlackButler: ]:green[*{group_text}*]')
-				finished = True
-				if finished is True:
-					break
+                            res_box.markdown(f':blue[BlackButler: ]:green[*{group_text}*]')
+                            finished = True
+                            if finished is True:
+                                break
                 else:
                     res_box.markdown(f':blue[Dao: ]:green[*No manga content found at the provided URL.*]')
             else:
