@@ -204,7 +204,6 @@ if ok:
         resp = requests.get(manga)
     except Exception as e:
         res_box.markdown(f':blue[BlackButler:  ]:green[*1Enter a valid URL before running.*]')				
-	return
     
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.text, 'html.parser')
