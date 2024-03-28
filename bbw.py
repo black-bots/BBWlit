@@ -195,10 +195,11 @@ st.markdown("""
 res_box = st.empty()
 url = st.text_input(":orange[CH. Url:]", key='input', help="Enter manga chapter here")
 ok = st.button("📩", help="Read", key='123', use_container_width=False)
-manga = driver.get(url)
+
 res_box.markdown(f':blue[BlackButler:  ]')
 
 if ok:
+    manga = driver.get(url)
     if not url:
         res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
     else:
