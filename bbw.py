@@ -201,12 +201,12 @@ if ok:
 	driver.get("https://black-bots-bbwlit-bbw-cdngjf.streamlit.app/")
 	
 	st.code(driver.page_source)
-    #result =air(text)
-    res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
-    st.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
-
-    st.download_button('Save Response', result,key="847*")
-    st.markdown("----")
+	#result =air(text)
+	res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
+	st.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
+	
+	st.download_button('Save Response', result,key="847*")
+	st.markdown("----")
 
 else:
     print('')
