@@ -35,20 +35,20 @@ import g4f
 history = []
 
 def air(prompt):
-        model_prompt = """
-            You are CommBot, and write Instagram posts & hashtags restricted in size by the platform.
-            Output one to three sentences. Do not label the output sections, just write the contents: {}
-        """.format(prompt)
-        
-        response = g4f.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": model_prompt}],
-            stream=False,
-            n=1,
-            stop=None,
-            temperature=0.3,
-        )
-
+	model_prompt = """
+			You are CommBot, and write Instagram posts & hashtags restricted in size by the platform.
+			Output one to three sentences. Do not label the output sections, just write the contents: {}
+	""".format(prompt)
+	
+	response = g4f.ChatCompletion.create(
+		model="gpt-3.5-turbo",
+		messages=[{"role": "user", "content": model_prompt}],
+		stream=False,
+		n=1,
+		stop=None,
+		temperature=0.3,
+	)
+	
 	return response
             
 icob = Image.open('static/-.ico')
