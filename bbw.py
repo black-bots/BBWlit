@@ -85,17 +85,17 @@ with tab1:
                         for paragraph in paragraphs:
                             story += paragraph.text + "\n\n"
                         story = story.replace('<p>', '').replace('</p>', '')
-                        speech=BytesIO();speech_=gTTS(text=story,lang='en',slow=False);speech_.write_to_fp(speech);#st.audio(speech)
+                        speech=BytesIO();speech_=gTTS(text=story,lang='en',slow=False);speech_.save("speech.mp3");speech.seek(0)#speech_.write_to_fp(speech);st.audio(speech)
                         st.write("# Auto-playing Audio!")
                         autoplay_audio(speech)
                         st.write(story)
-    
+    v
                         for group in groups:
                             group_text = ""
                             for d_paragraph in group:
                                 group_text += d_paragraph.text + "\n"
                             res_box.markdown(f':blue[Dao: ]:green[*{group_text}*]')
-                            time.sleep(4)  # Introduce a 2-second delay
+                            time.sleep(4)
                     else:
                         res_box.markdown(f':blue[Dao: ]:green[*No manga content found at the provided URL.*]')
                 else:
