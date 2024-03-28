@@ -199,28 +199,34 @@ manga = driver.get(url)
 res_box.markdown(f':blue[BlackButler:  ]')
 
 if ok:
-    st.write(text)
-    try:
-        resp = requests.get(url)
-    except Exception as e:
-        res_box.markdown(f':blue[Dao:  ]:green[*Enter a valid URL before running.*]')
-    if resp.status_code == 200:
-        soup = BeautifulSoup(resp.text, 'html.parser')
-        d = soup.find("div", {"class": "epcontent entry-content"})
-        all_text = ""
-        num_paragraphs = len(d.findAll("p"))
-        paragraphs = d.findAll("p")
-        num_groups = 100
-        group_size = len(paragraphs) // num_groups
-        groups = [paragraphs[i:i + group_size] for i in range(0, len(paragraphs), group_size)]
-    
-        for group in groups:
-            group_text = ""
-            for d_paragraph in group:
-                group_text += d_paragraph.text + "\n"
-                
-            res_box.markdown(f':blue[BlackButler:  ]:green[*{group_text}*]')
-                    
+    if not url:
+        res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
+    else:
+        try:
+            resp = requests.get(url)
+            if resp.status_code == 200:
+                soup = BeautifulSoup(resp.text, 'html.parser')
+                d = soup.find("div", {"class": "epcontent entry-content"})
+                if d:
+                    all_text = ""
+                    num_paragraphs = len(d.findAll("p"))
+                    paragraphs = d.findAll("p")
+                    num_groups = 100
+                    group_size = len(paragraphs) // num_groups
+                    groups = [paragraphs[i:i + group_size] for i in range(0, len(paragraphs), group_size)]
+
+                    for group in groups:
+                        group_text = ""
+                        for d_paragraph in group:
+                            group_text += d_paragraph.text + "\n"
+
+                        res_box.markdown(f':blue[BlackButler: ]:green[*{group_text}*]')
+                else:
+                    res_box.markdown(f':blue[Dao: ]:green[*No manga content found at the provided URL.*]')
+            else:
+                res_box.markdown(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
+        except Exception as e:
+            res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     st.code(group_text)
     st.download_button('Download Text', result,key="847*")
     st.markdown("____________________________________________________________")
