@@ -136,7 +136,7 @@ with tab2:
         st.info("https://mangapark.io/title/248099-en-plunder-the-sky/8455452-ch-001", icon='ℹ️')
     url = st.text_input(":orange[CH. Url:]", placeholder="https://mangapark.io/title/248099-en-plunder-the-sky/8473991-ch-042", key='inputt', help="Enter manga chapter here")
     okk = st.button("🖼️", help="Read", key='1223', use_container_width=False)
-    
+    session_state = ""
     if okk:
         session_state.image_links = get_image_links(url)
         session_state.current_image_index = 0
