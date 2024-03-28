@@ -228,7 +228,7 @@ if ok:
         except Exception as e:
             res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     st.code(group_text)
-    st.download_button('Download Text', result,key="847*")
+    st.download_button('Download Text', group_text,key="847*")
     st.markdown("____________________________________________________________")
 
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
