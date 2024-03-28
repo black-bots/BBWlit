@@ -103,7 +103,7 @@ with tab1:
 
                             autoplay_audio(tmp_file.name)
                             
-                        with exapnder("Read"):
+                        with expander("Read"):
                             st.write(f':green[*{story}*]')
 
                         for group in groups:
