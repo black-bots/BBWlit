@@ -217,7 +217,7 @@ if ok:
         num_groups = 100
         group_size = len(paragraphs) // num_groups
         groups = [paragraphs[i:i + group_size] for i in range(0, len(paragraphs), group_size)]
-
+ 
         for group in groups:
             group_text = ""
             for d_paragraph in group:
