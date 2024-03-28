@@ -63,7 +63,6 @@ st.set_page_config(
 bottom_image=Image.open('static/1.png')
 top_image=Image.open('static/4.png')
 _image=Image.open('static/3.png')
-st.markdown(
 st.markdown("""
         <style>
         <br><hr><center>
