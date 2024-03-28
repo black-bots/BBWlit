@@ -202,8 +202,8 @@ if ok:
     st.write(text)
     try:
         resp = requests.get(url)
-res_box.markdown(f':blue[Dao:  ]:green[*Enter a valid URL before running.*]') 
-    except Exception as e:			
+    except Exception as e:
+	res_box.markdown(f':blue[Dao:  ]:green[*Enter a valid URL before running.*]')
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.text, 'html.parser')
         d = soup.find("div", {"class": "epcontent entry-content"})
