@@ -85,8 +85,8 @@ with tab1:
         st.download_button('Download Text', group_text, key="847*")
         st.markdown("____________________________________________________________")
 with tab2:
-    url = st.text_input(":orange[CH. Url:]", key='input', help="Enter manga chapter here")
-    ok = st.button("📩", help="Read", key='123', use_container_width=False)
+    url = st.text_input(":orange[CH. Url:]", key='inputt', help="Enter manga chapter here")
+    ok = st.button("📩", help="Read", key='1223', use_container_width=False)
 
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
