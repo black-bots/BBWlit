@@ -40,7 +40,7 @@ driver = get_driver()
 res_box = st.empty()
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
-    url = st.text_input(":orange[CH. Url:]", key='input', help="Enter manga chapter here")
+    url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/absolute-necromancer-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚", help="Read", key='123', use_container_width=False)
     
     res_box.markdown(f':blue[Dao: Ready to read!]')
@@ -130,27 +130,27 @@ def get_image_links(url):
     return image_links
 
 with tab2:
-    with st.expander("Tab 2"):
-        url = st.text_input(":orange[CH. Url:]", key='inputt', help="Enter manga chapter here")
-        okk = st.button("🖼️", help="Read", key='1223', use_container_width=False)
-        
-        if okk:
-            session_state.image_links = get_image_links(url)
-            session_state.current_image_index = 0
+
+    url = st.text_input(":orange[CH. Url:]", placeholder="https://mangapark.io/title/248099-en-plunder-the-sky/8473991-ch-042", key='inputt', help="Enter manga chapter here")
+    okk = st.button("🖼️", help="Read", key='1223', use_container_width=False)
     
-            if session_state.image_links:
-                st.image(session_state.image_links[0], use_column_width=True)
-    
-            st.write(f"Total Images: {len(session_state.image_links)}")
-    
+    if okk:
+        session_state.image_links = get_image_links(url)
+        session_state.current_image_index = 0
+
         if session_state.image_links:
-            next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
-    
-            if next_button_clicked:
-                session_state.current_image_index += 1
-                if session_state.current_image_index >= len(session_state.image_links):
-                    session_state.current_image_index = 0
-                st.image(session_state.image_links[session_state.current_image_index], use_column_width=True)
+            st.image(session_state.image_links[0], use_column_width=True)
+
+        st.write(f"Total Images: {len(session_state.image_links)}")
+
+    if session_state.image_links:
+        next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
+
+        if next_button_clicked:
+            session_state.current_image_index += 1
+            if session_state.current_image_index >= len(session_state.image_links):
+                session_state.current_image_index = 0
+            st.image(session_state.image_links[session_state.current_image_index], use_column_width=True)
 
 
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
