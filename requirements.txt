@@ -1,16 +1,13 @@
-bardapi
 matplotlib
 speechrecognition
 requests
 streamlit
-openai
 prompt_toolkit
 PyPDF2
 instaloader
 instagrapi
 g4f
-selenium
-undetected-chromedriver
+webdriver-manager
 seleniumbase
 pymongo==4.1.1
 dnspython==2.2.1
