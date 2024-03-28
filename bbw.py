@@ -37,6 +37,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
 history = []
+icob = Image.open('static/-.ico')
+
 st.set_page_config(
     page_title="BlackButler WEB",
     page_icon=icob,
