@@ -1,5 +1,6 @@
 import os
-from platform import system
+from gtts import gTTS
+from io import BytesIO
 import time
 import requests
 from bs4 import BeautifulSoup
