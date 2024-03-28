@@ -50,7 +50,6 @@ with tab1:
     res_box.markdown(f':blue[Dao: Ready to read!]')
     
     if ok:
-        spk.Speak("Loading, please wait.")
         manga = driver.get(url)
         if not url:
             res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
