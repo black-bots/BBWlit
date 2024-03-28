@@ -10,6 +10,11 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
+if system() == 'Windows' or 'nt':
+    import win32com.client as wincl
+else:
+    print("Sorry, TTS client is not supported on Linux or MacOS")
+    exit()
 
 history = []
 
@@ -37,6 +42,11 @@ def get_driver():
 
 driver = get_driver()
 
+spk = wincl.Dispatch("SAPI.SpVoice")
+vcs = spk.GetVoices()
+spk.Voice
+spk.SetVoice(vcs.Item(voice))
+
 res_box = st.empty()
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
@@ -48,6 +58,7 @@ with tab1:
     res_box.markdown(f':blue[Dao: Ready to read!]')
     
     if ok:
+        spk.Speak("Loading, please wait.")
         manga = driver.get(url)
         if not url:
             res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
