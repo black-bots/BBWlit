@@ -162,10 +162,7 @@ with tab1:
                                         prvchap = str(int(chap))
                                         nxtUrl = str(oldurl.replace(chap, nxtchap))
                                         st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\nChapter: " + nxtchap, text_color='orange')        
-    
-            if next_button_clicked:
-
-                        
+                            
                     else:
                         res_box.markdown(f':blue[Dao: ]:green[*No manga content found at the provided URL.*]')
                 else:
