@@ -2,6 +2,7 @@ import os
 from gtts import gTTS
 from io import BytesIO
 import time
+import tempfile
 import requests
 from bs4 import BeautifulSoup
 import streamlit as st
@@ -84,9 +85,18 @@ with tab1:
                         for paragraph in paragraphs:
                             story += paragraph.text + "\n\n"
                         story = story.replace('<p>', '').replace('</p>', '')
-                        speech=BytesIO();speech_=gTTS(text=story,lang='en',slow=False);speech_.save("speech.mp3");speech.seek(0)#speech_.write_to_fp(speech);st.audio(speech)
-                        st.write("# Auto-playing Audio!")
-                        autoplay_audio(speech)
+                        
+                        # Convert text to speech and save it as a temporary mp3 file
+                        with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
+                            tts = gTTS(text=story, lang='en', slow=False)
+                            tts.save(tmp_file.name)
+                            
+                            # Display message
+                            st.write("# Auto-playing Audio!")
+                            
+                            # Play the audio
+                            autoplay_audio(tmp_file.name)
+                            
                         st.write(story)
 
                         for group in groups:
@@ -103,6 +113,7 @@ with tab1:
                 res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
                         
         st.markdown("____________________________________________________________")
+        
 session_state = st.session_state
 
 # Function to get image links from the provided URL
