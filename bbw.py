@@ -212,7 +212,7 @@ if ok:
 	
 	
 	st.code(driver.page_source)
-	result =____"
+	result ="____"
 	res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
 	st.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
 	
