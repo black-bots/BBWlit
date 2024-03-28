@@ -207,20 +207,30 @@ if ok:
 	except Exception as e:
 		res_box.markdown(f':blue[BlackButler:  ]:green[*1Enter a valid URL before running.*]')				
 		st.markdown(f':blue[BlackButler:  ]:green[*2Enter a valid URL before running.*]')
-	
-	
-	st.code(driver.page_source)
-	result ="____"
-	res_box.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
-	st.markdown(f':blue[BlackButler:  ]:green[*{result}*]')				
-	
-	st.download_button('Save Response', result,key="847*")
-	st.markdown("----")
+
+    if resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        d = soup.find("div", {"class": "epcontent entry-content"})
+        all_text = ""
+        num_paragraphs = len(d.findAll("p"))
+        paragraphs = d.findAll("p")
+        num_groups = 100
+        group_size = len(paragraphs) // num_groups
+        groups = [paragraphs[i:i + group_size] for i in range(0, len(paragraphs), group_size)]
+
+        for group in groups:
+            group_text = ""
+            for d_paragraph in group:
+                group_text += d_paragraph.text + "\n"
+				
+            res_box.markdown(f':blue[BlackButler:  ]:green[*{group_text}*]')
+					
+	st.code(group_text)
+	st.download_button('Download Text', result,key="847*")
+	st.markdown("____________________________________________________________")
 
 else:
     print('')
-
-
 
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
