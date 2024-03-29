@@ -77,8 +77,13 @@ with tab1:
     if ok:
         try:
             manga = driver.get(url)
-        except Exception as e:
-            st.error(f"An error occurred: {e}")
+        except WebDriverException as e:
+            # Handle session ID error by restarting the WebDriver instance
+            st.error(f"Session ID error occurred: {e}")
+            st.info("Restarting WebDriver session...")
+            driver.quit()  # Close existing WebDriver instance
+            driver = get_driver()  # Reinitialize WebDriver
+            manga = driver.get(url)  # Attempt to navigate again
         if not url:
             res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
         else:
