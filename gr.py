@@ -143,7 +143,7 @@ res_box4 = st.empty()
 res_box5 = st.empty()
 
 Go = st.button('Start')
-res_box.markdown(f':green[Bot: ]:blue[Waiting..]')
+res_box.markdown(f':green[Bot: ] :blue[Waiting..]')
 if Go:
 	slider = slider_value
 	
@@ -158,7 +158,7 @@ if Go:
 		
 	    if session:
 	        try:
-	            res_box.markdown(":green[Bot: ]:blue[Starting..]")
+	            res_box.markdown(":green[Bot: ] :blue[Starting..]")
 	            cl.set_settings(session)
 	            cl.login(USERNAME, PASSWORD)
 	
@@ -209,30 +209,22 @@ if Go:
 	                post_id = post.id
 	                post_url = "https://instagram.com/p/" + post.code
 	                
-	                is_commented = False
 	                post_info = cl.media_info(post_id)
-	                for comment in post_info.comments:
-	                    if comment.user_id == cl.user_id:
-	                        is_commented = True
-	                        break
 	                
-	                if not is_commented:
-	                    res_box.markdown(":green[Bot: ] :blue[Post Found, Commenting...]")
-	                    try:
-                                cl.media_like(media_id)
-                                time.sleep(1)
-                                commentss = random.choice(comments)
-                                st.write(commentss)
-                                text = commentss
-                                st.write(text)
-                                time.sleep(1)
-                                cl.media_comment(post_id, str(text))
-                                res_box3.markdown(f':green[Bot: ] Comment - :blue[{text}]')
-                                res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
-	                    except Exception as error:
-	                        res_box.markdown(str(error))
-	                else:
-	                    res_box.markdown("Post Already Commented \n")
+                        res_box.markdown(":green[Bot: ] :blue[Post Found - Interacting..]")
+                        try:
+                            cl.media_like(media_id)
+                            time.sleep(1)
+                            commentss = random.choice(comments)
+                            st.write(commentss)
+                            text = commentss
+                            st.write(text)
+                            time.sleep(1)
+                            cl.media_comment(post_id, str(text))
+                            res_box3.markdown(f':green[Bot: ] Comment - :blue[{text}]')
+                            res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
+                        except Exception as error:
+                            res_box.markdown(str(error))
 	                
 	                count += 1
 	                res_box5.markdown(f"Count - :green[{count}]" )
