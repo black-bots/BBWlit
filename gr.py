@@ -220,8 +220,8 @@ if Go:
 	                    res_box.markdown(":green[Bot: ] :blue[Post Found, Commenting...]")
 	                    try:
 							cl.media_like(media_id)
-	                        comments = random.choice(comments)
-	                        text = comments
+	                        commentss = random.choice(comments)
+	                        text = commentss
 	                        comment = cl.media_comment(post_id, str(text))
 	                        res_box3.markdown(f':green[Bot: ] Comment - :blue[{text}]')
 	                        res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
