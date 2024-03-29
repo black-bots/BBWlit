@@ -27,7 +27,7 @@ st.markdown(
     '<br><hr><center>'
     '.embeddedAppMetaInfoBar_container__LZA_B{visibility:hidden;}'
     'button:hover {'
-    'background-color: white;'
+    'background-color: orange;'
     'transition: all 0.3s ease-in-out;'
     '}'
     '.st-ck:hover {'
