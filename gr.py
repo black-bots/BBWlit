@@ -76,36 +76,6 @@ st.markdown(
     '.st-hp {'
     'background-color: #FFBD45);'
     '}'
-    '.st-ju{'
-    'background: linear-gradient(to right, rgba(255, 189, 69, 0.25) 0%, rgba(255, 189, 69) 1%, #000000 1%);'
-    '}'
-    '.st-li{'
-    'background: linear-gradient(to right, rgba(255, 189, 69, 0.25) 0%, rgba(255, 189, 69) 10%, #000000 10%);'
-    '}'
-    '.st-lh{'
-    'background: linear-gradient(to right, rgba(255, 189, 69, 0.25) 0%, rgba(255, 189, 69) 20%, #000000 20%);'
-    '}'
-    '.st-lg{'
-    'background: linear-gradient(to right, rgba(255, 189, 69, 0.25) 0%, rgba(255, 189, 69) 35%, #000000 30%);'
-    '}'
-    '.st-lf{'
-    'background: linear-gradient(to right, rgba(255, 189, 69, 0.25) 0%, rgba(255, 189, 69) 35%, #000000 50%);'
-    '}'
-    '.st-le{'
-    'background: linear-gradient(to right, rgba(255, 189, 69, 0.25) 0%, rgba(255, 189, 69) 45%, #000000 60%);'
-    '}'
-    '.st-ld{'
-    'background: linear-gradient(to right, rgba(255, 189, 69, 0.25) 0%, rgba(255, 189, 69) 55%, #000000 70%);'
-    '}'
-    '.st-lj{'
-    'background: linear-gradient(to right, rgba(255, 189, 69, 0.25) 0%, rgba(255, 189, 69) 65%, #000000 80%);'
-    '}'
-    '.st-lk{'
-    'background: linear-gradient(to right, rgba(255, 189, 69, 0.25) 0%, rgba(255, 189, 69) 80%, #000000 90%);'
-    '}'
-    '.st-ll{'
-    'background: linear-gradient(to right, rgba(255, 189, 69, 0.25) 0%, rgba(255, 189, 69) 100%, #000000 100%);'
-    '}'
     'img {'
     'width:50%;'
     '}'
@@ -283,3 +253,6 @@ if Go:
 			print("Error occurred:", e)
 			import traceback
 			traceback.print_exc()
+			
+st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BlackGram!&body=To whom it may concern: '><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
+st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
