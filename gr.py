@@ -98,10 +98,7 @@ with st.sidebar:
 
 hashtag_list = hashes
 hashtag = hashtag_list
-if top_select == 'Top Posts':
-	top_selected = cl.hashtag_medias_top(hashtag, amount=find_value)
-elif top_select == 'Recent Posts':
-	top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
+
 if dropdown_menu == 'to Profile':
 		comments = [
 			"Hey there! I'd love it if you checked out my profile! 😊",
@@ -139,8 +136,6 @@ elif dropdown_menu == 'to Bio-Link':
 	"Your next adventure begins with a click on my bio link! Explore it now! 😊"
 	]
 
-top_posts = top_selected
-
 res_box = st.empty()
 res_box2 = st.empty()
 res_box3 = st.empty()
@@ -150,11 +145,17 @@ res_box5 = st.empty()
 Go = st.button('Start')
 res_box.markdown(f':green[Bot: ]:blue[Waiting..]')
 if Go:
-
 	slider = slider_value
 	
 	cl = Client()
 	cl.delay_range = [2, 6]
+
+	if top_select == 'Top Posts':
+		top_selected = cl.hashtag_medias_top(hashtag, amount=find_value)
+	elif top_select == 'Recent Posts':
+		top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
+	top_posts = top_selected
+	
 	def login_user():
 	    cl = Client()
 	    session = cl.load_settings("session.json")
