@@ -15,7 +15,7 @@ bottom_image = Image.open('static/1.png')
 main_image = Image.open('static/-.ico')
 top_image = Image.open('static/4.png')
 _image = Image.open('static/3.png')
-doju = Image.open('static/dojutsu.png')
+
 cl = Client()
 cl.delay_range = [2, 6]
 def login_user():
@@ -57,11 +57,10 @@ def login_user():
     if not login_via_pw and not login_via_session:
         raise Exception("Couldn't login user with either password or session")
 
-st.image(doju,use_column_width='auto')
+st.image(bottom_image,use_column_width='auto')
 USERNAME = st.text_input("Enter Username:")
 PASSWORD = st.text_input("Enter Password:", type="password")
 with st.sidebar:
-	st.image(bottom_image,use_column_width=True)
 	st.info('Ai SETTINGS', icon="ℹ️")
 
 
