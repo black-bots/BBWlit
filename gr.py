@@ -8,6 +8,7 @@ import matplotlib as mp
 import time
 import pprint
 import streamlit as st
+from PIL import Image
 
 
 bottom_image = Image.open('static/1.png')
