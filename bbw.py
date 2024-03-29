@@ -68,11 +68,11 @@ res_box = st.empty()
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
     with st.expander("Need a link?"):
-        st.caption("ex: https://daotranslate.us/solo-leveling-ragnarok-chapter-0/")
+        st.caption("ex: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-0/", key='input', help="Enter manga chapter here")
     ok = st.button("📚", help="Read", key='123', use_container_width=False)
     
-    res_box.markdown(f':blue[Dao: Ready to read!]')
+    res_box.markdown(f':blue[Dao:]')
     
     if ok:
         manga = driver.get(url)
