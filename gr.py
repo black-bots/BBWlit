@@ -15,6 +15,14 @@ bottom_image = Image.open('static/1.png')
 main_image = Image.open('static/-.ico')
 top_image = Image.open('static/4.png')
 _image = Image.open('static/3.png')
+icob = Image.open('static/-.ico')
+
+st.set_page_config(
+    page_title="BlackGram by BlackBots.net",
+    page_icon=icob,
+    layout="centered",
+    initial_sidebar_state="collapsed"
+)
 
 st.image(bottom_image,use_column_width='auto')
 
