@@ -20,6 +20,8 @@ st.image(bottom_image,use_column_width='auto')
 
 USERNAME = st.text_input("Enter Username:")
 PASSWORD = st.text_input("Enter Password:", type="password")
+find_value = 10
+
 with st.sidebar:
 	st.info('SETTINGS', icon="ℹ️")
 	
@@ -31,6 +33,12 @@ with st.sidebar:
 		 "sun", "swag", "tbt", "throwback", "tiktok", "travel", "trend", "trending", "vacation", "vibes", "wedding", "weekend", 
 		 "workout", "x", "yolo", "yougotthis", "youtube", "yummy", "ootd", "inspiration", "photography"
 		),help="Select a Tag to set the botting demographic")
+
+	top_select = st.selectbox('Posts',('Top Posts','Recent Posts'),help="Choose which Posts to interact with")
+	if top_select == 'Top Posts':
+		top_selected = cl.hashtag_medias_top(hashtag, amount=find_value)
+	elif top_select == 'Recent Posts':
+		top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
 
 	dropdown_menu = st.selectbox(
 		'Direct Traffic',
@@ -132,20 +140,18 @@ if Go:
 		cl.login(USERNAME, PASSWORD)
 		cl.dump_settings("session.json")
 	login_user()
-	find_value = 20
+	
 	while True:
 		username_str = USERNAME
 		try:
 			hashtag = hashtag_list
-			top_posts = cl.hashtag_medias_recent(hashtag, amount=find_value)
-			st.write(hashtag)
+			top_posts = top_selected
+			st.write("Tag: " + hashtag)
 			for i in range(0, len(top_posts)):
 				first_comment = top_posts[i].dict()
 			post_id = first_comment['id']  
 			post_code = first_comment['code']
-			post_url = "https://instagram.com/reel/" + post_code
-			st.write(post_url)
-			
+			post_url = "https://instagram.com/reel/" + post_code			
 			media_id = cl.media_id(cl.media_pk_from_url(post_url))
 			
 			is_present = False
@@ -153,12 +159,13 @@ if Go:
 			post_id = media_id
 			
 			if  is_present == False:
-				st.write("New Post Found, Commenting..... \n")
+				st.write("Post Found, Commenting..... \n")
 				try:
 					comments = random.choice(comments)
 					text = comments
 					comment = cl.media_comment(post_id, str(text))
 					st.write('Comment: ' + text)
+					st.write('Post: ' + post_url)
 				except Exception as error:
 					st.write(error)
 			else:
