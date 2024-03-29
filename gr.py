@@ -132,34 +132,34 @@ if Go:
     while True:
         username_str = USERNAME
         try:
-            top_posts = cl.hashtag_medias_recent(hashtag, amount=find_value)
+			top_posts = cl.hashtag_medias_recent(hashtag, amount=find_value)
 			st.write(hashtag)
-            for i in range(0, len(top_posts)):
-                first_comment = top_posts[i].dict()
-            post_id = first_comment['id']  
-            post_code = first_comment['code']
-            post_url = "https://instagram.com/reel/" + post_code
-            st.write(post_url)
-            
-            media_id = cl.media_id(cl.media_pk_from_url(post_url))
-            
-            is_present = False
-            
-            post_id = media_id
-            
-            if  is_present == False:
-                st.write("New Post Found, Commenting..... \n")
-                try:
-                    text = comments
-                    comment = cl.media_comment(post_id, str(text))
-                    st.write('Comment: ' + text)
-                except Exception as error:
-                    st.write(error)
-            else:
-              print("Post Already Found \n")
-            # Increase the time inorder to not get temporary ban
-            st.write(f"New Posts in {slider} minutes....")
-            time.sleep(slider * 60)
+			for i in range(0, len(top_posts)):
+				first_comment = top_posts[i].dict()
+			post_id = first_comment['id']  
+			post_code = first_comment['code']
+			post_url = "https://instagram.com/reel/" + post_code
+			st.write(post_url)
+			
+			media_id = cl.media_id(cl.media_pk_from_url(post_url))
+			
+			is_present = False
+			
+			post_id = media_id
+			
+			if  is_present == False:
+				st.write("New Post Found, Commenting..... \n")
+				try:
+					text = comments
+					comment = cl.media_comment(post_id, str(text))
+					st.write('Comment: ' + text)
+				except Exception as error:
+					st.write(error)
+			else:
+			  print("Post Already Found \n")
+			# Increase the time inorder to not get temporary ban
+			st.write(f"New Posts in {slider} minutes....")
+			time.sleep(slider * 60)
         except Exception as e:
             print("Error occurred:", e)
             import traceback
