@@ -77,6 +77,7 @@ with tab1:
     
     if ok:
         try:
+            st.write(url)
             manga = driver.get(url)
         except WebDriverException as e:
             # Handle session ID error by restarting the WebDriver instance
