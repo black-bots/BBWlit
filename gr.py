@@ -161,6 +161,6 @@ if Go:
 			st.write(f"New Posts in {slider} minutes....")
 			time.sleep(slider * 60)
 		except Exception as e:
-		print("Error occurred:", e)
-		import traceback
-		traceback.print_exc()
+			print("Error occurred:", e)
+			import traceback
+			traceback.print_exc()
