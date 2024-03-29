@@ -40,7 +40,6 @@ with st.sidebar:
 	        "If you enjoy my comments, you might like what's on my profile! 📸",
 	        "Hey! If you want to see more, my profile is where it's at! 🚀",
 	        "Feel free to explore my profile if you're interested! 🌈",
-	        "You're awesome for engaging! If you're curious, my profile is right here! ❤️",
 	        "Thanks for your support! If you want to see more, head over to my profile! 🙌"
 	    ]
 	elif dropdown_menu == 'to Inbox':
@@ -54,7 +53,6 @@ with st.sidebar:
 	        "I love connecting with new people! Don't hesitate to send me a message! 😄",
 	        "Feel free to reach out if you ever want to chat! My inbox is waiting! 💬",
 	        "If you have any questions or just want to say hi, my inbox is the place to do it! 👋",
-	        "Thanks for engaging! If you want to chat further, my inbox is right here! 😊",
 	        "If you ever want to connect one-on-one, my inbox is open for you! 🌟"
 	    ]
 	elif dropdown_menu == 'to Bio-Link':
@@ -68,7 +66,6 @@ with st.sidebar:
 	        "My bio link holds secrets to success and inspiration! Click to reveal them! 🚀",
 	        "Unlock exclusive content and special offers in my bio link! Click to access! 🌈",
 	        "Find solutions to your problems and inspiration for your journey in my bio link! ❤️",
-	        "Thanks for engaging! If you want to access valuable resources, check out my bio link! 🙌",
 	        "Your next adventure begins with a click on my bio link! Explore it now! 😊"
 	    ]
 
@@ -78,8 +75,7 @@ with st.sidebar:
 
 Go = st.button('Start')
 if Go:
-	comments = random.choice(comments)
-	hashtag = random.choice(hashtag_list)
+
 	slider = slider_value
 	
 	cl = Client()
@@ -133,6 +129,7 @@ if Go:
 	while True:
 		username_str = USERNAME
 		try:
+			hashtag = random.choice(hashtag_list)
 			top_posts = cl.hashtag_medias_recent(hashtag, amount=find_value)
 			st.write(hashtag)
 			for i in range(0, len(top_posts)):
@@ -151,6 +148,7 @@ if Go:
 			if  is_present == False:
 				st.write("New Post Found, Commenting..... \n")
 				try:
+					comments = random.choice(comments)
 					text = comments
 					comment = cl.media_comment(post_id, str(text))
 					st.write('Comment: ' + text)
