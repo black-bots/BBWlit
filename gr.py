@@ -226,9 +226,9 @@ if Go:
 							text = commentss
 							st.write(text)
 							time.sleep(1)
-	                        cl.media_comment(post_id, str(text))
-	                        res_box3.markdown(f':green[Bot: ] Comment - :blue[{text}]')
-	                        res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
+							cl.media_comment(post_id, str(text))
+							res_box3.markdown(f':green[Bot: ] Comment - :blue[{text}]')
+							res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
 	                    except Exception as error:
 	                        res_box.markdown(str(error))
 	                else:
