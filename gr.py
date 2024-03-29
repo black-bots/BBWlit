@@ -221,9 +221,9 @@ if Go:
 	                    try:
 							cl.media_like(media_id)
 							time.sleep(1)
-				                        commentss = random.choice(comments)
+							commentss = random.choice(comments)
 							st.write(commentss)
-				                        text = commentss
+							text = commentss
 							st.write(text)
 							time.sleep(1)
 	                        cl.media_comment(post_id, str(text))
