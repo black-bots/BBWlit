@@ -122,16 +122,16 @@ with st.sidebar:
 
 Go = st.button('Start')
 if Go:
-    try:
-        cl.load_settings("session.json")
-    except:
-        cl.login(USERNAME, PASSWORD)
-        cl.dump_settings("session.json")
-    login_user()
-    find_value = 20
-    while True:
-        username_str = USERNAME
-        try:
+	try:
+		cl.load_settings("session.json")
+	except:
+		cl.login(USERNAME, PASSWORD)
+		cl.dump_settings("session.json")
+	login_user()
+	find_value = 20
+	while True:
+		username_str = USERNAME
+		try:
 			top_posts = cl.hashtag_medias_recent(hashtag, amount=find_value)
 			st.write(hashtag)
 			for i in range(0, len(top_posts)):
