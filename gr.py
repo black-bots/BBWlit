@@ -208,7 +208,7 @@ if Go:
                         post = top_posts[i]
                         post_id = post.id
                         post_url = "https://instagram.com/p/" + post.code
-                        
+                        media_id = cl.media_id(cl.media_pk_from_url(post_url))
                         post_info = cl.media_info(post_id)
                         
                         res_box.markdown(":green[Bot: ] :blue[Post Found - Interacting..]")
