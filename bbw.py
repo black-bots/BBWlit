@@ -98,11 +98,11 @@ with tab1:
                         story = story.replace('<p>', '').replace('</p>', '')
                         
                         # Convert text to speech and save it as a temporary mp3 file
-                        with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
-                            tts = gTTS(text=story, lang='en', slow=False)
-                            tts.save(tmp_file.name)                            
+                        #with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
+                        #    tts = gTTS(text=story, lang='en', slow=False)
+                        #    tts.save(tmp_file.name)                            
 
-                            autoplay_audio(tmp_file.name)
+                        #    autoplay_audio(tmp_file.name)
                             
                         with st.expander("Read"):
                             st.write(f':green[*{story}*]')
