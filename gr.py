@@ -25,9 +25,12 @@ with st.sidebar:
 	
 	hashes = st.selectbox(
 		'Tag',
-		("like", "follow", "follow", "chatgpt", "ai", "chatai", "love", "instagood", "photooftheday", "beautiful", 
-		"fashion", "happy", "cute", "tbt", "picoftheday", "me", "selfie", "summer", "art", "instadaily", 
-		"friends", "repost", "nature", "girl", "fun", "style", "food", "smile", "family", "likeforlike"),help="Select a Tag to set the botting demographic")
+		("all", "anime", "art", "beauty", "blessed", "blog", "blogger", "cute", "exercise", "fashion", "fitness", "follow", "followme", 
+		 "foodie", "friends", "fun", "girl", "goals", "happy", "itod", "instagood", "instadaily", "life", "love", "me", 
+		 "manga", "motivation", "nature", "ootd", "photooftheday", "picoftheday", "potd", "selfie", "smile", "style", "summer", 
+		 "sun", "swag", "tbt", "throwback", "tiktok", "travel", "trend", "trending", "vacation", "vibes", "wedding", "weekend", 
+		 "workout", "x", "yolo", "yougotthis", "youtube", "yummy", "ootd", "inspiration", "photography"
+		),help="Select a Tag to set the botting demographic")
 
 	dropdown_menu = st.selectbox(
 		'Direct Traffic',
