@@ -63,17 +63,7 @@ if Go:
     cl.dump_settings("session.json")
   login_user()
   find_value = 20
-  def generate_response(prompt):
-      response = openai.Completion.create(
-          engine="text-davinci-002",
-          prompt=prompt,
-          max_tokens=3600,
-          n=1,
-          stop=None,
-          temperature=1,
-      )
-      message = response.choices[0].text.strip()
-      return message
+
   while True:
       username_str = name
       hashtag_list = ["like", "follow", "follow", "chatgpt", "ai", "chatai"]
