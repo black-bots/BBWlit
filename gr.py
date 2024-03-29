@@ -21,7 +21,7 @@ st.set_page_config(
     page_title="BlackGram by BlackBots.net",
     page_icon=icob,
     layout="centered",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 
 st.image(bottom_image,use_column_width='auto')
