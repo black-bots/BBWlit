@@ -219,13 +219,13 @@ if Go:
 	                if not is_commented:
 	                    res_box.markdown(":green[Bot: ] :blue[Post Found, Commenting...]")
 	                    try:
-				cl.media_like(media_id)
-				time.sleep(1)
-	                        commentss = random.choice(comments)
-				st.write(commentss)
-	                        text = commentss
-				st.write(text)
-				time.sleep(1)
+							cl.media_like(media_id)
+							time.sleep(1)
+				                        commentss = random.choice(comments)
+							st.write(commentss)
+				                        text = commentss
+							st.write(text)
+							time.sleep(1)
 	                        cl.media_comment(post_id, str(text))
 	                        res_box3.markdown(f':green[Bot: ] Comment - :blue[{text}]')
 	                        res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
