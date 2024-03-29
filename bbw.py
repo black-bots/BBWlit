@@ -75,12 +75,12 @@ with tab1:
     res_box.markdown(f':blue[Dao:]')
     
     if ok:
-        url = driver.get(url)
+        manga = driver.get(url)
         if not url:
             res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
         else:
             try:
-                resp = requests.get(url)
+                resp = requests.get(manga)
                 if resp.status_code == 200:
                     soup = BeautifulSoup(resp.text, 'html.parser')
                     d = soup.find("div", {"class": "epcontent entry-content"})
