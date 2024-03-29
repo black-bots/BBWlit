@@ -133,7 +133,7 @@ if Go:
 	while True:
 		username_str = USERNAME
 		try:
-			hashtag = random.choice(hashtag_list)
+			hashtag = hashtag_list
 			top_posts = cl.hashtag_medias_recent(hashtag, amount=find_value)
 			st.write(hashtag)
 			for i in range(0, len(top_posts)):
