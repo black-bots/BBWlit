@@ -62,7 +62,7 @@ st.markdown(
     'border-color: #FFBD45;'
     '}'
     '.st-e9{'
-    'background: #000000;'
+    'background: #FFBD45;'
     '}'
     '.st-co{'
     'color: white;'
@@ -126,6 +126,7 @@ st.markdown(
     '</style>',
     unsafe_allow_html=True
 )
+
 
 with st.sidebar:
 	st.info('SETTINGS', icon="ℹ️")
