@@ -75,7 +75,7 @@ with tab1:
     res_box.markdown(f':blue[Dao:]')
     
     if ok:
-        manga = driver.get(url)
+        url = driver.get(url)
         if not url:
             res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
         else:
