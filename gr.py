@@ -156,12 +156,6 @@ if Go:
 	    login_via_session = False
 	    login_via_pw = False
 		
-		if top_select == 'Top Posts':
-			top_selected = cl.hashtag_medias_top(hashtag, amount=find_value)
-		elif top_select == 'Recent Posts':
-			top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
-		top_posts = top_selected
-		
 	    if session:
 	        try:
 	            res_box.markdown(":green[Bot: ]:blue[Starting..]")
@@ -201,6 +195,11 @@ if Go:
 		cl.dump_settings("session.json")
 	login_user()
 	count = 0
+	if top_select == 'Top Posts':
+		top_selected = cl.hashtag_medias_top(hashtag, amount=find_value)
+	elif top_select == 'Recent Posts':
+		top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
+	top_posts = top_selected
 	while True:
 		try:
 			with st.expander('Output:'):
