@@ -37,7 +37,6 @@ def login_user():
 
                 old_session = cl.get_settings()
 
-                # use the same device uuids across logins
                 cl.set_settings({})
                 cl.set_uuids(old_session["uuids"])
 
