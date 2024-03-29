@@ -62,7 +62,7 @@ st.markdown(
     'border-color: #FFBD45;'
     '}'
     '.st-e9{'
-    'background: #FFBD45;'
+    'background: #000000;'
     '}'
     '.st-co{'
     'color: white;'
