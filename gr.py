@@ -201,41 +201,43 @@ if Go:
 		top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
 	top_posts = top_selected
 	while True:
-		try:
-			with st.expander('Output:'):
-				res_box2.markdown(f":green[Bot: ] Tag - :blue[{hashtag}]")
-				for i in range(0, len(top_posts)):
-					first_comment = top_posts[i].dict()
-				post_id = first_comment['id']  
-				post_code = first_comment['code']
-				post_url = "https://instagram.com/reel/" + post_code			
-				media_id = cl.media_id(cl.media_pk_from_url(post_url))
-				
-				is_present = False
-				
-				post_id = media_id
-				
-				if  is_present == False:
-					res_box.markdown(":green[Bot: ] :blue[Post Found, Commenting...]")
-					try:
-						comments = random.choice(comments)
-						text = comments
-						comment = cl.media_comment(post_id, str(text))
-						res_box3.markdown(f':green[Bot: ] Comment - :blue[{text}]')
-						res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
-					except Exception as error:
-						res_box.markdown(error)
-				else:
-					res_box.markdown("Post Already Found \n")
-				count+=1
-				res_box5.markdown(f"Count - :green[{count}]" )
-				res_box.markdown(f":orange[New Posts in :green[{slider}] minutes....]")
-				#time.sleep(slider * 60)
-				time.sleep(3)
-		except Exception as e:
-			st.write("Error occurred:", e)
-			import traceback
-			st.write(traceback.print_exc())
+	    try:
+	        with st.expander('Output:'):
+	            res_box2.markdown(f":green[Bot: ] Tag - :blue[{hashtag}]")
+	            for i in range(0, len(top_posts)):
+	                post = top_posts[i]
+	                post_id = post.id
+	                post_url = "https://instagram.com/p/" + post.code
+	                
+	                is_commented = False
+	                post_info = cl.media_info(post_id)
+	                for comment in post_info.comments:
+	                    if comment.user_id == cl.user_id:
+	                        is_commented = True
+	                        break
+	                
+	                if not is_commented:
+	                    res_box.markdown(":green[Bot: ] :blue[Post Found, Commenting...]")
+	                    try:
+							cl.media_like(media_id)
+	                        comments = random.choice(comments)
+	                        text = comments
+	                        comment = cl.media_comment(post_id, str(text))
+	                        res_box3.markdown(f':green[Bot: ] Comment - :blue[{text}]')
+	                        res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
+	                    except Exception as error:
+	                        res_box.markdown(str(error))
+	                else:
+	                    res_box.markdown("Post Already Commented \n")
+	                
+	                count += 1
+	                res_box5.markdown(f"Count - :green[{count}]" )
+	                res_box.markdown(f":orange[New Posts in :green[{slider}] minutes....]")
+	                time.sleep(3)
+	    except Exception as e:
+	        st.write("Error occurred:", e)
+	        import traceback
+	        st.write(traceback.print_exc())
 			
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BlackGram!&body=To whom it may concern: '><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
