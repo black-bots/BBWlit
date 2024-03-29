@@ -94,14 +94,13 @@ while True:
                   time.sleep(200)
               except Exception as error:
                   st.write(error)
-    
           else:
-                  print("Post Already Found \n")
+              print("Post Already Found \n")
       # Increase the time inorder to not get temporary ban
       st.write("New Posts in 5 Seconds....")
       time.sleep(60)
   
-                  print("Post Already Found \n")
+      print("Post Already Found \n")
       # Increase the time inorder to not get temporary ban
       st.write("New Posts in 5 Seconds....")
       time.sleep(60)
