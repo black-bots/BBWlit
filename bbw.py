@@ -46,6 +46,7 @@ options.add_argument('--dns-prefetch-disable')
 options.add_argument('--no-sandbox')
 options.add_argument('--lang=en-US')
 options.add_argument('--disable-setuid-sandbox')
+options.add_argument("--ignore-certificate-errors")
 
 @st.cache_resource
 def get_driver():
