@@ -22,6 +22,12 @@ USERNAME = st.text_input("Enter Username:")
 PASSWORD = st.text_input("Enter Password:", type="password")
 with st.sidebar:
 	st.info('SETTINGS', icon="ℹ️")
+	
+	hashes = st.selectbox(
+		'Tag',
+		("like", "follow", "follow", "chatgpt", "ai", "chatai", "love", "instagood", "photooftheday", "beautiful", 
+		"fashion", "happy", "cute", "tbt", "picoftheday", "me", "selfie", "summer", "art", "instadaily", 
+		"friends", "repost", "nature", "girl", "fun", "style", "food", "smile", "family", "likeforlike"),help="Select a Tag to set the botting demographic")
 
 	dropdown_menu = st.selectbox(
 		'Direct Traffic',
@@ -69,9 +75,7 @@ with st.sidebar:
 	        "Your next adventure begins with a click on my bio link! Explore it now! 😊"
 	    ]
 
-	hashtag_list = ["like", "follow", "follow", "chatgpt", "ai", "chatai", "love", "instagood", "photooftheday", "beautiful", 
-		"fashion", "happy", "cute", "tbt", "picoftheday", "me", "selfie", "summer", "art", "instadaily", 
-		"friends", "repost", "nature", "girl", "fun", "style", "food", "smile", "family", "likeforlike"]
+	hashtag_list = hashes
 
 Go = st.button('Start')
 if Go:
