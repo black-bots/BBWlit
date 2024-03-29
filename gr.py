@@ -35,10 +35,6 @@ with st.sidebar:
 		),help="Select a Tag to set the botting demographic")
 
 	top_select = st.selectbox('Posts',('Top Posts','Recent Posts'),help="Choose which Posts to interact with")
-	if top_select == 'Top Posts':
-		top_selected = cl.hashtag_medias_top(hashtag, amount=find_value)
-	elif top_select == 'Recent Posts':
-		top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
 
 	dropdown_menu = st.selectbox(
 		'Direct Traffic',
@@ -144,6 +140,10 @@ if Go:
 	while True:
 		username_str = USERNAME
 		try:
+			if top_select == 'Top Posts':
+				top_selected = cl.hashtag_medias_top(hashtag, amount=find_value)
+			elif top_select == 'Recent Posts':
+				top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
 			hashtag = hashtag_list
 			top_posts = top_selected
 			st.write("Tag: " + hashtag)
