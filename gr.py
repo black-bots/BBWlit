@@ -38,7 +38,7 @@ st.markdown(
     '}'
     '.st-mh:hover {'
     'background-color: grey;'
-    'color: gold;'
+    'color: lime;'
     'border: 2px solid #FFBD45;'
     'box-shadow: 0 0 10px #FFBD45;'
     'transition: all 0.3s ease-in-out;'
@@ -129,8 +129,9 @@ with st.sidebar:
 	    ]
 
 	hashtag_list = hashes
-
+res_box = st.empty()
 Go = st.button('Start')
+res_box.markdown(f':green[Bot: ]:blue[Waiting..]')
 if Go:
 
 	slider = slider_value
@@ -146,6 +147,7 @@ if Go:
 	
 	    if session:
 	        try:
+				st.
 	            cl.set_settings(session)
 	            cl.login(USERNAME, PASSWORD)
 	
@@ -192,7 +194,7 @@ if Go:
 				top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
 			hashtag = hashtag_list
 			top_posts = top_selected
-			st.write("Tag: " + hashtag)
+			res_box.markdown(f":green[Tag:] :blue[hashtag]")
 			for i in range(0, len(top_posts)):
 				first_comment = top_posts[i].dict()
 			post_id = first_comment['id']  
@@ -205,19 +207,19 @@ if Go:
 			post_id = media_id
 			
 			if  is_present == False:
-				st.write("Post Found, Commenting..... \n")
+				res_box.markdown(f":green[Post Found, Commenting..... \n]")
 				try:
 					comments = random.choice(comments)
 					text = comments
 					comment = cl.media_comment(post_id, str(text))
-					st.write('Comment: ' + text)
-					st.write('Post: ' + post_url)
+					res_box.markdown(f':green[Comment:] :blue[{text}]')
+					res_box.markdown(f':green[Post:] :blue[post_url]')
 				except Exception as error:
-					st.write(error)
+					res_box.markdown(error)
 			else:
 				print("Post Already Found \n")
 			# Increase the time inorder to not get temporary ban
-			st.write(f"New Posts in {slider} minutes....")
+			res_box.markdown(f":orange[New Posts in :green[{slider}] minutes....]")
 			time.sleep(slider * 60)
 		except Exception as e:
 			print("Error occurred:", e)
