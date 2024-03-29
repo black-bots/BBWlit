@@ -2,6 +2,7 @@ from instagrapi import Client
 from instagrapi.exceptions import LoginRequired
 import logging
 import pandas as pd
+import random
 import numpy as np
 import matplotlib as mp
 import time
