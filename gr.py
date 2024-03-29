@@ -68,7 +68,12 @@ while True:
     username_str = USERNAME
     hashtag_list = ["like", "follow", "follow", "chatgpt", "ai", "chatai"]
     
-    top_posts = cl.hashtag_medias_recent(random.choice(hashtag_list), amount=find_value)
+    try:
+        top_posts = cl.hashtag_medias_recent(random.choice(hashtag_list), amount=find_value)
+    except Exception as e:
+        print("Error occurred:", e)
+        import traceback
+        traceback.print_exc()
     
     for i in range(0, len(top_posts)):
         first_comment = top_posts[i].dict()
