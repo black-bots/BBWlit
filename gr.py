@@ -203,33 +203,33 @@ if Go:
 	while True:
 	    try:
 	        with st.expander('Output:'):
-			res_box2.markdown(f":green[Bot: ] Tag - :blue[{hashtag}]")
-			for i in range(0, len(top_posts)):
-				post = top_posts[i]
-				post_id = post.id
-				post_url = "https://instagram.com/p/" + post.code
-				
-				post_info = cl.media_info(post_id)
-				
-				res_box.markdown(":green[Bot: ] :blue[Post Found - Interacting..]")
-				try:
-					cl.media_like(media_id)
-					time.sleep(1)
-					commentss = random.choice(comments)
-					st.write(commentss)
-					text = commentss
-					st.write(text)
-					time.sleep(1)
-					cl.media_comment(post_id, str(text))
-					res_box3.markdown(f':green[Bot: ] Comment - :blue[{text}]')
-					res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
-				except Exception as error:
-					res_box.markdown(str(error))
-				
-				count += 1
-				res_box5.markdown(f"Count - :green[{count}]" )
-				res_box.markdown(f":orange[New Posts in :green[{slider}] minutes....]")
-				time.sleep(3)
+                    res_box2.markdown(f":green[Bot: ] Tag - :blue[{hashtag}]")
+                    for i in range(0, len(top_posts)):
+                        post = top_posts[i]
+                        post_id = post.id
+                        post_url = "https://instagram.com/p/" + post.code
+                        
+                        post_info = cl.media_info(post_id)
+                        
+                        res_box.markdown(":green[Bot: ] :blue[Post Found - Interacting..]")
+                        try:
+                            cl.media_like(media_id)
+                            time.sleep(1)
+                            commentss = random.choice(comments)
+                            st.write(commentss)
+                            text = commentss
+                            st.write(text)
+                            time.sleep(1)
+                            cl.media_comment(post_id, str(text))
+                            res_box3.markdown(f':green[Bot: ] Comment - :blue[{text}]')
+                            res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
+                        except Exception as error:
+                            res_box.markdown(str(error))
+                        
+                        count += 1
+                        res_box5.markdown(f"Count - :green[{count}]" )
+                        res_box.markdown(f":orange[New Posts in :green[{slider}] minutes....]")
+                        time.sleep(3)
 	    except Exception as e:
 	        st.write("Error occurred:", e)
 	        import traceback
