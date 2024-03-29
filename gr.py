@@ -75,13 +75,13 @@ with st.sidebar:
 	hashtag_list = ["like", "follow", "follow", "chatgpt", "ai", "chatai", "love", "instagood", "photooftheday", "beautiful", 
 		"fashion", "happy", "cute", "tbt", "picoftheday", "me", "selfie", "summer", "art", "instadaily", 
 		"friends", "repost", "nature", "girl", "fun", "style", "food", "smile", "family", "likeforlike"]
-	
-	comments = random.choice(comments)
-	hashtag = random.choice(hashtag_list)
-	slider = slider_value
 
 Go = st.button('Start')
 if Go:
+	comments = random.choice(comments)
+	hashtag = random.choice(hashtag_list)
+	slider = slider_value
+	
 	cl = Client()
 	cl.delay_range = [2, 6]
 	def login_user():
