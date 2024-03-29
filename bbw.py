@@ -82,12 +82,8 @@ with tab1:
     
     res_box.markdown(f':blue[Dao:]')
     
-    if ok:
-        try:
-            driver.get(url)
-        except:
-            res_box.markdown(f":red[URL is not working]")
-
+    if ok:        
+        driver.get(url)
         if not url:
             res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
         else:
