@@ -61,16 +61,13 @@ st.image(bottom_image,use_column_width='auto')
 USERNAME = st.text_input("Enter Username:")
 PASSWORD = st.text_input("Enter Password:", type="password")
 with st.sidebar:
-	st.info('Ai SETTINGS', icon="ℹ️")
-
+	st.info('SETTINGS', icon="ℹ️")
 
 	dropdown_menu = st.selectbox(
-		'Set Ai',
-		('Ejs Assistant', 'Generic'),help="Select default Ai")
+		'Direct Traffic',
+		('to Profile', 'to Inbox', 'to Bio-Link'),help="Select default Ai")
 
-	selected2 = st.checkbox('Speak responses?', value=True,help="Speak Ai reponses out-loud")
-	selected = st.checkbox('Stream responses?', value=True,help="Stream reponses in real-time")
-	slider_value = st.slider(':orange[Response style]', 0.1, 1.0, 0.70, step=0.10,help="Set the personality of the Ai (0.10 Predicatble - 1.00 Creative)")
+	slider_value = st.slider(':orange[Response style]', 1, 30, 60, step=1,help="Time to wait in between likes")
 
 	if dropdown_menu == 'Ejs Assistant':
 		st.write(':orange[Sonic Mode]:green[ Enabled]')
