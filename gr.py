@@ -69,16 +69,16 @@ while True:
     
     try:
         top_posts = cl.hashtag_medias_recent(random.choice(hashtag_list), amount=find_value)
+        for i in range(0, len(top_posts)):
+            first_comment = top_posts[i].dict()
+        post_id = first_comment['id']  
+        post_code = first_comment['code']
+        post_url = "https://instagram.com/reel/" + post_code
     except Exception as e:
         print("Error occurred:", e)
         import traceback
         traceback.print_exc()
     
-    for i in range(0, len(top_posts)):
-        first_comment = top_posts[i].dict()
-    post_id = first_comment['id']  
-    post_code = first_comment['code']
-    post_url = "https://instagram.com/reel/" + post_code
     st.write(post_url)
     
     media_id = cl.media_id(cl.media_pk_from_url(post_url))
