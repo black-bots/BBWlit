@@ -137,7 +137,12 @@ with st.sidebar:
 	    ]
 
 	hashtag_list = hashes
+	
 res_box = st.empty()
+res_box2 = st.empty()
+res_box3 = st.empty()
+res_box4 = st.empty()
+
 Go = st.button('Start')
 res_box.markdown(f':green[Bot: ]:blue[Waiting..]')
 if Go:
@@ -202,7 +207,7 @@ if Go:
 			elif top_select == 'Recent Posts':
 				top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
 			top_posts = top_selected
-			res_box.markdown(f":green[Bot: ]Tag - :blue[{hashtag}]")
+			res_box2.markdown(f":green[Bot: ]Tag - :blue[{hashtag}]")
 			for i in range(0, len(top_posts)):
 				first_comment = top_posts[i].dict()
 			post_id = first_comment['id']  
@@ -220,8 +225,8 @@ if Go:
 					comments = random.choice(comments)
 					text = comments
 					comment = cl.media_comment(post_id, str(text))
-					res_box.markdown(f':green[Bot: ]Comment - :blue[{text}]')
-					res_box.markdown(f':green[Bot: ]Post - :blue[{post_url}]')
+					res_box3.markdown(f':green[Bot: ]Comment - :blue[{text}]')
+					res_box4.markdown(f':green[Bot: ]Post - :blue[{post_url}]')
 				except Exception as error:
 					res_box.markdown(error)
 			else:
