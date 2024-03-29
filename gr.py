@@ -155,7 +155,7 @@ if Go:
 	
 	    if session:
 	        try:
-			    res_box.markdown(":green[Bot: ]:blue[Starting..]")
+	            res_box.markdown(":green[Bot: ]:blue[Starting..]")
 	            cl.set_settings(session)
 	            cl.login(USERNAME, PASSWORD)
 	
