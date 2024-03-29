@@ -54,7 +54,6 @@ def login_user():
 st.header("IG BlackMarket")
 USERNAME = st.text_input("Enter Username:")
 PASSWORD = st.text_input("Enter Password:", type="password")
-Keyy = st.text_input("Set API-Key:")
 Go = st.button('Start')
 if Go:
     try:
@@ -102,11 +101,7 @@ while True:
       print("Post Already Found \n")
     # Increase the time inorder to not get temporary ban
     st.write("New Posts in 5 Seconds....")
-    time.sleep(60)
-    
-    print("Post Already Found \n")
-    # Increase the time inorder to not get temporary ban
-    st.write("New Posts in 5 Seconds....")
-    time.sleep(60)
+    time.sleep(3)
+
     
 
