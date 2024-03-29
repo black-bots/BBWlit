@@ -11,7 +11,6 @@ import streamlit as st
 cl = Client()
 cl.delay_range = [2, 6]
 def login_user():
-
     cl = Client()
     session = cl.load_settings("session.json")
 
@@ -50,19 +49,20 @@ def login_user():
 
     if not login_via_pw and not login_via_session:
         raise Exception("Couldn't login user with either password or session")
-      
+
 st.header("IG BlackMarket")
 USERNAME = st.text_input("Enter Username:")
 PASSWORD = st.text_input("Enter Password:", type="password")
 Keyy = st.text_input("Set API-Key:")
 Go = st.button('Start')
 if Go:
-  try:cl.load_settings("session.json");
-  except:
-    cl.login(USERNAME, PASSWORD)
-    cl.dump_settings("session.json")
-  login_user()
-  find_value = 20
+    try:
+        cl.load_settings("session.json")
+    except:
+        cl.login(USERNAME, PASSWORD)
+        cl.dump_settings("session.json")
+    login_user()
+    find_value = 20
 
   while True:
       username_str = name
