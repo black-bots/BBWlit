@@ -68,7 +68,7 @@ while True:
     username_str = USERNAME
     hashtag_list = ["like", "follow", "follow", "chatgpt", "ai", "chatai"]
     
-    top_posts = cl.hashtag_medias_top(random.choice(hashtag_list), amount=find_value)
+    top_posts = cl.hashtag_medias_recent(random.choice(hashtag_list), amount=find_value)
     
     for i in range(0, len(top_posts)):
         first_comment = top_posts[i].dict()
