@@ -158,49 +158,49 @@ if Go:
 	count = 0
 	while True:
 		try:
-            hashtag_list = hashes
+			hashtag_list = hashes
 			hashtag = hashtag_list
 			if top_select == 'Top Posts':
 				top_selected = cl.hashtag_medias_top(hashtag, amount=find_value)
 			elif top_select == 'Recent Posts':
 				top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
-        	if dropdown_menu == 'to Profile':
-        	    comments = [
-        	        "Hey there! I'd love it if you checked out my profile! 😊",
-        	        "If you have a moment, feel free to swing by my profile! 🌟",
-        	        "Curious about what I post? You can find out on my profile! 👀",
-        	        "Want to see more content like this? Check out my profile! 😄",
-        	        "Thanks for stopping by! If you're interested, my profile is just a click away! 💫",
-        	        "If you enjoy my comments, you might like what's on my profile! 📸",
-        	        "Hey! If you want to see more, my profile is where it's at! 🚀",
-        	        "Feel free to explore my profile if you're interested! 🌈",
-        	        "Thanks for your support! If you want to see more, head over to my profile! 🙌"
-        	    ]
-        	elif dropdown_menu == 'to Inbox':
-        	    comments = [
-        	        "If you'd like to chat further, feel free to slide into my DMs! 💌",
-        	        "Got something to say? Shoot me a message in my inbox! 📩",
-        	        "If you have any questions or just want to chat, my inbox is open! 😊",
-        	        "Feel free to drop me a message in my inbox if you'd like to connect! 👋",
-        	        "If you want to reach out for any reason, my inbox is always open! 📬",
-        	        "I love connecting with new people! Don't hesitate to send me a message! 😄",
-        	        "Feel free to reach out if you ever want to chat! My inbox is waiting! 💬",
-        	        "If you have any questions or just want to say hi, my inbox is the place to do it! 👋",
-        	        "If you ever want to connect one-on-one, my inbox is open for you! 🌟"
-        	    ]
-        	elif dropdown_menu == 'to Bio-Link':
-        	    comments = [
-        	        "Curious about what's in my bio? Click the link to find out more! 🔗",
-        	        "I've got some cool stuff in my bio! Click the link to explore! 🌟",
-        	        "Want to learn more about me? Check out my bio link! 😊",
-        	        "Discover valuable resources and exciting updates in my bio link! Click to explore! 👀",
-        	        "There's a surprise waiting for you in my bio link! Click to uncover it! 😄",
-        	        "My bio link holds secrets to success and inspiration! Click to reveal them! 🚀",
-        	        "Unlock exclusive content and special offers in my bio link! Click to access! 🌈",
-        	        "Find solutions to your problems and inspiration for your journey in my bio link! ❤️",
-        	        "Your next adventure begins with a click on my bio link! Explore it now! 😊"
-        	    ]
-                
+			if dropdown_menu == 'to Profile':
+					comments = [
+						"Hey there! I'd love it if you checked out my profile! 😊",
+						"If you have a moment, feel free to swing by my profile! 🌟",
+						"Curious about what I post? You can find out on my profile! 👀",
+						"Want to see more content like this? Check out my profile! 😄",
+						"Thanks for stopping by! If you're interested, my profile is just a click away! 💫",
+						"If you enjoy my comments, you might like what's on my profile! 📸",
+						"Hey! If you want to see more, my profile is where it's at! 🚀",
+						"Feel free to explore my profile if you're interested! 🌈",
+						"Thanks for your support! If you want to see more, head over to my profile! 🙌"
+					]
+			elif dropdown_menu == 'to Inbox':
+				comments = [
+				"If you'd like to chat further, feel free to slide into my DMs! 💌",
+				"Got something to say? Shoot me a message in my inbox! 📩",
+				"If you have any questions or just want to chat, my inbox is open! 😊",
+				"Feel free to drop me a message in my inbox if you'd like to connect! 👋",
+				"If you want to reach out for any reason, my inbox is always open! 📬",
+				"I love connecting with new people! Don't hesitate to send me a message! 😄",
+				"Feel free to reach out if you ever want to chat! My inbox is waiting! 💬",
+				"If you have any questions or just want to say hi, my inbox is the place to do it! 👋",
+				"If you ever want to connect one-on-one, my inbox is open for you! 🌟"
+				]
+			elif dropdown_menu == 'to Bio-Link':
+				comments = [
+				"Curious about what's in my bio? Click the link to find out more! 🔗",
+				"I've got some cool stuff in my bio! Click the link to explore! 🌟",
+				"Want to learn more about me? Check out my bio link! 😊",
+				"Discover valuable resources and exciting updates in my bio link! Click to explore! 👀",
+				"There's a surprise waiting for you in my bio link! Click to uncover it! 😄",
+				"My bio link holds secrets to success and inspiration! Click to reveal them! 🚀",
+				"Unlock exclusive content and special offers in my bio link! Click to access! 🌈",
+				"Find solutions to your problems and inspiration for your journey in my bio link! ❤️",
+				"Your next adventure begins with a click on my bio link! Explore it now! 😊"
+				]
+		
 			top_posts = top_selected
 			res_box2.markdown(f":green[Bot: ]Tag - :blue[{hashtag}]")
 			for i in range(0, len(top_posts)):
@@ -226,15 +226,15 @@ if Go:
 					res_box.markdown(error)
 			else:
 				res_box.markdown("Post Already Found \n")
-            count+=1
+			count+=1
 			res_box5.markdown(f":green[Bot: ] Count - :green[{count}]" )
 			res_box.markdown(f":orange[New Posts in :green[{slider}] minutes....]")
 			#time.sleep(slider * 60)
 			time.sleep(3)
 		except Exception as e:
-			st.write("Error occurred:", e)
-			import traceback
-			st.write(traceback.print_exc())
+		st.write("Error occurred:", e)
+		import traceback
+		st.write(traceback.print_exc())
 			
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BlackGram!&body=To whom it may concern: '><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
