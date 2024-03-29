@@ -64,7 +64,7 @@ if Go:
     login_user()
     find_value = 20
 while True:
-    username_str = name
+    username_str = USERNAME
     hashtag_list = ["like", "follow", "follow", "chatgpt", "ai", "chatai"]
     
     for hashtag in hashtag_list:
