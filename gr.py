@@ -6,8 +6,6 @@ import numpy as np
 import matplotlib as mp
 import time
 import pprint
-import openai
-import prompt_toolkit
 import streamlit as st
 
 cl = Client()
@@ -64,7 +62,6 @@ if Go:
     cl.login(USERNAME, PASSWORD)
     cl.dump_settings("session.json")
   login_user()
-  openai.api_key = Keyy
   find_value = 20
   def generate_response(prompt):
       response = openai.Completion.create(
@@ -102,7 +99,7 @@ if Go:
                   st.write("New Post Found, Commenting..... \n")
                   try:
                       ai_comm = "Write a nice generic Instagram Photo comment pertaining to a pleasant picture and ask for whomever to checkout your instagram page which is " + username_str + "."
-                      text = generate_response(ai_comm)
+                      text = "Nice!"
                       comment = cl.media_comment(post_id, str(text))
                       st.write('Comment Left!')
                       time.sleep(200)
