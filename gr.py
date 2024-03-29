@@ -223,8 +223,8 @@ if Go:
                         res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
                         
                         count += 1
-			st.write(count + ": "+ post_url)
-			st.write(text + "\n")
+                        st.write(count + ": "+ post_url)
+                        st.write(text + "\n")
                         res_box5.markdown(f"Count - :green[{count}]" )
                         res_box.markdown(f":orange[New Posts in :green[{slider}] minutes....]")
                         time.sleep(3)
