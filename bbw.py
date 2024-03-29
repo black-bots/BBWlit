@@ -84,7 +84,7 @@ with tab1:
     
     if ok:
         try:
-            manga = driver.get(url)
+            driver.get(url)
         except:
             res_box.markdown(f":red[URL is not working]")
 
@@ -92,7 +92,7 @@ with tab1:
             res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
         else:
             try:
-                resp = requests.get(manga)
+                resp = requests.get(url)
                 if resp.status_code == 200:
                     soup = BeautifulSoup(resp.text, 'html.parser')
                     d = soup.find("div", {"class": "epcontent entry-content"})
