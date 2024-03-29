@@ -232,9 +232,9 @@ if Go:
 			#time.sleep(slider * 60)
 			time.sleep(3)
 		except Exception as e:
-		st.write("Error occurred:", e)
-		import traceback
-		st.write(traceback.print_exc())
+			st.write("Error occurred:", e)
+			import traceback
+			st.write(traceback.print_exc())
 			
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BlackGram!&body=To whom it may concern: '><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
