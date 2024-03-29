@@ -147,7 +147,7 @@ if Go:
 	
 	    if session:
 	        try:
-				st.
+				res_box.markdown(":green[Bot: ]:blue[Starting..]")
 	            cl.set_settings(session)
 	            cl.login(USERNAME, PASSWORD)
 	
@@ -194,7 +194,7 @@ if Go:
 				top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
 			hashtag = hashtag_list
 			top_posts = top_selected
-			res_box.markdown(f":green[Tag:] :blue[hashtag]")
+			res_box.markdown(f":green[Bot: ]Tag - :blue[{hashtag}]")
 			for i in range(0, len(top_posts)):
 				first_comment = top_posts[i].dict()
 			post_id = first_comment['id']  
@@ -207,13 +207,13 @@ if Go:
 			post_id = media_id
 			
 			if  is_present == False:
-				res_box.markdown(f":green[Post Found, Commenting..... \n]")
+				res_box.markdown(":green[Bot: ]:blue[Post Found, Commenting...]")
 				try:
 					comments = random.choice(comments)
 					text = comments
 					comment = cl.media_comment(post_id, str(text))
-					res_box.markdown(f':green[Comment:] :blue[{text}]')
-					res_box.markdown(f':green[Post:] :blue[post_url]')
+					res_box.markdown(f':green[Bot: ]Comment - :blue[{text}]')
+					res_box.markdown(f':green[Bot: ]Post - :blue[{post_url}]')
 				except Exception as error:
 					res_box.markdown(error)
 			else:
