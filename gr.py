@@ -156,7 +156,7 @@ if Go:
 				except Exception as error:
 					st.write(error)
 			else:
-			  print("Post Already Found \n")
+				print("Post Already Found \n")
 			# Increase the time inorder to not get temporary ban
 			st.write(f"New Posts in {slider} minutes....")
 			time.sleep(slider * 60)
