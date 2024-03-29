@@ -149,20 +149,19 @@ if Go:
 	
 	cl = Client()
 	cl.delay_range = [2, 6]
-
-	if top_select == 'Top Posts':
-		top_selected = cl.hashtag_medias_top(hashtag, amount=find_value)
-	elif top_select == 'Recent Posts':
-		top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
-	top_posts = top_selected
 	
 	def login_user():
-	    cl = Client()
 	    session = cl.load_settings("session.json")
 	
 	    login_via_session = False
 	    login_via_pw = False
-	
+		
+		if top_select == 'Top Posts':
+			top_selected = cl.hashtag_medias_top(hashtag, amount=find_value)
+		elif top_select == 'Recent Posts':
+			top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
+		top_posts = top_selected
+		
 	    if session:
 	        try:
 	            res_box.markdown(":green[Bot: ]:blue[Starting..]")
