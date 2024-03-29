@@ -85,8 +85,8 @@ with tab1:
     if ok:
         try:
             manga = driver.get(url)
-        except as e:
-            res_box.markdown(f":red[URL is not working: {e}]")
+        except:
+            res_box.markdown(f":red[URL is not working]")
 
         if not url:
             res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
