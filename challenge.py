@@ -382,7 +382,11 @@ class ChallengeResolveMixin:
             A boolean value
         """
         step_name = self.last_json.get("step_name", "")
-        if step_name == "delta_login_review" or step_name == "scraping_warning":
+        if step_name == "dummy_step":
+            # Handle the "dummy_step" here
+            # For example, you can perform some default action or raise an exception
+            raise NotImplementedError("Handling of 'dummy_step' is not implemented.")
+        elif step_name == "delta_login_review" or step_name == "scraping_warning":
             # IT WAS ME (by GEO)
             self._send_private_request(challenge_url, {"choice": "0"})
             return True
