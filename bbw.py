@@ -48,7 +48,7 @@ options.add_argument('--lang=en-US')
 options.add_argument('--disable-setuid-sandbox')
 options.add_argument("--ignore-certificate-errors")
 
-@st.cache_resource
+#@st.cache_resource
 def get_driver():
     return webdriver.Chrome(
         service=Service(
