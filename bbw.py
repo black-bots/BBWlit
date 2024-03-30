@@ -186,16 +186,6 @@ with tab1:
         
 session_state = st.session_state
 
-
-
-# Function to filter out non-image links
-def is_image_link(link):
-    image_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg']
-    for ext in image_extensions:
-        if link.lower().endswith(ext):
-            return True
-    return False
-
 # Function to get image links from the provided URL
 def get_image_links(url):
     driver.get(url)
@@ -208,10 +198,20 @@ def get_image_links(url):
     for img_element in img_elements:
         img_src = img_element.get_attribute('src')
 
-        if img_src and is_image_link(img_src):
+        if img_src:
             image_links.append(img_src)
 
     return image_links
+
+# Function to filter out non-image links
+def is_image_link(link):
+    image_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg']
+    for ext in image_extensions:
+        if link.lower().endswith(ext):
+            return True
+    return False
+
+
 
 with tab2:
     with st.expander("Need a link?"):
