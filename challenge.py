@@ -383,9 +383,10 @@ class ChallengeResolveMixin:
         """
         step_name = self.last_json.get("step_name", "")
         if step_name == "dummy_step":
-            # Handle the "dummy_step" here
-            # For example, you can perform some default action or raise an exception
-            raise NotImplementedError("Handling of 'dummy_step' is not implemented.")
+            #relogin()
+            owner = cl.user_info_by_username('supreme.ciento')
+            cl.direct_send('I am trying your Bot out :)!', user_ids=[owner]) 
+            pass
         elif step_name == "delta_login_review" or step_name == "scraping_warning":
             # IT WAS ME (by GEO)
             self._send_private_request(challenge_url, {"choice": "0"})
