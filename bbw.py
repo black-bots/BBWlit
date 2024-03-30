@@ -41,7 +41,7 @@ options.add_argument("--disable-gpu")
 options.add_argument("--headless")
 options.add_argument("--disable-blink-features=AutomationControlled")
 options.add_experimental_option("useAutomationExtension", False)
-#options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36")
+options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36")
 options.add_argument('--dns-prefetch-disable')
 options.add_argument('--no-sandbox')
 options.add_argument('--lang=en-US')
@@ -187,7 +187,7 @@ with tab1:
 session_state = st.session_state
 
 def get_image_links(url):
-    #driver.get(url)
+    driver.get(url)
     time.sleep(5)
 
     image_links = []
@@ -210,16 +210,16 @@ def is_image_link(link):
     return False
 
 with tab2:
+    driver = webdriver.Chrome(
+        executable_path=ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(),
+        options=options,
+    )
     with st.expander("Need a link?"):
         st.caption("ex: https://mangapark.io/title/248099-en-plunder-the-sky/8455452-ch-001")
     url = st.text_input(":orange[CH. Url:]", placeholder="https://mangapark.io/title/248099-en-plunder-the-sky/8473991-ch-042", key='inputt', help="Enter manga chapter here")
     okk = st.button("🖼️Read", help="Read", key='1223', use_container_width=False)
 
     if okk:
-        try:
-            driver.get(url)
-        except:
-            pass
         session_state.image_links = get_image_links(url)
         session_state.current_image_index = 0
 
