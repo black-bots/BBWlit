@@ -199,8 +199,6 @@ Go = st.button('Start')
 res_box.markdown(f':green[Bot: ] :blue[Waiting..]')
 if Go:
     slider = slider_value
-    class CustomClient(Client, ChallengeResolveMixin):
-        pass
     cl = CustomClient()
     cl.handle_exception = handle_exception
     cl.delay_range = [3, 9]
