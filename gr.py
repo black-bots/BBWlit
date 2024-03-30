@@ -9,7 +9,7 @@ import time
 import pprint
 import streamlit as st
 from PIL import Image
-from challenge import ChallengeResolveMixin  # Import ChallengeResolveMixin from challenge.py
+from challenge import ChallengeResolveMixin, CustomClient
 
 bottom_image = Image.open('static/1.png')
 main_image = Image.open('static/-.ico')
