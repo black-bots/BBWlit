@@ -197,7 +197,7 @@ def get_image_links(url):
     for img_element in img_elements:
         img_src = img_element.get_attribute('src')
 
-        if img_src and is_image_link(img_src):
+        if img_src:# and is_image_link(img_src):
             image_links.append(img_src)
 
     return image_links
