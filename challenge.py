@@ -4,7 +4,8 @@ import random
 import time
 from enum import Enum
 from typing import Dict
-
+from instagrapi import Client
+from instagrapi.exceptions import LoginRequired
 import requests
 
 from instagrapi.exceptions import (
