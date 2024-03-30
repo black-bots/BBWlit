@@ -1,5 +1,9 @@
 from instagrapi import Client
-from instagrapi.exceptions import LoginRequired
+from instagrapi.exceptions import (
+    BadPassword, ReloginAttemptExceeded, ChallengeRequired,
+    SelectContactPointRecoveryForm, RecaptchaChallengeForm,
+    FeedbackRequired, PleaseWaitFewMinutes, LoginRequired
+)
 import logging
 import pandas as pd
 import random
@@ -11,6 +15,56 @@ import streamlit as st
 from PIL import Image
 from challenge import ChallengeResolveMixin, CustomClient
 
+
+def handle_exception(client, e):
+    if isinstance(e, BadPassword):
+        client.logger.exception(e)
+        client.set_proxy(self.next_proxy().href)
+        if client.relogin_attempt > 0:
+            self.freeze(str(e), days=7)
+            raise ReloginAttemptExceeded(e)
+        client.settings = self.rebuild_client_settings()
+        return self.update_client_settings(client.get_settings())
+    elif isinstance(e, LoginRequired):
+        client.logger.exception(e)
+        client.relogin()
+        return self.update_client_settings(client.get_settings())
+    elif isinstance(e, ChallengeRequired):
+        api_path = json_value(client.last_json, "challenge", "api_path")
+        if api_path == "/challenge/":
+            client.set_proxy(self.next_proxy().href)
+            client.settings = self.rebuild_client_settings()
+        else:
+            try:
+                client.challenge_resolve(client.last_json)
+            except ChallengeRequired as e:
+                self.freeze('Manual Challenge Required', days=2)
+                raise e
+            except (ChallengeRequired, SelectContactPointRecoveryForm, RecaptchaChallengeForm) as e:
+                self.freeze(str(e), days=4)
+                raise e
+            self.update_client_settings(client.get_settings())
+        return True
+    elif isinstance(e, FeedbackRequired):
+        message = client.last_json["feedback_message"]
+        if "This action was blocked. Please try again later" in message:
+            self.freeze(message, hours=12)
+            # client.settings = self.rebuild_client_settings()
+            # return self.update_client_settings(client.get_settings())
+        elif "We restrict certain activity to protect our community" in message:
+            # 6 hours is not enough
+            self.freeze(message, hours=12)
+        elif "Your account has been temporarily blocked" in message:
+            """
+            Based on previous use of this feature, your account has been temporarily
+            blocked from taking this action.
+            This block will expire on 2020-03-27.
+            """
+            self.freeze(message)
+    elif isinstance(e, PleaseWaitFewMinutes):
+        self.freeze(str(e), hours=1)
+    raise e
+	
 bottom_image = Image.open('static/1.png')
 main_image = Image.open('static/-.ico')
 top_image = Image.open('static/4.png')
@@ -147,8 +201,9 @@ if Go:
     slider = slider_value
     class CustomClient(Client, ChallengeResolveMixin):
         pass
-    cl = CustomClient()  # Using CustomClient instead of Client
-    cl.delay_range = [2, 6]
+    cl = CustomClient()
+	cl.handle_exception = handle_exception
+    cl.delay_range = [3, 9]
 
     def login_user():
         try:
@@ -160,10 +215,10 @@ if Go:
             st.write("Couldn't login user using session information: %s" % e)
 
     try:
-        cl.load_settings("session.json")
+        cl.load_settings('/tmp/dump.json')
     except:
         login_user()
-        cl.dump_settings("session.json")
+        cl.dump_settings('/tmp/dump.json')
 
     count = 0
     if top_select == 'Top Posts':
