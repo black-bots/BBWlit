@@ -186,7 +186,7 @@ with tab1:
 
 def get_image_links(url):
     driver.get(url)
-    time.sleep(10)
+    time.sleep(13)
 
     image_links = []
 
