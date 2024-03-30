@@ -187,8 +187,7 @@ with tab1:
 session_state = st.session_state
 
 def get_image_links(url):
-    driver.close()
-    driver.get(url)
+    #driver.get(url)
     time.sleep(5)
 
     image_links = []
@@ -217,6 +216,10 @@ with tab2:
     okk = st.button("🖼️Read", help="Read", key='1223', use_container_width=False)
 
     if okk:
+        try:
+            driver.get(url)
+        except:
+            pass
         session_state.image_links = get_image_links(url)
         session_state.current_image_index = 0
 
