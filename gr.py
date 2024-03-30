@@ -146,11 +146,8 @@ res_box.markdown(f':green[Bot: ] :blue[Waiting..]')
 if Go:
     slider = slider_value
 
-    cl = Client()
+    cl = CustomClient()  # Using CustomClient instead of Client
     cl.delay_range = [2, 6]
-
-    class CustomClient(Client, ChallengeResolveMixin):
-        pass
 
     def login_user():
         try:
