@@ -202,7 +202,7 @@ if Go:
     class CustomClient(Client, ChallengeResolveMixin):
         pass
     cl = CustomClient()
-	cl.handle_exception = handle_exception
+    cl.handle_exception = handle_exception
     cl.delay_range = [3, 9]
 
     def login_user():
