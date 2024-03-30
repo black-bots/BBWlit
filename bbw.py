@@ -188,7 +188,7 @@ session_state = st.session_state
 
 def get_image_links(url):
     driver.get(url)
-    time.sleep(5)
+    #time.sleep(5)
 
     image_links = []
 
@@ -203,13 +203,24 @@ def get_image_links(url):
     return image_links
 
 def is_image_link(link):
-    image_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp', '.svg']
+    image_extensions = ['.png', '.jpg', '.jpeg']
     for ext in image_extensions:
         if link.lower().endswith(ext):
             return True
     return False
 
 with tab2:
+    options = Options()
+    options.add_argument("--disable-gpu")
+    options.add_argument("--headless")
+    options.add_argument("--disable-blink-features=AutomationControlled")
+    options.add_experimental_option("useAutomationExtension", False)
+    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36")
+    options.add_argument('--dns-prefetch-disable')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--lang=en-US')
+    options.add_argument('--disable-setuid-sandbox')
+    options.add_argument("--ignore-certificate-errors")
     driver = webdriver.Chrome(
         service=Service(
             ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
