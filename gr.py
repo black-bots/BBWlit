@@ -19,46 +19,47 @@ from challenge import ChallengeResolveMixin, CustomClient
 def handle_exception(client, e):
     if isinstance(e, BadPassword):
         client.logger.exception(e)
-        client.set_proxy(next_proxy().href)
+        client.set_proxy(client.next_proxy().href)
         if client.relogin_attempt > 0:
-            freeze(str(e), days=7)
+            client.freeze(str(e), days=7)
             raise ReloginAttemptExceeded(e)
-        client.settings = rebuild_client_settings()
-        return update_client_settings(client.get_settings())
+        client.settings = client.rebuild_client_settings()
+        # Return updated client settings here or do whatever is necessary
     elif isinstance(e, LoginRequired):
         client.logger.exception(e)
         try:
             client.relogin()
         except:
             res_box.markdown("Bad Password?")
-        return update_client_settings(client.get_settings())
+        # Return updated client settings here or do whatever is necessary
     elif isinstance(e, ChallengeRequired):
         api_path = json_value(client.last_json, "challenge", "api_path")
         if api_path == "/challenge/":
-            client.set_proxy(next_proxy().href)
-            client.settings = rebuild_client_settings()
+            client.set_proxy(client.next_proxy().href)
+            client.settings = client.rebuild_client_settings()
         else:
             try:
                 client.challenge_resolve(client.last_json)
             except ChallengeRequired as e:
-                freeze('Manual Challenge Required', days=2)
+                client.freeze('Manual Challenge Required', days=2)
                 raise e
             except (ChallengeRequired, SelectContactPointRecoveryForm, RecaptchaChallengeForm) as e:
-                freeze(str(e), days=4)
+                client.freeze(str(e), days=4)
                 raise e
-            update_client_settings(client.get_settings())
+            # Update client settings if needed
         return True
     elif isinstance(e, FeedbackRequired):
         message = client.last_json["feedback_message"]
         if "This action was blocked. Please try again later" in message:
-            freeze(message, hours=12)
+            client.freeze(message, hours=12)
         elif "We restrict certain activity to protect our community" in message:
-            freeze(message, hours=12)
+            client.freeze(message, hours=12)
         elif "Your account has been temporarily blocked" in message:
-            freeze(message)
+            client.freeze(message)
     elif isinstance(e, PleaseWaitFewMinutes):
-        freeze(str(e), hours=1)
+        client.freeze(str(e), hours=1)
     raise e
+
 	
 bottom_image = Image.open('static/1.png')
 main_image = Image.open('static/-.ico')
