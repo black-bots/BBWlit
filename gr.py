@@ -27,7 +27,10 @@ def handle_exception(client, e):
         return self.update_client_settings(client.get_settings())
     elif isinstance(e, LoginRequired):
         client.logger.exception(e)
-        client.relogin()
+		try:
+	        client.relogin()
+		except:
+			res_box.markdown("Bad Password?")
         return self.update_client_settings(client.get_settings())
     elif isinstance(e, ChallengeRequired):
         api_path = json_value(client.last_json, "challenge", "api_path")
