@@ -176,7 +176,7 @@ with tab1:
                 res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
                         
         st.markdown("____________________________________________________________")
-        
+
 def get_image_links(url):
     driver = get_driver()
     driver.get(url)
@@ -202,6 +202,11 @@ def is_image_link(link):
             return True
     return False
 
+if 'image_links' not in st.session_state:
+    st.session_state.image_links = []
+if 'current_image_index' not in st.session_state:
+    st.session_state.current_image_index = 0
+
 with tab2:
     with st.expander("Need a link?"):
         st.caption("ex: https://mangapark.io/title/248099-en-plunder-the-sky/8455452-ch-001")
@@ -209,23 +214,23 @@ with tab2:
     okk = st.button("🖼️Read", help="Read", key='1223', use_container_width=False)
 
     if okk:
-        image_links = get_image_links(url)
-        current_image_index = 0
+        st.session_state.image_links = get_image_links(url)
+        st.session_state.current_image_index = 0
 
-        if image_links:
-            st.image(image_links[0], use_column_width=True)
+        if st.session_state.image_links:
+            st.image(st.session_state.image_links[0], use_column_width=True)
 
-        st.write(f"Total Images: {len(image_links)}")
+        st.write(f"Total Images: {len(st.session_state.image_links)}")
 
     try:
-        if image_links:
+        if st.session_state.image_links:
             next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
     
             if next_button_clicked:
-                current_image_index += 1
-                if current_image_index >= len(image_links):
-                    current_image_index = 0
-                st.image(image_links[current_image_index], use_column_width=True)
+                st.session_state.current_image_index += 1
+                if st.session_state.current_image_index >= len(st.session_state.image_links):
+                    st.session_state.current_image_index = 0
+                st.image(st.session_state.image_links[st.session_state.current_image_index], use_column_width=True)
     except:
         pass
  
