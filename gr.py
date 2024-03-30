@@ -9,7 +9,7 @@ import time
 import pprint
 import streamlit as st
 from PIL import Image
-
+from challenge import ChallengeResolveMixin  # Import ChallengeResolveMixin from challenge.py
 
 bottom_image = Image.open('static/1.png')
 main_image = Image.open('static/-.ico')
@@ -24,7 +24,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-st.image(bottom_image,use_column_width='auto')
+st.image(bottom_image, use_column_width='auto')
 
 USERNAME = st.text_input("Enter Username:")
 PASSWORD = st.text_input("Enter Password:", type="password")
@@ -75,26 +75,25 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
 with st.sidebar:
-	st.info('SETTINGS', icon="ℹ️")
-	
-	hashes = st.selectbox(
-		'Tag',
-		("all", "anime", "art", "beauty", "blessed", "blog", "blogger", "cute", "exercise", "fashion", "fitness", "follow", "followme", 
-		 "foodie", "friends", "fun", "girl", "goals", "happy", "itod", "instagood", "instadaily", "life", "love", "me", 
-		 "manga", "motivation", "nature", "ootd", "photooftheday", "picoftheday", "potd", "selfie", "smile", "style", "summer", 
-		 "sun", "swag", "tbt", "throwback", "tiktok", "travel", "trend", "trending", "vacation", "vibes", "wedding", "weekend", 
-		 "workout", "x", "yolo", "yougotthis", "youtube", "yummy", "ootd", "inspiration", "photography"
-		),help="Select a Tag to set the botting demographic")
+    st.info('SETTINGS', icon="ℹ️")
+    
+    hashes = st.selectbox(
+        'Tag',
+        ("all", "anime", "art", "beauty", "blessed", "blog", "blogger", "cute", "exercise", "fashion", "fitness", "follow", "followme", 
+         "foodie", "friends", "fun", "girl", "goals", "happy", "itod", "instagood", "instadaily", "life", "love", "me", 
+         "manga", "motivation", "nature", "ootd", "photooftheday", "picoftheday", "potd", "selfie", "smile", "style", "summer", 
+         "sun", "swag", "tbt", "throwback", "tiktok", "travel", "trend", "trending", "vacation", "vibes", "wedding", "weekend", 
+         "workout", "x", "yolo", "yougotthis", "youtube", "yummy", "ootd", "inspiration", "photography"
+        ), help="Select a Tag to set the botting demographic")
 
-	top_select = st.selectbox('Posts',('Top Posts','Recent Posts'),help="Choose which Posts to interact with")
+    top_select = st.selectbox('Posts', ('Top Posts', 'Recent Posts'), help="Choose which Posts to interact with")
 
-	dropdown_menu = st.selectbox(
-		'Direct Traffic',
-		('to Profile', 'to Inbox', 'to Bio-Link'),help="Select where bot will direct people to go with it's comment")
+    dropdown_menu = st.selectbox(
+        'Direct Traffic',
+        ('to Profile', 'to Inbox', 'to Bio-Link'), help="Select where bot will direct people to go with it's comment")
 
-	slider_value = st.slider(':orange[Wait Time]', 1, 30, 60, step=1,help="Minutes to wait in between likes")
+    slider_value = st.slider(':orange[Wait Time]', 1, 30, 60, step=1, help="Minutes to wait in between likes")
 
 hashtag_list = hashes
 hashtag = hashtag_list
@@ -145,93 +144,67 @@ res_box5 = st.empty()
 Go = st.button('Start')
 res_box.markdown(f':green[Bot: ] :blue[Waiting..]')
 if Go:
-	slider = slider_value
-	
-	cl = Client()
-	cl.delay_range = [2, 6]
-	
-	def login_user():
-	    session = cl.load_settings("session.json")
-	
-	    login_via_session = False
-	    login_via_pw = False
-		
-	    if session:
-	        try:
-	            res_box.markdown(":green[Bot: ] :blue[Starting..]")
-	            cl.set_settings(session)
-	            cl.login(USERNAME, PASSWORD)
-	
-	            try:
-	                cl.get_timeline_feed()
-	            except LoginRequired:
-	                st.write("Session is invalid, need to login via username and password")
-	
-	                old_session = cl.get_settings()
-	
-	                cl.set_settings({})
-	                cl.set_uuids(old_session["uuids"])
-	
-	                cl.login(USERNAME, PASSWORD)
-	            login_via_session = True
-	        except Exception as e:
-	            st.write("Couldn't login user using session information: %s" % e)
-	
-	    if not login_via_session:
-	        try:
-	            st.write("Attempting to login via username and password. username: %s" % USERNAME)
-	            if cl.login(USERNAME, PASSWORD):
-	                login_via_pw = True
-	        except Exception as e:
-	            st.write("Couldn't login user using username and password: %s" % e)
-	
-	    if not login_via_pw and not login_via_session:
-	        raise Exception("Couldn't login user with either password or session")
+    slider = slider_value
 
-	try:
-		cl.load_settings("session.json")
-	except:
-		cl.login(USERNAME, PASSWORD)
-		cl.dump_settings("session.json")
-	login_user()
-	count = 0
-	if top_select == 'Top Posts':
-		top_selected = cl.hashtag_medias_top(hashtag, amount=find_value)
-	elif top_select == 'Recent Posts':
-		top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
-	top_posts = top_selected
-	while True:
-	    try:
-	        with st.expander('Output:'):
-                    res_box2.markdown(f":green[Bot: ] Tag - :blue[{hashtag}]")
-                    for i in range(0, len(top_posts)):
-                        post = top_posts[i]
-                        post_id = post.id
-                        post_url = "https://instagram.com/p/" + post.code
-                        media_id = cl.media_id(cl.media_pk_from_url(post_url))
-                        post_info = cl.media_info(post_id)
-                        
-                        res_box.markdown(":green[Bot: ] :blue[Post Found - Interacting..]")
+    cl = Client()
+    cl.delay_range = [2, 6]
 
-                        cl.media_like(media_id)
-                        time.sleep(1)
-                        commentss = random.choice(comments)
-                        text = commentss
-                        time.sleep(1)
-                        cl.media_comment(post_id, str(text))
-                        res_box3.markdown(f':green[Bot: ] Comment - :blue[{text}]')
-                        res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
-                        
-                        count += 1
-                        st.write(f"{count}: {post_url}")
-                        st.write(text + "\n")
-                        res_box5.markdown(f"Count - :green[{count}]" )
-                        res_box.markdown(f":orange[New Posts in :green[{slider}] minutes....]")
-                        time.sleep(3)
-	    except Exception as e:
-	        st.write("Error occurred:", e)
-	        import traceback
-	        st.write(traceback.print_exc())
-			
+    class CustomClient(Client, ChallengeResolveMixin):
+        pass
+
+    def login_user():
+        try:
+            res_box.markdown(":green[Bot: ] :blue[Starting..]")
+            cl.set_user(USERNAME, PASSWORD)
+            cl.login()
+            login_via_session = True
+        except Exception as e:
+            st.write("Couldn't login user using session information: %s" % e)
+
+    try:
+        cl.load_settings("session.json")
+    except:
+        login_user()
+        cl.dump_settings("session.json")
+
+    count = 0
+    if top_select == 'Top Posts':
+        top_selected = cl.hashtag_medias_top(hashtag, amount=find_value)
+    elif top_select == 'Recent Posts':
+        top_selected = cl.hashtag_medias_recent(hashtag, amount=find_value)
+    top_posts = top_selected
+    while True:
+        try:
+            with st.expander('Output:'):
+                res_box2.markdown(f":green[Bot: ] Tag - :blue[{hashtag}]")
+                for i in range(0, len(top_posts)):
+                    post = top_posts[i]
+                    post_id = post.id
+                    post_url = "https://instagram.com/p/" + post.code
+                    media_id = cl.media_id(cl.media_pk_from_url(post_url))
+                    post_info = cl.media_info(post_id)
+
+                    res_box.markdown(":green[Bot: ] :blue[Post Found - Interacting..]")
+
+                    cl.media_like(media_id)
+                    time.sleep(1)
+                    commentss = random.choice(comments)
+                    text = commentss
+                    time.sleep(1)
+                    cl.media_comment(post_id, str(text))
+                    res_box3.markdown(f':green[Bot: ] Comment - :blue[{text}]')
+                    res_box4.markdown(f':green[Bot: ] Post - :blue[{post_url}]')
+
+                    count += 1
+                    st.write(f"{count}: {post_url}")
+                    st.write(text + "\n")
+                    res_box5.markdown(f"Count - :green[{count}]")
+                    res_box.markdown(f":orange[New Posts in :green[{slider}] minutes....]")
+                    time.sleep(3)
+        except Exception as e:
+            st.write("Error occurred:", e)
+            import traceback
+            st.write(traceback.print_exc())
+
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BlackGram!&body=To whom it may concern: '><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
