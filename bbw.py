@@ -210,8 +210,10 @@ def is_image_link(link):
     return False
 
 with tab2:
-    driver = Service(
-        ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install(),
+    driver = webdriver.Chrome(
+        service=Service(
+            ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
+        ),
         options=options,
     )
     with st.expander("Need a link?"):
