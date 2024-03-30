@@ -1,19 +1,15 @@
-# Standard library imports
 import os
 import base64
 import time
 import tempfile
 from io import BytesIO
 
-# Third-party library imports
 import requests
 from gtts import gTTS
 from PIL import Image
 
-# Streamlit imports
 import streamlit as st
 
-# Selenium imports
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -22,7 +18,6 @@ from selenium.common.exceptions import WebDriverException
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
-# BeautifulSoup imports
 from bs4 import BeautifulSoup
 
 history = []
@@ -48,7 +43,6 @@ options.add_argument('--lang=en-US')
 options.add_argument('--disable-setuid-sandbox')
 options.add_argument("--ignore-certificate-errors")
 
-#@st.cache_resource
 def get_driver():
     return webdriver.Chrome(
         service=Service(
@@ -69,7 +63,7 @@ def autoplay_audio(file_path: str):
             md,
             unsafe_allow_html=True,
         )
-session_state = st.session_state
+
 res_box = st.empty()
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
@@ -183,8 +177,8 @@ with tab1:
                         
         st.markdown("____________________________________________________________")
         
-
 def get_image_links(url):
+    driver = get_driver()
     driver.get(url)
     time.sleep(13)
 
@@ -198,6 +192,7 @@ def get_image_links(url):
         if img_src and is_image_link(img_src):
             image_links.append(img_src)
 
+    driver.quit()
     return image_links
 
 def is_image_link(link):
@@ -214,29 +209,23 @@ with tab2:
     okk = st.button("🖼️Read", help="Read", key='1223', use_container_width=False)
 
     if okk:
-        driver = webdriver.Chrome(
-            service=Service(
-                ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
-            ),
-            options=options,
-        )
-        session_state.image_links = get_image_links(url)
-        session_state.current_image_index = 0
+        image_links = get_image_links(url)
+        current_image_index = 0
 
-        if session_state.image_links:
-            st.image(session_state.image_links[0], use_column_width=True)
+        if image_links:
+            st.image(image_links[0], use_column_width=True)
 
-        st.write(f"Total Images: {len(session_state.image_links)}")
+        st.write(f"Total Images: {len(image_links)}")
 
     try:
-        if session_state.image_links:
+        if image_links:
             next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
     
             if next_button_clicked:
-                session_state.current_image_index += 1
-                if session_state.current_image_index >= len(session_state.image_links):
-                    session_state.current_image_index = 0
-                st.image(session_state.image_links[session_state.current_image_index], use_column_width=True)
+                current_image_index += 1
+                if current_image_index >= len(image_links):
+                    current_image_index = 0
+                st.image(image_links[current_image_index], use_column_width=True)
     except:
         pass
  
