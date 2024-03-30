@@ -186,22 +186,7 @@ with tab1:
         
 session_state = st.session_state
 
-# Function to get image links from the provided URL
-def get_image_links(url):
-    driver.get(url)
-    time.sleep(5)
 
-    image_links = []
-
-    img_elements = driver.find_elements(By.CSS_SELECTOR, 'img')
-
-    for img_element in img_elements:
-        img_src = img_element.get_attribute('src')
-
-        if img_src:
-            image_links.append(img_src)
-
-    return image_links
 
 # Function to filter out non-image links
 def is_image_link(link):
