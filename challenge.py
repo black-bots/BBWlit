@@ -26,6 +26,19 @@ class ChallengeChoice(Enum):
     SMS = 0
     EMAIL = 1
 
+class CustomClient(Client):
+    def __init__(self):
+        super().__init__()
+        self.delay_range = [2, 6]  # Custom delay range for actions
+
+    def login(self):
+        """
+        Custom login method to handle login exceptions
+        """
+        try:
+            super().login()  # Call the parent class login method
+        except LoginRequired as e:
+            print("Login required:", e)
 
 def extract_messages(challenge):
     messages = []
