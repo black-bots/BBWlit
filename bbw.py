@@ -10,7 +10,6 @@ from gtts import gTTS
 from PIL import Image
 
 import numpy as np
-import cv2
 import pytesseract
 
 import streamlit as st
