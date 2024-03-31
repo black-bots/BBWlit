@@ -226,7 +226,7 @@ def transcribe_to_audio(image_links):
                     tts = gTTS(text=text, lang='en', slow=False)
                     tts.save(audio_file_path)
                 audio_files.append(audio_file_path)
-                res_box.markdown(f':blue[Dao: ]:green[*{text}*]')
+                res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
             else:
                 res_box.markdown(f':blue[Dao: ]:orange[No Text]')
         except Exception as e:
