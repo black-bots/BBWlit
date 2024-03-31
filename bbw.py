@@ -178,9 +178,13 @@ with tab1:
         st.markdown("____________________________________________________________")
 
 def get_image_links(url):
-    #driver = get_driver()
-    driver.get(url)
-    time.sleep(13)
+    try:
+        driver.get(url)
+    except WebDriverException as ex:
+        if driver.current_url == url:
+            st.write('Cannot load the URL..')
+            return
+    #driver.get(url)
 
     image_links = []
 
