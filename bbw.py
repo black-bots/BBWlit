@@ -10,9 +10,9 @@ import requests
 from gtts import gTTS
 from PIL import Image
 
-import numpy as np
-import pytesseract
-
+import easyocr as ocr  # OCR
+import numpy as np  # Image Processing
+from easyocr import Reader
 import streamlit as st
 
 from selenium import webdriver
@@ -215,6 +215,11 @@ if 'image_links' not in st.session_state:
     st.session_state.image_links = []
 if 'current_image_index' not in st.session_state:
     st.session_state.current_image_index = 0
+    
+@st.cache
+def load_model() -> Reader:
+    return ocr.Reader(["en"], model_storage_directory=".")
+    
 def transcribe_to_audio(image_links):
 
     total_images = len(image_links)
@@ -225,8 +230,17 @@ def transcribe_to_audio(image_links):
             img = Image.open(BytesIO(img_data))
             gray_image = img.convert('L')
             np_image = np.array(gray_image)
-            preprocessed_image = cv2.medianBlur(np_image, 3)
-            text = pytesseract.image_to_string(preprocessed_image)
+            
+            with st.spinner(" AI is at Work! "):
+                reader = load_model()  # load model
+                result = reader.readtext(np_image)
+                preprocessed_image = cv2.medianBlur(result, 3)
+                result_text = []  # empty list for results
+                for text in preprocessed_image:
+                    result_text.append(text[1])
+                st.write(result_text)
+
+            text = result_text
             text = filter_english_words(text)
 
             if text:
