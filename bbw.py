@@ -30,35 +30,35 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="expanded"
 )
-st.markdown(
-    '<style>'
-    '<br><hr><center>'
-    '.reportview-container {background: black;}'
-    '.st-ck:hover {'
-    'color: #gold;'
-    '}'
-    'color: lime;'
-    'cursor: pointer;'
-    '}'
-    'img {'
-    'width:75%;'
-    '}'
-    'width:578px;'
-    'vertical-align: middle;'
-    'horizontal-align: middle;'
-    'max-width: 300px;'
-    'margin: auto;'
-    '}'
-    '.css-yhwc6k{'
-    'text-align: center;'
-    '}'
-    '#audio{autoplay:true;}'
-    '#MainMenu{visibility: hidden;}'
-    'footer{visibility: hidden;}'
-    '.css-14xtw13 e8zbici0{visibility: hidden;}'
-    '</style>',
-    unsafe_allow_html=True
-)
+st.markdown("""
+<style>
+<br><hr><center>
+.reportview-container {background: black;}
+.st-ck:hover {
+color: #gold;
+}
+color: lime;
+cursor: pointer;
+}
+img {
+width:75%;
+}
+width:578px;
+vertical-align: middle;
+horizontal-align: middle;
+max-width: 300px;
+margin: auto;
+}
+.css-yhwc6k{
+text-align: center;
+}
+#audio{autoplay:true;}
+#MainMenu{visibility: hidden;}
+footer{visibility: hidden;}
+.css-14xtw13 e8zbici0{visibility: hidden;}
+</style>
+""", unsafe_allow_html=True)
+
 
 options = Options()
 options.add_argument("--disable-gpu")
