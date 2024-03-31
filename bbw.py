@@ -33,8 +33,8 @@ st.set_page_config(
 st.markdown("""
     <style>
         <br><hr><center>
-        .reportview-container: {background: black;}
-        .sidebar .siderbar-content: {background: black;}
+        .reportview-container {background: black;}
+        .sidebar .siderbar-content {background: black;}
         .st-ck:hover {
         color: #gold;
         }
