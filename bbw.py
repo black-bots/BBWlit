@@ -101,7 +101,7 @@ res_box = st.empty()
 with st.sidebar:
     st.image(side_image)
     st.header("Official Version")
-    st.caption("Download from: https://BlackBots.Gumroad.com/")
+    st.caption("Download from: https://blackbots.gumroad.com/l/manga")
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
     with st.expander("Need a link?"):
