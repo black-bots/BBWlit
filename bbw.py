@@ -30,11 +30,13 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="expanded"
 )
+css_selector = "#root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8"
 st.markdown(
     '<style>'
     '<br><hr><center>'
-    'body {background-color: black;}'
-    '.embeddedAppMetaInfoBar_container__LZA_B{visibility:hidden;}'
+    f'{css_selector} {{'
+        'background-color: black !important;'
+    '}}'
     'button:hover {'
     'background-color: lime;'
     'transition: all 0.3s ease-in-out;'
