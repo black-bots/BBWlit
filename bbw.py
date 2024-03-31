@@ -209,10 +209,14 @@ def transcribe_to_audio(image_links):
         try:
             img_data = requests.get(img_link).content
             img = Image.open(BytesIO(img_data))
+            gray_image = img.convert('L')
+            np_image = np.array(gray_image)
             
             with st.spinner(" Getting image text "):
-                reader = load_model()  # load model
-                result = reader.readtext(np.array(img))
+                #reader = load_model()  # load model
+                reader = easyocr.Reader(['en'])
+                result = reader.readtext(np_image)
+                #preprocessed_image = cv2.medianBlur(result, 3)
                 result_text = []  # empty list for results
                 for text in result:
                     result_text.append(text[1])
@@ -248,39 +252,6 @@ if 'current_image_index' not in st.session_state:
 @st.cache_resource
 def load_model() -> Reader:
     return ocr.Reader(["en"], model_storage_directory=".")
-    
-def transcribe_to_audio(image_links):
-    total_images = len(image_links)
-
-    for idx, img_link in enumerate(image_links, start=1):
-        try:
-            img_data = requests.get(img_link).content
-            img = Image.open(BytesIO(img_data))
-            gray_image = img.convert('L')
-            np_image = np.array(gray_image)
-            
-            with st.spinner(" Getting image text "):
-                #reader = load_model()  # load model
-                reader = easyocr.Reader(['en'])
-                result = reader.readtext(np_image)
-                #preprocessed_image = cv2.medianBlur(result, 3)
-                result_text = []  # empty list for results
-                for text in result:
-                    result_text.append(text[1])
-                st.write(result_text)
-
-            text = result_text
-            text = filter_english_words(text)
-
-            if text:
-                audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
-                if not os.path.exists(audio_file_path):
-                    tts = gTTS(text=text, lang='en', slow=False)
-                    tts.save(audio_file_path)
-                    autoplay_audio(audio_file_path)
-                res_box.markdown(f':blue[Dao: ]:green[*{text}*]')
-        except Exception as e:
-            print(f"Error processing {img_link}: {e}")
 
 def filter_english_words(text):
     english_word_pattern = r'\b[a-zA-Z]+(?:\'[a-zA-Z]+)?(?:-[a-zA-Z]+)?(?:[.,!?\'":;\[\]()*&^%$#@`~\\/]|\.\.\.)?\b'
@@ -288,6 +259,7 @@ def filter_english_words(text):
     english_text = ' '.join(english_words)
     text = english_text.lower()
     return text
+
 with tab2:
     if tab2:
         if ok:
@@ -302,7 +274,6 @@ with tab2:
         try:
             if st.session_state.image_links:
                 transcribe_to_audio(st.session_state.image_links)
-                autoplay_audio(audio_files)
                 next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
                 if next_button_clicked:
                     st.session_state.current_image_index += 1
