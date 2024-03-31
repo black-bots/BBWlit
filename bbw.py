@@ -101,7 +101,7 @@ res_box = st.empty()
 
 with st.sidebar:
     st.image(side_image)
-    on = st.toggle('Activate feature')
+    on = st.checkbox('Stream Story')
     with st.expander("Need a link?"):
         st.caption("Test Based: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
         st.caption("Image Based: https://mangapark.io/title/248099-en-plunder-the-sky/8455452-ch-001")
@@ -151,13 +151,14 @@ with tab1:
                         with st.expander("Read"):
                             st.write(f':green[*{story}*]')
 
-                        for group in groups:
-                            group_text = ""
-                            for d_paragraph in group:
-                                group_text += d_paragraph.text + "\n"
-                            #res_box.markdown(f':blue[Dao: ]:green[*{group_text}*]')
-                            res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                            time.sleep(3)
+                        if on:
+                            for group in groups:
+                                group_text = ""
+                                for d_paragraph in group:
+                                    group_text += d_paragraph.text + "\n"
+                                #res_box.markdown(f':blue[Dao: ]:green[*{group_text}*]')
+                                res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
+                                time.sleep(4)
                         next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
                         if next_ch:
                             oldurl = url
