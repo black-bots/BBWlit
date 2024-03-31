@@ -6,6 +6,7 @@ prompt_toolkit
 PyPDF2
 instaloader
 curl_cffi
+opencv-python
 pytesseract
 instagrapi
 g4f
