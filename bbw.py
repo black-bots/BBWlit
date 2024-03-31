@@ -210,7 +210,36 @@ if 'image_links' not in st.session_state:
     st.session_state.image_links = []
 if 'current_image_index' not in st.session_state:
     st.session_state.current_image_index = 0
+def transcribe_to_audio(image_links):
 
+    total_images = len(image_links)
+
+    for idx, img_path in enumerate(image_links, start=1):
+        try:
+            img_data = requests.get(img_path).content
+            img = Image.open(BytesIO(img_data))
+            gray_image = img.convert('L')
+            np_image = np.array(gray_image)
+            preprocessed_image = cv2.medianBlur(np_image, 3)
+            text = pytesseract.image_to_string(preprocessed_image)
+            text = filter_english_words(text)
+
+            if text:
+                audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_path))[0] + '.mp3')
+                if not os.path.exists(audio_file_path):
+                    tts = gTTS(text=text, lang='en', slow=False)
+                    tts.save(audio_file_path)
+
+                    autoplay_audio(audio_file_path)
+        except Exception as e:
+            print(f"Error processing {img_path}: {e}")
+
+def filter_english_words(text):
+    english_word_pattern = r'\b[a-zA-Z]+(?:\'[a-zA-Z]+)?(?:-[a-zA-Z]+)?(?:[.,!?\'":;\[\]()*&^%$#@`~\\/]|\.\.\.)?\b'
+    english_words = re.findall(english_word_pattern, text)
+    english_text = ' '.join(english_words)
+    text = english_text.lower()
+    return text
 with tab2:
     if ok:
         st.session_state.image_links = get_image_links(url)
@@ -223,8 +252,9 @@ with tab2:
 
     try:
         if st.session_state.image_links:
+            transcribe_to_audio(st.session_state.image_links)
+
             next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
-    
             if next_button_clicked:
                 st.session_state.current_image_index += 1
                 if st.session_state.current_image_index >= len(st.session_state.image_links):
