@@ -169,7 +169,7 @@ with tab1:
                             nxtUrl = str(oldurl.replace(chap, nxtchap))
                             st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\nChapter: " + nxtchap, text_color='orange')                            
                     else:
-                        res_box.markdown(f':blue[Dao: ]:green[*No manga content found at the provided URL.*]')
+                        res_box.markdown(f':blue[Dao: ]: ...')
                 else:
                     res_box.markdown(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
             except Exception as e:
