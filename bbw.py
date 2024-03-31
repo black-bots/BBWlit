@@ -107,7 +107,7 @@ with tab1:
     with st.expander("Need a link?"):
         st.caption("ex: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
-    ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
+    ok = st.button("📚Read", help="Read", key='123', use_container_width=False) on = st.toggle('Activate feature')
     
     res_box.markdown(f':blue[Dao:]')
     
