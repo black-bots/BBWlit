@@ -248,8 +248,8 @@ def transcribe_to_audio(image_links):
                 if not os.path.exists(audio_file_path):
                     tts = gTTS(text=text, lang='en', slow=False)
                     tts.save(audio_file_path)
-
                     autoplay_audio(audio_file_path)
+                res_box.markdown(f':blue[Dao: ]:green[*{text}*]')
         except Exception as e:
             print(f"Error processing {img_path}: {e}")
 
