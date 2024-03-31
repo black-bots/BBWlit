@@ -64,6 +64,8 @@ def autoplay_audio(file_path: str):
             unsafe_allow_html=True,
         )
 
+main_image = Image.open('static/dojutsu.png')
+st.image(main_image)
 res_box = st.empty()
 with st.sidebar:
     st.header("Official Version")
