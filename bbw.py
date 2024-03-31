@@ -65,6 +65,9 @@ def autoplay_audio(file_path: str):
         )
 
 res_box = st.empty()
+with st.sidebar:
+    st.header("Official Version")
+    st.caption("Download from: https://BlackBots.Gumroad.com/")
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
     with st.expander("Need a link?"):
