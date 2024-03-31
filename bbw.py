@@ -180,8 +180,6 @@ with tab1:
             except Exception as e:
                 res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
                         
-        st.markdown("____________________________________________________________")
-
 def get_image_links(url):
     try:
         driver.get(url)
@@ -205,7 +203,6 @@ def get_image_links(url):
 
     driver.quit()
     return image_links
-
 
 def transcribe_to_audio(image_links):
     audio_files = []
