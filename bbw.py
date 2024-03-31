@@ -245,7 +245,7 @@ if 'image_links' not in st.session_state:
 if 'current_image_index' not in st.session_state:
     st.session_state.current_image_index = 0
     
-@st.cache
+@st.cache_resource
 def load_model() -> Reader:
     return ocr.Reader(["en"], model_storage_directory=".")
     
