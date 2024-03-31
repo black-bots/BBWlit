@@ -4,7 +4,6 @@ import time
 import tempfile
 from io import BytesIO
 
-import cv2
 import re
 import requests
 from gtts import gTTS
@@ -216,9 +215,8 @@ def transcribe_to_audio(image_links):
             with st.spinner(" Getting image text "):
                 reader = load_model()  # load model
                 result = reader.readtext(np_image)
-                preprocessed_image = cv2.medianBlur(result, 3)
                 result_text = []  # empty list for results
-                for text in preprocessed_image:
+                for text in result:
                     result_text.append(text[1])
                 st.write(result_text)
 
