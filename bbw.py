@@ -253,13 +253,13 @@ with tab2:
     try:
         if st.session_state.image_links:
             transcribe_to_audio(st.session_state.image_links)
-
             next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
             if next_button_clicked:
                 st.session_state.current_image_index += 1
                 if st.session_state.current_image_index >= len(st.session_state.image_links):
                     st.session_state.current_image_index = 0
                 st.image(st.session_state.image_links[st.session_state.current_image_index], use_column_width=True)
+                transcribe_to_audio(st.session_state.image_links)
     except:
         pass
  
