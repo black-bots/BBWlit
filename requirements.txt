@@ -6,6 +6,8 @@ prompt_toolkit
 PyPDF2
 instaloader
 curl_cffi
+torch==1.13.1
+torchvision
 opencv-python
 easyocr
 instagrapi
