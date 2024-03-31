@@ -218,7 +218,7 @@ with tab1:
         st.markdown("____________________________________________________________")
 
 def get_image_links(url):
-    driver = get_driver()
+    #driver = get_driver()
     driver.get(url)
     time.sleep(13)
 
