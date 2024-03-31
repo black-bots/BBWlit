@@ -30,6 +30,52 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="collapsed"
 )
+st.markdown(
+    '<style>'
+    '<br><hr><center>'
+    'body {'
+    'background-color: black;'
+    '}'
+    '.embeddedAppMetaInfoBar_container__LZA_B{visibility:hidden;}'
+    'button:hover {'
+    'background-color: orange;'
+    'transition: all 0.3s ease-in-out;'
+    '}'
+    '.st-ck:hover {'
+    'color: #3DD56D;'
+    '}'
+    '.st-c6 {'
+    'color: #FFBD45;'
+    '}'
+    '.st-mh:hover {'
+    'background-color: grey;'
+    'color: lime;'
+    'border: 2px solid #FFBD45;'
+    'box-shadow: 0 0 10px #FFBD45;'
+    'transition: all 0.3s ease-in-out;'
+    'border-color: #FFBD45;'
+    'cursor: pointer;'
+    '}'
+    'img {'
+    'width:50%;'
+    '}'
+    '.css-1v0mbdj{'
+    'width:578px;'
+    'vertical-align: middle;'
+    'horizontal-align: middle;'
+    'max-width: 300px;'
+    'margin: auto;'
+    '}'
+    '.css-yhwc6k{'
+    'text-align: center;'
+    '}'
+    '#audio{autoplay:true;}'
+    '#MainMenu{visibility: hidden;}'
+    'footer{visibility: hidden;}'
+    '.css-14xtw13 e8zbici0{visibility: hidden;}'
+    '</style>',
+    unsafe_allow_html=True
+)
 
 options = Options()
 options.add_argument("--disable-gpu")
