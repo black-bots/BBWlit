@@ -139,7 +139,8 @@ with tab1:
                         story = ""
                         for paragraph in paragraphs:
                             story += paragraph.text + "\n\n"
-                        story = story.replace('<p>', '').replace('</p>', '')
+                        story = story.replace('<p>', '')
+                        story = story.replace('"', '')
                         
                         # Convert text to speech and save it as a temporary mp3 file
                         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
@@ -158,7 +159,7 @@ with tab1:
                                     group_text += d_paragraph.text + "\n"
                                 #res_box.markdown(f':blue[Dao: ]:green[*{group_text}*]')
                                 res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                                time.sleep(4)
+                                time.sleep(5)
                         next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
                         if next_ch:
                             oldurl = url
