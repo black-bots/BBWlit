@@ -34,6 +34,7 @@ st.markdown(
     '<style>'
     '<br><hr><center>'
     '.main.st-emotion-cache-uf99v8.ea3mdgi8 {background-color: black;}'
+    'body {background: black;}'
     '.embeddedAppMetaInfoBar_container__LZA_B{visibility:hidden;}'
     'button:hover {'
     'background-color: orange;'
