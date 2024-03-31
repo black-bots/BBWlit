@@ -99,6 +99,17 @@ side_image = Image.open('static/1.png')
 st.image(main_image)
 res_box = st.empty()
 
+with st.sidebar:
+    st.image(side_image)
+    on = st.toggle('Activate feature')
+    with st.expander("Need a link?"):
+        st.caption("Test Based: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
+        st.caption("Image Based: https://mangapark.io/title/248099-en-plunder-the-sky/8455452-ch-001")
+    url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
+    ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
+    st.header("Official Version")
+    st.caption("Download from: https://blackbots.gumroad.com/l/manga")
+
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:    
     res_box.markdown(f':blue[Dao:]')
@@ -257,19 +268,6 @@ with tab2:
                 st.image(st.session_state.image_links[st.session_state.current_image_index], use_column_width=True)
     except:
         pass
-with st.sidebar:
-    st.image(side_image)
-    on = st.toggle('Activate feature')
-    with st.expander("Need a link?"):
-        st.caption("Test Based: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
-        st.caption("Image Based: https://mangapark.io/title/248099-en-plunder-the-sky/8455452-ch-001")
-    url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
-    if tab1:
-        ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
-    if tab2:
-        ok = st.button("📚Read", help="Read", key='123', use_container_width=False)    
-    st.header("Official Version")
-    st.caption("Download from: https://blackbots.gumroad.com/l/manga")
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
