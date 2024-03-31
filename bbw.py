@@ -155,7 +155,8 @@ with tab1:
                             group_text = ""
                             for d_paragraph in group:
                                 group_text += d_paragraph.text + "\n"
-                            res_box.markdown(f':blue[Dao: ]:green[*{group_text}*]')
+                            #res_box.markdown(f':blue[Dao: ]:green[*{group_text}*]')
+                            res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
                             time.sleep(3)
                         next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
                         if next_ch:
@@ -164,50 +165,7 @@ with tab1:
                             nxtchap = str(int(chap) + int(+1))
                             prvchap = str(int(chap))
                             nxtUrl = str(oldurl.replace(chap, nxtchap))
-                            st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\nChapter: " + nxtchap, text_color='orange')
-
-                            resp = requests.get(url)
-                            if resp.status_code == 200:
-                                soup = BeautifulSoup(resp.text, 'html.parser')
-                                d = soup.find("div", {"class": "epcontent entry-content"})
-                                if d:
-                                    all_text = ""
-                                    num_paragraphs = len(d.findAll("p"))
-                                    paragraphs = d.findAll("p")
-                                    num_groups = 100
-                                    group_size = len(paragraphs) // num_groups
-                                    groups = [paragraphs[i:i + group_size] for i in range(0, len(paragraphs), group_size)]
-                
-                                    story = ""
-                                    for paragraph in paragraphs:
-                                        story += paragraph.text + "\n\n"
-                                    story = story.replace('<p>', '').replace('</p>', '')
-                                    
-                                    # Convert text to speech and save it as a temporary mp3 file
-                                    with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
-                                        tts = gTTS(text=story, lang='en', slow=False)
-                                        tts.save(tmp_file.name)                            
-            
-                                        autoplay_audio(tmp_file.name)
-                                        
-                                    with exapnder("Read"):
-                                        st.write(f':green[*{story}*]')
-            
-                                    for group in groups:
-                                        group_text = ""
-                                        for d_paragraph in group:
-                                            group_text += d_paragraph.text + "\n"
-                                        res_box.markdown(f':blue[Dao: ]:green[*{group_text}*]')
-                                        time.sleep(3)
-                                    next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
-                                    if next_ch:
-                                        oldurl = url
-                                        chap = ''.join([n for n in oldurl if n.isdigit()])
-                                        nxtchap = str(int(chap) + int(+1))
-                                        prvchap = str(int(chap))
-                                        nxtUrl = str(oldurl.replace(chap, nxtchap))
-                                        st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\nChapter: " + nxtchap, text_color='orange')        
-                            
+                            st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\nChapter: " + nxtchap, text_color='orange')                            
                     else:
                         res_box.markdown(f':blue[Dao: ]:green[*No manga content found at the provided URL.*]')
                 else:
