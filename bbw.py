@@ -188,8 +188,10 @@ def get_image_links(url):
     except WebDriverException as ex:
         if driver.current_url == url:
             st.write('Cannot load the URL..')
-            return
-    #driver.get(url)
+            return []
+        else:
+            st.write(f'Error loading URL: {ex}')
+            return []
 
     image_links = []
 
@@ -203,6 +205,38 @@ def get_image_links(url):
 
     driver.quit()
     return image_links
+
+
+def transcribe_to_audio(image_links):
+    audio_files = []
+    for idx, img_link in enumerate(image_links, start=1):
+        try:
+            img_data = requests.get(img_link).content
+            img = Image.open(BytesIO(img_data))
+            gray_image = img.convert('L')
+            np_image = np.array(gray_image)
+            
+            with st.spinner(" Getting image text "):
+                reader = load_model()  # load model
+                result = reader.readtext(np_image)
+                preprocessed_image = cv2.medianBlur(result, 3)
+                result_text = []  # empty list for results
+                for text in preprocessed_image:
+                    result_text.append(text[1])
+                st.write(result_text)
+
+            text = filter_english_words(result_text)
+
+            if text:
+                audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
+                if not os.path.exists(audio_file_path):
+                    tts = gTTS(text=text, lang='en', slow=False)
+                    tts.save(audio_file_path)
+                audio_files.append(audio_file_path)
+                res_box.markdown(f':blue[Dao: ]:green[*{text}*]')
+        except Exception as e:
+            st.write(f"Error processing {img_link}: {e}")
+    return audio_files
 
 def is_image_link(link):
     image_extensions = ['.png', '.jpg', '.jpeg']
