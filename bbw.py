@@ -105,7 +105,7 @@ res_box = st.empty()
 
 with st.sidebar:
     st.image(side_image)
-    on = st.checkbox('Stream Story')
+    on = st.checkbox('Stream Story', value=True)
     with st.expander("Need a link?"):
         st.caption("Test Based: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
         st.caption("Image Based: https://manhuaaz.com/manga/monster-pet-evolution/chapter-1/")
