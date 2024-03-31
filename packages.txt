@@ -1,3 +1,2 @@
 chromium
 tesseract-ocr
-tesseract-ocr-por
