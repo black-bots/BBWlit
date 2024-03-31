@@ -28,7 +28,7 @@ st.set_page_config(
     page_title="BlackButler WEB",
     page_icon=icob,
     layout="centered",
-    initial_sidebar_state="collapsed"
+    initial_sidebar_state="expanded"
 )
 st.markdown(
     '<style>'
@@ -56,7 +56,7 @@ st.markdown(
     'cursor: pointer;'
     '}'
     'img {'
-    'width:50%;'
+    'width:75%;'
     '}'
     '.css-1v0mbdj{'
     'width:578px;'
