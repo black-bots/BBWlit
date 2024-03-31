@@ -7,7 +7,6 @@ PyPDF2
 instaloader
 curl_cffi
 opencv-python
-tesseract-ocr 
 pytesseract
 instagrapi
 g4f
