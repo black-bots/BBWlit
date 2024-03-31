@@ -260,11 +260,12 @@ def transcribe_to_audio(image_links):
             np_image = np.array(gray_image)
             
             with st.spinner(" Getting image text "):
-                reader = load_model()  # load model
+                #reader = load_model()  # load model
+                reader = easyocr.Reader(['en'])
                 result = reader.readtext(np_image)
-                preprocessed_image = cv2.medianBlur(result, 3)
+                #preprocessed_image = cv2.medianBlur(result, 3)
                 result_text = []  # empty list for results
-                for text in preprocessed_image:
+                for text in result:
                     result_text.append(text[1])
                 st.write(result_text)
 
