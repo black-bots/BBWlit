@@ -4,6 +4,7 @@ import time
 import tempfile
 from io import BytesIO
 
+import cv2
 import re
 import requests
 from gtts import gTTS
