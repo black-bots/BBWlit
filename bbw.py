@@ -32,30 +32,31 @@ st.set_page_config(
 )
 st.markdown("""
 <style>
-<br><hr><center>
-.reportview-container {background: black;}
-.st-ck:hover {
-color: #gold;
-}
-color: lime;
-cursor: pointer;
-}
-img {
-width:75%;
-}
-width:578px;
-vertical-align: middle;
-horizontal-align: middle;
-max-width: 300px;
-margin: auto;
-}
-.css-yhwc6k{
-text-align: center;
-}
-#audio{autoplay:true;}
-#MainMenu{visibility: hidden;}
-footer{visibility: hidden;}
-.css-14xtw13 e8zbici0{visibility: hidden;}
+    <br><hr><center>
+    .reportview-container: {background: black;}
+    .sidebar: {background: black;}
+    .st-ck:hover {
+    color: #gold;
+    }
+    color: lime;
+    cursor: pointer;
+    }
+    img {
+    width:75%;
+    }
+    width:578px;
+    vertical-align: middle;
+    horizontal-align: middle;
+    max-width: 300px;
+    margin: auto;
+    }
+    .css-yhwc6k{
+    text-align: center;
+    }
+    #audio{autoplay:true;}
+    #MainMenu{visibility: hidden;}
+    footer{visibility: hidden;}
+    .css-14xtw13 e8zbici0{visibility: hidden;}
 </style>
 """, unsafe_allow_html=True)
 
