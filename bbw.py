@@ -104,7 +104,7 @@ with st.sidebar:
     on = st.checkbox('Stream Story')
     with st.expander("Need a link?"):
         st.caption("Test Based: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
-        st.caption("Image Based: https://mangapark.io/title/248099-en-plunder-the-sky/8455452-ch-001")
+        st.caption("Image Based: https://manhuaaz.com/manga/monster-pet-evolution/chapter-1/")
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
     st.header("Official Version")
