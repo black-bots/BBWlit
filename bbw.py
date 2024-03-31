@@ -95,9 +95,11 @@ def autoplay_audio(file_path: str):
         )
 
 main_image = Image.open('static/dojutsu.png')
+side_image = Image.open('static/1.png')
 st.image(main_image)
 res_box = st.empty()
 with st.sidebar:
+    st.image(side_image)
     st.header("Official Version")
     st.caption("Download from: https://BlackBots.Gumroad.com/")
 tab1,tab2=st.tabs(['Text Based','Image Based'])
