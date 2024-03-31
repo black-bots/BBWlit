@@ -7,7 +7,7 @@ PyPDF2
 instaloader
 curl_cffi
 opencv-python
-pytesseract
+easyocr
 instagrapi
 g4f
 webdriver-manager
