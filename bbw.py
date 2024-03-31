@@ -33,9 +33,9 @@ st.set_page_config(
 st.markdown(
     '<style>'
     '<br><hr><center>'
-    '#root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 {
+    "#root > div:nth-child(1) > div.withScreencast > div > div > div > section.main.st-emotion-cache-uf99v8.ea3mdgi8 {
         background-color: black;
-    }'
+    }"
     '.embeddedAppMetaInfoBar_container__LZA_B{visibility:hidden;}'
     'button:hover {'
     'background-color: orange;'
