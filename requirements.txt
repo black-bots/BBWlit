@@ -6,6 +6,8 @@ prompt_toolkit
 PyPDF2
 instaloader
 curl_cffi
+pytesseract
+cv2
 instagrapi
 g4f
 webdriver-manager
