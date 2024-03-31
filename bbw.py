@@ -209,12 +209,10 @@ def transcribe_to_audio(image_links):
         try:
             img_data = requests.get(img_link).content
             img = Image.open(BytesIO(img_data))
-            gray_image = img.convert('L')
-            np_image = np.array(gray_image)
             
             with st.spinner(" Getting image text "):
                 reader = load_model()  # load model
-                result = reader.readtext(np_image)
+                result = reader.readtext(np.array(img))
                 result_text = []  # empty list for results
                 for text in result:
                     result_text.append(text[1])
@@ -229,6 +227,8 @@ def transcribe_to_audio(image_links):
                     tts.save(audio_file_path)
                 audio_files.append(audio_file_path)
                 res_box.markdown(f':blue[Dao: ]:green[*{text}*]')
+            else:
+                res_box.markdown(f':blue[Dao: ]:orange[No Text]')
         except Exception as e:
             st.write(f"Error processing {img_link}: {e}")
     return audio_files
