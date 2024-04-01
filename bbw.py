@@ -106,9 +106,15 @@ res_box = st.empty()
 with st.sidebar:
     st.image(side_image)
     on = st.checkbox('Stream Story', value=True)
-    with st.expander("Need a link?"):
-        st.caption("Test Based: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
-        st.caption("Image Based: https://manhuaaz.com/manga/monster-pet-evolution/chapter-1/")
+    
+    col1, col2 = st.columns(2)
+
+    with col1:
+        with st.expander("Text Based"):
+            st.caption("Example: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
+    with col1:
+        with st.expander("Image Based"):
+            st.caption("Example: https://manhuaaz.com/manga/monster-pet-evolution/chapter-1/")
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
     st.header("Official Version")
@@ -152,8 +158,18 @@ with tab1:
                                 tts.save(tmp_file.name)                            
     
                                 autoplay_audio(tmp_file.name)
-                                
+
+                            st.markdown("""<style>
+                                  .stMarkdown{color: black;}
+                                  .st-c8:hover{color:orange;}
+                                  .streamlit-expander.st-bc.st-as.st-ar.st-bd.st-be.st-b8.st-bf.st-bg.st-bh.st-bi{display:none;}
+                                  </style>""",
+                                  unsafe_allow_html=True
+                            )
                             with st.expander("Read"):
+                                annotated_text("",
+                                          (story, "", "#fea"),
+                                  "")
                                 st.write(f':green[*{story}*]')
     
                             if on:
