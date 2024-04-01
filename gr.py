@@ -100,6 +100,8 @@ with st.sidebar:
         ('to Profile', 'to Inbox', 'to Bio-Link'), help="Select where bot will direct people to go with it's comment")
 
     slider_value = st.slider(':orange[Wait Time]', 1, 30, 60, step=1, help="Minutes to wait in between likes")
+    st.header("Official Version")
+    st.caption("Download from: https://blackbots.gumroad.com/l/blackgram")
 
 hashtag_list = hashes
 hashtag = hashtag_list
