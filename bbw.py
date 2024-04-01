@@ -6,7 +6,6 @@ from io import BytesIO
 
 import re 
 import requests
-from annotated_text import annotated_text
 from gtts import gTTS
 from PIL import Image
 
@@ -168,9 +167,10 @@ with tab1:
                                   unsafe_allow_html=True
                             )
                             with st.expander("Read"):
-                                annotated_text("",
-                                          (story, "", "#fea"),
-                                  "")
+                                with st.echo():
+                                    annotated_text("",
+                                              (story, "", "#fea"),
+                                      "")
                                 st.write(f':green[*{story}*]')
     
                             if on:
