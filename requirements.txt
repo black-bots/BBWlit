@@ -1,6 +1,6 @@
 matplotlib
 speechrecognition
-annotated_text 
+st-annotated-text 
 requests
 streamlit
 prompt_toolkit
