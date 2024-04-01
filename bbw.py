@@ -29,7 +29,7 @@ history = []
 icob = Image.open('static/-.ico')
 
 st.set_page_config(
-    page_title="BlackButler WEB",
+    page_title="Manga Dōjutsu",
     page_icon=icob,
     layout="centered",
     initial_sidebar_state="expanded"
