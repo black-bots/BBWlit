@@ -168,6 +168,7 @@ with tab1:
                             )
                             with st.expander("Read"):
                                 with st.echo():
+                                    from annotated_text import annotated_text
                                     annotated_text("",
                                               (story, "", "#fea"),
                                       "")
