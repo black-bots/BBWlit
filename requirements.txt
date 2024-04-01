@@ -1,9 +1,7 @@
 matplotlib
 speechrecognition
-st-annotated-text 
 requests
 streamlit
-prompt_toolkit
 PyPDF2
 instaloader
 curl_cffi
@@ -26,3 +24,4 @@ wit
 pydantic
 emoji
 tls_client 
+st-annotated-text 
