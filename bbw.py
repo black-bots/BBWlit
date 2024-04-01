@@ -219,8 +219,7 @@ def transcribe_to_audio(image_links):
                 #preprocessed_image = cv2.medianBlur(result, 3)
                 result_text = []  # empty list for results
                 for text in result:
-                    result_text.append(text[1])
-                    result_text=result_text.strip()
+                    result_text.append(text[1].strip())
                     st.write(result_text)
 
             text = filter_english_words(result_text)
