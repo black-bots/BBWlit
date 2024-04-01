@@ -166,21 +166,20 @@ with tab1:
                                   </style>""",
                                   unsafe_allow_html=True
                             )
+
+                            for group in groups:
+                                group_text = ""
+                                for d_paragraph in group:
+                                    group_text += d_paragraph.text + "\n"
+                                if on:
+                                    res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
+                                    time.sleep(5) 
                             with st.expander("Read"):
                                 from annotated_text import annotated_text
                                 annotated_text("",
-                                          (story, "", "#fea"),
+                                          (d_paragraph.text, "", "#fea"),
                                   "")
                                 #st.write(f':green[*{story}*]')
-    
-                            if on:
-                                for group in groups:
-                                    group_text = ""
-                                    for d_paragraph in group:
-                                        group_text += d_paragraph.text + "\n"
-                                    #res_box.markdown(f':blue[Dao: ]:green[*{group_text}*]')
-                                    res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                                    time.sleep(5)
                             next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
                             if next_ch:
                                 oldurl = url
