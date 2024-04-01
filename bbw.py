@@ -177,7 +177,7 @@ with tab1:
                             with st.expander("Read"):
                                 from annotated_text import annotated_text
                                 annotated_text("",
-                                          (d_paragraph.text, "", "#fea"),
+                                          (story, "", "#fea"),
                                   "")
                                 #st.write(f':green[*{story}*]')
                             next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
