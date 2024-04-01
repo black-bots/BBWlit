@@ -167,12 +167,11 @@ with tab1:
                                   unsafe_allow_html=True
                             )
                             with st.expander("Read"):
-                                with st.echo():
-                                    from annotated_text import annotated_text
-                                    annotated_text("",
-                                              (story, "", "#fea"),
-                                      "")
-                                st.write(f':green[*{story}*]')
+                                from annotated_text import annotated_text
+                                annotated_text("",
+                                          (story, "", "#fea"),
+                                  "")
+                                #st.write(f':green[*{story}*]')
     
                             if on:
                                 for group in groups:
