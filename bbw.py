@@ -112,7 +112,7 @@ with st.sidebar:
     with col1:
         with st.expander("Text Based"):
             st.caption("Example: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
-    with col1:
+    with col2:
         with st.expander("Image Based"):
             st.caption("Example: https://manhuaaz.com/manga/monster-pet-evolution/chapter-1/")
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
