@@ -6,6 +6,7 @@ from io import BytesIO
 
 import re
 import requests
+from annotated_text import annotated_text
 from gtts import gTTS
 from PIL import Image
 
