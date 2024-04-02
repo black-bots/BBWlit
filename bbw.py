@@ -162,9 +162,9 @@ with tab1:
                             with st.expander("Read"):
                                 from annotated_text import annotated_text
                                 annotated_text("",
-                                          (paragraphs, "", "#fea"),
+                                          ("taco", "", "#fea"),
                                   "")
-                                #st.write(f':green[*{story}*]')
+                                st.write(f':green[*{story}*]')
                             
                             with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                                 tts = gTTS(text=story, lang='en', slow=False)
