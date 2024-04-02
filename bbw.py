@@ -162,7 +162,7 @@ with tab1:
                             with st.expander("Read"):
                                 from annotated_text import annotated_text
                                 annotated_text("",
-                                          (story, "", "#fea"),
+                                          (paragraphs, "", "#fea"),
                                   "")
                                 #st.write(f':green[*{story}*]')
                             
