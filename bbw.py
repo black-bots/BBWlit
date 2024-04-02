@@ -223,13 +223,15 @@ def get_image_links(url):
     driver.quit()
     return image_links
 
-def transcribe_to_audio(current_image_link):
-    try:
-        img_response = requests.get(current_image_link)
-        st.write(f"Image response status code: {img_response.status_code}")
-        if img_response.status_code == 200:
-            img_data = img_response.content
-            st.write(f"Image data: {img_data}")
+def transcribe_to_audio(image_links):
+    audio_files = []
+    for idx, img_link in enumerate(image_links, start=1):
+        try:
+            if not is_supported_image_format(img_link):
+                st.write(f"Skipping image {img_link} as it is not in a supported format.")
+                continue
+            
+            img_data = requests.get(img_link).content
             img = Image.open(BytesIO(img_data))
             gray_image = img.convert('L')
             np_image = np.array(gray_image)
@@ -240,22 +242,28 @@ def transcribe_to_audio(current_image_link):
                 result_text = []  # empty list for results
                 for text in result:
                     result_text.append(text[1].strip())
-            
+
             text = filter_english_words(result_text)
 
             if text:
-                audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(current_image_link))[0] + '.mp3')
+                audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
                 if not os.path.exists(audio_file_path):
                     tts = gTTS(text=text, lang='en', slow=False)
                     tts.save(audio_file_path)
-                autoplay_audio(audio_file_path)
+                audio_files.append(audio_file_path)
                 res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
             else:
                 res_box.markdown(f':blue[Dao: ]:orange[No Text]')
-        else:
-            st.write(f"Error retrieving image from {current_image_link}: Status code {img_response.status_code}")
-    except Exception as e:
-        st.write(f"Error processing {current_image_link}: {e}")
+        except Exception as e:
+            st.write(f"Error processing {img_link}: {e}")
+    return audio_files
+
+def is_supported_image_format(image_url):
+    supported_formats = ['.png', '.jpg', '.jpeg']
+    for format in supported_formats:
+        if image_url.lower().endswith(format):
+            return True
+    return False
 
 def is_image_link(link):
     image_extensions = ['.png', '.jpg', '.jpeg']
