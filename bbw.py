@@ -223,40 +223,37 @@ def get_image_links(url):
     driver.quit()
     return image_links
 
-def transcribe_to_audio(image_links):
-    audio_files = []
-    for idx, img_link in enumerate(image_links, start=1):
-        try:
-            img_data = requests.get(img_link).content
-            img = Image.open(BytesIO(img_data))
-            gray_image = img.convert('L')
-            np_image = np.array(gray_image)
-            
-            with st.spinner(" Getting image text "):
-                #reader = load_model()  # load model
-                reader = ocr.Reader(['en'])
+def transcribe_to_audio(current_image_link):
+    try:
+        img_data = requests.get(current_image_link).content
+        img = Image.open(BytesIO(img_data))
+        gray_image = img.convert('L')
+        np_image = np.array(gray_image)
+        
+        with st.spinner(" Getting image text "):
+            reader = ocr.Reader(['en'])
+            try:
                 result = reader.readtext(np_image)
-                #preprocessed_image = cv2.medianBlur(result, 3)
-                result_text = []  # empty list for results
-                for text in result:
-                    result_text.append(text[1].strip())
-                    st.write(result_text)
-                    st.write(type(result_text))
+            except:
+                pass
+            result_text = []  # empty list for results
+            for text in result:
+                result_text.append(text[1].strip())
+        
+        text = filter_english_words(result_text)
 
-            text = filter_english_words(result_text)
+        if text:
+            audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(current_image_link))[0] + '.mp3')
+            if not os.path.exists(audio_file_path):
+                tts = gTTS(text=text, lang='en', slow=False)
+                tts.save(audio_file_path)
+            autoplay_audio(audio_file_path)
+            res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
+        else:
+            res_box.markdown(f':blue[Dao: ]:orange[No Text]')
+    except Exception as e:
+        st.write(f"Error processing {current_image_link}: {e}")
 
-            if text:
-                audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
-                if not os.path.exists(audio_file_path):
-                    tts = gTTS(text=text, lang='en', slow=False)
-                    tts.save(audio_file_path)
-                audio_files.append(audio_file_path)
-                res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
-            else:
-                res_box.markdown(f':blue[Dao: ]:orange[No Text]')
-        except Exception as e:
-            st.write(f"Error processing {img_link}: {e}")
-    return audio_files
 
 def is_image_link(link):
     image_extensions = ['.png', '.jpg', '.jpeg']
@@ -294,14 +291,17 @@ with tab2:
     
         try:
             if st.session_state.image_links:
-                transcribe_to_audio(st.session_state.image_links)
+                current_image_link = st.session_state.image_links[st.session_state.current_image_index]
+                st.image(current_image_link, use_column_width=True)
+                st.write(f"Total Images: {len(st.session_state.image_links)}")
+                transcribe_to_audio(current_image_link)
                 next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
                 if next_button_clicked:
                     st.session_state.current_image_index += 1
                     if st.session_state.current_image_index >= len(st.session_state.image_links):
                         st.session_state.current_image_index = 0
                     st.image(st.session_state.image_links[st.session_state.current_image_index], use_column_width=True)
-                    transcribe_to_audio(st.session_state.image_links)
+                    transcribe_to_audio(current_image_link)
         except:
             pass
  
