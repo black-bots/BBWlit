@@ -226,8 +226,10 @@ def get_image_links(url):
 def transcribe_to_audio(current_image_link):
     try:
         img_response = requests.get(current_image_link)
+        st.write(f"Image response status code: {img_response.status_code}")
         if img_response.status_code == 200:
             img_data = img_response.content
+            st.write(f"Image data: {img_data}")
             img = Image.open(BytesIO(img_data))
             gray_image = img.convert('L')
             np_image = np.array(gray_image)
@@ -254,8 +256,6 @@ def transcribe_to_audio(current_image_link):
             st.write(f"Error retrieving image from {current_image_link}: Status code {img_response.status_code}")
     except Exception as e:
         st.write(f"Error processing {current_image_link}: {e}")
-
-
 
 def is_image_link(link):
     image_extensions = ['.png', '.jpg', '.jpeg']
@@ -299,7 +299,8 @@ with tab2:
                 transcribe_to_audio(current_image_link)
                 next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
                 if next_button_clicked:
-                    st.session_state.current_image_index += 1
+                    #st.session_state.current_image_index += 1
+                    current_image_link += 1
                     if st.session_state.current_image_index >= len(st.session_state.image_links):
                         st.session_state.current_image_index = 0
                     st.image(st.session_state.image_links[st.session_state.current_image_index], use_column_width=True)
