@@ -228,17 +228,12 @@ def transcribe_to_audio(image_links):
     for idx, img_link in enumerate(image_links, start=1):
         try:
             if not is_supported_image_format(img_link):
-                #st.write(f"Skipping image {img_link} as it is not in a supported format.")
+                # st.write(f"Skipping image {img_link} as it is not in a supported format.")
                 continue
-            
-            img_data = requests.get(img_link).content
-            img = Image.open(BytesIO(img_data))
-            gray_image = img.convert('L')
-            np_image = np.array(gray_image)
-            
+
             with st.spinner(" Getting image text "):
                 reader = ocr.Reader(['en'])
-                result = reader.readtext(np_image)
+                result = reader.readtext(img_link)
                 result_text = []  # empty list for results
                 for text in result:
                     result_text.append(text[1].strip())
