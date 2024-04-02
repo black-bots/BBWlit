@@ -200,7 +200,7 @@ def get_image_links(url):
         driver.get(url)
     except WebDriverException as ex:
         if driver.current_url == url:
-            st.write('Cannot load the URL..')
+            pass
             return []
         else:
             st.write(f'Error loading URL: {ex}')
