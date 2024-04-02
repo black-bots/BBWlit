@@ -225,34 +225,36 @@ def get_image_links(url):
 
 def transcribe_to_audio(current_image_link):
     try:
-        img_data = requests.get(current_image_link).content
-        img = Image.open(BytesIO(img_data))
-        gray_image = img.convert('L')
-        np_image = np.array(gray_image)
-        
-        with st.spinner(" Getting image text "):
-            reader = ocr.Reader(['en'])
-            try:
+        img_response = requests.get(current_image_link)
+        if img_response.status_code == 200:
+            img_data = img_response.content
+            img = Image.open(BytesIO(img_data))
+            gray_image = img.convert('L')
+            np_image = np.array(gray_image)
+            
+            with st.spinner(" Getting image text "):
+                reader = ocr.Reader(['en'])
                 result = reader.readtext(np_image)
-            except:
-                pass
-            result_text = []  # empty list for results
-            for text in result:
-                result_text.append(text[1].strip())
-        
-        text = filter_english_words(result_text)
+                result_text = []  # empty list for results
+                for text in result:
+                    result_text.append(text[1].strip())
+            
+            text = filter_english_words(result_text)
 
-        if text:
-            audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(current_image_link))[0] + '.mp3')
-            if not os.path.exists(audio_file_path):
-                tts = gTTS(text=text, lang='en', slow=False)
-                tts.save(audio_file_path)
-            autoplay_audio(audio_file_path)
-            res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
+            if text:
+                audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(current_image_link))[0] + '.mp3')
+                if not os.path.exists(audio_file_path):
+                    tts = gTTS(text=text, lang='en', slow=False)
+                    tts.save(audio_file_path)
+                autoplay_audio(audio_file_path)
+                res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
+            else:
+                res_box.markdown(f':blue[Dao: ]:orange[No Text]')
         else:
-            res_box.markdown(f':blue[Dao: ]:orange[No Text]')
+            st.write(f"Error retrieving image from {current_image_link}: Status code {img_response.status_code}")
     except Exception as e:
         st.write(f"Error processing {current_image_link}: {e}")
+
 
 
 def is_image_link(link):
