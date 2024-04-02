@@ -7,6 +7,7 @@ from io import BytesIO
 import re 
 import requests
 from gtts import gTTS
+from pydub import AudioSegment
 from PIL import Image
 
 import easyocr as ocr  # OCR
@@ -85,18 +86,22 @@ def get_driver():
         options=options,
     )
 def autoplay_audio(file_path: str):
-    with open(file_path, "rb") as f:
-        data = f.read()
-        b64 = base64.b64encode(data).decode()
-        md = f"""
-            <audio controls autoplay="true">
-            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-            </audio>
-            """
-        st.markdown(
-            md,
-            unsafe_allow_html=True,
-        )
+    try:
+        with open(file_path, "rb") as f:
+            data = f.read()
+            b64 = base64.b64encode(data).decode()
+            md = f"""
+                <audio controls autoplay="true">
+                <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+                </audio>
+                """
+            st.markdown(
+                md,
+                unsafe_allow_html=True,
+            )
+    except:
+        audio = AudioSegment.from_mp3(audio_file_path)
+        play(audio)
 
 main_image = Image.open('static/dojutsu.png')
 side_image = Image.open('static/1.png')
@@ -166,11 +171,16 @@ with tab1:
                                   "")
                                 #st.write(f':green[*{story}*]')
                             
-                            with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
-                                tts = gTTS(text=story, lang='en', slow=False)
-                                tts.save(tmp_file.name)                            
-    
-                                autoplay_audio(tmp_file.name)
+                            def generate_audio(text, speed=1.0):
+                                tts = gTTS(text=text, lang='en', slow=True)  # Always generate with slow=True
+                                temp_file = "temp.mp3"
+                                tts.save(temp_file)
+                                audio = AudioSegment.from_mp3(temp_file)
+                                adjusted_audio = audio.speed(factor=speed)
+                                return adjusted_audio                            
+                            faster_audio = generate_audio(text, speed=1.5)  # Increase the speed by 50%
+                            faster_audio.export("faster_audio.mp3", format="mp3")
+                            autoplay_audio("faster_audio.mp3")
 
                             for group in groups:
                                 group_text = ""
