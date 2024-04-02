@@ -241,6 +241,7 @@ def transcribe_to_audio(image_links):
                 for text in result:
                     result_text.append(text[1].strip())
                     st.write(result_text)
+                    st.write(type(result_text))
 
             text = filter_english_words(result_text)
 
