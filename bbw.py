@@ -172,13 +172,13 @@ with tab1:
                                 #st.write(f':green[*{story}*]')
                             
                             def generate_audio(text, speed=1.0):
-                                tts = gTTS(text=d.text, lang='en', slow=True)  # Always generate with slow=True
+                                tts = gTTS(text=text, lang='en', slow=True)  # Always generate with slow=True
                                 temp_file = "temp.mp3"
                                 tts.save(temp_file)
                                 audio = AudioSegment.from_mp3(temp_file)
                                 adjusted_audio = audio.speed(factor=speed)
                                 return adjusted_audio                            
-                            faster_audio = generate_audio(text, speed=1.5)  # Increase the speed by 50%
+                            faster_audio = generate_audio(d.text, speed=1.5)  # Increase the speed by 50%
                             faster_audio.export("faster_audio.mp3", format="mp3")
                             autoplay_audio("faster_audio.mp3")
 
