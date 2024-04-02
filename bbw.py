@@ -172,7 +172,7 @@ with tab1:
                                 #st.write(f':green[*{story}*]')
                             
                             def generate_audio(text, speed=1.0):
-                                tts = gTTS(text=text, lang='en', slow=True)  # Always generate with slow=True
+                                tts = gTTS(text=d.text, lang='en', slow=True)  # Always generate with slow=True
                                 temp_file = "temp.mp3"
                                 tts.save(temp_file)
                                 audio = AudioSegment.from_mp3(temp_file)
