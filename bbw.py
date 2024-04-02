@@ -228,7 +228,7 @@ def transcribe_to_audio(image_links):
     for idx, img_link in enumerate(image_links, start=1):
         try:
             if not is_supported_image_format(img_link):
-                st.write(f"Skipping image {img_link} as it is not in a supported format.")
+                #st.write(f"Skipping image {img_link} as it is not in a supported format.")
                 continue
             
             img_data = requests.get(img_link).content
