@@ -13,6 +13,7 @@ instagrapi
 g4f
 webdriver-manager
 seleniumbase
+pyttsx3
 pymongo==4.1.1
 dnspython==2.2.1
 streamlit-aggrid
