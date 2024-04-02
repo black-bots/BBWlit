@@ -305,8 +305,6 @@ with tab2:
                 current_image_link = st.session_state.image_links[current_image_index]
                 st.image(current_image_link, use_column_width=True)
 
-                transcribe_to_audio(st.session_state.image_links)
-
                 next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
                 if next_button_clicked:
                     current_image_index += 1
@@ -315,7 +313,10 @@ with tab2:
                     st.session_state.current_image_index = current_image_index
                     current_image_link = st.session_state.image_links[current_image_index]
                     st.image(current_image_link, use_column_width=True)
-                    transcribe_to_audio(st.session_state.image_links)
+                    
+                    # Transcribe text only for the currently displayed image
+                    transcribe_to_audio([current_image_link])
+                    
         except Exception as e:
             st.write(f"Error: {e}")
  
