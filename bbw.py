@@ -144,13 +144,13 @@ with tab1:
                             all_text = ""
                             num_paragraphs = len(d.findAll("p"))
                             paragraphs = d.findAll("p")
-                            desired_group_size = 10  # Set your desired group size here
+                            desired_group_size = 1  # Set your desired group size here
                             num_groups = num_paragraphs // desired_group_size  # Calculate the number of groups based on desired group size
                             groups = [paragraphs[i:i + desired_group_size] for i in range(0, len(paragraphs), desired_group_size)]
         
                             story = ""
                             for paragraph in paragraphs:
-                                story += paragraph.text + "\n\n"
+                                story += paragraph.text + "\n"
                             story = story.replace('<p>', '')
                             story = story.replace('"', '')
 
@@ -163,8 +163,10 @@ with tab1:
                             )
                             with st.expander("Read"):
                                 from annotated_text import annotated_text
+                                paragraphs = d.text.split("\n") 
+                                formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
                                 annotated_text("",
-                                          (story, "", "#fea"),
+                                          (*formatted_paragraphs, "", "#fea"),
                                   "")
                                 #st.write(f':green[*{story}*]')
                             
