@@ -151,13 +151,6 @@ with tab1:
                                 story += paragraph.text + "\n\n"
                             story = story.replace('<p>', '')
                             story = story.replace('"', '')
-                            
-                            # Convert text to speech and save it as a temporary mp3 file
-                            with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
-                                tts = gTTS(text=story, lang='en', slow=False)
-                                tts.save(tmp_file.name)                            
-    
-                                autoplay_audio(tmp_file.name)
 
                             st.markdown("""<style>
                                   .stMarkdown{color: black;}
@@ -166,6 +159,18 @@ with tab1:
                                   </style>""",
                                   unsafe_allow_html=True
                             )
+                            with st.expander("Read"):
+                                from annotated_text import annotated_text
+                                annotated_text("",
+                                          (story, "", "#fea"),
+                                  "")
+                                #st.write(f':green[*{story}*]')
+                            
+                            with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
+                                tts = gTTS(text=story, lang='en', slow=False)
+                                tts.save(tmp_file.name)                            
+    
+                                autoplay_audio(tmp_file.name)
 
                             for group in groups:
                                 group_text = ""
@@ -174,12 +179,7 @@ with tab1:
                                 if on:
                                     res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
                                     time.sleep(5) 
-                            with st.expander("Read"):
-                                from annotated_text import annotated_text
-                                annotated_text("",
-                                          (story, "", "#fea"),
-                                  "")
-                                #st.write(f':green[*{story}*]')
+
                             next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
                             if next_ch:
                                 oldurl = url
