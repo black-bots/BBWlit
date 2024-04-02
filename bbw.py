@@ -163,7 +163,7 @@ with tab1:
                             )
                             with st.expander("Read"):
                                 from annotated_text import annotated_text
-                                paragraphs = d.text.split("\n") 
+                                paragraphs = story.split("\n") 
                                 formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
                                 annotated_text("",
                                           (*formatted_paragraphs, "", "#fea"),
