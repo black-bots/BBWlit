@@ -164,7 +164,7 @@ with tab1:
                             with st.expander("Read"):
                                 from annotated_text import annotated_text
                                 annotated_text("",
-                                          (d.text, "", "#fea"),
+                                          (story, "", "#fea"),
                                   "")
                                 #st.write(f':green[*{story}*]')
                             
@@ -172,7 +172,7 @@ with tab1:
                                 tts = gTTS(text=story, lang='en', slow=False)
                                 tts.save(tmp_file.name)                            
                                 audio = AudioSegment.from_mp3(tmp_file.name)
-                                new_file = speedup(audio,1.5,150)
+                                new_file = speedup(audio,1.2,150)
                                 new_file.export("file.mp3", format="mp3")
                                 autoplay_audio("file.mp3")
 
