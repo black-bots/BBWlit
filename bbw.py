@@ -165,9 +165,7 @@ with tab1:
                                 from annotated_text import annotated_text
                                 paragraphs = story.split("\n") 
                                 formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
-                                annotated_text("",
-                                          (*formatted_paragraphs, "", "#fea"),
-                                  "")
+                                annotated_text(*formatted_paragraphs)
                                 #st.write(f':green[*{story}*]')
                             
                             with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
