@@ -144,9 +144,9 @@ with tab1:
                             all_text = ""
                             num_paragraphs = len(d.findAll("p"))
                             paragraphs = d.findAll("p")
-                            num_groups = 100
-                            group_size = len(paragraphs) // num_groups
-                            groups = [paragraphs[i:i + group_size] for i in range(0, len(paragraphs), group_size)]
+                            desired_group_size = 10  # Set your desired group size here
+                            num_groups = num_paragraphs // desired_group_size  # Calculate the number of groups based on desired group size
+                            groups = [paragraphs[i:i + desired_group_size] for i in range(0, len(paragraphs), desired_group_size)]
         
                             story = ""
                             for paragraph in paragraphs:
