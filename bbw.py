@@ -251,7 +251,8 @@ def transcribe_to_audio(image_links):
                     tts = gTTS(text=text, lang='en', slow=False)
                     tts.save(audio_file_path)
                 audio_files.append(audio_file_path)
-                res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
+                if on:
+                    res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
             else:
                 res_box.markdown(f':blue[Dao: ]:orange[No Text]')
         except Exception as e:
@@ -289,32 +290,34 @@ def filter_english_words(text):
     return text
 
 with tab2:
-    if tab2:
-        if ok:
-            st.session_state.image_links = get_image_links(url)
-            st.session_state.current_image_index = 0
-    
-            if st.session_state.image_links:
-                st.image(st.session_state.image_links[0], use_column_width=True)
-    
-            st.write(f"Total Images: {len(st.session_state.image_links)}")
-    
+    if ok:
+        st.session_state.image_links = get_image_links(url)
+        st.session_state.current_image_index = 0
+
+        if st.session_state.image_links:
+            st.image(st.session_state.image_links[0], use_column_width=True)
+
+        st.write(f"Total Images: {len(st.session_state.image_links)}")
+
         try:
             if st.session_state.image_links:
-                current_image_link = st.session_state.image_links[st.session_state.current_image_index]
+                current_image_index = st.session_state.current_image_index
+                current_image_link = st.session_state.image_links[current_image_index]
                 st.image(current_image_link, use_column_width=True)
-                st.write(f"Total Images: {len(st.session_state.image_links)}")
-                transcribe_to_audio(current_image_link)
+
+                transcribe_to_audio(st.session_state.image_links)
+
                 next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
                 if next_button_clicked:
-                    #st.session_state.current_image_index += 1
-                    current_image_link += 1
-                    if st.session_state.current_image_index >= len(st.session_state.image_links):
-                        st.session_state.current_image_index = 0
-                    st.image(st.session_state.image_links[st.session_state.current_image_index], use_column_width=True)
-                    transcribe_to_audio(current_image_link)
-        except:
-            pass
+                    current_image_index += 1
+                    if current_image_index >= len(st.session_state.image_links):
+                        current_image_index = 0
+                    st.session_state.current_image_index = current_image_index
+                    current_image_link = st.session_state.image_links[current_image_index]
+                    st.image(current_image_link, use_column_width=True)
+                    transcribe_to_audio(st.session_state.image_links)
+        except Exception as e:
+            st.write(f"Error: {e}")
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
