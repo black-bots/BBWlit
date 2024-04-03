@@ -156,9 +156,9 @@ with st.sidebar:
                 for link in manga_links:
                     href = link.get("href")
                     manga_name = href.split("https://manhuaaz.com/manga/")[1]
-                    st.write(f"Title: :green[{manga_name}]  \nURL: {href}\n")
                     ch = f"{href}/chapter-1/"
-                    st.write(f"CH 01: {ch}")
+                    st.write(f"Title: :green[{manga_name}]  \nCH 01: {ch}\n")
+                    
         with st.expander("Search.."):
             search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search2', help="Enter a title here to search for")
             search_url = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga"
@@ -170,7 +170,7 @@ with st.sidebar:
                     # Extract title and URL from the anchor tag within the div
                     title_name = tab_thumb.find("a")['title']
                     title_url = tab_thumb.find("a")['href']
-            st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
+                    st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
                         
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
