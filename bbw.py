@@ -15,6 +15,7 @@ import easyocr as ocr  # OCR
 import numpy as np  # Image Processing
 from easyocr import Reader
 import streamlit as st
+import streamlit_nested_layout
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -110,8 +111,8 @@ with st.sidebar:
     on = st.checkbox('Stream Story', value=True)
     
     col1, col2 = st.columns(2)
-
-    with col1:
+    outer_cols = st.columns([1, 1])
+    with outer_cols[0]:
         with st.expander("Text Based"):
             st.caption("Example: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
             with st.expander("Latest Releases"):
