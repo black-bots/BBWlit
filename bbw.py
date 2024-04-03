@@ -117,6 +117,18 @@ with st.sidebar:
     with col2:
         with st.expander("Image Based"):
             st.caption("Example: https://manhuaaz.com/manga/monster-pet-evolution/chapter-1/")
+    with st.expander("Latest Releases")
+        resp = requests.get("https://daotranslate.us/series/?status=&type=&order=update")
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            manga_list_div = soup.find("div", {"class": "listupd"})
+            if manga_list_div:
+                titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+                for title in titles:
+                    title_url = title.a["href"]
+                    title_name = title.a["oldtitle"]
+                    st.write(f"Title: {title_name}\nURL: {title_url}\n")
+
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
     st.header("Official Version")
