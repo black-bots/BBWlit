@@ -136,7 +136,7 @@ with st.sidebar:
         resp = requests.get(search_url)
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
-            search_result_div = soup.find("div", {"class": "listupd"})
+            search_result_div = soup.find_all("div", {"class": "listupd"})
             if search_result_div:
                 first_title = search_result_div.find("div", {"class": "mdthumb"})
                 if first_title:
@@ -200,6 +200,7 @@ with tab1:
                                 #st.write(f':green[*{story}*]')
                             
                             with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
+                                story = story.replace('"','')
                                 tts = gTTS(text=story, lang='en', slow=False)
                                 tts.save(tmp_file.name)                            
                                 audio = AudioSegment.from_mp3(tmp_file.name)
