@@ -161,7 +161,7 @@ with st.sidebar:
                         title_name = title_name.title()
                         st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
         with st.expander("Search.."):
-            search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search', help="Enter a title here to search for")
+            search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search2', help="Enter a title here to search for")
             search_url = f"https://daotranslate.us/?s={search_variable}"
             resp = requests.get(search_url)
             if resp.status_code == 200:
