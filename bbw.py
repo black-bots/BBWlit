@@ -126,7 +126,7 @@ with st.sidebar:
                 titles = manga_list_div.find_all("div", {"class": "mdthumb"})
                 for title in titles:
                     title_url = title.a["href"]
-                    title_name = title.a["oldtitle"]
+                    title_name = soup.a.get("oldtitle", "Title Not Found")
 
                     st.write(f"Title: {title_name}\nURL: {title_url}\n")
 
