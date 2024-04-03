@@ -127,7 +127,7 @@ with st.sidebar:
                 for title in titles:
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1]
-                    title_name.replace('/', '')
+                    title_name title_name.replace('/', '')
         
                     st.write(f"Title: {title_name}\nURL: {title_url}\n")
 
