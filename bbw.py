@@ -145,7 +145,10 @@ with st.sidebar:
                     title_name = title_name.replace('/', '')
                     title_name = title_name.title()
                     st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
-    
+                    ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                    st.write(f"CH 01: {title_url}\n")
+
+    https://daotranslate.us/genius-corpse-collecting-warrior-chapter-1/
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
     st.header("Official Version")
