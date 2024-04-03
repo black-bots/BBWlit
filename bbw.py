@@ -136,9 +136,9 @@ with st.sidebar:
         resp = requests.get(search_url)
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
-            search_result_div = soup.find_all("div", {"class": "listupd"})
+            search_result_div = soup.find("div", {"class": "listupd"})
             if search_result_div:
-                first_title = search_result_div.find("div", {"class": "mdthumb"})
+                first_title = search_result_div.find_all("div", {"class": "mdthumb"})
                 if first_title:
                     title_url = first_title.a["href"]
                     title_name = title_url.split("series/")[1]
