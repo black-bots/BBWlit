@@ -162,21 +162,16 @@ with st.sidebar:
                         st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
         with st.expander("Search.."):
             search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search2', help="Enter a title here to search for")
-            search_url = f"https://daotranslate.us/?s={search_variable}"
+            search_url = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga"
             resp = requests.get(search_url)
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
-                search_result_div = soup.find("div", {"class": "listupd"})
-                if search_result_div:
-                    titless = search_result_div.find_all("div", {"class": "mdthumb"})
-                    for title in titless:
-                        title_url = title.a["href"]
-                        title_name = title_url.split("series/")[1]
-                        title_name = title_name.replace('/', '')
-                        title_name = title_name.title()
-                        st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
-                        ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                        st.write(f"CH 01: {ch}")
+                tab_thumbs = soup.find_all("div", class_="tab-thumb c-image-hover")
+                for tab_thumb in tab_thumbs:
+                    # Extract title and URL from the anchor tag within the div
+                    title_name = tab_thumb.find("a")['title']
+                    title_url = tab_thumb.find("a")['href']
+            st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
                         
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
