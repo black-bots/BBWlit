@@ -112,7 +112,7 @@ with st.sidebar:
     
     col1, col2 = st.columns(2)
     outer_cols = st.columns([1, 1])
-    with outer_cols[0]:
+    with col1:
         with st.expander("Text Based"):
             st.caption("Example: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
             with st.expander("Latest Releases"):
