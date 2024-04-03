@@ -117,7 +117,7 @@ with st.sidebar:
     with col2:
         with st.expander("Image Based"):
             st.caption("Example: https://manhuaaz.com/manga/monster-pet-evolution/chapter-1/")
-    with st.expander("Latest Releases")
+    with st.expander("Latest Releases"):
         resp = requests.get("https://daotranslate.us/series/?status=&type=&order=update")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
