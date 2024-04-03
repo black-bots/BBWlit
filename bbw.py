@@ -138,9 +138,9 @@ with st.sidebar:
             soup = BeautifulSoup(resp.text, 'html.parser')
             search_result_div = soup.find("div", {"class": "listupd"})
             if search_result_div:
-                first_title = search_result_div.find_all("div", {"class": "mdthumb"})
-                if first_title:
-                    title_url = first_title.a["href"]
+                titless = search_result_div.find_all("div", {"class": "mdthumb"})
+                for title in titless:
+                    title_url = title.a["href"]
                     title_name = title_url.split("series/")[1]
                     title_name = title_name.replace('/', '')
                     title_name = title_name.title()
