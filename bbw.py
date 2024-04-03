@@ -178,6 +178,7 @@ with st.sidebar:
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
     st.header("Official PC Version")
     st.caption("Download from: https://blackbots.gumroad.com/l/manga")
+    st.caption("Join Our Discord: https://discord.gg/HcVPaSpF")
 
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:    
