@@ -126,7 +126,8 @@ with st.sidebar:
                 titles = manga_list_div.find_all("div", {"class": "mdthumb"})
                 for title in titles:
                     title_url = title.a["href"]
-                    title_name = title.a.get("oldtitle", "Title Not Found")
+                    title_name = title.a["onldtitle"]
+
                     st.write(f"Title: {title_name}\nURL: {title_url}\n")
 
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
