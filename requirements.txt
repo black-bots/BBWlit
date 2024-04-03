@@ -2,6 +2,7 @@ matplotlib
 speechrecognition
 requests
 streamlit
+streamlit-nested-layout
 PyPDF2
 instaloader
 ffmpeg-python
