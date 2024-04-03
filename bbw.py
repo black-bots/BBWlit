@@ -108,6 +108,7 @@ res_box = st.empty()
 
 with st.sidebar:
     st.image(side_image)
+    st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story', value=True)
     
     col1, col2 = st.columns(2)
