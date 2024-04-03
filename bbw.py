@@ -170,7 +170,7 @@ with st.sidebar:
                     # Extract title and URL from the anchor tag within the div
                     title_name = tab_thumb.find("a")['title']
                     title_url = tab_thumb.find("a")['href']
-                    ch = f"{title_url}/chapter-1/"
+                    ch = f"{title_url}chapter-1/"
                     st.write(f"Title: :green[{title_name}]  \nCH 01: {ch}\n")
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
