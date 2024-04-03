@@ -156,9 +156,9 @@ with st.sidebar:
                 for link in manga_links:
                     href = link.get("href")
                     manga_name = href.split("https://manhuaaz.com/manga/")[1]
-                        st.write(f"Title: :green[{manga_name}]  \nURL: {href}\n")
-                        ch = f"{href}/chapter-1/"
-                        st.write(f"CH 01: {ch}")
+                    st.write(f"Title: :green[{manga_name}]  \nURL: {href}\n")
+                    ch = f"{href}/chapter-1/"
+                    st.write(f"CH 01: {ch}")
         with st.expander("Search.."):
             search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search2', help="Enter a title here to search for")
             search_url = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga"
