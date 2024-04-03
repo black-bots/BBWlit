@@ -176,7 +176,7 @@ with st.sidebar:
                         st.write(f"Title: :green[{title_name}]  \nCH 01: {ch}\n")
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
-    st.header("Official Version")
+    st.header("Official PC Version")
     st.caption("Download from: https://blackbots.gumroad.com/l/manga")
 
 tab1,tab2=st.tabs(['Text Based','Image Based'])
