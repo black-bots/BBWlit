@@ -127,9 +127,9 @@ with st.sidebar:
                 for title in titles:
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1]
-                    title_name title_name.replace('/', '')
+                    title_name = title_name.replace('/', '')
         
-                    st.write(f"Title: {title_name}\nURL: {title_url}\n")
+                    st.write(f"Title: :green[*{title_name}*]\nURL: {title_url}\n")
 
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
