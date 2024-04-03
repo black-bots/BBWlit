@@ -129,8 +129,23 @@ with st.sidebar:
                     title_name = title_url.split("series/")[1]
                     title_name = title_name.replace('/', '')
                     title_name = title_name.title()
-                    st.write(f"Title: :green[*{title_name}*]  \nURL: {title_url}\n")
-
+                    st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
+    with st.expander("Search..")
+        search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search', help="Enter a title here to search for")
+        search_url = f"https://daotranslate.us/?s={search_variable}"
+        resp = requests.get(search_url)
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            search_result_div = soup.find("div", {"class": "listupd"})
+            if search_result_div:
+                first_title = search_result_div.find("div", {"class": "mdthumb"})
+                if first_title:
+                    title_url = first_title.a["href"]
+                    title_name = title_url.split("series/")[1]
+                    title_name = title_name.replace('/', '')
+                    title_name = title_name.title()
+                    st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
+    
     url = st.text_input(":orange[CH. Url:]", placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
     st.header("Official Version")
