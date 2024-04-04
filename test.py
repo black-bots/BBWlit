@@ -65,43 +65,43 @@ def main():
     # Streamlit sidebar layout
     with st.sidebar:
         st.caption("Manga Text or Image To Speech")
-	    on = st.checkbox('Stream Story', value=True)
-	    
-	    col1, col2 = st.columns(2)
-	    outer_cols = st.columns([1, 1])
-	    with col1:
-	        with st.expander("Text Based"):
-	            st.caption("Example: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
-	            with st.expander("Latest Releases"):
-	                resp = requests.get("https://daotranslate.us/series/?status=&type=&order=update")
-	                if resp.status_code == 200:
-	                    soup = BeautifulSoup(resp.text, 'html.parser')
-	                    manga_list_div = soup.find("div", {"class": "listupd"})
-	                    if manga_list_div:
-	                        titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-	                        for title in titles:
-	                            title_url = title.a["href"]
-	                            title_name = title_url.split("series/")[1]
-	                            title_name = title_name.replace('/', '')
-	                            title_name = title_name.title()
-	                            st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
-	            with st.expander("Search.."):
-	                search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search', help="Enter a title here to search for")
-	                search_url = f"https://daotranslate.us/?s={search_variable}"
-	                resp = requests.get(search_url)
-	                if resp.status_code == 200:
-	                    soup = BeautifulSoup(resp.text, 'html.parser')
-	                    search_result_div = soup.find("div", {"class": "listupd"})
-	                    if search_result_div:
-	                        titless = search_result_div.find_all("div", {"class": "mdthumb"})
-	                        for title in titless:
-	                            title_url = title.a["href"]
-	                            title_name = title_url.split("series/")[1]
-	                            title_name = title_name.replace('/', '')
-	                            title_name = title_name.title()
-	                            st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
-	                            ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-	                            st.write(f"CH 01: {ch}")
+on = st.checkbox('Stream Story', value=True)
+
+col1, col2 = st.columns(2)
+outer_cols = st.columns([1, 1])
+with col1:
+	with st.expander("Text Based"):
+		st.caption("Example: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
+		with st.expander("Latest Releases"):
+			resp = requests.get("https://daotranslate.us/series/?status=&type=&order=update")
+			if resp.status_code == 200:
+				soup = BeautifulSoup(resp.text, 'html.parser')
+				manga_list_div = soup.find("div", {"class": "listupd"})
+				if manga_list_div:
+					titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+					for title in titles:
+						title_url = title.a["href"]
+						title_name = title_url.split("series/")[1]
+						title_name = title_name.replace('/', '')
+						title_name = title_name.title()
+						st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
+		with st.expander("Search.."):
+			search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search', help="Enter a title here to search for")
+			search_url = f"https://daotranslate.us/?s={search_variable}"
+			resp = requests.get(search_url)
+			if resp.status_code == 200:
+				soup = BeautifulSoup(resp.text, 'html.parser')
+				search_result_div = soup.find("div", {"class": "listupd"})
+				if search_result_div:
+					titless = search_result_div.find_all("div", {"class": "mdthumb"})
+					for title in titless:
+						title_url = title.a["href"]
+						title_name = title_url.split("series/")[1]
+						title_name = title_name.replace('/', '')
+						title_name = title_name.title()
+						st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
+						ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+						st.write(f"CH 01: {ch}")
 	    with col2:
 	        with st.expander("Image Based"):
 	            st.caption("Example: https://manhuaaz.com/manga/monster-pet-evolution/chapter-1/")
