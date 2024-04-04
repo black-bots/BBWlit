@@ -6,6 +6,8 @@ import re
 import requests
 from bs4 import BeautifulSoup
 from PIL import Image
+from easyocr import Reader
+import easyocr as ocr
 from io import BytesIO
 from gtts import gTTS
 from pydub import AudioSegment
