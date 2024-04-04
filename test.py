@@ -11,6 +11,7 @@ from gtts import gTTS
 from pydub import AudioSegment
 from pydub.effects import speedup
 import streamlit as st
+import streamlit_nested_layout
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
