@@ -20,7 +20,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.core.os_manager import ChromeType
 
-
 st.set_page_config(
     page_title="Manga Dōjutsu",
     layout="centered",
@@ -35,6 +34,7 @@ chrome_options.add_argument("--no-sandbox")
 
 # Initialize webdriver
 driver = webdriver.Chrome(service=Service(ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()),options=chrome_options)
+
 # Function to autoplay audio
 def autoplay_audio(file_path: str):
     with open(file_path, "rb") as f:
@@ -73,38 +73,38 @@ def main():
         col1, col2 = st.columns(2)
         outer_cols = st.columns([1, 1])
         with col1:
-        	with st.expander("Text Based"):
-        		st.caption("Example: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
-        		with st.expander("Latest Releases"):
-        			resp = requests.get("https://daotranslate.us/series/?status=&type=&order=update")
-        			if resp.status_code == 200:
-        				soup = BeautifulSoup(resp.text, 'html.parser')
-        				manga_list_div = soup.find("div", {"class": "listupd"})
-        				if manga_list_div:
-        					titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-        					for title in titles:
-        						title_url = title.a["href"]
-        						title_name = title_url.split("series/")[1]
-        						title_name = title_name.replace('/', '')
-        						title_name = title_name.title()
-        						st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
-        		with st.expander("Search.."):
-        			search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search', help="Enter a title here to search for")
-        			search_url = f"https://daotranslate.us/?s={search_variable}"
-        			resp = requests.get(search_url)
-        			if resp.status_code == 200:
-        				soup = BeautifulSoup(resp.text, 'html.parser')
-        				search_result_div = soup.find("div", {"class": "listupd"})
-        				if search_result_div:
-        					titless = search_result_div.find_all("div", {"class": "mdthumb"})
-        					for title in titless:
-        						title_url = title.a["href"]
-        						title_name = title_url.split("series/")[1]
-        						title_name = title_name.replace('/', '')
-        						title_name = title_name.title()
-        						st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
-        						ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-        						st.write(f"CH 01: {ch}")
+            with st.expander("Text Based"):
+                st.caption("Example: https://daotranslate.us/solo-leveling-ragnarok-chapter-1/")
+                with st.expander("Latest Releases"):
+                    resp = requests.get("https://daotranslate.us/series/?status=&type=&order=update")
+                    if resp.status_code == 200:
+                        soup = BeautifulSoup(resp.text, 'html.parser')
+                        manga_list_div = soup.find("div", {"class": "listupd"})
+                        if manga_list_div:
+                            titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+                            for title in titles:
+                                title_url = title.a["href"]
+                                title_name = title_url.split("series/")[1]
+                                title_name = title_name.replace('/', '')
+                                title_name = title_name.title()
+                                st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
+                with st.expander("Search.."):
+                    search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search', help="Enter a title here to search for")
+                    search_url = f"https://daotranslate.us/?s={search_variable}"
+                    resp = requests.get(search_url)
+                    if resp.status_code == 200:
+                        soup = BeautifulSoup(resp.text, 'html.parser')
+                        search_result_div = soup.find("div", {"class": "listupd"})
+                        if search_result_div:
+                            titless = search_result_div.find_all("div", {"class": "mdthumb"})
+                            for title in titless:
+                                title_url = title.a["href"]
+                                title_name = title_url.split("series/")[1]
+                                title_name = title_name.replace('/', '')
+                                title_name = title_name.title()
+                                st.write(f"Title: :green[{title_name}]  \nURL: {title_url}\n")
+                                ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                                st.write(f"CH 01: {ch}")
         with col2:
             with st.expander("Image Based"):
                 st.caption("Example: https://manhuaaz.com/manga/monster-pet-evolution/chapter-1/")
@@ -128,7 +128,6 @@ def main():
                         soup = BeautifulSoup(resp.text, 'html.parser')
                         tab_thumbs = soup.find_all("div", class_="tab-thumb c-image-hover")
                         for tab_thumb in tab_thumbs:
-                            # Extract title and URL from the anchor tag within the div
                             title_name = tab_thumb.find("a")['title']
                             title_url = tab_thumb.find("a")['href']
                             ch = f"{title_url}chapter-1/"
@@ -162,8 +161,8 @@ def main():
                                 all_text = ""
                                 num_paragraphs = len(d.findAll("p"))
                                 paragraphs = d.findAll("p")
-                                desired_group_size = 1  # Set your desired group size here
-                                num_groups = num_paragraphs // desired_group_size  # Calculate the number of groups based on desired group size
+                                desired_group_size = 1
+                                num_groups = num_paragraphs // desired_group_size
                                 groups = [paragraphs[i:i + desired_group_size] for i in range(0, len(paragraphs), desired_group_size)]
             
                                 story = ""
@@ -247,13 +246,12 @@ def main():
         for idx, img_link in enumerate(image_links, start=1):
             try:
                 if not is_supported_image_format(img_link):
-                    # st.write(f"Skipping image {img_link} as it is not in a supported format.")
                     continue
     
                 with st.spinner(" Getting image text "):
                     reader = ocr.Reader(['en'])
                     result = reader.readtext(img_link)
-                    result_text = []  # empty list for results
+                    result_text = []
                     for text in result:
                         result_text.append(text[1].strip())
     
@@ -336,6 +334,7 @@ def main():
      
     st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved. by <a href='mailto:admin@blackbots.net?subject=BBWeb App!&body=Please specify the issue you are facing with the app.'><strong>BlackBots</strong></a></center><hr>", unsafe_allow_html=True)
     st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
+
 # Run the main function
 if __name__ == "__main__":
     main()
