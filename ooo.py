@@ -117,7 +117,7 @@ with st.sidebar:
                                         soup=BeautifulSoup(resp.text,_D);manga_list_div=soup.find(_C,{_E:_J})
                                         if manga_list_div:
                                                 titles=manga_list_div.find_all(_C,{_E:_K})
-                                                for title in titles:title_url=title.a[_F];title_name=title_url.split(_L)[1];title_name=title_name.replace('/','');title_name=title_name.title();ch=f"https://daotranslate.us/{title_name}-chapter-1/";st.write(f"CH 01: {ch}")
+                                                for title in titles:title_url=title.a[_F];title_name=title_url.split(_L)[1];title_name=title_name.replace('/','');title_name=title_name.title();st.write(f"Title: :green[{title_name}]");ch=f"https://daotranslate.us/{title_name}-chapter-1/";st.write(f"CH 01: {ch}")
                         with st.expander(_M):
                                 search_variable=st.text_input(_N,placeholder=_O,key='search',help=_P);search_url=f"https://daotranslate.us/?s={search_variable}";resp=requests.get(search_url)
                                 if resp.status_code==200:
