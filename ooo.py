@@ -170,53 +170,25 @@ with st.sidebar:
     search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
     col1, col2 = st.columns(2)
     outer_cols = st.columns([1, 1])
-    with col1:
-        if search_variable:
-            with st.expander("Results.."):
-                search_url = f"https://daotranslate.us/?s={search_variable}"
-                resp = requests.get(search_url)
-                if resp.status_code == 200:
-                    soup = BeautifulSoup(resp.text, 'html.parser')
-                    search_result_div = soup.find("div", {"class": "listupd"})
-                    if search_result_div:
-                        titless = search_result_div.find_all("div", {"class": "mdthumb"})
-                        for title in titless:
-                            title_url = title.a["href"]
-                            title_name = title_url.split("series/")[1]
-                            title_name = title_name.replace('/', '')
-                            title_name = title_name.title()
-                            img_url = title.img["src"]
-                            st.image(img_url, caption=title_name)
-                            ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                            st.write(f"{ch}")
-        with st.expander("Latest Releases"):
-            resp = requests.get("https://daotranslate.us/")
+    if search_variable:
+        with st.expander("Text Results.."):
+            search_url = f"https://daotranslate.us/?s={search_variable}"
+            resp = requests.get(search_url)
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
-                manga_list_div = soup.find("div", {"class": "listupd"})
-                if manga_list_div:
-                    titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-                    for title in titles:
+                search_result_div = soup.find("div", {"class": "listupd"})
+                if search_result_div:
+                    titless = search_result_div.find_all("div", {"class": "mdthumb"})
+                    for title in titless:
                         title_url = title.a["href"]
-                        title_name = title_url.split("series/")[1].replace('/', '').title()
-                        ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                        st.write(f"[{title_name} - Chapter 1]({ih})")
+                        title_name = title_url.split("series/")[1]
+                        title_name = title_name.replace('/', '')
+                        title_name = title_name.title()
                         img_url = title.img["src"]
                         st.image(img_url, caption=title_name)
-
-    with st.expander("Image Based"):
-        with st.expander("Latest Releases"):
-            resp = requests.get("https://manhuaaz.com/")
-            if resp.status_code == 200:
-                soup = BeautifulSoup(resp.text, 'html.parser')
-                manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
-                for link in manga_links:
-                    href = link.get("href")
-                    manga_name = href.split("https://manhuaaz.com/manga/")[1]
-                    ch = f"{href}/chapter-1/"
-                    st.caption(manga_name)
-                    st.write(f"{ch}")
-        with st.expander("Results.."):
+                        ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                        st.write(f"{ch}")
+        with st.expander("Image Results.."):
             search_url = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga"
             resp = requests.get(search_url)
             if resp.status_code == 200:
@@ -228,6 +200,33 @@ with st.sidebar:
                     title_url = tab_thumb.find("a")['href']
                     ch = f"{title_url}chapter-1/"
                     st.write(f"{ch}")
+    with st.expander("Latest Releases"):
+        resp = requests.get("https://daotranslate.us/")
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            manga_list_div = soup.find("div", {"class": "listupd"})
+            if manga_list_div:
+                titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+                for title in titles:
+                    title_url = title.a["href"]
+                    title_name = title_url.split("series/")[1].replace('/', '').title()
+                    ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                    st.write(f"[{title_name} - Chapter 1]({ih})")
+                    img_url = title.img["src"]
+                    st.image(img_url, caption=title_name)
+
+    with st.expander("Image Based"):
+        resp = requests.get("https://manhuaaz.com/")
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
+            for link in manga_links:
+                href = link.get("href")
+                manga_name = href.split("https://manhuaaz.com/manga/")[1]
+                ch = f"{href}/chapter-1/"
+                st.caption(manga_name)
+                st.write(f"{ch}")
+
     if ih == "":
       ih = "https://daotranslate.us/solo-leveling-ragnarok-chapter-1/"
     url = st.text_input(":orange[Enter URL:]", value=ih, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
