@@ -202,32 +202,32 @@ with st.sidebar:
                         ih = f"https://daotranslate.us/{title_name}-chapter-1/"
                         st.write(f"[{title_name} - Chapter 1]({ih})")
                         img_url = title.img["src"]
-                        st.image(img_url, caption=title_name)  
-    with col2:
-        with st.expander("Image Based"):
-            with st.expander("Latest Releases"):
-                resp = requests.get("https://manhuaaz.com/")
-                if resp.status_code == 200:
-                    soup = BeautifulSoup(resp.text, 'html.parser')
-                    manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
-                    for link in manga_links:
-                        href = link.get("href")
-                        manga_name = href.split("https://manhuaaz.com/manga/")[1]
-                        ch = f"{href}/chapter-1/"
-                        st.caption(manga_name)
-                        st.write(f"{ch}")
-            with st.expander("Results.."):
-                search_url = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga"
-                resp = requests.get(search_url)
-                if resp.status_code == 200:
-                    soup = BeautifulSoup(resp.text, 'html.parser')
-                    tab_thumbs = soup.find_all("div", class_="tab-thumb c-image-hover")
-                    for tab_thumb in tab_thumbs:
-                        # Extract title and URL from the anchor tag within the div
-                        title_name = tab_thumb.find("a")['title']
-                        title_url = tab_thumb.find("a")['href']
-                        ch = f"{title_url}chapter-1/"
-                        st.write(f"{ch}")
+                        st.image(img_url, caption=title_name)
+
+    with st.expander("Image Based"):
+        with st.expander("Latest Releases"):
+            resp = requests.get("https://manhuaaz.com/")
+            if resp.status_code == 200:
+                soup = BeautifulSoup(resp.text, 'html.parser')
+                manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
+                for link in manga_links:
+                    href = link.get("href")
+                    manga_name = href.split("https://manhuaaz.com/manga/")[1]
+                    ch = f"{href}/chapter-1/"
+                    st.caption(manga_name)
+                    st.write(f"{ch}")
+        with st.expander("Results.."):
+            search_url = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga"
+            resp = requests.get(search_url)
+            if resp.status_code == 200:
+                soup = BeautifulSoup(resp.text, 'html.parser')
+                tab_thumbs = soup.find_all("div", class_="tab-thumb c-image-hover")
+                for tab_thumb in tab_thumbs:
+                    # Extract title and URL from the anchor tag within the div
+                    title_name = tab_thumb.find("a")['title']
+                    title_url = tab_thumb.find("a")['href']
+                    ch = f"{title_url}chapter-1/"
+                    st.write(f"{ch}")
     if ih == "":
       ih = "https://daotranslate.us/solo-leveling-ragnarok-chapter-1/"
     url = st.text_input(":orange[Enter URL:]", value=ih, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
