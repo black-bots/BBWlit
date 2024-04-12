@@ -223,7 +223,7 @@ with st.sidebar:
             for link in manga_links:
                 href = link.get("href")
                 manga_name = href.split("https://manhuaaz.com/manga/")[1]
-                manga_name = manga_name.split("chapter")[1]
+                href = href.split("chapter")[1]
                 ch = f"{href}/chapter-1/"
                 st.caption(manga_name)
                 st.write(f"{ch}")
