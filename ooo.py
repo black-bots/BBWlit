@@ -172,24 +172,25 @@ with st.sidebar:
     outer_cols = st.columns([1, 1])
     with col1:
         with st.expander("Text Based"):
-            search_variable = st.text_input(":orange[Search:]", placeholder="Martial Peak", key='search', help="Enter a title here to search for")
-            with st.expander("Results.."):
-                search_url = f"https://daotranslate.us/?s={search_variable}"
-                resp = requests.get(search_url)
-                if resp.status_code == 200:
-                    soup = BeautifulSoup(resp.text, 'html.parser')
-                    search_result_div = soup.find("div", {"class": "listupd"})
-                    if search_result_div:
-                        titless = search_result_div.find_all("div", {"class": "mdthumb"})
-                        for title in titless:
-                            title_url = title.a["href"]
-                            title_name = title_url.split("series/")[1]
-                            title_name = title_name.replace('/', '')
-                            title_name = title_name.title()
-                            img_url = title.img["src"]
-                            st.image(img_url, caption=title_name)
-                            ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                            st.write(f"{ch}")
+            search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
+            if search_variable:
+                with st.expander("Results.."):
+                    search_url = f"https://daotranslate.us/?s={search_variable}"
+                    resp = requests.get(search_url)
+                    if resp.status_code == 200:
+                        soup = BeautifulSoup(resp.text, 'html.parser')
+                        search_result_div = soup.find("div", {"class": "listupd"})
+                        if search_result_div:
+                            titless = search_result_div.find_all("div", {"class": "mdthumb"})
+                            for title in titless:
+                                title_url = title.a["href"]
+                                title_name = title_url.split("series/")[1]
+                                title_name = title_name.replace('/', '')
+                                title_name = title_name.title()
+                                img_url = title.img["src"]
+                                st.image(img_url, caption=title_name)
+                                ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                                st.write(f"{ch}")
             with st.expander("Latest Releases"):
               if resp.status_code == 200:
                   soup = BeautifulSoup(resp.text, 'html.parser')
