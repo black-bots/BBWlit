@@ -190,7 +190,7 @@ with st.sidebar:
                         st.write(f"{ch}")
 
     with st.expander("Latest Releases"):
-        resp = requests.get("https://daotranslate.us/series/?status=&type=&order=update")
+        resp = requests.get("https://daotranslate.us/?s=e")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
             manga_list_div = soup.find("div", {"class": "listupd"})
