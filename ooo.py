@@ -192,18 +192,19 @@ with st.sidebar:
                                 ch = f"https://daotranslate.us/{title_name}-chapter-1/"
                                 st.write(f"{ch}")
             with st.expander("Latest Releases"):
-              if resp.status_code == 200:
-                  soup = BeautifulSoup(resp.text, 'html.parser')
-                  manga_list_div = soup.find("div", {"class": "listupd"})
-                  if manga_list_div:
-                      titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-                      for title in titles:
-                          title_url = title.a["href"]
-                          title_name = title_url.split("series/")[1].replace('/', '').title()
-                          ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                          st.write(f"[{title_name} - Chapter 1]({ih})")
-                          img_url = title.img["src"]
-                          st.image(img_url, caption=title_name)  
+                resp = requests.get("https://daotranslate.us/series/?status=&type=&order=update")
+                if resp.status_code == 200:
+                    soup = BeautifulSoup(resp.text, 'html.parser')
+                    manga_list_div = soup.find("div", {"class": "listupd"})
+                    if manga_list_div:
+                        titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+                        for title in titles:
+                            title_url = title.a["href"]
+                            title_name = title_url.split("series/")[1].replace('/', '').title()
+                            ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                            st.write(f"[{title_name} - Chapter 1]({ih})")
+                            img_url = title.img["src"]
+                            st.image(img_url, caption=title_name)  
     with col2:
         with st.expander("Image Based"):
             st.caption("Example: https://manhuaaz.com/manga/monster-pet-evolution/chapter-1/")
