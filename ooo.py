@@ -194,9 +194,6 @@ with st.sidebar:
                 resp = requests.get("https://daotranslate.us/series/?status=&type=&order=update")
                 if resp.status_code == 200:
                     soup = BeautifulSoup(resp.text, 'html.parser')
-                    image_elements = soup.find_all('div', {"class": "mdthumb"})
-                    for image_element in image_elements:
-                        img_src = image_element.find('img')['src']
                     manga_list_div = soup.find("div", {"class": "listupd"})
                     if manga_list_div:
                         titles = manga_list_div.find_all("div", {"class": "mdthumb"})
@@ -205,7 +202,14 @@ with st.sidebar:
                             title_name = title_url.split("series/")[1]
                             title_name = title_name.replace('/', '')
                             title_name = title_name.title()
-                            img_url = title.img["src"]
+                            search_img = f"https://daotranslate.us/?s={title_name}"
+                            resp = requests.get(search_img)
+                            soup = BeautifulSoup(resp.text, 'html.parser')
+                            search_result = soup.find("div", {"class": "listupd"})
+                            if search_result:
+                                titless = search_result.find_all("div", {"class": "mdthumb"})
+                                for title in titless:
+                                img_url = title.img["src"]
                             st.image(img_url, caption=title_name)
                             ih = f"https://daotranslate.us/{title_name}-chapter-1/"
                             st.write(f":green[{ih}]")
