@@ -234,6 +234,8 @@ with st.sidebar:
                         title_url = tab_thumb.find("a")['href']
                         ch = f"{title_url}chapter-1/"
                         st.write(f"{ch}")
+    if ih == "":
+      ih = "https://daotranslate.us/solo-leveling-ragnarok-chapter-1/"
     url = st.text_input(":orange[Enter URL:]", value=ih, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
     st.header("Google Play Store")
