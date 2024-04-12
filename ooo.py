@@ -209,7 +209,7 @@ with st.sidebar:
                             if search_result:
                                 titless = search_result.find_all("div", {"class": "mdthumb"})
                                 for title in titless:
-                                img_url = title.img["src"]
+                                    img_url = title.img["src"]
                             st.image(img_url, caption=title_name)
                             ih = f"https://daotranslate.us/{title_name}-chapter-1/"
                             st.write(f":green[{ih}]")
