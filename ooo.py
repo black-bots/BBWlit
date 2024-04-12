@@ -199,17 +199,18 @@ with st.sidebar:
                       for title in titles:
                           title_url = title.a["href"]
                           title_name = title_url.split("series/")[1].replace('/', '').title()
-                          search_img = f"https://daotranslate.us/?s={title_name}"
-                          resp_img = requests.get(search_img)
-                          soup_img = BeautifulSoup(resp_img.text, 'html.parser')
-                          search_result = soup_img.find("div", {"class": "listupd"})
-                          if search_result:
-                              titless = search_result.find_all("div", {"class": "mdthumb"})
-                              for title in titless:
-                                  img_url = title.img["src"]
-                                  st.image(img_url, caption=title_name)
                           ih = f"https://daotranslate.us/{title_name}-chapter-1/"
                           st.write(f"[{title_name} - Chapter 1]({ih})")
+                      search_img = f"https://daotranslate.us/?s={title_name}"
+                      resp_img = requests.get(search_img)
+                      soup_img = BeautifulSoup(resp_img.text, 'html.parser')
+                      search_result = soup_img.find("div", {"class": "listupd"})
+                      if search_result:
+                          titless = search_result.find_all("div", {"class": "mdthumb"})
+                          for title in titless:
+                              img_url = title.img["src"]
+                              st.image(img_url, caption=title_name)  
+         
     with col2:
         with st.expander("Image Based"):
             st.caption("Example: https://manhuaaz.com/manga/monster-pet-evolution/chapter-1/")
