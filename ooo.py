@@ -188,6 +188,7 @@ with st.sidebar:
                         st.image(img_url, caption=title_name)
                         ch = f"https://daotranslate.us/{title_name}-chapter-1/"
                         st.write(f"{ch}")
+                        lisp = st.button("Play", key="listenTo")
 
     with st.expander("Latest Releases"):
         resp = requests.get("https://daotranslate.us/?s=e")
