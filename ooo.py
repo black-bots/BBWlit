@@ -172,8 +172,8 @@ with st.sidebar:
     outer_cols = st.columns([1, 1])
     with col1:
         with st.expander("Text Based"):
+            search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search', help="Enter a title here to search for")
             with st.expander("Search.."):
-                search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search', help="Enter a title here to search for")
                 search_url = f"https://daotranslate.us/?s={search_variable}"
                 resp = requests.get(search_url)
                 if resp.status_code == 200:
