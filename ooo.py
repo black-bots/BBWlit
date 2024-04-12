@@ -159,7 +159,7 @@ def autoplay_audio(file_path: str):
         )
 
 def perform_ok_actions(url):
-    with st.spinner('Loading...'):
+    with st.spinner('Loading text & audio..'):
         url = ih
         driver = get_driver()
         try:
@@ -316,80 +316,81 @@ with tab1:
     res_box.markdown(f':blue[Dao:]')
     if tab1:
         if ok:
-            driver = get_driver()
-            try:
-                driver.get(url)
-            except:
-                pass
-            if not url:
-                res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
-            else:
+            with st.spinner('Loading text & audio..'):
+                driver = get_driver()
                 try:
-                    resp = requests.get(url)
-                    if resp.status_code == 200:
-                        soup = BeautifulSoup(resp.text, 'html.parser')
-                        d = soup.find("div", {"class": "epcontent entry-content"})
-                        if d:
-                            all_text = ""
-                            num_paragraphs = len(d.findAll("p"))
-                            paragraphs = d.findAll("p")
-                            desired_group_size = 1  # Set your desired group size here
-                            num_groups = num_paragraphs // desired_group_size  # Calculate the number of groups based on desired group size
-                            groups = [paragraphs[i:i + desired_group_size] for i in range(0, len(paragraphs), desired_group_size)]
-        
-                            story = ""
-                            for paragraph in paragraphs:
-                                story += paragraph.text + "\n"
-                            story = story.replace('<p>', '')
-                            story = story.replace('"', '')
-
-                            st.markdown("""<style>
-                                  .stMarkdown{color: black;}
-                                  .st-c8:hover{color:orange;}
-                                  .streamlit-expander.st-bc.st-as.st-ar.st-bd.st-be.st-b8.st-bf.st-bg.st-bh.st-bi{display:none;}
-                                  </style>""",
-                                  unsafe_allow_html=True
-                            )
-                            with st.expander("Read"):
-                                from annotated_text import annotated_text
-                                paragraphs = story.split("\n") 
-                                formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
-                                annotated_text(*formatted_paragraphs)
-                                #st.write(f':green[*{story}*]')
-                            
-                            with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
-                                story = story.replace('"','')
-                                tts = gTTS(text=story, lang='en', slow=False)
-                                tts.save(tmp_file.name)                            
-                                audio = AudioSegment.from_mp3(tmp_file.name)
-                                new_file = speedup(audio,1.2,150)
-                                new_file.export("file.mp3", format="mp3")
-                                autoplay_audio("file.mp3")
-                                #st.download_button("file.mp3")
-
-                            for group in groups:
-                                group_text = ""
-                                for d_paragraph in group:
-                                    group_text += d_paragraph.text + "\n"
-                                if on:
-                                    res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                                    time.sleep(5) 
-
-                            next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
-                            if next_ch:
-                                oldurl = url
-                                chap = ''.join([n for n in oldurl if n.isdigit()])
-                                nxtchap = str(int(chap) + int(+1))
-                                prvchap = str(int(chap))
-                                nxtUrl = str(oldurl.replace(chap, nxtchap))
-                                st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\nChapter: " + nxtchap, text_color='orange')                            
+                    driver.get(url)
+                except:
+                    pass
+                if not url:
+                    res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
+                else:
+                    try:
+                        resp = requests.get(url)
+                        if resp.status_code == 200:
+                            soup = BeautifulSoup(resp.text, 'html.parser')
+                            d = soup.find("div", {"class": "epcontent entry-content"})
+                            if d:
+                                all_text = ""
+                                num_paragraphs = len(d.findAll("p"))
+                                paragraphs = d.findAll("p")
+                                desired_group_size = 1  # Set your desired group size here
+                                num_groups = num_paragraphs // desired_group_size  # Calculate the number of groups based on desired group size
+                                groups = [paragraphs[i:i + desired_group_size] for i in range(0, len(paragraphs), desired_group_size)]
+            
+                                story = ""
+                                for paragraph in paragraphs:
+                                    story += paragraph.text + "\n"
+                                story = story.replace('<p>', '')
+                                story = story.replace('"', '')
+    
+                                st.markdown("""<style>
+                                      .stMarkdown{color: black;}
+                                      .st-c8:hover{color:orange;}
+                                      .streamlit-expander.st-bc.st-as.st-ar.st-bd.st-be.st-b8.st-bf.st-bg.st-bh.st-bi{display:none;}
+                                      </style>""",
+                                      unsafe_allow_html=True
+                                )
+                                with st.expander("Read"):
+                                    from annotated_text import annotated_text
+                                    paragraphs = story.split("\n") 
+                                    formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
+                                    annotated_text(*formatted_paragraphs)
+                                    #st.write(f':green[*{story}*]')
+                                
+                                with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
+                                    story = story.replace('"','')
+                                    tts = gTTS(text=story, lang='en', slow=False)
+                                    tts.save(tmp_file.name)                            
+                                    audio = AudioSegment.from_mp3(tmp_file.name)
+                                    new_file = speedup(audio,1.2,150)
+                                    new_file.export("file.mp3", format="mp3")
+                                    autoplay_audio("file.mp3")
+                                    #st.download_button("file.mp3")
+    
+                                for group in groups:
+                                    group_text = ""
+                                    for d_paragraph in group:
+                                        group_text += d_paragraph.text + "\n"
+                                    if on:
+                                        res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
+                                        time.sleep(5) 
+    
+                                next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
+                                if next_ch:
+                                    oldurl = url
+                                    chap = ''.join([n for n in oldurl if n.isdigit()])
+                                    nxtchap = str(int(chap) + int(+1))
+                                    prvchap = str(int(chap))
+                                    nxtUrl = str(oldurl.replace(chap, nxtchap))
+                                    st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\nChapter: " + nxtchap, text_color='orange')                            
+                            else:
+                                res_box.markdown(f':blue[Dao: ]: ...')
                         else:
-                            res_box.markdown(f':blue[Dao: ]: ...')
-                    else:
-                        res_box.markdown(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
-                except Exception as e:
-                    res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
-                            
+                            res_box.markdown(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
+                    except Exception as e:
+                        res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
+                                
 def get_image_links(url):
     try:
         driver.get(url)
@@ -477,34 +478,35 @@ def filter_english_words(text):
 
 with tab2:
     if ok:
-        st.session_state.image_links = get_image_links(url)
-        st.session_state.current_image_index = 0
-
-        if st.session_state.image_links:
-            st.image(st.session_state.image_links[0], use_column_width=True)
-
-        st.write(f"Total Images: {len(st.session_state.image_links)}")
-
-        try:
+        with st.spinner('Loading text & audio..'):
+            st.session_state.image_links = get_image_links(url)
+            st.session_state.current_image_index = 0
+    
             if st.session_state.image_links:
-                current_image_index = st.session_state.current_image_index
-                current_image_link = st.session_state.image_links[current_image_index]
-                st.image(current_image_link, use_column_width=True)
-
-                next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
-                if next_button_clicked:
-                    current_image_index += 1
-                    if current_image_index >= len(st.session_state.image_links):
-                        current_image_index = 0
-                    st.session_state.current_image_index = current_image_index
+                st.image(st.session_state.image_links[0], use_column_width=True)
+    
+            st.write(f"Total Images: {len(st.session_state.image_links)}")
+    
+            try:
+                if st.session_state.image_links:
+                    current_image_index = st.session_state.current_image_index
                     current_image_link = st.session_state.image_links[current_image_index]
                     st.image(current_image_link, use_column_width=True)
-                    
-                    # Transcribe text only for the currently displayed image
-                    transcribe_to_audio([current_image_link])
-                    
-        except Exception as e:
-            st.write(f"Error: {e}")
+    
+                    next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
+                    if next_button_clicked:
+                        current_image_index += 1
+                        if current_image_index >= len(st.session_state.image_links):
+                            current_image_index = 0
+                        st.session_state.current_image_index = current_image_index
+                        current_image_link = st.session_state.image_links[current_image_index]
+                        st.image(current_image_link, use_column_width=True)
+                        
+                        # Transcribe text only for the currently displayed image
+                        transcribe_to_audio([current_image_link])
+                        
+            except Exception as e:
+                st.write(f"Error: {e}")
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
