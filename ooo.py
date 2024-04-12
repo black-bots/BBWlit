@@ -171,7 +171,7 @@ with st.sidebar:
     #col1, col2 = st.columns(2)
     #outer_cols = st.columns([1, 1])
     if search_variable:
-        with st.expander("Text Results.."):
+        with st.expander("Search Results.."):
             search_url = f"https://daotranslate.us/?s={search_variable}"
             resp = requests.get(search_url)
             if resp.status_code == 200:
@@ -188,18 +188,7 @@ with st.sidebar:
                         st.image(img_url, caption=title_name)
                         ch = f"https://daotranslate.us/{title_name}-chapter-1/"
                         st.write(f"{ch}")
-        with st.expander("Image Results.."):
-            search_url = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga"
-            resp = requests.get(search_url)
-            if resp.status_code == 200:
-                soup = BeautifulSoup(resp.text, 'html.parser')
-                tab_thumbs = soup.find_all("div", class_="tab-thumb c-image-hover")
-                for tab_thumb in tab_thumbs:
-                    # Extract title and URL from the anchor tag within the div
-                    title_name = tab_thumb.find("a")['title']
-                    title_url = tab_thumb.find("a")['href']
-                    ch = f"{title_url}chapter-1/"
-                    st.write(f"{ch}")
+
     with st.expander("Latest Releases"):
         resp = requests.get("https://daotranslate.us/series/?status=&type=&order=update")
         if resp.status_code == 200:
@@ -223,7 +212,7 @@ with st.sidebar:
             for link in manga_links:
                 href = link.get("href")
                 manga_name = href.split("https://manhuaaz.com/manga/")[1]
-                ch = f"{href}/chapter-1/"
+                ch = f"{href}"
                 st.caption(manga_name)
                 st.write(f"{ch}")
 
