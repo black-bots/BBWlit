@@ -265,10 +265,9 @@ with st.sidebar:
                         ch = f"https://daotranslate.us/{title_name}-chapter-1/"
                         st.write(f"{ch}")
                         ih = ch
-                        cnt = 1
-                        button_key = title_name + cnt
+                        button_key = title_name
                         if ih:
-                            lisp = st.button("Play", key=button_key)
+                            lisp = st.button("Play", key=button_key+ch)
                             if lisp:
                                 perform_ok_actions(ih)
     with st.expander("Latest Releases"):
