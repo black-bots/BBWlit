@@ -205,22 +205,18 @@ with st.sidebar:
                         st.image(img_url, caption=title_name)  
     with col2:
         with st.expander("Image Based"):
-            st.caption("Example: https://manhuaaz.com/manga/monster-pet-evolution/chapter-1/")
             with st.expander("Latest Releases"):
                 resp = requests.get("https://manhuaaz.com/")
                 if resp.status_code == 200:
                     soup = BeautifulSoup(resp.text, 'html.parser')
                     manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
-                
                     for link in manga_links:
                         href = link.get("href")
                         manga_name = href.split("https://manhuaaz.com/manga/")[1]
                         ch = f"{href}/chapter-1/"
                         st.caption(manga_name)
                         st.write(f"{ch}")
-                        
-            with st.expander("Search.."):
-                search_variable = st.text_input(":orange[Title:]", placeholder="Martial Peak", key='search2', help="Enter a title here to search for")
+            with st.expander("Results.."):
                 search_url = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga"
                 resp = requests.get(search_url)
                 if resp.status_code == 200:
