@@ -78,7 +78,7 @@ import webbrowser
 
 
 history = []
-
+ih = ""
 icob = Image.open('static/-.ico')
 
 st.set_page_config(
