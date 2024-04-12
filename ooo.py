@@ -242,7 +242,7 @@ res_box = st.empty()
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
-    on = st.checkbox('Stream Story', value=True)
+    on = st.checkbox('Stream Story', value=False, disabled=True)
     search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
     #col1, col2 = st.columns(2)
     #outer_cols = st.columns([1, 1])
@@ -284,7 +284,11 @@ with st.sidebar:
                     st.write(f"[{title_name} - Chapter 1]({ih})")
                     img_url = title.img["src"]
                     st.image(img_url, caption=title_name)
-
+                    button_key = title_name
+                    if ih:
+                        lisp = st.button("Play", key=button_key+ih)
+                        if lisp:
+                            perform_ok_actions(ih)
     with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
