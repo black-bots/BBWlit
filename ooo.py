@@ -47,6 +47,7 @@
 import os
 import base64
 import time
+import random
 import tempfile
 import io
 from io import BytesIO
@@ -285,9 +286,9 @@ with st.sidebar:
                     st.write(f"[{title_name}]({ih})")
                     img_url = title.img["src"]
                     st.image(img_url, caption=ih, use_column_width='always')
-                    button_key = title_name
+                    button_key = title_name + str(random.int(1,999))
                     if ih:
-                        lisp = st.button("Play", key=button_key+ih)
+                        lisp = st.button("Play", key=button_key)
                         if lisp:
                             perform_ok_actions(ih)
     with st.expander("🚧Image Based🚧"):
