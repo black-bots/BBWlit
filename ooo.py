@@ -54,6 +54,7 @@ from io import BytesIO
 
 import re
 import requests
+from googletrans import Translator
 from pydub import AudioSegment
 from pydub.effects import speedup
 from gtts import gTTS
@@ -137,6 +138,8 @@ options.add_argument('--no-sandbox')
 options.add_argument('--lang=en-US')
 options.add_argument('--disable-setuid-sandbox')
 options.add_argument("--ignore-certificate-errors")
+
+translator = Translator()
 
 def get_driver():
     return webdriver.Chrome(
@@ -357,7 +360,9 @@ with tab1:
                                     story += paragraph.text + "\n"
                                 story = story.replace('<p>', '')
                                 story = story.replace('"', '')
-    
+                                detected_language = translator.detect(story).lang
+                                if detected_language != 'en':
+                                    story = translator.translate(story, src=detected_language, dest='en').text
                                 st.markdown("""<style>
                                       .stMarkdown{color: black;}
                                       .st-c8:hover{color:orange;}
