@@ -282,7 +282,7 @@ with st.sidebar:
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1].replace('/', '').title()
                     ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                    st.write(f"[{title_name} - Chapter 1]({ih})")
+                    st.write(f"[{title_name}]({ih})")
                     img_url = title.img["src"]
                     st.image(img_url, caption=title_name)
                     button_key = title_name
