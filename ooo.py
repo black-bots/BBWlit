@@ -272,7 +272,7 @@ with st.sidebar:
                             if lisp:
                                 perform_ok_actions(ih)
     with st.expander("Latest Releases"):
-        resp = requests.get("https://daotranslate.us/?s=e")
+        resp = requests.get("https://daotranslate.us/?s=a")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
             manga_list_div = soup.find("div", {"class": "listupd"})
