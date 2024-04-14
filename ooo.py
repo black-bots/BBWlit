@@ -317,7 +317,12 @@ with st.sidebar:
     st.caption("Download from: https://blackbots.gumroad.com/l/manga")
 
     st.caption("Join Our Discord: https://discord.gg/HcVPaSpF")
-
+    with st.expander("Help"):
+        st.caption("""Search:
+        - Enter search term into field
+        - Click off or Press enter to submit search
+        - Click Play Button or Copy & Paste grey link into URL input field
+        """)
 tab1,tab2=st.tabs(['Text Based','🚧Image Based🚧'])
 with tab1:    
     if tab1:
