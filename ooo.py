@@ -267,7 +267,7 @@ with st.sidebar:
                         ch = f"https://daotranslate.us/{title_name}-chapter-1/"
                         st.write(f"{ch}")
                         ih = ch
-                        button_key = title_name
+                        button_key = title_name + str(random.randint(1,999))
                         if ih:
                             lisp = st.button("Play", key=button_key+ch)
                             if lisp:
@@ -286,7 +286,7 @@ with st.sidebar:
                     st.write(f"[{title_name}]({ih})")
                     img_url = title.img["src"]
                     st.image(img_url, caption=ih, use_column_width='always')
-                    button_key = title_name + str(random.int(1,999))
+                    button_key = title_name + str(random.randint(1,999))
                     if ih:
                         lisp = st.button("Play", key=button_key)
                         if lisp:
