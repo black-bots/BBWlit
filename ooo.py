@@ -237,7 +237,7 @@ def perform_ok_actions(url):
                 res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
 
 main_image = Image.open('static/dojutsu.png')
-side_image = Image.open('static/1.png')
+side_image = Image.open('static/4.png')
 st.image(main_image)
 res_box = st.empty()
 
