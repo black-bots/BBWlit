@@ -249,8 +249,8 @@ with st.sidebar:
     col1, col2 = st.columns(2)
     outer_cols = st.columns([1, 1])
     with st.spinner('Searching..'):
-        if search_variable:
-            with st.expander("Search Results.."):
+        with st.expander("Search Results.."):
+            if search_variable:
                 search_url = f"https://daotranslate.us/?s={search_variable}"
                 resp = requests.get(search_url)
                 if resp.status_code == 200:
