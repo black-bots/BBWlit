@@ -284,7 +284,7 @@ with st.sidebar:
                     ih = f"https://daotranslate.us/{title_name}-chapter-1/"
                     st.write(f"[{title_name}]({ih})")
                     img_url = title.img["src"]
-                    st.image(img_url, caption=ih, width=100)
+                    st.image(img_url, caption=ih, use_column_width='always')
                     button_key = title_name
                     if ih:
                         lisp = st.button("Play", key=button_key+ih)
