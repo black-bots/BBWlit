@@ -313,7 +313,6 @@ with st.sidebar:
 
 tab1,tab2=st.tabs(['Text Based','🚧Image Based🚧'])
 with tab1:    
-    res_box.markdown(f':blue[Dao:]')
     if tab1:
         if ok:
             with st.spinner('Loading text & audio..'):
@@ -376,16 +375,16 @@ with tab1:
                                         res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
                                         time.sleep(5) 
     
-                                next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
-                                if next_ch:
-                                    oldurl = url
-                                    chap = ''.join([n for n in oldurl if n.isdigit()])
-                                    nxtchap = str(int(chap) + int(+1))
-                                    prvchap = str(int(chap))
-                                    nxtUrl = str(oldurl.replace(chap, nxtchap))
-                                    st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\nChapter: " + nxtchap, text_color='orange')                            
+                                #next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
+                                #if next_ch:
+                                oldurl = url
+                                chap = ''.join([n for n in oldurl if n.isdigit()])
+                                nxtchap = str(int(chap) + int(+1))
+                                prvchap = str(int(chap))
+                                nxtUrl = str(oldurl.replace(chap, nxtchap))
+                                st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\nChapter: " + nxtchap, text_color='orange')                            
                             else:
-                                res_box.markdown(f':blue[Dao: ]: ...')
+                                res_box.markdown('')
                         else:
                             res_box.markdown(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
                     except Exception as e:
