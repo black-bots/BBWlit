@@ -242,6 +242,7 @@ st.image(main_image)
 res_box = st.empty()
 
 with st.sidebar:
+    st.caption("Manga Text or Image To Speach")
     with st.expander("Search"):
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
         with st.spinner('Searching..'):
@@ -269,8 +270,8 @@ with st.sidebar:
                                 if lisp:
                                     perform_ok_actions(ih)
                             st.divider()
+                            
     st.image(side_image)
-    st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
     col1, col2 = st.columns(2)
     outer_cols = st.columns([1, 1])
