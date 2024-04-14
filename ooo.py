@@ -311,12 +311,15 @@ with st.sidebar:
 
     url = st.text_input(":orange[Enter URL:]", value=ih, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
+
+    st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
     st.header("Official PC Version")
     st.caption("Download from: https://blackbots.gumroad.com/l/manga")
-
     st.caption("Join Our Discord: https://discord.gg/HcVPaSpF")
+    st.divider()
+    
     with st.expander("Help"):
         st.caption("How to use BlackDao: Manga Dōjutsu")
         st.caption("- Enter search term into field")
