@@ -245,8 +245,8 @@ with st.sidebar:
     st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
     search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
-    #col1, col2 = st.columns(2)
-    #outer_cols = st.columns([1, 1])
+    col1, col2 = st.columns(2)
+    outer_cols = st.columns([1, 1])
     if search_variable:
         with st.expander("Search Results.."):
             search_url = f"https://daotranslate.us/?s={search_variable}"
