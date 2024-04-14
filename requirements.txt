@@ -2,6 +2,7 @@ matplotlib
 speechrecognition
 requests
 streamlit
+googletrans
 streamlit-nested-layout
 PyPDF2
 instaloader
