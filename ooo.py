@@ -248,31 +248,32 @@ with st.sidebar:
     search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
     col1, col2 = st.columns(2)
     outer_cols = st.columns([1, 1])
-    if search_variable:
-        with st.expander("Search Results.."):
-            search_url = f"https://daotranslate.us/?s={search_variable}"
-            resp = requests.get(search_url)
-            if resp.status_code == 200:
-                soup = BeautifulSoup(resp.text, 'html.parser')
-                search_result_div = soup.find("div", {"class": "listupd"})
-                if search_result_div:
-                    titless = search_result_div.find_all("div", {"class": "mdthumb"})
-                    for title in titless:
-                        title_url = title.a["href"]
-                        title_name = title_url.split("series/")[1]
-                        title_name = title_name.replace('/', '')
-                        title_name = title_name.title()
-                        img_url = title.img["src"]
-                        ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                        ih = ch
-                        st.write(f"[{title_name}]({ih})")
-                        st.image(img_url, caption=ih)
-                        button_key = title_name + str(random.randint(1,999))
-                        st.divider()
-                        if ih:
-                            lisp = st.button("Play", key=button_key+ch)
-                            if lisp:
-                                perform_ok_actions(ih)
+    with st.spinner('Searching..'):
+        if search_variable:
+            with st.expander("Search Results.."):
+                search_url = f"https://daotranslate.us/?s={search_variable}"
+                resp = requests.get(search_url)
+                if resp.status_code == 200:
+                    soup = BeautifulSoup(resp.text, 'html.parser')
+                    search_result_div = soup.find("div", {"class": "listupd"})
+                    if search_result_div:
+                        titless = search_result_div.find_all("div", {"class": "mdthumb"})
+                        for title in titless:
+                            title_url = title.a["href"]
+                            title_name = title_url.split("series/")[1]
+                            title_name = title_name.replace('/', '')
+                            title_name = title_name.title()
+                            img_url = title.img["src"]
+                            ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                            ih = ch
+                            st.write(f"[{title_name}]({ih})")
+                            st.image(img_url, caption=ih)
+                            button_key = title_name + str(random.randint(1,999))
+                            if ih:
+                                lisp = st.button("Play", key=button_key+ch)
+                                if lisp:
+                                    perform_ok_actions(ih)
+                            st.divider()
     with st.expander("Latest Releases"):
         resp = requests.get("https://daotranslate.us/?s=a")
         if resp.status_code == 200:
@@ -288,11 +289,11 @@ with st.sidebar:
                     img_url = title.img["src"]
                     st.image(img_url, caption=ih, use_column_width='always')
                     button_key = title_name + str(random.randint(1,999))
-                    st.divider()
                     if ih:
                         lisp = st.button("Play", key=button_key)
                         if lisp:
                             perform_ok_actions(ih)
+                    st.divider()
     with st.expander("🚧Image Based🚧"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
