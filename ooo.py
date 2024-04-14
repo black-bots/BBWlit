@@ -243,7 +243,7 @@ res_box = st.empty()
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
-    on = st.checkbox('Stream Story', value=False, disabled=True)
+    on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
     search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
     #col1, col2 = st.columns(2)
     #outer_cols = st.columns([1, 1])
@@ -290,7 +290,7 @@ with st.sidebar:
                         lisp = st.button("Play", key=button_key+ih)
                         if lisp:
                             perform_ok_actions(ih)
-    with st.expander("Image Based"):
+    with st.expander("🚧Image Based🚧"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -311,7 +311,7 @@ with st.sidebar:
 
     st.caption("Join Our Discord: https://discord.gg/HcVPaSpF")
 
-tab1,tab2=st.tabs(['Text Based','Image Based'])
+tab1,tab2=st.tabs(['Text Based','🚧Image Based🚧'])
 with tab1:    
     res_box.markdown(f':blue[Dao:]')
     if tab1:
