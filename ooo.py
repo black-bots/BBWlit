@@ -263,10 +263,10 @@ with st.sidebar:
                         title_name = title_name.replace('/', '')
                         title_name = title_name.title()
                         img_url = title.img["src"]
-                        st.image(img_url, caption=title_name)
                         ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                        st.write(f"{ch}")
                         ih = ch
+                        st.write(f"[{title_name}]({ih})")
+                        st.image(img_url, caption=ih)
                         button_key = title_name + str(random.randint(1,999))
                         if ih:
                             lisp = st.button("Play", key=button_key+ch)
