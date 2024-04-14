@@ -268,6 +268,7 @@ with st.sidebar:
                         st.write(f"[{title_name}]({ih})")
                         st.image(img_url, caption=ih)
                         button_key = title_name + str(random.randint(1,999))
+                        st.divider()
                         if ih:
                             lisp = st.button("Play", key=button_key+ch)
                             if lisp:
@@ -287,6 +288,7 @@ with st.sidebar:
                     img_url = title.img["src"]
                     st.image(img_url, caption=ih, use_column_width='always')
                     button_key = title_name + str(random.randint(1,999))
+                    st.divider()
                     if ih:
                         lisp = st.button("Play", key=button_key)
                         if lisp:
@@ -302,6 +304,7 @@ with st.sidebar:
                 ch = f"{href}"
                 st.caption(manga_name)
                 st.write(f"{ch}")
+                st.divider()
 
     url = st.text_input(":orange[Enter URL:]", value=ih, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
