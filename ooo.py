@@ -77,6 +77,13 @@ from webdriver_manager.core.os_manager import ChromeType
 from bs4 import BeautifulSoup
 import webbrowser
 
+
+def generate_unique_key():
+    unique_id = str(uuid.uuid4())
+    hashed_key = hashlib.sha256(unique_id.encode()).hexdigest()
+    return hashed_key
+key = generate_unique_key()
+
 def get_driver():
     return webdriver.Chrome(
         service=Service(
@@ -377,9 +384,8 @@ with st.sidebar:
                             st.write(f"[{title_name}]({ih})")
                             if img_url:
                                 st.image(img_url, caption=ih)
-                            button_keyy = title_name + str(random.randint(1,999))
                             if ih:
-                                lisp = st.button("Listen", key=button_keyy)
+                                lisp = st.button("Listen", key=key)
                                 if lisp:
                                     perform_ok_actions(ih)
                             st.divider()
@@ -403,9 +409,8 @@ with st.sidebar:
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
-                    button_key = title_name + str(ranum)
                     if ih:
-                        lisp = st.button("Listen", key=button_key)
+                        lisp = st.button("Listen", key=key)
                         if lisp:
                             perform_ok_actions(ih)
                     st.divider()
@@ -427,12 +432,11 @@ with st.sidebar:
                 if img_tag:
                     img_url = img_tag.get("data-src")
                     st.image(img_url, caption=cch, use_column_width='always')
-                img_key = manga_name + str(ranum)
                 if cch:
                     txt = st.text_area(
                         "Link",
                         f"{cch}",
-                        key=ranum+random.randint(1,99999)+2)
+                        key=key)
                 st.divider()
     st.divider()
     st.header("Google Play Store")
@@ -498,7 +502,7 @@ with tab1:
                                     paragraphs = story.split("\n") 
                                     formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
                                     annotated_text(*formatted_paragraphs)
-                                    st.write(f':green[{len(story)} characters in this chapter.]')
+                                    st.caption(f'{len(story)} characters in this chapter.')
                                     #next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
                                     #if next_ch:
                                     oldurl = url
@@ -510,7 +514,7 @@ with tab1:
                                     txt = st.text_area(
                                         "Link",
                                         f"{nxtUrl}",
-                                        key=ranum+random.randint(1,99999)+22)
+                                        key=key)
                                 with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                                     story = story.replace('"','')
                                     tts = gTTS(text=story, lang='en', slow=False)
