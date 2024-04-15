@@ -368,10 +368,6 @@ with tab1:
                                       unsafe_allow_html=True
                                 )
 
-                                #translator = Translator()
-                                detected_language = Translator.detect(story).lang
-                                if detected_language != 'en':
-                                    story = translator.translate(story, src=detected_language, dest='en').text
                                     
                                 with st.expander("Read"):
                                     from annotated_text import annotated_text
