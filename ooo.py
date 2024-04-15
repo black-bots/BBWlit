@@ -380,6 +380,7 @@ with st.sidebar:
                             if img_url:
                                 st.image(img_url, caption=ih)
                             if ih:
+                                url = ih
                                 lisp = st.button("Listen", key=generate_unique_key())
                                 if lisp:
                                     readit()
@@ -407,6 +408,7 @@ with st.sidebar:
                     if ih:
                         lok = st.button("Listen", key=generate_unique_key())
                         if lok:
+                            url = ih
                             readit()
                     st.divider()
                     
