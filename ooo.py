@@ -494,9 +494,8 @@ with st.sidebar:
     
     with st.expander("Help"):
         st.caption("How to use BlackDao: Manga Dōjutsu")
-        st.caption("- Enter search term into field")
-        st.caption("- Click off or Press enter to submit search")
-        st.caption("- Press Play button or Copy & Paste grey link into URL input field then press Read")
+        st.caption("- Enter search term into field to search Mangas")
+        st.caption("- Copy & Paste link into input field on main window then press Read")
         st.caption("- View Image Based Links with the Image Based Tab")
 
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
