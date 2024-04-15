@@ -65,7 +65,6 @@ from easyocr import Reader
 import streamlit as st
 import streamlit_nested_layout
 import streamlit.components.v1 as components
-from streamlit.hashing import _CodeHasher
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -78,7 +77,7 @@ from webdriver_manager.core.os_manager import ChromeType
 from bs4 import BeautifulSoup
 import webbrowser
 
-
+@st.cache(persist=True)
 def get_driver():
     return webdriver.Chrome(
         service=Service(
@@ -86,6 +85,7 @@ def get_driver():
         ),
         options=options,
     )
+
 def autoplay_audio(file_path: str):
     with open(file_path, "rb") as f:
         data = f.read()
@@ -100,7 +100,6 @@ def autoplay_audio(file_path: str):
             unsafe_allow_html=True,
         )
 
-@st.cache_resource(hash_funcs={webdriver.Chrome: _CodeHasher})
 def perform_ok_actions(url):
     with st.spinner('Loading text & audio..'):
         url = ih
@@ -187,7 +186,6 @@ def perform_ok_actions(url):
             except Exception as e:
                 res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
 
-@st.cache_resource(hash_funcs={webdriver.Chrome: _CodeHasher})
 def perform_img_actions(url):
     if 'image_links' not in st.session_state:
         st.session_state.image_links = []
