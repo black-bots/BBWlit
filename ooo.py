@@ -351,6 +351,47 @@ st.image(main_image)
 res_box = st.empty()
 
 with st.sidebar:
+    def readit2(url):
+        driver = get_driver()
+        try:
+            driver.get(url)
+        except:
+            pass
+        if not url:
+            res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
+        else:
+            try:
+                resp = requests.get(url)
+                if resp.status_code == 200:
+                    soup = BeautifulSoup(resp.text, 'html.parser')
+                    d = soup.find("div", {"class": "epcontent entry-content"})
+                    if d:
+                        all_text = ""
+                        num_paragraphs = len(d.findAll("p"))
+                        paragraphs = d.findAll("p")
+                        desired_group_size = 1  # Set your desired group size here
+                        num_groups = num_paragraphs // desired_group_size  # Calculate the number of groups based on desired group size
+                        groups = [paragraphs[i:i + desired_group_size] for i in range(0, len(paragraphs), desired_group_size)]
+                        story = ""
+                        for paragraph in paragraphs:
+                            story += paragraph.text + "\n"
+                        story = story.replace('<p>', '')
+                        story = story.replace('"', '')
+    
+                        with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
+                            story = story.replace('"','')
+                            tts = gTTS(text=story, lang='en', slow=False)
+                            tts.save(tmp_file.name)                            
+                            audio = AudioSegment.from_mp3(tmp_file.name)
+                            new_file = speedup(audio,1.2,150)
+                            new_file.export("file.mp3", format="mp3")
+                            autoplay_audio("file.mp3")
+                    else:
+                        res_box.markdown('')
+                else:
+                    res_box.markdown(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
+            except Exception as e:
+                res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
     with st.expander("Search"):
@@ -379,7 +420,7 @@ with st.sidebar:
                                 lisp = st.button("Listen", key=generate_unique_key())
                                 if lisp:
                                     url = ih
-                                    readit(url)
+                                    readit2(url)
                             st.divider()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
@@ -405,7 +446,7 @@ with st.sidebar:
                         lok = st.button("Listen", key=generate_unique_key())
                         if lok:
                             url = str(ih)
-                            readit(url)
+                            readit2(url)
                     st.divider()
                     
     with st.expander("Image Based"):
