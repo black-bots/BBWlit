@@ -209,7 +209,6 @@ def filter_english_words(text):
     return text
 
 def readit(url):
-    url = ih
     driver = get_driver()
     try:
         driver.get(url)
@@ -277,14 +276,15 @@ def readit(url):
                             group_text += d_paragraph.text + "\n"
                         if on:
                             res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                            time.sleep(5) 
+                            time.sleep(5)
+                    driver.quit()
                 else:
                     res_box.markdown('')
             else:
                 res_box.markdown(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
         except Exception as e:
             res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
-
+    driver.quit()
 history = []
 ih = ""
 icob = Image.open('static/-.ico')
@@ -386,14 +386,18 @@ with st.sidebar:
                             new_file = speedup(audio,1.2,150)
                             new_file.export("file.mp3", format="mp3")
                             autoplay_audio("file.mp3")
+                            driver.quit()
                     else:
                         res_box.markdown('')
                 else:
                     res_box.markdown(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
             except Exception as e:
                 res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
+        driver.quit()
+        
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
+    
     with st.expander("Search"):
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
         with st.spinner('Searching..'):
@@ -419,8 +423,7 @@ with st.sidebar:
                             if ih:
                                 lisp = st.button("Listen", key=generate_unique_key())
                                 if lisp:
-                                    url = ih
-                                    readit2(url)
+                                    readit2(ih)
                             st.divider()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
@@ -445,8 +448,7 @@ with st.sidebar:
                     if ih:
                         lok = st.button("Listen", key=generate_unique_key())
                         if lok:
-                            url = str(ih)
-                            readit2(url)
+                            readit2(ih)
                     st.divider()
                     
     with st.expander("Image Based"):
