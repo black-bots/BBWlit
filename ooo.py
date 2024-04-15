@@ -372,7 +372,7 @@ with st.sidebar:
                                 st.image(img_url, caption=ih)
                             button_key = title_name + str(random.randint(1,999))
                             if ih:
-                                lisp = st.button("Play", key=button_key+ch)
+                                lisp = st.button("Listen", key=button_key+ch)
                                 if lisp:
                                     perform_ok_actions(ih)
                             st.divider()
@@ -398,7 +398,7 @@ with st.sidebar:
                         st.image(img_url, caption=ih, use_column_width='always')
                     button_key = title_name + str(random.randint(1,999))
                     if ih:
-                        lisp = st.button("Play", key=button_key)
+                        lisp = st.button("Listen", key=button_key)
                         if lisp:
                             perform_ok_actions(ih)
                     st.divider()
@@ -423,12 +423,13 @@ with st.sidebar:
                     st.image(img_url, caption=ch, use_column_width='always')
                 img_key = manga_name + str(random.randint(1,999999))
                 if ih:
-                    lisp = st.button("Play", key=img_key)
+                    lisp = st.button("Copy Link", key=img_key)
                     if lisp:
-                        perform_img_actions(ih)
+                        text_to_copy = ih
+                        pyperclip.copy(text_to_copy)
                 st.divider()
 
-    url = st.text_input(":orange[Enter URL:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
+    url = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
 
     st.divider()
@@ -444,6 +445,7 @@ with st.sidebar:
         st.caption("- Enter search term into field")
         st.caption("- Click off or Press enter to submit search")
         st.caption("- Press Play button or Copy & Paste grey link into URL input field then press Read")
+        st.caption("- View Image Based Links with the Image Based Tab")
         
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:    
