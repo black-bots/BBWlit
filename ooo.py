@@ -247,35 +247,18 @@ def perform_ok_actions(url):
 
 def perform_img_actions(url):
     url = ih
-    with st.spinner('Loading images & audio..'):
-        st.session_state.image_links = get_image_links(url)
-        st.session_state.current_image_index = 0
-
-        if st.session_state.image_links:
-            st.image(st.session_state.image_links[0], use_column_width=True)
-
-        st.write(f"Total Images: {len(st.session_state.image_links)}")
-
-        try:
-            if st.session_state.image_links:
-                current_image_index = st.session_state.current_image_index
-                current_image_link = st.session_state.image_links[current_image_index]
-                st.image(current_image_link, use_column_width=True)
-
-                next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
-                if next_button_clicked:
-                    current_image_index += 1
-                    if current_image_index >= len(st.session_state.image_links):
-                        current_image_index = 0
-                    st.session_state.current_image_index = current_image_index
-                    current_image_link = st.session_state.image_links[current_image_index]
-                    st.image(current_image_link, use_column_width=True)
-                    
-                    # Transcribe text only for the currently displayed image
-                    transcribe_to_audio([current_image_link])
-                    
-        except Exception as e:
-            st.write(f"Error: {e}")
+            with st.spinner('Loading text & audio..'):
+                st.session_state.image_links = get_image_links(url)
+                st.session_state.current_image_index = 0
+        
+                if st.session_state.image_links:
+                    for image_link in st.session_state.image_links:
+                        st.image(image_link, use_column_width=True)
+        
+                    st.write(f"Total Images: {len(st.session_state.image_links)}")
+        
+                    # Transcribe text for all the images
+                    transcribe_to_audio(st.session_state.image_links)
 
 with st.sidebar:
     st.image(side_image)
