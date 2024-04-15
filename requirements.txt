@@ -29,4 +29,6 @@ wit
 pydantic
 emoji
 tls_client 
-st-annotated-text 
+st-annotated-text
+pyperclip
+
