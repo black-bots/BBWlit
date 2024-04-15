@@ -65,7 +65,7 @@ from easyocr import Reader
 import streamlit as st
 import streamlit_nested_layout
 import streamlit.components.v1 as components
-from streamlit.caching.hashing import _CacheFuncHasher as _CodeHasher
+from streamlit.hashing import _CodeHasher
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
