@@ -59,7 +59,6 @@ from pydub.effects import speedup
 from gtts import gTTS
 from PIL import Image
 
-from translate import Translator
 import easyocr as ocr  # OCR
 import numpy as np  # Image Processing
 from easyocr import Reader
@@ -474,9 +473,7 @@ with tab1:
                                     story += paragraph.text + "\n"
                                 story = story.replace('<p>', '')
                                 story = story.replace('"', '')
-                                translator = Translator()
-                                translated_text = translator.translate(story, dest="en")
-                                story = translated_text
+
                                 st.markdown("""<style>
                                       .stMarkdown{color: black;}
                                       .st-c8:hover{color:orange;}
