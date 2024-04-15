@@ -375,9 +375,9 @@ with st.sidebar:
                             if img_url:
                                 st.image(img_url, caption=ih)
                             if ih:
-                                url = ih
                                 lisp = st.button("Listen", key=generate_unique_key())
                                 if lisp:
+                                    url = ih
                                     readit(url)
                             st.divider()
                             
@@ -403,7 +403,7 @@ with st.sidebar:
                     if ih:
                         lok = st.button("Listen", key=generate_unique_key())
                         if lok:
-                            url = ih
+                            url = str(ih)
                             readit(url)
                     st.divider()
                     
@@ -445,14 +445,14 @@ with st.sidebar:
         st.caption("- Press Play button or Copy & Paste grey link into URL input field then press Read")
         st.caption("- View Image Based Links with the Image Based Tab")
 
-url = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
+xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:    
-    if tab1:
+    if "daotrans" in xx:
         if ok:
             with st.spinner('Loading text & audio..'):
-                readit(url)
+                readit(xx)
 
 if 'image_links' not in st.session_state:
     st.session_state.image_links = []
@@ -460,7 +460,7 @@ if 'current_image_index' not in st.session_state:
     st.session_state.current_image_index = 0
 
 with tab2:
-    if "daotrans" not in url.lower():
+    if "daotrans" not in xx.lower():
         if tab2:
             if ok:
                 with st.spinner('Loading text & audio..'):
