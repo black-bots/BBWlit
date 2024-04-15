@@ -246,7 +246,7 @@ def perform_ok_actions(url):
                 res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
 
 def perform_img_actions(url):
-    url = ih
+    url = str(ih)
     with st.spinner('Loading text & audio..'):
         st.session_state.image_links = get_image_links(url)
         st.session_state.current_image_index = 0
