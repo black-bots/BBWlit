@@ -425,8 +425,7 @@ with st.sidebar:
                     txt = st.text_area(
                         "Link",
                         f"{cch}",
-                        key=ranum+ranum
-                    
+                        key=ranum+ranum)
                 st.divider()
 
     url = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
