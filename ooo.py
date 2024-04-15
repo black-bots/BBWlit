@@ -506,7 +506,7 @@ with tab1:
                                     nxtchap = str(int(chap) + int(+1))
                                     prvchap = str(int(chap))
                                     nxtUrl = str(oldurl.replace(chap, nxtchap))
-                                    st.caption(":green[Chapter Complete:] " + prvchap + "\n\:orange[Next Chapter\:] " + nxtUrl)
+                                    st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + nxtUrl)
                                     txt = st.text_area(
                                         "Link",
                                         f"{nxtUrl}",
