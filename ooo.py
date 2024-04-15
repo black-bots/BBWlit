@@ -76,7 +76,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 from googletrans import Translator
 
-
 from bs4 import BeautifulSoup
 import webbrowser
 
@@ -180,6 +179,10 @@ def perform_ok_actions(url):
                 res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
 
 def perform_img_actions(url):
+    if 'image_links' not in st.session_state:
+        st.session_state.image_links = []
+    if 'current_image_index' not in st.session_state:
+        st.session_state.current_image_index = 0
     url = str(ih)
     try:
         driver.get(url)
