@@ -349,8 +349,9 @@ with st.sidebar:
                 if img_tag:
                     img_url = img_tag.get("data-src")
                     st.image(img_url, caption=ch, use_column_width='always')
+                img_key = manga_name + str(random.randint(1,999))
                 if ih:
-                    lisp = st.button("Play", key=button_key)
+                    lisp = st.button("Play", key=img_key)
                     if lisp:
                         perform_img_actions(ih)
                 st.divider()
