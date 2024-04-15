@@ -247,7 +247,6 @@ def perform_ok_actions(url):
 
 def perform_img_actions(url):
     url = str(ih)
-    driver = get_driver()
     try:
         driver.get(url)
     except:
@@ -262,7 +261,6 @@ def perform_img_actions(url):
 
             st.write(f"Total Images: {len(st.session_state.image_links)}")
 
-            # Transcribe text for all the images
             transcribe_to_audio(st.session_state.image_links)
 
 with st.sidebar:
