@@ -496,7 +496,7 @@ with tab1:
                                     nxtchap = str(int(chap) + int(+1))
                                     prvchap = str(int(chap))
                                     nxtUrl = str(oldurl.replace(chap, nxtchap))
-                                    st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\nChapter: " + nxtchap, text_color='orange')     
+                                    st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\nChapter: " + nxtchap)     
                                 with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                                     story = story.replace('"','')
                                     tts = gTTS(text=story, lang='en', slow=False)
