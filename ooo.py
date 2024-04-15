@@ -284,7 +284,7 @@ def is_image_link(link):
             return True
     return False
 
-@st.cache_resource
+#@st.cache_resource
 def load_model() -> Reader:
     return ocr.Reader(["en"], model_storage_directory=".")
 
