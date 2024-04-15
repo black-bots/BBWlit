@@ -455,7 +455,6 @@ with st.sidebar:
         st.caption("- View Image Based Links with the Image Based Tab")
 
 url = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key=generate_unique_key(), help="Enter manga chapter URL here")
-ih = url
 ok = st.button("📚Read", help="Read", key=generate_unique_key(), use_container_width=False)
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:    
