@@ -12,6 +12,7 @@ torch==1.13.1
 torchvision
 opencv-python
 easyocr
+translate
 instagrapi
 g4f
 webdriver-manager
