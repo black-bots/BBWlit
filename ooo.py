@@ -396,7 +396,7 @@ with st.sidebar:
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
-                    button_key = title_name + str(ranumv)
+                    button_key = title_name + str(ranum)
                     if ih:
                         lisp = st.button("Listen", key=button_key)
                         if lisp:
