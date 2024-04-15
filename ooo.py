@@ -208,7 +208,7 @@ def filter_english_words(text):
     text = english_text.lower()
     return text
 
-def readit():
+def readit(url):
     with st.spinner('Loading text & audio..'):
         driver = get_driver()
         try:
@@ -383,7 +383,7 @@ with st.sidebar:
                                 url = ih
                                 lisp = st.button("Listen", key=generate_unique_key())
                                 if lisp:
-                                    readit()
+                                    readit(url)
                             st.divider()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
@@ -409,7 +409,7 @@ with st.sidebar:
                         lok = st.button("Listen", key=generate_unique_key())
                         if lok:
                             url = ih
-                            readit()
+                            readit(url)
                     st.divider()
                     
     with st.expander("Image Based"):
