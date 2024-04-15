@@ -77,7 +77,6 @@ from webdriver_manager.core.os_manager import ChromeType
 from bs4 import BeautifulSoup
 import webbrowser
 
-@st.cache(persist=True)
 def get_driver():
     return webdriver.Chrome(
         service=Service(
