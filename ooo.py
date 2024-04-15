@@ -141,6 +141,12 @@ options.add_argument('--lang=en-US')
 options.add_argument('--disable-setuid-sandbox')
 options.add_argument("--ignore-certificate-errors")
 
+main_image = Image.open('static/dojutsu.png')
+side_image = Image.open('static/4.png')
+st.image(main_image)
+res_box = st.empty()
+
+
 def get_driver():
     return webdriver.Chrome(
         service=Service(
@@ -241,7 +247,7 @@ def perform_ok_actions(url):
 
 def perform_img_actions(url):
     url = ih
-    with st.spinner('Loading text & audio..'):
+    with st.spinner('Loading images & audio..'):
         st.session_state.image_links = get_image_links(url)
         st.session_state.current_image_index = 0
 
@@ -270,11 +276,6 @@ def perform_img_actions(url):
                     
         except Exception as e:
             st.write(f"Error: {e}")
-
-main_image = Image.open('static/dojutsu.png')
-side_image = Image.open('static/4.png')
-st.image(main_image)
-res_box = st.empty()
 
 with st.sidebar:
     st.image(side_image)
