@@ -51,6 +51,8 @@ import random
 import tempfile
 import io
 from io import BytesIO
+import uuid
+import hashlib
 
 import re
 import requests
