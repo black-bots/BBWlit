@@ -108,7 +108,7 @@ def autoplay_audio(file_path: str):
         )
 
 def perform_ok_actions(url):
-    with st.spinner('Loading text & audio..'):
+    with st.spinner('Loading audio..'):
         url = ih
         driver = get_driver()
         try:
@@ -136,34 +136,7 @@ def perform_ok_actions(url):
                             story += paragraph.text + "\n"
                         story = story.replace('<p>', '')
                         story = story.replace('"', '')
-
-                        st.markdown("""<style>
-                              .stMarkdown{color: black;}
-                              .st-c8:hover{color:orange;}
-                              .streamlit-expander.st-bc.st-as.st-ar.st-bd.st-be.st-b8.st-bf.st-bg.st-bh.st-bi{display:none;}
-                              </style>""",
-                              unsafe_allow_html=True
-                        )
-
                             
-                        with st.expander("Read"):
-                            from annotated_text import annotated_text
-                            paragraphs = story.split("\n") 
-                            formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
-                            annotated_text(*formatted_paragraphs)
-                            st.caption(f'{len(story)} characters in this chapter.')
-                            #next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
-                            #if next_ch:
-                            oldurl = url
-                            chap = ''.join([n for n in oldurl if n.isdigit()])
-                            nxtchap = str(int(chap) + int(+1))
-                            prvchap = str(int(chap))
-                            nxtUrl = str(oldurl.replace(chap, nxtchap))
-                            st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + nxtUrl)
-                            txt = st.text_area(
-                                "Link",
-                                f"{nxtUrl}",
-                                key=generate_unique_key())
                         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                             story = story.replace('"','')
                             tts = gTTS(text=story, lang='en', slow=False)
@@ -173,15 +146,6 @@ def perform_ok_actions(url):
                             new_file.export("file.mp3", format="mp3")
                             autoplay_audio("file.mp3")
                             #st.download_button("file.mp3")
-
-                        for group in groups:
-                            group_text = ""
-                            for d_paragraph in group:
-                                group_text += d_paragraph.text + "\n"
-                            if on:
-                                res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                                time.sleep(5) 
-                      
                     else:
                         res_box.markdown('')
                 else:
