@@ -247,6 +247,11 @@ def perform_ok_actions(url):
 
 def perform_img_actions(url):
     url = str(ih)
+    driver = get_driver()
+    try:
+        driver.get(url)
+    except:
+        pass
     with st.spinner('Loading text & audio..'):
         st.session_state.image_links = get_image_links(url)
         st.session_state.current_image_index = 0
