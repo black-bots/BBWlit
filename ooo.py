@@ -343,14 +343,14 @@ with st.sidebar:
             for link in manga_links:
                 href = link.get("href")
                 manga_name = href.split("https://manhuaaz.com/manga/")[1]
-                ch = f"{href}"
+                ch = f"{href}/chapter-1/"
                 ih = ch
                 st.write(f"[{manga_name}]({ch})")
                 img_tag = link.find("img")
                 if img_tag:
                     img_url = img_tag.get("data-src")
                     st.image(img_url, caption=ch, use_column_width='always')
-                img_key = manga_name + str(random.randint(1,999))
+                img_key = manga_name + str(random.randint(1,999999))
                 if ih:
                     lisp = st.button("Play", key=img_key)
                     if lisp:
