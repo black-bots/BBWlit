@@ -139,8 +139,6 @@ options.add_argument('--lang=en-US')
 options.add_argument('--disable-setuid-sandbox')
 options.add_argument("--ignore-certificate-errors")
 
-translator = Translator()
-
 def get_driver():
     return webdriver.Chrome(
         service=Service(
@@ -360,9 +358,7 @@ with tab1:
                                     story += paragraph.text + "\n"
                                 story = story.replace('<p>', '')
                                 story = story.replace('"', '')
-                                detected_language = translator.detect(story).lang
-                                if detected_language != 'en':
-                                    story = translator.translate(story, src=detected_language, dest='en').text
+                                
                                 st.markdown("""<style>
                                       .stMarkdown{color: black;}
                                       .st-c8:hover{color:orange;}
@@ -370,6 +366,12 @@ with tab1:
                                       </style>""",
                                       unsafe_allow_html=True
                                 )
+
+                                translator = Translator()
+                                detected_language = translator.detect(story).lang
+                                if detected_language != 'en':
+                                    story = translator.translate(story, src=detected_language, dest='en').text
+                                    
                                 with st.expander("Read"):
                                     from annotated_text import annotated_text
                                     paragraphs = story.split("\n") 
