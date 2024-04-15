@@ -359,9 +359,7 @@ with st.sidebar:
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
                     if ih:
-                        lisp = st.button("Listen", key=generate_unique_key())
-                        if lisp:
-                            perform_ok_actions(ih)
+                        ok = st.button("Listen", key=generate_unique_key())
                     st.divider()
                     
     with st.expander("Image Based"):
