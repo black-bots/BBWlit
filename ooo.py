@@ -247,18 +247,18 @@ def perform_ok_actions(url):
 
 def perform_img_actions(url):
     url = ih
-            with st.spinner('Loading text & audio..'):
-                st.session_state.image_links = get_image_links(url)
-                st.session_state.current_image_index = 0
-        
-                if st.session_state.image_links:
-                    for image_link in st.session_state.image_links:
-                        st.image(image_link, use_column_width=True)
-        
-                    st.write(f"Total Images: {len(st.session_state.image_links)}")
-        
-                    # Transcribe text for all the images
-                    transcribe_to_audio(st.session_state.image_links)
+    with st.spinner('Loading text & audio..'):
+        st.session_state.image_links = get_image_links(url)
+        st.session_state.current_image_index = 0
+
+        if st.session_state.image_links:
+            for image_link in st.session_state.image_links:
+                st.image(image_link, use_column_width=True)
+
+            st.write(f"Total Images: {len(st.session_state.image_links)}")
+
+            # Transcribe text for all the images
+            transcribe_to_audio(st.session_state.image_links)
 
 with st.sidebar:
     st.image(side_image)
