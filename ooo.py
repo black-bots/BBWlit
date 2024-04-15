@@ -391,7 +391,7 @@ with st.sidebar:
     outer_cols = st.columns([1, 1])
 
     with st.expander("Latest Releases"):
-        resp = requests.get("https://daotranslate.us/?s=o")
+        resp = requests.get("https://daotranslate.us/?s=i")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
             manga_list_div = soup.find("div", {"class": "listupd"})
