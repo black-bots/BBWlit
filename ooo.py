@@ -374,7 +374,7 @@ with st.sidebar:
         st.caption("- Click off or Press enter to submit search")
         st.caption("- Press Play button or Copy & Paste grey link into URL input field then press Read")
         
-tab1,tab2=st.tabs(['Text Based','🚧Image Based🚧'])
+tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:    
     if tab1:
         if ok:
