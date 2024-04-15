@@ -428,7 +428,7 @@ with st.sidebar:
                             #        readit2(ih)
                             txt = st.text_area(
                                 "Link",
-                                f"{cch}",
+                                f"{ch}",
                                 key=generate_unique_key())        
                             st.divider()
                             
@@ -457,7 +457,7 @@ with st.sidebar:
                         #    readit2(ih)
                     txt = st.text_area(
                         "Link",
-                        f"{cch}",
+                        f"{ih}",
                         key=generate_unique_key())
                     st.divider()
                     
