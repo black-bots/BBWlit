@@ -84,7 +84,7 @@ def generate_unique_key():
     unique_id = str(uuid.uuid4())
     hashed_key = hashlib.sha256(unique_id.encode()).hexdigest()
     return hashed_key
-key = generate_unique_key()
+
 
 def get_driver():
     return webdriver.Chrome(
@@ -157,7 +157,7 @@ def perform_ok_actions(url):
                             prvchap = str(int(chap))
                             nxtUrl = str(oldurl.replace(chap, nxtchap))
                             st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\: " + nxtUrl)
-                            next = st.button('Next Chapter', key='NxtCh')
+                            next = st.button('Next Chapter', key=generate_unique_key())
                             if next:
                                 perform_ok_actions(nxtUrl)
                         
@@ -179,7 +179,7 @@ def perform_ok_actions(url):
                                 res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
                                 time.sleep(5) 
     
-                        next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
+                        next_ch = st.button("Next CH.", key=generate_unique_key(), help="Next Chapter", use_container_width=False)
                         if next_ch:
                             oldurl = url
                             chap = ''.join([n for n in oldurl if n.isdigit()])
@@ -387,7 +387,7 @@ with st.sidebar:
                             if img_url:
                                 st.image(img_url, caption=ih)
                             if ih:
-                                lisp = st.button("Listen", key=key)
+                                lisp = st.button("Listen", key=generate_unique_key())
                                 if lisp:
                                     perform_ok_actions(ih)
                             st.divider()
@@ -412,7 +412,7 @@ with st.sidebar:
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
                     if ih:
-                        lisp = st.button("Listen", key=key)
+                        lisp = st.button("Listen", key=generate_unique_key())
                         if lisp:
                             perform_ok_actions(ih)
                     st.divider()
@@ -438,7 +438,7 @@ with st.sidebar:
                     txt = st.text_area(
                         "Link",
                         f"{cch}",
-                        key=key)
+                        key=generate_unique_key())
                 st.divider()
     st.divider()
     st.header("Google Play Store")
@@ -455,9 +455,9 @@ with st.sidebar:
         st.caption("- Press Play button or Copy & Paste grey link into URL input field then press Read")
         st.caption("- View Image Based Links with the Image Based Tab")
 
-url = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
+url = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key=generate_unique_key(), help="Enter manga chapter URL here")
 ih = url
-ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
+ok = st.button("📚Read", help="Read", key=generate_unique_key(), use_container_width=False)
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:    
     if tab1:
@@ -516,7 +516,7 @@ with tab1:
                                     txt = st.text_area(
                                         "Link",
                                         f"{nxtUrl}",
-                                        key=key)
+                                        key=generate_unique_key())
                                 with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                                     story = story.replace('"','')
                                     tts = gTTS(text=story, lang='en', slow=False)
