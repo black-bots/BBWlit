@@ -549,30 +549,13 @@ with tab2:
                 st.session_state.current_image_index = 0
         
                 if st.session_state.image_links:
-                    st.image(st.session_state.image_links[0], use_column_width=True)
+                    for image_link in st.session_state.image_links:
+                        st.image(image_link, use_column_width=True)
         
-                st.write(f"Total Images: {len(st.session_state.image_links)}")
+                    st.write(f"Total Images: {len(st.session_state.image_links)}")
         
-                try:
-                    if st.session_state.image_links:
-                        current_image_index = st.session_state.current_image_index
-                        current_image_link = st.session_state.image_links[current_image_index]
-                        st.image(current_image_link, use_column_width=True)
-        
-                        next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
-                        if next_button_clicked:
-                            current_image_index += 1
-                            if current_image_index >= len(st.session_state.image_links):
-                                current_image_index = 0
-                            st.session_state.current_image_index = current_image_index
-                            current_image_link = st.session_state.image_links[current_image_index]
-                            st.image(current_image_link, use_column_width=True)
-                            
-                            # Transcribe text only for the currently displayed image
-                            transcribe_to_audio([current_image_link])
-                            
-                except Exception as e:
-                    st.write(f"Error: {e}")
+                    # Transcribe text for all the images
+                    transcribe_to_audio(st.session_state.image_links)
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
