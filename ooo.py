@@ -415,7 +415,7 @@ with st.sidebar:
                     cch = f"{href}chapter-1/"
                 else:
                     cch = href
-                st.write(f"[{manga_name}]({ch})")
+                st.write(f"[{manga_name}]({cch})")
                 img_tag = link.find("img")
                 if img_tag:
                     img_url = img_tag.get("data-src")
