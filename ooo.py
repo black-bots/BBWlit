@@ -427,10 +427,6 @@ with st.sidebar:
                         f"{cch}",
                         key=ranum+random.randint(1,99999)+2)
                 st.divider()
-
-    url = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
-    ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
-
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
@@ -445,7 +441,9 @@ with st.sidebar:
         st.caption("- Click off or Press enter to submit search")
         st.caption("- Press Play button or Copy & Paste grey link into URL input field then press Read")
         st.caption("- View Image Based Links with the Image Based Tab")
-        
+
+url = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
+ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:    
     if tab1:
