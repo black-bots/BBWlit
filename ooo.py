@@ -357,7 +357,7 @@ with st.sidebar:
                         perform_img_actions(ih)
                 st.divider()
 
-    url = st.text_input(":orange[Enter URL:]", value=ih, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
+    url = st.text_input(":orange[Enter URL:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
     ok = st.button("📚Read", help="Read", key='123', use_container_width=False)
 
     st.divider()
