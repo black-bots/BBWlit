@@ -209,6 +209,7 @@ def filter_english_words(text):
     return text
 
 def readit(url):
+    url = ih
     driver = get_driver()
     try:
         driver.get(url)
