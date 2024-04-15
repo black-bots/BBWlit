@@ -81,72 +81,6 @@ from bs4 import BeautifulSoup
 import webbrowser
 
 
-history = []
-ih = ""
-icob = Image.open('static/-.ico')
-
-st.set_page_config(
-    page_title="Manga Dōjutsu",
-    page_icon=icob,
-    layout="centered",
-    initial_sidebar_state="expanded"
-)
-
-st.markdown("""
-    <style>
-        <br><hr><center>
-        .reportview-container {background: black;}
-        .sidebar .siderbar-content {background: black;}
-        .st-ck:hover {
-        color: #gold;
-        }
-        color: lime;
-        cursor: pointer;
-        }
-        img {
-        width:75%;
-        }
-        width:578px;
-        vertical-align: middle;
-        horizontal-align: middle;
-        max-width: 300px;
-        margin: auto;
-        }
-        .css-yhwc6k{
-        text-align: center;
-        }
-        #audio{autoplay:true;}
-        #MainMenu{visibility: hidden;}
-        footer{visibility: hidden;}
-        .css-14xtw13 e8zbici0{visibility: hidden;}
-        .css-m70y {display:none}
-        .st-emotion-cache-zq5wmm.ezrtsby0{visibility: hidden;}
-        .st-emotion-cache-zq5wmm.ezrtsby0{display:none}
-        .styles_terminalButton__JBj5T{visibility: hidden;}
-        .styles_terminalButton__JBj5T{display:none}
-        .viewerBadge_container__r5tak.styles_viewerBadge__CvC9N{visibility: hidden;}
-        .viewerBadge_container__r5tak.styles_viewerBadge__CvC9N{display:none}
-    </style>
-""", unsafe_allow_html=True)
-
-options = Options()
-options.add_argument("--disable-gpu")
-options.add_argument("--headless")
-options.add_argument("--disable-blink-features=AutomationControlled")
-options.add_experimental_option("useAutomationExtension", False)
-options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36")
-options.add_argument('--dns-prefetch-disable')
-options.add_argument('--no-sandbox')
-options.add_argument('--lang=en-US')
-options.add_argument('--disable-setuid-sandbox')
-options.add_argument("--ignore-certificate-errors")
-
-main_image = Image.open('static/dojutsu.png')
-side_image = Image.open('static/4.png')
-st.image(main_image)
-res_box = st.empty()
-
-
 def get_driver():
     return webdriver.Chrome(
         service=Service(
@@ -262,6 +196,151 @@ def perform_img_actions(url):
             st.write(f"Total Images: {len(st.session_state.image_links)}")
 
             transcribe_to_audio(st.session_state.image_links)
+
+def get_image_links(url):
+    try:
+        driver.get(url)
+    except WebDriverException as ex:
+        if driver.current_url == url:
+            pass
+            return []
+        else:
+            st.write(f'Error loading URL: {ex}')
+            return []
+
+    image_links = []
+
+    img_elements = driver.find_elements(By.CSS_SELECTOR, 'img')
+
+    for img_element in img_elements:
+        img_src = img_element.get_attribute('src')
+
+        if img_src and is_image_link(img_src):
+            image_links.append(img_src)
+
+    driver.quit()
+    return image_links
+
+def transcribe_to_audio(image_links):
+    audio_files = []
+    for idx, img_link in enumerate(image_links, start=1):
+        try:
+            if not is_supported_image_format(img_link):
+                # st.write(f"Skipping image {img_link} as it is not in a supported format.")
+                continue
+
+            with st.spinner(" Getting image text "):
+                reader = ocr.Reader(['en'])
+                result = reader.readtext(img_link)
+                result_text = []  # empty list for results
+                for text in result:
+                    result_text.append(text[1].strip())
+
+            text = filter_english_words(result_text)
+
+            if text:
+                audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
+                if not os.path.exists(audio_file_path):
+                    tts = gTTS(text=text, lang='en', slow=False)
+                    tts.save(audio_file_path)
+                audio_files.append(audio_file_path)
+                if on:
+                    res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
+            else:
+                res_box.markdown(f':blue[Dao: ]:orange[No Text]')
+        except Exception as e:
+            st.write(f"Error processing {img_link}: {e}")
+    return audio_files
+
+def is_supported_image_format(image_url):
+    supported_formats = ['.png', '.jpg', '.jpeg']
+    for format in supported_formats:
+        if image_url.lower().endswith(format):
+            return True
+    return False
+
+def is_image_link(link):
+    image_extensions = ['.png', '.jpg', '.jpeg']
+    for ext in image_extensions:
+        if link.lower().endswith(ext):
+            return True
+    return False
+
+@st.cache_resource
+def load_model() -> Reader:
+    return ocr.Reader(["en"], model_storage_directory=".")
+
+def filter_english_words(text):
+    english_word_pattern = r'\b[a-zA-Z]+(?:\'[a-zA-Z]+)?(?:-[a-zA-Z]+)?(?:[.,!?\'":;\[\]()*&^%$#@`~\\/]|\.\.\.)?\b'
+    english_words = re.findall(english_word_pattern, text)
+    english_text = ' '.join(english_words)
+    text = english_text.lower()
+    return text
+
+history = []
+ih = ""
+icob = Image.open('static/-.ico')
+
+st.set_page_config(
+    page_title="Manga Dōjutsu",
+    page_icon=icob,
+    layout="centered",
+    initial_sidebar_state="expanded"
+)
+
+st.markdown("""
+    <style>
+        <br><hr><center>
+        .reportview-container {background: black;}
+        .sidebar .siderbar-content {background: black;}
+        .st-ck:hover {
+        color: #gold;
+        }
+        color: lime;
+        cursor: pointer;
+        }
+        img {
+        width:75%;
+        }
+        width:578px;
+        vertical-align: middle;
+        horizontal-align: middle;
+        max-width: 300px;
+        margin: auto;
+        }
+        .css-yhwc6k{
+        text-align: center;
+        }
+        #audio{autoplay:true;}
+        #MainMenu{visibility: hidden;}
+        footer{visibility: hidden;}
+        .css-14xtw13 e8zbici0{visibility: hidden;}
+        .css-m70y {display:none}
+        .st-emotion-cache-zq5wmm.ezrtsby0{visibility: hidden;}
+        .st-emotion-cache-zq5wmm.ezrtsby0{display:none}
+        .styles_terminalButton__JBj5T{visibility: hidden;}
+        .styles_terminalButton__JBj5T{display:none}
+        .viewerBadge_container__r5tak.styles_viewerBadge__CvC9N{visibility: hidden;}
+        .viewerBadge_container__r5tak.styles_viewerBadge__CvC9N{display:none}
+    </style>
+""", unsafe_allow_html=True)
+
+options = Options()
+options.add_argument("--disable-gpu")
+options.add_argument("--headless")
+options.add_argument("--disable-blink-features=AutomationControlled")
+options.add_experimental_option("useAutomationExtension", False)
+options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36")
+options.add_argument('--dns-prefetch-disable')
+options.add_argument('--no-sandbox')
+options.add_argument('--lang=en-US')
+options.add_argument('--disable-setuid-sandbox')
+options.add_argument("--ignore-certificate-errors")
+
+main_image = Image.open('static/dojutsu.png')
+side_image = Image.open('static/4.png')
+st.image(main_image)
+res_box = st.empty()
 
 with st.sidebar:
     st.image(side_image)
@@ -441,91 +520,11 @@ with tab1:
                             res_box.markdown(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
                     except Exception as e:
                         res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
-                                
-def get_image_links(url):
-    try:
-        driver.get(url)
-    except WebDriverException as ex:
-        if driver.current_url == url:
-            pass
-            return []
-        else:
-            st.write(f'Error loading URL: {ex}')
-            return []
-
-    image_links = []
-
-    img_elements = driver.find_elements(By.CSS_SELECTOR, 'img')
-
-    for img_element in img_elements:
-        img_src = img_element.get_attribute('src')
-
-        if img_src and is_image_link(img_src):
-            image_links.append(img_src)
-
-    driver.quit()
-    return image_links
-
-def transcribe_to_audio(image_links):
-    audio_files = []
-    for idx, img_link in enumerate(image_links, start=1):
-        try:
-            if not is_supported_image_format(img_link):
-                # st.write(f"Skipping image {img_link} as it is not in a supported format.")
-                continue
-
-            with st.spinner(" Getting image text "):
-                reader = ocr.Reader(['en'])
-                result = reader.readtext(img_link)
-                result_text = []  # empty list for results
-                for text in result:
-                    result_text.append(text[1].strip())
-
-            text = filter_english_words(result_text)
-
-            if text:
-                audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
-                if not os.path.exists(audio_file_path):
-                    tts = gTTS(text=text, lang='en', slow=False)
-                    tts.save(audio_file_path)
-                audio_files.append(audio_file_path)
-                if on:
-                    res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
-            else:
-                res_box.markdown(f':blue[Dao: ]:orange[No Text]')
-        except Exception as e:
-            st.write(f"Error processing {img_link}: {e}")
-    return audio_files
-
-def is_supported_image_format(image_url):
-    supported_formats = ['.png', '.jpg', '.jpeg']
-    for format in supported_formats:
-        if image_url.lower().endswith(format):
-            return True
-    return False
-
-def is_image_link(link):
-    image_extensions = ['.png', '.jpg', '.jpeg']
-    for ext in image_extensions:
-        if link.lower().endswith(ext):
-            return True
-    return False
 
 if 'image_links' not in st.session_state:
     st.session_state.image_links = []
 if 'current_image_index' not in st.session_state:
     st.session_state.current_image_index = 0
-    
-@st.cache_resource
-def load_model() -> Reader:
-    return ocr.Reader(["en"], model_storage_directory=".")
-
-def filter_english_words(text):
-    english_word_pattern = r'\b[a-zA-Z]+(?:\'[a-zA-Z]+)?(?:-[a-zA-Z]+)?(?:[.,!?\'":;\[\]()*&^%$#@`~\\/]|\.\.\.)?\b'
-    english_words = re.findall(english_word_pattern, text)
-    english_text = ' '.join(english_words)
-    text = english_text.lower()
-    return text
 
 with tab2:
     if tab2:
