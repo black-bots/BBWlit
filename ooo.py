@@ -85,7 +85,6 @@ def generate_unique_key():
     hashed_key = hashlib.sha256(unique_id.encode()).hexdigest()
     return hashed_key
 
-
 def get_driver():
     return webdriver.Chrome(
         service=Service(
@@ -397,7 +396,7 @@ with st.sidebar:
     outer_cols = st.columns([1, 1])
 
     with st.expander("Latest Releases"):
-        resp = requests.get("https://daotranslate.us/?s=a")
+        resp = requests.get("https://daotranslate.us/?s=o")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
             manga_list_div = soup.find("div", {"class": "listupd"})
