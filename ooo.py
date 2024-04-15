@@ -141,7 +141,16 @@ def perform_ok_actions(url):
                             paragraphs = story.split("\n") 
                             formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
                             annotated_text(*formatted_paragraphs)
-                            #st.write(f':green[*{story}*]')
+                            st.write(f':green[{len(story)} characters in this chapter.]')
+                            oldurl = url
+                            chap = ''.join([n for n in oldurl if n.isdigit()])
+                            nxtchap = str(int(chap) + int(+1))
+                            prvchap = str(int(chap))
+                            nxtUrl = str(oldurl.replace(chap, nxtchap))
+                            st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\: " + nxtUrl)
+                            next = st.button('Next Chapter', key='NxtCh')
+                            if next:
+                                perform_ok_actions(nxtUrl)
                         
                         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                             story = story.replace('"','')
@@ -496,7 +505,10 @@ with tab1:
                                     nxtchap = str(int(chap) + int(+1))
                                     prvchap = str(int(chap))
                                     nxtUrl = str(oldurl.replace(chap, nxtchap))
-                                    st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\: " + nxtUrl)     
+                                    st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\: " + nxtUrl)
+                                    next = st.button('Next Chapter')
+                                    if next:
+                                        perform_ok_actions(nxtUrl)
                                 with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                                     story = story.replace('"','')
                                     tts = gTTS(text=story, lang='en', slow=False)
