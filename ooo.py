@@ -310,8 +310,10 @@ with st.sidebar:
                 ch = f"{href}"
                 st.caption(manga_name)
                 st.write(f"[{manga_name}]({ch})")
-                img_url = link.find("img")["src"]
-                st.image(img_url, caption=ch, use_column_width='always')
+                img_tag = link.find("img")
+                if img_tag:
+                    img_url = img_tag.get("data-src")
+                    st.image(img_url, caption=ch, use_column_width='always')
                 st.divider()
 
     url = st.text_input(":orange[Enter URL:]", value=ih, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
