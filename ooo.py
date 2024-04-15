@@ -54,7 +54,6 @@ from io import BytesIO
 
 import re
 import requests
-from googletrans import Translator
 from pydub import AudioSegment
 from pydub.effects import speedup
 from gtts import gTTS
@@ -74,6 +73,8 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import WebDriverException
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
+from googletrans import Translator
+
 
 from bs4 import BeautifulSoup
 import webbrowser
