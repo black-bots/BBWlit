@@ -475,8 +475,9 @@ with tab1:
                                     story += paragraph.text + "\n"
                                 story = story.replace('<p>', '')
                                 story = story.replace('"', '')
-                                translator = Translator(to_lang='en')
-                                story = translator.translate(story)
+                                translator = Translator()
+                                translated_text = translator.translate(story, dest="en")
+                                story = translated_text
                                 st.markdown("""<style>
                                       .stMarkdown{color: black;}
                                       .st-c8:hover{color:orange;}
@@ -532,20 +533,20 @@ if 'current_image_index' not in st.session_state:
     st.session_state.current_image_index = 0
 
 with tab2:
-    if tab2:
-        if ok:
-            with st.spinner('Loading text & audio..'):
-                st.session_state.image_links = get_image_links(url)
-                st.session_state.current_image_index = 0
-        
-                if st.session_state.image_links:
-                    for image_link in st.session_state.image_links:
-                        st.image(image_link, use_column_width=True)
-        
-                    st.write(f"Total Images: {len(st.session_state.image_links)}")
-        
-                    # Transcribe text for all the images
-                    transcribe_to_audio(st.session_state.image_links)
+    if "daotrans" not in url.lower():
+        if tab2:
+            if ok:
+                with st.spinner('Loading text & audio..'):
+                    st.session_state.image_links = get_image_links(url)
+                    st.session_state.current_image_index = 0
+            
+                    if st.session_state.image_links:
+                        for image_link in st.session_state.image_links:
+                            st.image(image_link, use_column_width=True)
+            
+                        st.write(f"Total Images: {len(st.session_state.image_links)}")
+            
+                        transcribe_to_audio(st.session_state.image_links)
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
