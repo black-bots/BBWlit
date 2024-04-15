@@ -491,7 +491,7 @@ with tab1:
                                     paragraphs = story.split("\n") 
                                     formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
                                     annotated_text(*formatted_paragraphs)
-                                    #st.write(f':green[*{story}*]')
+                                    st.write(f'{len(story)} words in this chapter.')
                                 
                                 with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                                     story = story.replace('"','')
