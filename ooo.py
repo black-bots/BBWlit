@@ -370,9 +370,9 @@ with st.sidebar:
                             st.write(f"[{title_name}]({ih})")
                             if img_url:
                                 st.image(img_url, caption=ih)
-                            button_key = title_name + str(random.randint(1,999))
+                            button_keyy = title_name + str(random.randint(1,999))
                             if ih:
-                                lisp = st.button("Listen", key=button_key+ch)
+                                lisp = st.button("Listen", key=button_keyy)
                                 if lisp:
                                     perform_ok_actions(ih)
                             st.divider()
@@ -412,21 +412,21 @@ with st.sidebar:
                 href = link.get("href")
                 manga_name = href.split("https://manhuaaz.com/manga/")[1]
                 if "chapter" not in manga_name.lower():
-                    ch = f"{href}chapter-1/"
+                    cch = f"{href}chapter-1/"
                 else:
-                    ch = href
-                ih = ch
+                    cch = href
                 st.write(f"[{manga_name}]({ch})")
                 img_tag = link.find("img")
                 if img_tag:
                     img_url = img_tag.get("data-src")
                     st.image(img_url, caption=ch, use_column_width='always')
                 img_key = manga_name + str(random.randint(1,999999))
-                if ih:
-                    lisp = st.button("Copy Link", key=img_key)
-                    if lisp:
-                        text_to_copy = ih
-                        pyperclip.copy(text_to_copy)
+                if cch:
+                    txt = st.text_area(
+                        "Link",
+                        f"{cch}",
+                        )
+                    
                 st.divider()
 
     url = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
