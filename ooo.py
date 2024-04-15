@@ -283,7 +283,7 @@ def filter_english_words(text):
 history = []
 ih = ""
 icob = Image.open('static/-.ico')
-ranum = randint(1,99999)
+ranum = random.randint(1,99999)
 st.set_page_config(
     page_title="Manga Dōjutsu",
     page_icon=icob,
