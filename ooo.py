@@ -239,6 +239,38 @@ def perform_ok_actions(url):
             except Exception as e:
                 res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
 
+def perform_img_actions(url):
+    url = ih
+    with st.spinner('Loading text & audio..'):
+        st.session_state.image_links = get_image_links(url)
+        st.session_state.current_image_index = 0
+
+        if st.session_state.image_links:
+            st.image(st.session_state.image_links[0], use_column_width=True)
+
+        st.write(f"Total Images: {len(st.session_state.image_links)}")
+
+        try:
+            if st.session_state.image_links:
+                current_image_index = st.session_state.current_image_index
+                current_image_link = st.session_state.image_links[current_image_index]
+                st.image(current_image_link, use_column_width=True)
+
+                next_button_clicked = st.button("Next", key='next_button', help="Show next image", use_container_width=False)
+                if next_button_clicked:
+                    current_image_index += 1
+                    if current_image_index >= len(st.session_state.image_links):
+                        current_image_index = 0
+                    st.session_state.current_image_index = current_image_index
+                    current_image_link = st.session_state.image_links[current_image_index]
+                    st.image(current_image_link, use_column_width=True)
+                    
+                    # Transcribe text only for the currently displayed image
+                    transcribe_to_audio([current_image_link])
+                    
+        except Exception as e:
+            st.write(f"Error: {e}")
+
 main_image = Image.open('static/dojutsu.png')
 side_image = Image.open('static/4.png')
 st.image(main_image)
@@ -301,6 +333,7 @@ with st.sidebar:
                         if lisp:
                             perform_ok_actions(ih)
                     st.divider()
+                    
     with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
@@ -310,11 +343,16 @@ with st.sidebar:
                 href = link.get("href")
                 manga_name = href.split("https://manhuaaz.com/manga/")[1]
                 ch = f"{href}"
+                ih = ch
                 st.write(f"[{manga_name}]({ch})")
                 img_tag = link.find("img")
                 if img_tag:
                     img_url = img_tag.get("data-src")
                     st.image(img_url, caption=ch, use_column_width='always')
+                if ih:
+                    lisp = st.button("Play", key=button_key)
+                    if lisp:
+                        perform_img_actions(ih)
                 st.divider()
 
     url = st.text_input(":orange[Enter URL:]", value=ih, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='input', help="Enter manga chapter URL here")
