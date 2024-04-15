@@ -368,8 +368,8 @@ with tab1:
                                       unsafe_allow_html=True
                                 )
 
-                                translator = Translator()
-                                detected_language = translator.detect(story).lang
+                                #translator = Translator()
+                                detected_language = Translator.detect(story).lang
                                 if detected_language != 'en':
                                     story = translator.translate(story, src=detected_language, dest='en').text
                                     
