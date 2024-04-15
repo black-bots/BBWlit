@@ -506,10 +506,11 @@ with tab1:
                                     nxtchap = str(int(chap) + int(+1))
                                     prvchap = str(int(chap))
                                     nxtUrl = str(oldurl.replace(chap, nxtchap))
-                                    st.caption("Chapter Complete: " + prvchap + "\n\nNEXT CHAPTER\: " + nxtUrl)
-                                    next = st.button('Next Chapter')
-                                    if next:
-                                        perform_ok_actions(nxtUrl)
+                                    st.caption(":green[Chapter Complete:] " + prvchap + "\n\:orange[Next Chapter\:] " + nxtUrl)
+                                    txt = st.text_area(
+                                        "Link",
+                                        f"{nxtUrl}",
+                                        key=ranum+random.randint(1,99999)+22)
                                 with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                                     story = story.replace('"','')
                                     tts = gTTS(text=story, lang='en', slow=False)
