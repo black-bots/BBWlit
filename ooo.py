@@ -419,7 +419,7 @@ with st.sidebar:
                 img_tag = link.find("img")
                 if img_tag:
                     img_url = img_tag.get("data-src")
-                    st.image(img_url, caption=ch, use_column_width='always')
+                    st.image(img_url, caption=cch, use_column_width='always')
                 img_key = manga_name + str(ranum)
                 if cch:
                     txt = st.text_area(
