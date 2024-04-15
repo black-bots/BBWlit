@@ -109,7 +109,6 @@ def autoplay_audio(file_path: str):
 
 def perform_ok_actions(url):
     with st.spinner('Loading audio..'):
-        url = ih
         driver = get_driver()
         try:
             driver.get(url)
@@ -158,7 +157,6 @@ def perform_img_actions(url):
         st.session_state.image_links = []
     if 'current_image_index' not in st.session_state:
         st.session_state.current_image_index = 0
-    url = str(ih)
     try:
         driver.get(url)
     except:
