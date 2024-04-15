@@ -283,7 +283,7 @@ def filter_english_words(text):
 history = []
 ih = ""
 icob = Image.open('static/-.ico')
-
+ranum = randint(1,99999)
 st.set_page_config(
     page_title="Manga Dōjutsu",
     page_icon=icob,
@@ -396,7 +396,7 @@ with st.sidebar:
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
-                    button_key = title_name + str(random.randint(1,999))
+                    button_key = title_name + str(ranumv)
                     if ih:
                         lisp = st.button("Listen", key=button_key)
                         if lisp:
@@ -420,12 +420,12 @@ with st.sidebar:
                 if img_tag:
                     img_url = img_tag.get("data-src")
                     st.image(img_url, caption=ch, use_column_width='always')
-                img_key = manga_name + str(random.randint(1,999999))
+                img_key = manga_name + str(ranum)
                 if cch:
                     txt = st.text_area(
                         "Link",
                         f"{cch}",
-                        )
+                        key=ranum+ranum
                     
                 st.divider()
 
