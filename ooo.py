@@ -422,10 +422,14 @@ with st.sidebar:
                             st.write(f"[{title_name}]({ih})")
                             if img_url:
                                 st.image(img_url, caption=ih)
-                            if ih:
-                                lisp = st.button("Listen", key=generate_unique_key())
-                                if lisp:
-                                    readit2(ih)
+                            #if ih:
+                            #    lisp = st.button("Listen", key=generate_unique_key())
+                            #    if lisp:
+                            #        readit2(ih)
+                            txt = st.text_area(
+                                "Link",
+                                f"{cch}",
+                                key=generate_unique_key())        
                             st.divider()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
@@ -447,10 +451,14 @@ with st.sidebar:
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
-                    if ih:
-                        lok = st.button("Listen", key=generate_unique_key())
-                        if lok:
-                            readit2(ih)
+                    #if ih:
+                        #lok = st.button("Listen", key=generate_unique_key())
+                        #if lok:
+                        #    readit2(ih)
+                    txt = st.text_area(
+                        "Link",
+                        f"{cch}",
+                        key=generate_unique_key())
                     st.divider()
                     
     with st.expander("Image Based"):
