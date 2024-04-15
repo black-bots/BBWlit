@@ -321,7 +321,8 @@ def readit2(url):
                         new_file = speedup(audio,1.2,150)
                         new_file.export("file.mp3", format="mp3")
                         autoplay_audio("file.mp3")
-                        driver.quit()
+                        
+                    driver.quit()
                 else:
                     res_box.markdown('')
             else:
@@ -395,7 +396,6 @@ side_image = Image.open('static/4.png')
 st.image(main_image)
 res_box = st.empty()
 
-sideb = st.sidebar
 with st.sidebar:     
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
@@ -448,7 +448,7 @@ with st.sidebar:
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
                     if ih:
-                        lok = sideb.button("Listen", key=generate_unique_key())
+                        lok = st.button("Listen", key=generate_unique_key())
                         if lok:
                             readit2(ih)
                     st.divider()
