@@ -267,7 +267,8 @@ with st.sidebar:
                             ch = f"https://daotranslate.us/{title_name}-chapter-1/"
                             ih = ch
                             st.write(f"[{title_name}]({ih})")
-                            st.image(img_url, caption=ih)
+                            if img_url:
+                                st.image(img_url, caption=ih)
                             button_key = title_name + str(random.randint(1,999))
                             if ih:
                                 lisp = st.button("Play", key=button_key+ch)
@@ -292,14 +293,15 @@ with st.sidebar:
                     ih = f"https://daotranslate.us/{title_name}-chapter-1/"
                     st.write(f"[{title_name}]({ih})")
                     img_url = title.img["src"]
-                    st.image(img_url, caption=ih, use_column_width='always')
+                    if img_url:
+                        st.image(img_url, caption=ih, use_column_width='always')
                     button_key = title_name + str(random.randint(1,999))
                     if ih:
                         lisp = st.button("Play", key=button_key)
                         if lisp:
                             perform_ok_actions(ih)
                     st.divider()
-    with st.expander("🚧Image Based🚧"):
+    with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -308,7 +310,6 @@ with st.sidebar:
                 href = link.get("href")
                 manga_name = href.split("https://manhuaaz.com/manga/")[1]
                 ch = f"{href}"
-                st.caption(manga_name)
                 st.write(f"[{manga_name}]({ch})")
                 img_tag = link.find("img")
                 if img_tag:
