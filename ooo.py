@@ -411,10 +411,10 @@ with st.sidebar:
             for link in manga_links:
                 href = link.get("href")
                 manga_name = href.split("https://manhuaaz.com/manga/")[1]
-               if "chapter" not in manga_name.lower():
-                   ch = f"{href}chapter-1/"
-               else:
-                   ch = href
+                if "chapter" not in manga_name.lower():
+                    ch = f"{href}chapter-1/"
+                else:
+                    ch = href
                 ih = ch
                 st.write(f"[{manga_name}]({ch})")
                 img_tag = link.find("img")
