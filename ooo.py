@@ -330,6 +330,7 @@ def readit2(url):
         except Exception as e:
             res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
+
 st.image(side_image)
 st.caption("Manga Text or Image To Speach")
 
@@ -399,8 +400,6 @@ st.image(main_image)
 res_box = st.empty()
 
 with st.sidebar:
-
-    
     with st.expander("Search"):
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
         with st.spinner('Searching..'):
@@ -500,8 +499,8 @@ with st.sidebar:
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
 
-if play_button:
-    readit2(ch)
+#if play_button:
+#    readit2(ch)
 
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:    
