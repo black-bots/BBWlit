@@ -79,20 +79,7 @@ from webdriver_manager.core.os_manager import ChromeType
 from bs4 import BeautifulSoup
 import webbrowser
 
-st.sidebar.write('something')
 
-css = '''
-<style>
-    [data-testid='stSidebarNav'] > ul {
-        min-height: 50vh;
-    }
-    [data-testid='stSidebarNav'] > ul {
-        color: red;
-    }
-</style>
-'''
-
-st.markdown(css, unsafe_allow_html=True)
 def generate_unique_key():
     unique_id = str(uuid.uuid4())
     hashed_key = hashlib.sha256(unique_id.encode()).hexdigest()
@@ -344,6 +331,12 @@ st.markdown("""
         .styles_terminalButton__JBj5T{display:none}
         .viewerBadge_container__r5tak.styles_viewerBadge__CvC9N{visibility: hidden;}
         .viewerBadge_container__r5tak.styles_viewerBadge__CvC9N{display:none}
+        [data-testid='stSidebarNav'] > ul {
+            min-height: 50vh;
+        }
+        [data-testid='stSidebarNav'] > ul {
+            color: red;
+        }
     </style>
 """, unsafe_allow_html=True)
 
