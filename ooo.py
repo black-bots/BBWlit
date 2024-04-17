@@ -249,8 +249,7 @@ def readit(url):
                         formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
                         annotated_text(*formatted_paragraphs)
                         st.caption(f'{len(story)} characters in this chapter.')
-                        #next_ch = st.button("Next CH.", key='next_button', help="Next Chapter", use_container_width=False)
-                        #if next_ch:
+
                         oldurl = url
                         chap = ''.join([n for n in oldurl if n.isdigit()])
                         nxtchap = str(int(chap) + int(+1))
@@ -358,7 +357,6 @@ st.image(main_image)
 res_box = st.empty()
 st.sidebar.write('BlackDao: Manga Dōjutsu')
 
-sx = None
 
 if 'image_links' not in st.session_state:
     st.session_state.image_links = []
@@ -396,9 +394,9 @@ with st.sidebar:
                                 "Link",
                                 f"{ih}",
                                 key=generate_unique_key())
-                            sx = ih
-                            if st.button("Link", key=generate_unique_key(), on_click=readit):
-                                sx = ih
+                            go = st.button("Link", key=generate_unique_key(), on_click=readit):
+                            if go:
+                                xx = ih
                             st.divider()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
@@ -424,9 +422,9 @@ with st.sidebar:
                         "Link",
                         f"{ch}",
                         key=generate_unique_key())
-                    sx = ch
-                    if st.button("Link", key=generate_unique_key(), on_click=readit):
-                        sx = ch
+                    go = st.button("Link", key=generate_unique_key(), on_click=readit):
+                    if go:
+                        xx = ch
                     st.divider()
         
     with st.expander("Image Based"):
