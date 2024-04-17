@@ -394,7 +394,7 @@ with st.sidebar:
                                 "Link",
                                 f"{ih}",
                                 key=generate_unique_key())
-                            go = st.button("Link", key=generate_unique_key(), on_click=readit)
+                            go = st.button("Link", key=generate_unique_key(), on_click=readit(ih))
                             if go:
                                 xx = ih
                             st.divider()
@@ -422,7 +422,7 @@ with st.sidebar:
                         "Link",
                         f"{ch}",
                         key=generate_unique_key())
-                    go = st.button("Link", key=generate_unique_key(), on_click=readit)
+                    go = st.button("Link", key=generate_unique_key(), on_click=readit(ch))
                     if go:
                         xx = ch
                     st.divider()
