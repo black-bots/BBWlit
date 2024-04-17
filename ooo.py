@@ -471,9 +471,12 @@ with st.sidebar:
         st.caption("- Copy & Paste link into input field on main window then press Read")
         st.caption("- View Image Based Links with the Image Based Tab")
 
+
+xx = st.text_input(":orange[Enter Link:]", value=vx, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 if set_link_button:
     vx = sx
-xx = st.text_input(":orange[Enter Link:]", value=vx, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
+else:
+    vx = xx
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
 
 
