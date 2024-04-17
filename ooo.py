@@ -398,11 +398,9 @@ with st.sidebar:
                                 "Link",
                                 f"{ih}",
                                 key=generate_unique_key())
-            
                             sx = ih
-                            if st.button("Link", key=generate_unique_key()):
-                                st.session_state.show_main_button = True
-                                sx = ch
+                            if st.button("Link", key=generate_unique_key(), on_click=readit):
+                                sx = ih
                             st.divider()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
@@ -428,7 +426,7 @@ with st.sidebar:
                         "Link",
                         f"{ch}",
                         key=generate_unique_key())
-            
+                    sx = ch
                     if st.button("Link", key=generate_unique_key(), on_click=readit):
                         sx = ch
                     st.divider()
@@ -474,10 +472,6 @@ xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotra
 
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
 
-if st.session_state.show_main_button:
-    if st.button("Button on Main Window", generate_unique_key()):
-        with st.spinner('Loading text & audio..'):
-            st.write('Reading')
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
