@@ -451,14 +451,14 @@ with st.sidebar:
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
-                    #if ih:
-                        #lok = st.button("Listen", key=generate_unique_key())
-                        #if lok:
-                        #    readit2(ih)
-                    txt = st.text_area(
-                        "Link",
-                        f"{ih}",
-                        key=generate_unique_key())
+                    
+                    # Add a Play button instead of text_area
+                    play_button = st.button("Play", key=generate_unique_key())
+    
+                    if play_button:
+                        # Trigger the same actions as 'ok' button
+                        readit(ih)
+                    
                     st.divider()
                     
     with st.expander("Image Based"):
