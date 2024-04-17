@@ -352,6 +352,7 @@ st.image(main_image)
 res_box = st.empty()
 
 with st.sidebar:
+    global play_button
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
     with st.expander("Search"):
@@ -405,21 +406,16 @@ with st.sidebar:
                     title_name = title_url.split("series/")[1].replace('/', '').title()
                     ih = f"https://daotranslate.us/{title_name}-chapter-1/"
                     st.write(f"[{title_name}]({ih})")
+                    ch = ih
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
                     
                     # Retrieve the stored URL from session state if available
-                    stored_url = st.session_state.get(f"url_{ih}")
-    
+                    stored_url = st.session_state.get(f"url_{ch}")
+                    st.session_state[f"url_{ch}"] = ch
                     # Add a Play button instead of text_area
                     play_button = st.button("Play", key=generate_unique_key())
-    
-                    if play_button:
-                        # Store the URL associated with the button click in session state
-                        st.session_state[f"url_{ih}"] = ih
-                        # Trigger the readit function with the corresponding URL
-                        readit(ih)
                     
                     st.divider()
                     
@@ -465,6 +461,7 @@ ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=Fa
 
 
 tab1,tab2=st.tabs(['Text Based','Image Based'])
+
 with tab1:
     if play_button:
         with st.spinner('Loading text & audio..'):
