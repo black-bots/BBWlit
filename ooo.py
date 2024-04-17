@@ -472,14 +472,14 @@ with st.sidebar:
         st.caption("- View Image Based Links with the Image Based Tab")
 
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
-if set_link_button:
-    xx = xx
+    
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
 
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
-    if play_button:
+    if set_link_button:
+        xx = xx
         mycode = "<script>alert('Started!')</script>"
         components.html(mycode, height=0, width=0)
         with st.spinner('Loading text & audio..'):
