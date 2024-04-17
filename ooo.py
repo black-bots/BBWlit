@@ -286,32 +286,6 @@ def readit(url):
             res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
 
-def latestreleases():
-    resp = requests.get("https://daotranslate.us/?s=i")
-    if resp.status_code == 200:
-        soup = BeautifulSoup(resp.text, 'html.parser')
-        manga_list_div = soup.find("div", {"class": "listupd"})
-        if manga_list_div:
-            titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-            for title in titles:
-                title_url = title.a["href"]
-                title_name = title_url.split("series/")[1].replace('/', '').title()
-                ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                st.write(f"[{title_name}]({ih})")
-                ch = ih
-                img_url = title.img["src"]
-                if img_url:
-                    st.image(img_url, caption=ih, use_column_width='always')
-                
-                stored_url = st.session_state.get(f"url_{ch}")
-                st.session_state[f"url_{ch}"] = ch
-                
-                sx = ch
-                if st.button("Set Link", key=generate_unique_key()):
-                    st.session_state.show_main_button = True
-                    #set_link_button = st.button("Set Link", key=generate_unique_key())
-                st.divider()
-    return sx
 
 def searching():
     search_url = f"https://daotranslate.us/?s={search_variable}"
@@ -321,9 +295,6 @@ def searching():
         search_result_div = soup.find("div", {"class": "listupd"})
         if search_result_div:
             titles = search_result_div.find_all("div", {"class": "mdthumb"})
-            # Store search results in session state
-            if 'search_results' not in st.session_state:
-                st.session_state.search_results = []
     
             for title in titles:
                 title_url = title.a["href"]
@@ -338,9 +309,9 @@ def searching():
                     "Link",
                     f"{ih}",
                     key=generate_unique_key())
-                # Store the URL associated with each play button click in session state
+
                 sx = ih
-                if st.button("Set Link", key=generate_unique_key()):
+                if st.button("Link", key=generate_unique_key()):
                     st.session_state.show_main_button = True
                     #set_link_button = st.button("Set Link", key=generate_unique_key())
                 st.divider()
@@ -442,7 +413,32 @@ with st.sidebar:
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 
     with st.expander("Random Reads"):
-        latestreleases()
+        resp = requests.get("https://daotranslate.us/?s=i")
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            manga_list_div = soup.find("div", {"class": "listupd"})
+            if manga_list_div:
+                titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+                for title in titles:
+                    title_url = title.a["href"]
+                    title_name = title_url.split("series/")[1].replace('/', '').title()
+                    ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                    st.write(f"[{title_name}]({ih})")
+                    ch = ih
+                    img_url = title.img["src"]
+                    if img_url:
+                        st.image(img_url, caption=ih, use_column_width='always')
+                    
+                    txt = st.text_area(
+                        "Link",
+                        f"{ch}",
+                        key=generate_unique_key())
+                    
+                    sx = ch
+                    if st.button("Link", key=generate_unique_key()):
+                        st.session_state.show_main_button = True
+                        #set_link_button = st.button("Set Link", key=generate_unique_key())
+                    st.divider()
         
     with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
