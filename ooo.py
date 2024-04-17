@@ -394,9 +394,10 @@ with st.sidebar:
                                 "Link",
                                 f"{ih}",
                                 key=generate_unique_key())
-                            go = st.button("Link", key=generate_unique_key(), on_click=readit(ih))
+                            go = st.button("Link", key=generate_unique_key())
                             if go:
                                 xx = ih
+                                readit(xx)
                             st.divider()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
@@ -422,9 +423,10 @@ with st.sidebar:
                         "Link",
                         f"{ch}",
                         key=generate_unique_key())
-                    go = st.button("Link", key=generate_unique_key(), on_click=readit(ch))
+                    go = st.button("Link", key=generate_unique_key())
                     if go:
                         xx = ch
+                        readit(xx)
                     st.divider()
         
     with st.expander("Image Based"):
