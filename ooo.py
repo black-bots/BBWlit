@@ -362,6 +362,7 @@ if 'show_main_button' not in st.session_state:
     st.session_state.show_main_button = False
     
 def latestreleases():
+    sx = None
     resp = requests.get("https://daotranslate.us/?s=i")
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.text, 'html.parser')
@@ -389,6 +390,7 @@ def latestreleases():
     return sx
 
 def searching():
+    sx = None
     search_url = f"https://daotranslate.us/?s={search_variable}"
     resp = requests.get(search_url)
     if resp.status_code == 200:
