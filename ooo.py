@@ -451,10 +451,17 @@ with st.sidebar:
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
                     
-                    play_button = st.button("Play", key=generate_unique_key(), args=(ih,))
+                    # Retrieve the stored URL from session state if available
+                    stored_url = st.session_state.get(f"url_{ih}")
+    
+                    # Add a Play button instead of text_area
+                    play_button = st.button("Play", key=generate_unique_key())
     
                     if play_button:
-                        readit2(ih)
+                        # Store the URL associated with the button click in session state
+                        st.session_state[f"url_{ih}"] = ih
+                        # Trigger the readit function with the corresponding URL
+                        readit(ih)
                     
                     st.divider()
                     
