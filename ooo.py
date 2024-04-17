@@ -429,7 +429,7 @@ with st.sidebar:
                         f"{ch}",
                         key=generate_unique_key())
             
-                    if st.button("Link", key=generate_unique_key()):
+                    if st.button("Link", key=generate_unique_key(), on_click=readit):
                         st.session_state.show_main_button = True
                         sx = ch
                     st.divider()
@@ -474,13 +474,11 @@ with st.sidebar:
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
-if st.button("Link", key=generate_unique_key()):
-    st.session_state.show_main_button = True
-    sx = ch
+
 if st.session_state.show_main_button:
     if st.button("Button on Main Window", generate_unique_key()):
         with st.spinner('Loading text & audio..'):
-            readit(sx)
+            st.write('Reading')
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
