@@ -378,11 +378,11 @@ def latestreleases():
                 # Retrieve the stored URL from session state if available
                 stored_url = st.session_state.get(f"url_{ch}")
                 st.session_state[f"url_{ch}"] = ch
-                url = ch
-                play_button = st.button("Play", key=generate_unique_key())
                 
+                url = ch
+                xx = url
                 st.divider()
-    return url
+    return xx   
 
 def searching():
     global play_button
@@ -413,9 +413,8 @@ def searching():
                 # Store the URL associated with each play button click in session state
                 url = ih
                 xx = url
-                set_link_button = st.button("Set Link", key=generate_unique_key())
                 st.divider()
-    
+    return xx    
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
@@ -424,6 +423,7 @@ with st.sidebar:
         with st.spinner('Searching..'):
             if search_variable:
                 searching()
+                set_link_button = st.button("Set Link", key=generate_unique_key())
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
     col1, col2 = st.columns(2)
@@ -431,6 +431,7 @@ with st.sidebar:
 
     with st.expander("Random Reads"):
         latestreleases()
+        set_link_button = st.button("Set Link", key=generate_unique_key())
                     
     with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
