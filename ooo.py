@@ -498,8 +498,8 @@ with st.sidebar:
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
 
-#if play_button:
-#    readit2(ch)
+if play_button:
+    readit2(ch)
 
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:    
