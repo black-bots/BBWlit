@@ -428,7 +428,7 @@ with st.sidebar:
     col1, col2 = st.columns(2)
     outer_cols = st.columns([1, 1])
 
-    with st.expander("Latest Releases"):
+    with st.expander("Random Reads"):
         latestreleases()
                     
     with st.expander("Image Based"):
@@ -476,6 +476,8 @@ tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
     if play_button:
+        mycode = "<script>alert('Started!')</script>"
+        components.html(mycode, height=0, width=0)
         with st.spinner('Loading text & audio..'):
             readit(url)
     if "daotrans" in xx:
