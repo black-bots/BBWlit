@@ -385,6 +385,7 @@ def latestreleases():
     return url
 
 def searching():
+    global play_button
     search_url = f"https://daotranslate.us/?s={search_variable}"
     resp = requests.get(search_url)
     if resp.status_code == 200:
@@ -410,11 +411,13 @@ def searching():
                     f"{ih}",
                     key=generate_unique_key())
                 # Store the URL associated with each play button click in session state
-                play_button = st.button("Read", key=generate_unique_key(), args=(ih,))
+                url = ih
+                if play_button not in st.session_state:
+                    st.session_state.play_button = st.button("Read", key=generate_unique_key(), args=(url,))
+                else:
+                    play_button = st.button("Read", key=generate_unique_key(), args=(url,))
                 st.divider()
     
-                # Append title URL to session state
-                st.session_state.search_results.append((title_name, ih))
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
