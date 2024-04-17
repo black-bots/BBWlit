@@ -428,14 +428,14 @@ with st.sidebar:
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
         with st.spinner('Searching..'):
             if search_variable:
-                sx = searching()
+                searching()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
     col1, col2 = st.columns(2)
     outer_cols = st.columns([1, 1])
 
     with st.expander("Random Reads"):
-        sx = latestreleases()
+        latestreleases()
         
     with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
