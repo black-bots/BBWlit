@@ -384,7 +384,7 @@ def latestreleases():
                 sx = url
                 set_link_button = st.button("Set Link", key=generate_unique_key())
                 st.divider()
-    return sx   
+    return sx, set_link_button
 
 def searching():
     global set_link_button
@@ -417,7 +417,7 @@ def searching():
                 sx = url
                 set_link_button = st.button("Set Link", key=generate_unique_key())
                 st.divider()
-    return sx    
+    return sx, set_link_button
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
@@ -472,11 +472,11 @@ with st.sidebar:
         st.caption("- View Image Based Links with the Image Based Tab")
 
 
-xx = st.text_input(":orange[Enter Link:]", value=vx, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 if set_link_button:
     vx = sx
-else:
-    vx = xx
+ 
+xx = st.text_input(":orange[Enter Link:]", value=vx, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
+
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
 
 
