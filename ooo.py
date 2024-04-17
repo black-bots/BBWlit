@@ -452,9 +452,9 @@ with st.sidebar:
                     
                     txt = st.text_area(
                                 "Link",
-                                f"{ch}",
+                                f"{ih}",
                                 key=generate_unique_key())    
-                    play_button = st.button("Play", key=generate_unique_key(), args=(ch,))
+                    play_button = st.button("Play", key=generate_unique_key(), args=(ih,))
                     
                     st.divider()
                     
