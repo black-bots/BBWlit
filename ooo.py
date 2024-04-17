@@ -479,11 +479,9 @@ tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
     if set_link_button:
-        xx = xx
-        mycode = "<script>alert('Started!')</script>"
-        components.html(mycode, height=0, width=0)
+        xx = sx
         with st.spinner('Loading text & audio..'):
-            readit(url)
+            readit(xx)
     if "daotrans" in xx:
         if ok:
             with st.spinner('Loading text & audio..'):
