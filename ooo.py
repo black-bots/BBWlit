@@ -376,7 +376,6 @@ def latestreleases():
                 if img_url:
                     st.image(img_url, caption=ih, use_column_width='always')
                 
-                # Retrieve the stored URL from session state if available
                 stored_url = st.session_state.get(f"url_{ch}")
                 st.session_state[f"url_{ch}"] = ch
                 
@@ -418,6 +417,7 @@ def searching():
                 set_link_button = st.button("Set Link", key=generate_unique_key())
                 st.divider()
     return sx, set_link_button
+
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
@@ -471,14 +471,10 @@ with st.sidebar:
         st.caption("- Copy & Paste link into input field on main window then press Read")
         st.caption("- View Image Based Links with the Image Based Tab")
 
-
+xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 if set_link_button:
-    vx = sx
- 
-xx = st.text_input(":orange[Enter Link:]", value=vx, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
-
+    xx = xx
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
-
 
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
