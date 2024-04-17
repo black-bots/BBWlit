@@ -1,5 +1,5 @@
 # ┌──────────────────────────────────┐
-# │ BlackGram - Manga Dōjutsu v1.22  │
+# │ BlackGram - Manga Dōjutsu v1.23  │
 # ├──────────────────────────────────┤
 # │ Copyright © 2024 BlackBots.net   │
 # │ (https://BlackBots.net)          │
