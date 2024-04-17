@@ -331,9 +331,6 @@ def readit2(url):
             res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
 
-st.image(side_image)
-st.caption("Manga Text or Image To Speach")
-
 history = []
 ih = ""
 icob = Image.open('static/-.ico')
@@ -400,6 +397,8 @@ st.image(main_image)
 res_box = st.empty()
 
 with st.sidebar:
+    st.image(side_image)
+    st.caption("Manga Text or Image To Speach")
     with st.expander("Search"):
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
         with st.spinner('Searching..'):
