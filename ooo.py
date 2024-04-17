@@ -364,26 +364,30 @@ with st.sidebar:
                     soup = BeautifulSoup(resp.text, 'html.parser')
                     search_result_div = soup.find("div", {"class": "listupd"})
                     if search_result_div:
-                        titless = search_result_div.find_all("div", {"class": "mdthumb"})
-                        for title in titless:
+                        titles = search_result_div.find_all("div", {"class": "mdthumb"})
+                        # Store search results in session state
+                        if 'search_results' not in st.session_state:
+                            st.session_state.search_results = []
+    
+                        for title in titles:
                             title_url = title.a["href"]
-                            title_name = title_url.split("series/")[1]
-                            title_name = title_name.replace('/', '')
-                            title_name = title_name.title()
-                            img_url = title.img["src"]
-                            ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                            ih = ch
+                            title_name = title_url.split("series/")[1].replace('/', '').title()
+                            ih = f"https://daotranslate.us/{title_name}-chapter-1/"
                             st.write(f"[{title_name}]({ih})")
+                            img_url = title.img["src"]
                             if img_url:
                                 st.image(img_url, caption=ih)
-
+    
                             txt = st.text_area(
                                 "Link",
-                                f"{ch}",
+                                f"{ih}",
                                 key=generate_unique_key())
-                            play_button = st.button("Read", key=generate_unique_key(), args=(ch,))
-                        
+                            # Store the URL associated with each play button click in session state
+                            play_button = st.button("Read", key=generate_unique_key(), args=(ih,))
                             st.divider()
+    
+                            # Append title URL to session state
+                            st.session_state.search_results.append((title_name, ih))
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
     col1, col2 = st.columns(2)
@@ -404,12 +408,18 @@ with st.sidebar:
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
-                    ch = ih
-                    txt = st.text_area(
-                                "Link",
-                                f"{ch}",
-                                key=generate_unique_key())    
-                    play_button = st.button("Read", key=generate_unique_key())
+                    
+                    # Retrieve the stored URL from session state if available
+                    stored_url = st.session_state.get(f"url_{ih}")
+    
+                    # Add a Play button instead of text_area
+                    play_button = st.button("Play", key=generate_unique_key())
+    
+                    if play_button:
+                        # Store the URL associated with the button click in session state
+                        st.session_state[f"url_{ih}"] = ih
+                        # Trigger the readit function with the corresponding URL
+                        readit(ih)
                     
                     st.divider()
                     
