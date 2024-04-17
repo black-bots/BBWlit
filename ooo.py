@@ -286,37 +286,6 @@ def readit(url):
             res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
 
-
-def searching():
-    search_url = f"https://daotranslate.us/?s={search_variable}"
-    resp = requests.get(search_url)
-    if resp.status_code == 200:
-        soup = BeautifulSoup(resp.text, 'html.parser')
-        search_result_div = soup.find("div", {"class": "listupd"})
-        if search_result_div:
-            titles = search_result_div.find_all("div", {"class": "mdthumb"})
-    
-            for title in titles:
-                title_url = title.a["href"]
-                title_name = title_url.split("series/")[1].replace('/', '').title()
-                ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                st.write(f"[{title_name}]({ih})")
-                img_url = title.img["src"]
-                if img_url:
-                    st.image(img_url, caption=ih)
-    
-                txt = st.text_area(
-                    "Link",
-                    f"{ih}",
-                    key=generate_unique_key())
-
-                sx = ih
-                if st.button("Link", key=generate_unique_key()):
-                    st.session_state.show_main_button = True
-                    #set_link_button = st.button("Set Link", key=generate_unique_key())
-                st.divider()
-    return sx
-
 history = []
 ih = ""
 icob = Image.open('static/-.ico')
@@ -408,7 +377,33 @@ with st.sidebar:
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
         with st.spinner('Searching..'):
             if search_variable:
-                searching()
+                search_url = f"https://daotranslate.us/?s={search_variable}"
+                resp = requests.get(search_url)
+                if resp.status_code == 200:
+                    soup = BeautifulSoup(resp.text, 'html.parser')
+                    search_result_div = soup.find("div", {"class": "listupd"})
+                    if search_result_div:
+                        titles = search_result_div.find_all("div", {"class": "mdthumb"})
+                
+                        for title in titles:
+                            title_url = title.a["href"]
+                            title_name = title_url.split("series/")[1].replace('/', '').title()
+                            ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                            st.write(f"[{title_name}]({ih})")
+                            img_url = title.img["src"]
+                            if img_url:
+                                st.image(img_url, caption=ih)
+                
+                            txt = st.text_area(
+                                "Link",
+                                f"{ih}",
+                                key=generate_unique_key())
+            
+                            sx = ih
+                            if st.button("Link", key=generate_unique_key()):
+                                st.session_state.show_main_button = True
+                                sx = ch
+                            st.divider()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 
@@ -433,11 +428,10 @@ with st.sidebar:
                         "Link",
                         f"{ch}",
                         key=generate_unique_key())
-                    
-                    sx = ch
+            
                     if st.button("Link", key=generate_unique_key()):
                         st.session_state.show_main_button = True
-                        #set_link_button = st.button("Set Link", key=generate_unique_key())
+                        sx = ch
                     st.divider()
         
     with st.expander("Image Based"):
