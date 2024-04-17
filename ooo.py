@@ -352,6 +352,7 @@ st.image(main_image)
 res_box = st.empty()
 
 def latestreleases():
+    global play_button
     resp = requests.get("https://daotranslate.us/?s=i")
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.text, 'html.parser')
@@ -376,44 +377,46 @@ def latestreleases():
                 
                 st.divider()
     return url
+
+def searching():
+    search_url = f"https://daotranslate.us/?s={search_variable}"
+    resp = requests.get(search_url)
+    if resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        search_result_div = soup.find("div", {"class": "listupd"})
+        if search_result_div:
+            titles = search_result_div.find_all("div", {"class": "mdthumb"})
+            # Store search results in session state
+            if 'search_results' not in st.session_state:
+                st.session_state.search_results = []
+    
+            for title in titles:
+                title_url = title.a["href"]
+                title_name = title_url.split("series/")[1].replace('/', '').title()
+                ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                st.write(f"[{title_name}]({ih})")
+                img_url = title.img["src"]
+                if img_url:
+                    st.image(img_url, caption=ih)
+    
+                txt = st.text_area(
+                    "Link",
+                    f"{ih}",
+                    key=generate_unique_key())
+                # Store the URL associated with each play button click in session state
+                play_button = st.button("Read", key=generate_unique_key(), args=(ih,))
+                st.divider()
+    
+                # Append title URL to session state
+                st.session_state.search_results.append((title_name, ih))
 with st.sidebar:
-    global play_button
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
     with st.expander("Search"):
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
         with st.spinner('Searching..'):
             if search_variable:
-                search_url = f"https://daotranslate.us/?s={search_variable}"
-                resp = requests.get(search_url)
-                if resp.status_code == 200:
-                    soup = BeautifulSoup(resp.text, 'html.parser')
-                    search_result_div = soup.find("div", {"class": "listupd"})
-                    if search_result_div:
-                        titles = search_result_div.find_all("div", {"class": "mdthumb"})
-                        # Store search results in session state
-                        if 'search_results' not in st.session_state:
-                            st.session_state.search_results = []
-    
-                        for title in titles:
-                            title_url = title.a["href"]
-                            title_name = title_url.split("series/")[1].replace('/', '').title()
-                            ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                            st.write(f"[{title_name}]({ih})")
-                            img_url = title.img["src"]
-                            if img_url:
-                                st.image(img_url, caption=ih)
-    
-                            txt = st.text_area(
-                                "Link",
-                                f"{ih}",
-                                key=generate_unique_key())
-                            # Store the URL associated with each play button click in session state
-                            play_button = st.button("Read", key=generate_unique_key(), args=(ih,))
-                            st.divider()
-    
-                            # Append title URL to session state
-                            st.session_state.search_results.append((title_name, ih))
+                searching()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
     col1, col2 = st.columns(2)
