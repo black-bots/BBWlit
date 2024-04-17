@@ -430,7 +430,6 @@ with st.sidebar:
                         key=generate_unique_key())
             
                     if st.button("Link", key=generate_unique_key(), on_click=readit):
-                        st.session_state.show_main_button = True
                         sx = ch
                     st.divider()
         
