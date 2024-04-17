@@ -356,8 +356,7 @@ side_image = Image.open('static/4.png')
 st.image(main_image)
 res_box = st.empty()
 st.sidebar.write('BlackDao: Manga Dojutsu')
-set_link_button = ''
-
+set_link_button = None
 def latestreleases():
     global set_link_button
     resp = requests.get("https://daotranslate.us/?s=i")
