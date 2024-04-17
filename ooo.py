@@ -356,9 +356,10 @@ side_image = Image.open('static/4.png')
 st.image(main_image)
 res_box = st.empty()
 st.sidebar.write('BlackDao: Manga Dojutsu')
+set_link_button = ''
 
 def latestreleases():
-    global play_button
+    global set_link_button
     resp = requests.get("https://daotranslate.us/?s=i")
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.text, 'html.parser')
@@ -380,12 +381,13 @@ def latestreleases():
                 st.session_state[f"url_{ch}"] = ch
                 
                 url = ch
-                xx = url
+                sx = url
+                set_link_button = st.button("Set Link", key=generate_unique_key())
                 st.divider()
-    return xx   
+    return sx   
 
 def searching():
-    global play_button
+    global set_link_button
     search_url = f"https://daotranslate.us/?s={search_variable}"
     resp = requests.get(search_url)
     if resp.status_code == 200:
@@ -412,9 +414,10 @@ def searching():
                     key=generate_unique_key())
                 # Store the URL associated with each play button click in session state
                 url = ih
-                xx = url
+                sx = url
+                set_link_button = st.button("Set Link", key=generate_unique_key())
                 st.divider()
-    return xx    
+    return sx    
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
@@ -423,7 +426,6 @@ with st.sidebar:
         with st.spinner('Searching..'):
             if search_variable:
                 searching()
-                set_link_button = st.button("Set Link", key=generate_unique_key())
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
     col1, col2 = st.columns(2)
@@ -431,8 +433,7 @@ with st.sidebar:
 
     with st.expander("Random Reads"):
         latestreleases()
-        set_link_button = st.button("Set Link", key=generate_unique_key())
-                    
+        
     with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
@@ -471,8 +472,8 @@ with st.sidebar:
         st.caption("- View Image Based Links with the Image Based Tab")
 
 if set_link_button:
-    xx = xx
-xx = st.text_input(":orange[Enter Link:]", value=xx, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
+    vx = sx
+xx = st.text_input(":orange[Enter Link:]", value=vx, placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
 
 
