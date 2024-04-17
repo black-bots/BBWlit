@@ -383,7 +383,7 @@ def latestreleases():
                 sx = url
                 set_link_button = st.button("Set Link", key=generate_unique_key())
                 st.divider()
-    return sx, set_link_button
+    return sx
 
 def searching():
     global set_link_button
@@ -416,7 +416,7 @@ def searching():
                 sx = url
                 set_link_button = st.button("Set Link", key=generate_unique_key())
                 st.divider()
-    return sx, set_link_button
+    return sx
 
 with st.sidebar:
     st.image(side_image)
@@ -425,14 +425,14 @@ with st.sidebar:
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
         with st.spinner('Searching..'):
             if search_variable:
-                searching()
+                sx = searching()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
     col1, col2 = st.columns(2)
     outer_cols = st.columns([1, 1])
 
     with st.expander("Random Reads"):
-        latestreleases()
+        sx = latestreleases()
         
     with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
@@ -479,9 +479,8 @@ tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
     if set_link_button:
-        xx = sx
         with st.spinner('Loading text & audio..'):
-            readit(xx)
+            readit(sx)
     if "daotrans" in xx:
         if ok:
             with st.spinner('Loading text & audio..'):
