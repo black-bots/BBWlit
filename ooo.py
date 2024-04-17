@@ -381,7 +381,7 @@ with st.sidebar:
                                 "Link",
                                 f"{ch}",
                                 key=generate_unique_key())
-                            play_button = st.button("Play", key=generate_unique_key(), args=(ch,))
+                            play_button = st.button("Read", key=generate_unique_key(), args=(ch,))
                         
                             st.divider()
                             
@@ -409,7 +409,7 @@ with st.sidebar:
                                 "Link",
                                 f"{ch}",
                                 key=generate_unique_key())    
-                    play_button = st.button("Play", key=generate_unique_key(), args=(ch,))
+                    play_button = st.button("Read", key=generate_unique_key())
                     
                     st.divider()
                     
