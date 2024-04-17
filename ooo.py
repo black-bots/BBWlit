@@ -451,7 +451,7 @@ with st.sidebar:
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
                     
-                    play_button = st.button("Play", key=generate_unique_key())
+                    play_button = st.button("Play", key=generate_unique_key(), args=(ih,))
     
                     if play_button:
                         readit2(ih)
