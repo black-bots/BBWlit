@@ -449,12 +449,12 @@ with st.sidebar:
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
-                    
+                    ch = ih
                     txt = st.text_area(
                                 "Link",
-                                f"{ih}",
+                                f"{ch}",
                                 key=generate_unique_key())    
-                    play_button = st.button("Play", key=generate_unique_key(), args=(ih,))
+                    play_button = st.button("Play", key=generate_unique_key(), args=(ch,))
                     
                     st.divider()
                     
@@ -499,7 +499,7 @@ xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotra
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
 
 if play_button:
-    readit2(ch)
+    readit(ch)
 
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:    
