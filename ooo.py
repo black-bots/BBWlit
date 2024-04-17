@@ -412,10 +412,9 @@ def searching():
                     key=generate_unique_key())
                 # Store the URL associated with each play button click in session state
                 url = ih
+                play_button = st.button("Read", key=generate_unique_key(), args=(url,))
                 if play_button not in st.session_state:
                     st.session_state.play_button = st.button("Read", key=generate_unique_key(), args=(url,))
-                else:
-                    play_button = st.button("Read", key=generate_unique_key(), args=(url,))
                 st.divider()
     
 with st.sidebar:
