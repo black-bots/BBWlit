@@ -356,7 +356,9 @@ side_image = Image.open('static/4.png')
 st.image(main_image)
 res_box = st.empty()
 st.sidebar.write('BlackDao: Manga Dojutsu')
-set_link_button = None
+if 'show_main_button' not in st.session_state:
+    st.session_state.show_main_button = False
+    
 def latestreleases():
     global set_link_button
     resp = requests.get("https://daotranslate.us/?s=i")
@@ -380,7 +382,9 @@ def latestreleases():
                 
                 url = ch
                 sx = url
-                set_link_button = st.button("Set Link", key=generate_unique_key())
+                if st.button("Set Link"):
+                    st.session_state.show_main_button = True
+                    #set_link_button = st.button("Set Link", key=generate_unique_key())
                 st.divider()
     return sx
 
@@ -477,9 +481,10 @@ ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=Fa
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
-    if set_link_button:
-        with st.spinner('Loading text & audio..'):
-            readit(sx)
+    if st.session_state.show_main_button:
+        if st.button("Button on Main Window"):
+            with st.spinner('Loading text & audio..'):
+                readit(sx)
     if "daotrans" in xx:
         if ok:
             with st.spinner('Loading text & audio..'):
