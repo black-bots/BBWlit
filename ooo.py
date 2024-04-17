@@ -286,6 +286,66 @@ def readit(url):
             res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
 
+def latestreleases():
+    resp = requests.get("https://daotranslate.us/?s=i")
+    if resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        manga_list_div = soup.find("div", {"class": "listupd"})
+        if manga_list_div:
+            titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+            for title in titles:
+                title_url = title.a["href"]
+                title_name = title_url.split("series/")[1].replace('/', '').title()
+                ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                st.write(f"[{title_name}]({ih})")
+                ch = ih
+                img_url = title.img["src"]
+                if img_url:
+                    st.image(img_url, caption=ih, use_column_width='always')
+                
+                stored_url = st.session_state.get(f"url_{ch}")
+                st.session_state[f"url_{ch}"] = ch
+                
+                sx = ch
+                if st.button("Set Link", key=generate_unique_key()):
+                    st.session_state.show_main_button = True
+                    #set_link_button = st.button("Set Link", key=generate_unique_key())
+                st.divider()
+    return sx
+
+def searching():
+    search_url = f"https://daotranslate.us/?s={search_variable}"
+    resp = requests.get(search_url)
+    if resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        search_result_div = soup.find("div", {"class": "listupd"})
+        if search_result_div:
+            titles = search_result_div.find_all("div", {"class": "mdthumb"})
+            # Store search results in session state
+            if 'search_results' not in st.session_state:
+                st.session_state.search_results = []
+    
+            for title in titles:
+                title_url = title.a["href"]
+                title_name = title_url.split("series/")[1].replace('/', '').title()
+                ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                st.write(f"[{title_name}]({ih})")
+                img_url = title.img["src"]
+                if img_url:
+                    st.image(img_url, caption=ih)
+    
+                txt = st.text_area(
+                    "Link",
+                    f"{ih}",
+                    key=generate_unique_key())
+                # Store the URL associated with each play button click in session state
+                sx = ih
+                if st.button("Set Link", key=generate_unique_key()):
+                    st.session_state.show_main_button = True
+                    #set_link_button = st.button("Set Link", key=generate_unique_key())
+                st.divider()
+    return sx
+
 history = []
 ih = ""
 icob = Image.open('static/-.ico')
@@ -367,66 +427,6 @@ if 'image_links' not in st.session_state:
 if 'current_image_index' not in st.session_state:
     st.session_state.current_image_index = 0
 
-def latestreleases():
-    resp = requests.get("https://daotranslate.us/?s=i")
-    if resp.status_code == 200:
-        soup = BeautifulSoup(resp.text, 'html.parser')
-        manga_list_div = soup.find("div", {"class": "listupd"})
-        if manga_list_div:
-            titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-            for title in titles:
-                title_url = title.a["href"]
-                title_name = title_url.split("series/")[1].replace('/', '').title()
-                ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                st.write(f"[{title_name}]({ih})")
-                ch = ih
-                img_url = title.img["src"]
-                if img_url:
-                    st.image(img_url, caption=ih, use_column_width='always')
-                
-                stored_url = st.session_state.get(f"url_{ch}")
-                st.session_state[f"url_{ch}"] = ch
-                
-                sx = ch
-                if st.button("Set Link", key=generate_unique_key()):
-                    st.session_state.show_main_button = True
-                    #set_link_button = st.button("Set Link", key=generate_unique_key())
-                st.divider()
-    return sx
-
-def searching():
-    search_url = f"https://daotranslate.us/?s={search_variable}"
-    resp = requests.get(search_url)
-    if resp.status_code == 200:
-        soup = BeautifulSoup(resp.text, 'html.parser')
-        search_result_div = soup.find("div", {"class": "listupd"})
-        if search_result_div:
-            titles = search_result_div.find_all("div", {"class": "mdthumb"})
-            # Store search results in session state
-            if 'search_results' not in st.session_state:
-                st.session_state.search_results = []
-    
-            for title in titles:
-                title_url = title.a["href"]
-                title_name = title_url.split("series/")[1].replace('/', '').title()
-                ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                st.write(f"[{title_name}]({ih})")
-                img_url = title.img["src"]
-                if img_url:
-                    st.image(img_url, caption=ih)
-    
-                txt = st.text_area(
-                    "Link",
-                    f"{ih}",
-                    key=generate_unique_key())
-                # Store the URL associated with each play button click in session state
-                sx = ih
-                if st.button("Set Link", key=generate_unique_key()):
-                    st.session_state.show_main_button = True
-                    #set_link_button = st.button("Set Link", key=generate_unique_key())
-                st.divider()
-    return sx
-
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
@@ -484,14 +484,13 @@ with st.sidebar:
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
-
+if st.session_state.show_main_button:
+    if st.button("Button on Main Window", generate_unique_key()):
+        with st.spinner('Loading text & audio..'):
+            readit(sx)
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
-    if st.session_state.show_main_button:
-        if st.button("Button on Main Window", generate_unique_key()):
-            with st.spinner('Loading text & audio..'):
-                readit(sx)
     if "daotrans" in xx:
         if ok:
             with st.spinner('Loading text & audio..'):
