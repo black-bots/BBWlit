@@ -79,6 +79,7 @@ from webdriver_manager.core.os_manager import ChromeType
 from bs4 import BeautifulSoup
 import webbrowser
 
+
 def generate_unique_key():
     unique_id = str(uuid.uuid4())
     hashed_key = hashlib.sha256(unique_id.encode()).hexdigest()
@@ -355,12 +356,12 @@ main_image = Image.open('static/dojutsu.png')
 side_image = Image.open('static/4.png')
 st.image(main_image)
 res_box = st.empty()
-st.sidebar.write('BlackDao: Manga Dojutsu')
+st.sidebar.write('BlackDao: Manga Dōjutsu')
+
 if 'show_main_button' not in st.session_state:
     st.session_state.show_main_button = False
     
 def latestreleases():
-    global set_link_button
     resp = requests.get("https://daotranslate.us/?s=i")
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.text, 'html.parser')
@@ -382,14 +383,13 @@ def latestreleases():
                 
                 url = ch
                 sx = url
-                if st.button("Set Link"):
+                if st.button("Set Link", key=generate_unique_key()):
                     st.session_state.show_main_button = True
                     #set_link_button = st.button("Set Link", key=generate_unique_key())
                 st.divider()
     return sx
 
 def searching():
-    global set_link_button
     search_url = f"https://daotranslate.us/?s={search_variable}"
     resp = requests.get(search_url)
     if resp.status_code == 200:
@@ -417,7 +417,9 @@ def searching():
                 # Store the URL associated with each play button click in session state
                 url = ih
                 sx = url
-                set_link_button = st.button("Set Link", key=generate_unique_key())
+                if st.button("Set Link", key=generate_unique_key()):
+                    st.session_state.show_main_button = True
+                    #set_link_button = st.button("Set Link", key=generate_unique_key())
                 st.divider()
     return sx
 
