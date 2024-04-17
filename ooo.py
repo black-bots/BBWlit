@@ -381,8 +381,7 @@ def latestreleases():
                 stored_url = st.session_state.get(f"url_{ch}")
                 st.session_state[f"url_{ch}"] = ch
                 
-                url = ch
-                sx = url
+                sx = ch
                 if st.button("Set Link", key=generate_unique_key()):
                     st.session_state.show_main_button = True
                     #set_link_button = st.button("Set Link", key=generate_unique_key())
@@ -415,8 +414,7 @@ def searching():
                     f"{ih}",
                     key=generate_unique_key())
                 # Store the URL associated with each play button click in session state
-                url = ih
-                sx = url
+                sx = ih
                 if st.button("Set Link", key=generate_unique_key()):
                     st.session_state.show_main_button = True
                     #set_link_button = st.button("Set Link", key=generate_unique_key())
