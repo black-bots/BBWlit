@@ -358,11 +358,16 @@ st.image(main_image)
 res_box = st.empty()
 st.sidebar.write('BlackDao: Manga Dōjutsu')
 
+sx = None
+
 if 'show_main_button' not in st.session_state:
     st.session_state.show_main_button = False
-    
+if 'image_links' not in st.session_state:
+    st.session_state.image_links = []
+if 'current_image_index' not in st.session_state:
+    st.session_state.current_image_index = 0
+
 def latestreleases():
-    sx = None
     resp = requests.get("https://daotranslate.us/?s=i")
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.text, 'html.parser')
@@ -390,7 +395,6 @@ def latestreleases():
     return sx
 
 def searching():
-    sx = None
     search_url = f"https://daotranslate.us/?s={search_variable}"
     resp = requests.get(search_url)
     if resp.status_code == 200:
@@ -426,6 +430,9 @@ def searching():
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
+    col1, col2 = st.columns(2)
+    outer_cols = st.columns([1, 1])
+    
     with st.expander("Search"):
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
         with st.spinner('Searching..'):
@@ -433,8 +440,6 @@ with st.sidebar:
                 searching()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
-    col1, col2 = st.columns(2)
-    outer_cols = st.columns([1, 1])
 
     with st.expander("Random Reads"):
         latestreleases()
@@ -477,25 +482,20 @@ with st.sidebar:
         st.caption("- View Image Based Links with the Image Based Tab")
 
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
-    
+
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
 
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
     if st.session_state.show_main_button:
-        if st.button("Button on Main Window"):
+        if st.button("Button on Main Window", generate_unique_key()):
             with st.spinner('Loading text & audio..'):
                 readit(sx)
     if "daotrans" in xx:
         if ok:
             with st.spinner('Loading text & audio..'):
                 readit(xx)
-
-if 'image_links' not in st.session_state:
-    st.session_state.image_links = []
-if 'current_image_index' not in st.session_state:
-    st.session_state.current_image_index = 0
 
 with tab2:
     if "daotrans" not in xx.lower():
