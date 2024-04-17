@@ -360,8 +360,6 @@ st.sidebar.write('BlackDao: Manga Dōjutsu')
 
 sx = None
 
-if 'show_main_button' not in st.session_state:
-    st.session_state.show_main_button = False
 if 'image_links' not in st.session_state:
     st.session_state.image_links = []
 if 'current_image_index' not in st.session_state:
