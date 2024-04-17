@@ -351,6 +351,31 @@ side_image = Image.open('static/4.png')
 st.image(main_image)
 res_box = st.empty()
 
+def latestreleases():
+    resp = requests.get("https://daotranslate.us/?s=i")
+    if resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        manga_list_div = soup.find("div", {"class": "listupd"})
+        if manga_list_div:
+            titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+            for title in titles:
+                title_url = title.a["href"]
+                title_name = title_url.split("series/")[1].replace('/', '').title()
+                ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                st.write(f"[{title_name}]({ih})")
+                ch = ih
+                img_url = title.img["src"]
+                if img_url:
+                    st.image(img_url, caption=ih, use_column_width='always')
+                
+                # Retrieve the stored URL from session state if available
+                stored_url = st.session_state.get(f"url_{ch}")
+                st.session_state[f"url_{ch}"] = ch
+                url = ch
+                play_button = st.button("Play", key=generate_unique_key())
+                
+                st.divider()
+    return url
 with st.sidebar:
     global play_button
     st.image(side_image)
@@ -395,29 +420,7 @@ with st.sidebar:
     outer_cols = st.columns([1, 1])
 
     with st.expander("Latest Releases"):
-        resp = requests.get("https://daotranslate.us/?s=i")
-        if resp.status_code == 200:
-            soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_list_div = soup.find("div", {"class": "listupd"})
-            if manga_list_div:
-                titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-                for title in titles:
-                    title_url = title.a["href"]
-                    title_name = title_url.split("series/")[1].replace('/', '').title()
-                    ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                    st.write(f"[{title_name}]({ih})")
-                    ch = ih
-                    img_url = title.img["src"]
-                    if img_url:
-                        st.image(img_url, caption=ih, use_column_width='always')
-                    
-                    # Retrieve the stored URL from session state if available
-                    stored_url = st.session_state.get(f"url_{ch}")
-                    st.session_state[f"url_{ch}"] = ch
-                    # Add a Play button instead of text_area
-                    play_button = st.button("Play", key=generate_unique_key())
-                    
-                    st.divider()
+        latestreleases()
                     
     with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
@@ -465,7 +468,7 @@ tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
     if play_button:
         with st.spinner('Loading text & audio..'):
-            readit(ch)
+            readit(url)
     if "daotrans" in xx:
         if ok:
             with st.spinner('Loading text & audio..'):
