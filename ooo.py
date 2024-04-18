@@ -404,8 +404,8 @@ with st.sidebar:
                                     key=generate_unique_key()
                                 )
                                 submitted = st.form_submit_button("Submit", key=generate_unique_key())
-                                    if submitted:
-                                        st.write('Ready')
+                                if submitted:
+                                    st.write('Ready')
                             st.divider()
                             
     #on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
@@ -440,8 +440,8 @@ with st.sidebar:
                             key=generate_unique_key()
                         )
                         submitted = st.form_submit_button("Submit", key=generate_unique_key())
-                            if submitted:
-                                st.write('Ready')
+                        if submitted:
+                            st.write('Ready')
                     st.divider()
         
     with st.expander("Image Based"):
