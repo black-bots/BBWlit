@@ -402,16 +402,9 @@ with col1:
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
 
-                    with st.form(generate_unique_key()):
-                        genre_random = st.radio(
-                            "",
-                            [f"***{title_name}***:loud_sound:"],
-                            index=None,
-                            key=generate_unique_key()
-                        )
-                        submitted = st.form_submit_button("Play:loud_sound:")
-                            if submitted:
-                                readit(ch)
+                    submitted = st.button("Play:loud_sound:", key=generate_unique_key())
+                    if submitted:
+                        readit(ch)
                     st.divider()
 with col2:        
     with st.expander("Image Based"):
@@ -459,16 +452,9 @@ with col3:
                             if img_url:
                                 st.image(img_url, caption=ih)
 
-                            with st.form(generate_unique_key()):
-                                genre_solid = st.radio(
-                                    "",
-                                    [f"***{title_name}***"],
-                                    index=None,
-                                    key=generate_unique_key()
-                                )
-                                submitted = st.form_submit_button("Play:loud_sound:")
-                                if submitted:
-                                    readit(ih)
+                            submitted = st.button("Play:loud_sound:", key=generate_unique_key())
+                            if submitted:
+                                readit(ih)
                             st.divider()
                             
 st.image(main_image)
