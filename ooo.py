@@ -363,6 +363,24 @@ if 'image_links' not in st.session_state:
 if 'current_image_index' not in st.session_state:
     st.session_state.current_image_index = 0
 
+@st.cache(suppress_st_warning=True)
+def get_manga_list():
+    resp = requests.get("https://daotranslate.us/?s=i")
+    if resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        manga_list_div = soup.find("div", {"class": "listupd"})
+        if manga_list_div:
+            titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+            manga_titles = []
+            for title in titles:
+                title_url = title.a["href"]
+                title_name = title_url.split("series/")[1].replace('/', '').title()
+                ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                manga_titles.append((title_name, ih))
+            return manga_titles
+
+manga_list = get_manga_list()
+
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
@@ -397,36 +415,26 @@ with st.sidebar:
                             go = st.button("Link", key=generate_unique_key())
                             if go:
                                 xx = ih
-                                readit(xx)
                             st.divider()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 
     with st.expander("Random Reads"):
-        resp = requests.get("https://daotranslate.us/?s=i")
-        if resp.status_code == 200:
-            soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_list_div = soup.find("div", {"class": "listupd"})
-            if manga_list_div:
-                titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-                for title in titles:
-                    title_url = title.a["href"]
-                    title_name = title_url.split("series/")[1].replace('/', '').title()
-                    ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                    st.write(f"[{title_name}]({ih})")
-                    ch = ih
-                    img_url = title.img["src"]
-                    if img_url:
-                        st.image(img_url, caption=ih, use_column_width='always')
-                    
-                    txt = st.text_area(
-                        "Link",
-                        f"{ch}",
-                        key=generate_unique_key())
-                    go = st.button("Link", key=generate_unique_key())
-                    if go:
-                        xx = ch
-                    st.divider()
+        for title_name, ih in manga_list:
+            st.write(f"[{title_name}]({ih})")
+            img_url = title.img["src"]
+            if img_url:
+                st.image(img_url, caption=ih, use_column_width='always')
+            
+            ch = ih
+            txt = st.text_area(
+                "Link",
+                f"{ch}",
+                key=f"{title_name}_text_area")
+            go = st.button("Link", key=f"{title_name}_button")
+            if go:
+                xx = ch
+            st.divider()
         
     with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
