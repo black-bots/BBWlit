@@ -22,6 +22,7 @@ pymongo==4.1.1
 dnspython==2.2.1
 streamlit-aggrid
 streamlit_player
+streamlit-extras
 gTTS==2.2.4
 pydub
 fake_useragent 
