@@ -382,9 +382,31 @@ with st.sidebar:
         st.caption("- Copy & Paste link into input field on main window then press Read")
         st.caption("- View Image Based Links with the Image Based Tab")
 
-col1, col2, col3 = st.columns(3)
-outer_cols = st.columns([1, 3])
+col1, col2 = st.columns(2)
+outer_cols = st.columns([1, 2])
 
+search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
+
+if search_variable:
+    with st.spinner('Searching..'):
+        with st.expander(":mag: Search"):
+            search_url = f"https://daotranslate.us/?s={search_variable}"
+            resp = requests.get(search_url)
+            if resp.status_code == 200:
+                soup = BeautifulSoup(resp.text, 'html.parser')
+                search_result_div = soup.find("div", {"class": "listupd"})
+                if search_result_div:
+                    titles = search_result_div.find_all("div", {"class": "mdthumb"})
+            
+                    for title in titles:
+                        title_url = title.a["href"]
+                        title_name = title_url.split("series/")[1].replace('/', '').title()
+                        ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                        with st.spinner('Searching..'):
+                            st.write(f"[{title_name}]({ih})")
+                            img_url = title.img["src"]
+                            if img_url:
+                                st.image(img_url, caption=ih)
 with col1:
     with st.expander(':books: Random Titles'):
         resp = requests.get("https://daotranslate.us/?s=i")
@@ -426,30 +448,6 @@ with col2:
                         f"{cch}",
                         key=generate_unique_key())
                 st.divider()
-with col3:
-    #search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
-    search_variable = st.text_input(':mag:', placeholder=":mag: Search..", key='search')
-    
-    if search_variable:
-        with st.spinner('Searching..'):
-            with st.expander(":mag: Search"):
-                search_url = f"https://daotranslate.us/?s={search_variable}"
-                resp = requests.get(search_url)
-                if resp.status_code == 200:
-                    soup = BeautifulSoup(resp.text, 'html.parser')
-                    search_result_div = soup.find("div", {"class": "listupd"})
-                    if search_result_div:
-                        titles = search_result_div.find_all("div", {"class": "mdthumb"})
-                
-                        for title in titles:
-                            title_url = title.a["href"]
-                            title_name = title_url.split("series/")[1].replace('/', '').title()
-                            ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                            with st.spinner('Searching..'):
-                                st.write(f"[{title_name}]({ih})")
-                                img_url = title.img["src"]
-                                if img_url:
-                                    st.image(img_url, caption=ih)
                             
 st.image(main_image)
 res_box = st.empty()
