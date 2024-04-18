@@ -403,7 +403,7 @@ with col1:
 
                     submed = st.button("Play:loud_sound:", key=generate_unique_key())
                     if submed:
-                        with st.spinner('Loading text & audio..')
+                        with st.spinner('Loading text & audio..'):
                             readit(ch)
                     st.divider()
 with col2:        
@@ -454,7 +454,7 @@ with col3:
 
                             submitted = st.button("Play:loud_sound:", key=generate_unique_key())
                             if submitted:
-                                with st.spinner('Loading text & audio..')
+                                with st.spinner('Loading text & audio..'):
                                     readit(ih)
                             st.divider()
                             
