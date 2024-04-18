@@ -354,8 +354,6 @@ options.add_argument("--ignore-certificate-errors")
 
 main_image = Image.open('static/dojutsu.png')
 side_image = Image.open('static/4.png')
-st.image(main_image)
-res_box = st.empty()
 st.sidebar.write('BlackDao: Manga Dōjutsu')
 
 if 'image_links' not in st.session_state:
@@ -385,45 +383,8 @@ with st.sidebar:
 
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 3])
-with col1:    
-    with st.expander("Search"):
-        search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
-        with st.spinner('Searching..'):
-            if search_variable:
-                search_url = f"https://daotranslate.us/?s={search_variable}"
-                resp = requests.get(search_url)
-                if resp.status_code == 200:
-                    soup = BeautifulSoup(resp.text, 'html.parser')
-                    search_result_div = soup.find("div", {"class": "listupd"})
-                    if search_result_div:
-                        titles = search_result_div.find_all("div", {"class": "mdthumb"})
-                
-                        for title in titles:
-                            title_url = title.a["href"]
-                            title_name = title_url.split("series/")[1].replace('/', '').title()
-                            ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                            st.write(f"[{title_name}]({ih})")
-                            img_url = title.img["src"]
-                            if img_url:
-                                st.image(img_url, caption=ih)
-                
-                            txt = st.text_area(
-                                "Link",
-                                f"{ih}",
-                                key=generate_unique_key())
-                            with st.form(generate_unique_key()):
-                                genre_solid = st.radio(
-                                    "",
-                                    [f"***{title_name}***:loud_sound:"],
-                                    index=None,
-                                    key=generate_unique_key()
-                                )
-                                submitted = st.form_submit_button("Submit")
-                                if submitted:
-                                    st.write('Ready')
-                            st.divider()
                             
-with col2:
+with col1:
     with st.expander("Random Reads"):
         resp = requests.get("https://daotranslate.us/?s=i")
         if resp.status_code == 200:
@@ -440,11 +401,6 @@ with col2:
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ih, use_column_width='always')
-                    
-                    txt = st.text_area(
-                        "Link",
-                        f"{ch}",
-                        key=generate_unique_key())
 
                     with st.form(generate_unique_key()):
                         genre_random = st.radio(
@@ -453,11 +409,11 @@ with col2:
                             index=None,
                             key=generate_unique_key()
                         )
-                        submitted = st.form_submit_button("Submit")
-                        if submitted:
-                            st.write('Ready')
+                        submitted = st.form_submit_button("Play:loud_sound:")
+                            if submitted:
+                                readit(ch)
                     st.divider()
-with col3:        
+with col2:        
     with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
@@ -481,6 +437,43 @@ with col3:
                         f"{cch}",
                         key=generate_unique_key())
                 st.divider()
+with col3:    
+    with st.expander("Search"):
+        search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
+        with st.spinner('Searching..'):
+            if search_variable:
+                search_url = f"https://daotranslate.us/?s={search_variable}"
+                resp = requests.get(search_url)
+                if resp.status_code == 200:
+                    soup = BeautifulSoup(resp.text, 'html.parser')
+                    search_result_div = soup.find("div", {"class": "listupd"})
+                    if search_result_div:
+                        titles = search_result_div.find_all("div", {"class": "mdthumb"})
+                
+                        for title in titles:
+                            title_url = title.a["href"]
+                            title_name = title_url.split("series/")[1].replace('/', '').title()
+                            ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                            st.write(f"[{title_name}]({ih})")
+                            img_url = title.img["src"]
+                            if img_url:
+                                st.image(img_url, caption=ih)
+
+                            with st.form(generate_unique_key()):
+                                genre_solid = st.radio(
+                                    "",
+                                    [f"***{title_name}***"],
+                                    index=None,
+                                    key=generate_unique_key()
+                                )
+                                submitted = st.form_submit_button("Play:loud_sound:")
+                                if submitted:
+                                    readit(ih)
+                            st.divider()
+                            
+st.image(main_image)
+res_box = st.empty()
+
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
