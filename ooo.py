@@ -234,7 +234,15 @@ def readit(url):
                         story += paragraph.text + "\n"
                     story = story.replace('<p>', '')
                     story = story.replace('"', '')
-                        
+                    
+                    st.markdown("""<style>
+                          .stMarkdown{color: black;}
+                          .st-c8:hover{color:orange;}
+                          .streamlit-expander.st-bc.st-as.st-ar.st-bd.st-be.st-b8.st-bf.st-bg.st-bh.st-bi{display:none;}
+                          </style>""",
+                          unsafe_allow_html=True
+                    )
+                    
                     with st.expander("Read"):
                         from annotated_text import annotated_text
                         paragraphs = story.split("\n") 
@@ -392,7 +400,7 @@ with st.sidebar:
                                     readit(xx)
                             st.divider()
                             
-    on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
+    #on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 
     with st.expander("Random Reads"):
         resp = requests.get("https://daotranslate.us/?s=i")
