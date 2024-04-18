@@ -378,10 +378,10 @@ with st.sidebar:
     
     with st.expander("Help"):
         st.caption("How to use BlackDao: Manga Dōjutsu")
-        st.caption("- Enter search term into `Search` field to find Links")
-        st.caption("- Copy a `Link`")
-        st.caption("- Paste Link onto `Enter Link` field")
-        st.caption("- Press `:green_book: Read`")
+        st.caption("- Enter search term into `Search` field to find `Links`")
+        st.caption("- `Copy` a Link")
+        st.caption("- `Paste` Link onto `Enter Link` field")
+        st.caption("- `Press Read`")
         st.caption("- View Image Based Links with the `Image Based` tab")
 
 col1, col2 = st.columns(2)
