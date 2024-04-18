@@ -383,7 +383,12 @@ with st.sidebar:
 
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 3])
-                            
+
+expander =  st.sidebar.beta_expander("Adjust settings")
+expander.write("Test")
+if expander.button("Reset Draft"):
+    st.write('Draft resetted')
+
 with col1:
     with st.expander(":books: Random"):
         resp = requests.get("https://daotranslate.us/?s=i")
