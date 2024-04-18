@@ -442,10 +442,10 @@ with col3:
                         ih = f"https://daotranslate.us/{title_name}-chapter-1/"
                         with st.expander(":mag: Search"):
                             with st.spinner('Searching..'):
-                            st.write(f"[{title_name}]({ih})")
-                            img_url = title.img["src"]
-                            if img_url:
-                                st.image(img_url, caption=ih)
+                                st.write(f"[{title_name}]({ih})")
+                                img_url = title.img["src"]
+                                if img_url:
+                                    st.image(img_url, caption=ih)
     
                             submitted = st.button("Play:loud_sound:", key=generate_unique_key())
 
