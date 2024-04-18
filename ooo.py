@@ -411,7 +411,7 @@ with col1:
                                 "Link",
                                 f"{ih}",
                                 key=generate_unique_key())
-                            with st.form("Search"):
+                            with st.form(generate_unique_key()):
                                 genre_solid = st.radio(
                                     "",
                                     [f"***{title_name}***:loud_sound:"],
@@ -446,7 +446,7 @@ with col2:
                         f"{ch}",
                         key=generate_unique_key())
 
-                    with st.form("Random"):
+                    with st.form(generate_unique_key()):
                         genre_random = st.radio(
                             "",
                             [f"***{title_name}***:loud_sound:"],
