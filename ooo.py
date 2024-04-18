@@ -234,14 +234,6 @@ def readit(url):
                         story += paragraph.text + "\n"
                     story = story.replace('<p>', '')
                     story = story.replace('"', '')
-
-                    st.markdown("""<style>
-                          .stMarkdown{color: black;}
-                          .st-c8:hover{color:orange;}
-                          .streamlit-expander.st-bc.st-as.st-ar.st-bd.st-be.st-b8.st-bf.st-bg.st-bh.st-bi{display:none;}
-                          </style>""",
-                          unsafe_allow_html=True
-                    )
                         
                     with st.expander("Read"):
                         from annotated_text import annotated_text
@@ -273,16 +265,16 @@ def readit(url):
                         group_text = ""
                         for d_paragraph in group:
                             group_text += d_paragraph.text + "\n"
-                        if on:
-                            res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                            time.sleep(5)
+                        #if on:
+                        #    res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
+                        #    time.sleep(5)
                     driver.quit()
                 else:
-                    res_box.markdown('')
+                    st.write('')
             else:
-                res_box.markdown(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
+                st.write(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
         except Exception as e:
-            res_box.markdown(f':blue[Dao: ]:green[*Error occurred: {e}*]')
+            st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
 
 history = []
@@ -357,28 +349,11 @@ st.image(main_image)
 res_box = st.empty()
 st.sidebar.write('BlackDao: Manga Dōjutsu')
 
-
 if 'image_links' not in st.session_state:
     st.session_state.image_links = []
 if 'current_image_index' not in st.session_state:
     st.session_state.current_image_index = 0
 
-@st.cache(suppress_st_warning=True)
-def get_manga_list():
-    resp = requests.get("https://daotranslate.us/?s=i")
-    if resp.status_code == 200:
-        soup = BeautifulSoup(resp.text, 'html.parser')
-        manga_list_div = soup.find("div", {"class": "listupd"})
-        if manga_list_div:
-            titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-            manga_titles = []
-            for title in titles:
-                title_url = title.a["href"]
-                title_name = title_url.split("series/")[1].replace('/', '').title()
-                ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                manga_titles.append((title_name, ih, title.img["src"]))  # Include img_url
-            return manga_titles
-manga_list = get_manga_list()
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
@@ -412,26 +387,41 @@ with st.sidebar:
                                 key=generate_unique_key())
                             go = st.button("Link", key=generate_unique_key())
                             if go:
-                                xx = ih
+                                xx = ch
+                                with st.spinner('Loading text & audio..'):
+                                    readit(xx)
                             st.divider()
                             
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 
     with st.expander("Random Reads"):
-        for title_name, ih, img_url in manga_list:  # Unpack img_url here
-            st.write(f"[{title_name}]({ih})")
-            if img_url:
-                st.image(img_url, caption=ih, use_column_width='always')
-            
-            ch = ih
-            txt = st.text_area(
-                "Link",
-                f"{ch}",
-                key=f"{title_name}_text_area")
-            go = st.button("Link", key=f"{title_name}_button")
-            if go:
-                xx = ch
-            st.divider()
+        resp = requests.get("https://daotranslate.us/?s=i")
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            manga_list_div = soup.find("div", {"class": "listupd"})
+            if manga_list_div:
+                titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+                for title in titles:
+                    title_url = title.a["href"]
+                    title_name = title_url.split("series/")[1].replace('/', '').title()
+                    ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                    st.write(f"[{title_name}]({ih})")
+                    ch = ih
+                    img_url = title.img["src"]
+                    if img_url:
+                        st.image(img_url, caption=ih, use_column_width='always')
+                    
+                    txt = st.text_area(
+                        "Link",
+                        f"{ch}",
+                        key=generate_unique_key())
+                    goo = st.button("Link", key=generate_unique_key())
+                        
+                    if goo:
+                        xx = ch
+                        with st.spinner('Loading text & audio..'):
+                            readit(xx)
+                    st.divider()
         
     with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
@@ -473,9 +463,7 @@ with st.sidebar:
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
-if go:
-    with st.spinner('Loading text & audio..'):
-        readit(xx)
+
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
