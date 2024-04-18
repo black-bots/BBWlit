@@ -385,7 +385,7 @@ col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 3])
                             
 with col1:
-    with st.expander(":books:Random"):
+    with st.expander(":books: Random"):
         resp = requests.get("https://daotranslate.us/?s=i")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -407,7 +407,7 @@ with col1:
                             readit(ch)
                     st.divider()
 with col2:        
-    with st.expander(":frame_with_picture:Image"):
+    with st.expander(":frame_with_picture: Image"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -431,7 +431,7 @@ with col2:
                         key=generate_unique_key())
                 st.divider()
 with col3:    
-    with st.expander(":mag:Search"):
+    with st.expander(":mag: Search"):
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
         with st.spinner('Searching..'):
             if search_variable:
