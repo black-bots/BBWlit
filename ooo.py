@@ -403,7 +403,8 @@ with col1:
 
                     submed = st.button("Play:loud_sound:", key=generate_unique_key())
                     if submed:
-                        readit(ch)
+                        with st.spinner('Loading text & audio..')
+                            readit(ch)
                     st.divider()
 with col2:        
     with st.expander(":frame_with_picture:Image"):
@@ -453,7 +454,8 @@ with col3:
 
                             submitted = st.button("Play:loud_sound:", key=generate_unique_key())
                             if submitted:
-                                readit(ih)
+                                with st.spinner('Loading text & audio..')
+                                    readit(ih)
                             st.divider()
                             
 st.image(main_image)
@@ -462,22 +464,6 @@ res_box = st.empty()
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
 ok = st.button(":green_book:Read", help="Read", key='readbutton', use_container_width=False)
-try:
-    if genre_random:
-        genre = genre_random
-        xx = ch
-except:
-    pass
-try:
-    if genre_solid:
-        genre = genre_solid
-        xx = ih
-except:
-    pass
-try:
-    st.caption("You selected:", genre)
-except:
-    pass
     
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
