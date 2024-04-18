@@ -396,12 +396,16 @@ with st.sidebar:
                                 "Link",
                                 f"{ih}",
                                 key=generate_unique_key())
-                            genre_solid = st.radio(
-                                "",
-                                [f"***{title_name}***:loud_sound:"],
-                                index=None,
-                                key=generate_unique_key()
-                            )
+                            with st.form("Read"):
+                                genre_solid = st.radio(
+                                    "",
+                                    [f"***{title_name}***:loud_sound:"],
+                                    index=None,
+                                    key=generate_unique_key()
+                                )
+                                submitted = st.form_submit_button("Submit", key=generate_unique_key())
+                                    if submitted:
+                                        st.write('Ready')
                             st.divider()
                             
     #on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
@@ -427,14 +431,17 @@ with st.sidebar:
                         "Link",
                         f"{ch}",
                         key=generate_unique_key())
-                        
-                    genre_random = st.radio(
-                        "",
-                        [f"***{title_name}***:loud_sound:"],
-                        index=None,
-                        key=generate_unique_key()
-                    )
-                    
+
+                    with st.form("Read"):
+                        genre_random = st.radio(
+                            "",
+                            [f"***{title_name}***:loud_sound:"],
+                            index=None,
+                            key=generate_unique_key()
+                        )
+                        submitted = st.form_submit_button("Submit", key=generate_unique_key())
+                            if submitted:
+                                st.write('Ready')
                     st.divider()
         
     with st.expander("Image Based"):
@@ -460,6 +467,7 @@ with st.sidebar:
                         f"{cch}",
                         key=generate_unique_key())
                 st.divider()
+        
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
