@@ -385,11 +385,6 @@ with st.sidebar:
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 3])
 
-expander =  st.beta_expander("Adjust settings")
-expander.write("Test")
-if expander.button("Reset Draft"):
-    st.write('Draft resetted')
-
 with col1:
     with st.expander(":books: Random"):
         resp = requests.get("https://daotranslate.us/?s=i")
@@ -401,14 +396,20 @@ with col1:
                 for title in titles:
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1].replace('/', '').title()
-                    ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                    
-                    st.write(f"[{title_name}]({ch})")
-                    img_url = title.img["src"]
-                    if img_url:
-                        st.image(img_url, caption=ch, use_column_width='always')
-                        
+                    ch = f"https://daotranslate.us/{title_name}-chapter-1/"                        
                     url = ch
+
+            st.markdown(f"""
+            <details>
+                <summary>{title_name}</summary>
+                <p><a href='{ch}'>{ch}</a></p>
+                <img src='{title.img['src']}' alt='{title_name}' style='max-width:100%;'>
+                <p>Click the button to play the audio.</p>
+                <button onclick='{readit(ch)}'>Play:loud_sound:</button>
+                <hr>
+            </details>
+            """, unsafe_allow_html=True)
+            
                     submed = st.button("Play:loud_sound:", key=generate_unique_key())  # Fix: Button for text-based content
                     if submed:
                         try:
