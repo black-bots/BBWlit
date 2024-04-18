@@ -368,7 +368,7 @@ genre = None
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
-        
+    on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
@@ -411,7 +411,7 @@ with col1:
                                 "Link",
                                 f"{ih}",
                                 key=generate_unique_key())
-                            with st.form("Read", key=generate_unique_key()):
+                            with st.form("Search"):
                                 genre_solid = st.radio(
                                     "",
                                     [f"***{title_name}***:loud_sound:"],
@@ -423,7 +423,6 @@ with col1:
                                     st.write('Ready')
                             st.divider()
                             
-    #on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 with col2:
     with st.expander("Random Reads"):
         resp = requests.get("https://daotranslate.us/?s=i")
@@ -447,7 +446,7 @@ with col2:
                         f"{ch}",
                         key=generate_unique_key())
 
-                    with st.form("Read", key=generate_unique_key()):
+                    with st.form("Random"):
                         genre_random = st.radio(
                             "",
                             [f"***{title_name}***:loud_sound:"],
