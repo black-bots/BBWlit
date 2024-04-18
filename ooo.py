@@ -424,7 +424,8 @@ with st.sidebar:
                         f"{ch}",
                         key=generate_unique_key())
                     go = st.button("Link", key=generate_unique_key())
-
+                    if go:
+                        xx = ch
                     st.divider()
         
     with st.expander("Image Based"):
@@ -468,8 +469,8 @@ xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotra
 
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
 if go:
-    xx = ch
-    readit(xx)
+    with st.spinner('Loading text & audio..'):
+        readit(xx)
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
