@@ -382,6 +382,7 @@ with st.sidebar:
         st.caption("- Copy & Paste link into input field on main window then press Read")
         st.caption("- View Image Based Links with the Image Based Tab")
 
+tab1,tab2=st.tabs(['Text Based','Image Based'])
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 3])
 
@@ -405,8 +406,8 @@ with col1:
                         if img_url:
                             st.image(img_url, caption=ch, use_column_width='always')
                         submed = st.button("Play:loud_sound:", key=generate_unique_key())  # Fix: Button for text-based content
-                        if submed:
-                            readit(ch)
+if submed:
+    readit(ch)
 
 with col2:        
     with st.expander(":frame_with_picture: Image"):
@@ -512,8 +513,6 @@ res_box = st.empty()
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
 ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
-    
-tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:                  
     if "daotrans" in xx:
