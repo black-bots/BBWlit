@@ -396,7 +396,7 @@ with st.sidebar:
                                 "Link",
                                 f"{ih}",
                                 key=generate_unique_key())
-                            with st.form("Read", key=generate_unique_key()):
+                            with st.form("Read"):
                                 genre_solid = st.radio(
                                     "",
                                     [f"***{title_name}***:loud_sound:"],
@@ -432,7 +432,7 @@ with st.sidebar:
                         f"{ch}",
                         key=generate_unique_key())
 
-                    with st.form("Read", key=generate_unique_key()):
+                    with st.form("Read"):
                         genre_random = st.radio(
                             "",
                             [f"***{title_name}***:loud_sound:"],
