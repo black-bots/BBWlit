@@ -379,9 +379,8 @@ def get_manga_list():
                 manga_titles.append((title_name, ih))
             return manga_titles
 
-manga_list = get_manga_list()
-
 with st.sidebar:
+    manga_list = get_manga_list()
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
     col1, col2 = st.columns(2)
