@@ -387,7 +387,7 @@ col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 3])
 
 with col1:
-    show_titles = st.button(":books: Random Titles", key=generate_unique_key()))
+    show_titles = st.button(":books: Random Titles", key=generate_unique_key())
     if show_titles:
         with st.expander(':books:'):
             resp = requests.get("https://daotranslate.us/?s=i")
@@ -406,7 +406,7 @@ with col1:
                             st.image(img_url, caption=ch, use_column_width='always')
 
 with col2:
-    image_titles = st.button(":frame_with_picture: Image", key=generate_unique_key()))
+    image_titles = st.button(":frame_with_picture: Image", key=generate_unique_key())
     if image_titles:
         with st.expander(":frame_with_picture:"):
             resp = requests.get("https://manhuaaz.com/")
@@ -433,7 +433,7 @@ with col2:
                     st.divider()
                     
 with col3:
-    search_titles = st.button(":books: Random Titles", key=generate_unique_key()))
+    search_titles = st.button(":books: Random Titles", key=generate_unique_key())
     if search_titles:
         with st.expander(":mag: Search"):
             search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
