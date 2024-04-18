@@ -401,8 +401,10 @@ with col1:
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ch, use_column_width='always')
+                        
                     submed = st.button("Play:loud_sound:", key=generate_unique_key())
                     if submed:
+                        driver.quit()
                         with st.spinner('Loading text & audio..'):
                             url = ch
                             driver = get_driver()
@@ -498,6 +500,7 @@ with col3:
 
                         submitted = st.button("Play:loud_sound:", key=generate_unique_key())
                         if submitted:
+                            driver.quit()
                             with st.spinner('Loading text & audio..'):
                                 url = ih
                                 driver = get_driver()
