@@ -363,6 +363,8 @@ if 'image_links' not in st.session_state:
 if 'current_image_index' not in st.session_state:
     st.session_state.current_image_index = 0
 
+genre = None
+
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
@@ -394,11 +396,12 @@ with st.sidebar:
                                 "Link",
                                 f"{ih}",
                                 key=generate_unique_key())
-                            go = st.button("Link", key=generate_unique_key())
-                            if go:
-                                xx = ch
-                                with st.spinner('Loading text & audio..'):
-                                    readit(xx)
+                            genre_solid = st.radio(
+                                "",
+                                [f":rainbow[***{title_name}***]:loud_sound:"],
+                                index=None,
+                                key=generate_unique_key()
+                            )
                             st.divider()
                             
     #on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
@@ -424,13 +427,14 @@ with st.sidebar:
                         "Link",
                         f"{ch}",
                         key=generate_unique_key())
-                    goo = st.button("Link", key=generate_unique_key())
                         
-                    if goo:
-                        st.write("Button clicked!")
-                        xx = ch
-                        with st.spinner('Loading text & audio..'):
-                            readit(xx)
+                    genre_random = st.radio(
+                        "",
+                        [f":rainbow[***{title_name}***]:loud_sound:"],
+                        index=None,
+                        key=generate_unique_key()
+                    )
+                    
                     st.divider()
         
     with st.expander("Image Based"):
@@ -473,7 +477,13 @@ with st.sidebar:
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
-
+if genre_random:
+    genre = genre_random
+    xx = ch
+if genre_solid:
+    genre = genre_solid
+    xx = ih
+st.caption("You selected:", genre)
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
