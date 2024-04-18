@@ -67,7 +67,7 @@ from easyocr import Reader
 import streamlit as st
 import streamlit_nested_layout
 import streamlit.components.v1 as components
-from streamlit_extras.beta_expander import beta_expander
+import streamlit_extras
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
