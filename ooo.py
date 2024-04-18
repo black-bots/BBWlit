@@ -463,12 +463,18 @@ ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
-    if submed:
-        with st.spinner('Loading text & audio..'):
-            readit(ch)
-    if submitted:
-        with st.spinner('Loading text & audio..'):
-            readit(ih)
+    try:
+        if submed:
+            with st.spinner('Loading text & audio..'):
+                readit(ch)
+    except:
+        pass
+    try:
+        if submitted:
+            with st.spinner('Loading text & audio..'):
+                readit(ih)
+    except:
+        pass
     if "daotrans" in xx:
         if ok:
             with st.spinner('Loading text & audio..'):
