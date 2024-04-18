@@ -407,6 +407,11 @@ if search_variable:
                             img_url = title.img["src"]
                             if img_url:
                                 st.image(img_url, caption=ih)
+                            if ih:
+                                txt = st.text_area(
+                                    "Copy",
+                                    f"{ih}",
+                                    key=generate_unique_key())
 with col1:
     with st.expander(':books: Random Titles'):
         resp = requests.get("https://daotranslate.us/?s=i")
@@ -423,6 +428,11 @@ with col1:
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ch, use_column_width='always')
+                    if ch:
+                        txt = st.text_area(
+                            "Copy",
+                            f"{ch}",
+                            key=generate_unique_key())
 
 with col2:        
     with st.expander(":frame_with_picture: Image"):
@@ -444,7 +454,7 @@ with col2:
                     st.image(img_url, caption=cch, use_column_width='always')
                 if cch:
                     txt = st.text_area(
-                        "Link",
+                        "Copy",
                         f"{cch}",
                         key=generate_unique_key())
                 st.divider()
