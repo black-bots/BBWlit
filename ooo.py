@@ -402,16 +402,17 @@ with col1:
                     if img_url:
                         st.image(img_url, caption=ch, use_column_width='always')
                         
+                    url = ch
                     submed = st.button("Play:loud_sound:", key=generate_unique_key())
                     if submed:
-                        driver.quit()
+                        try:
+                            driver.quit()
+                        except:
+                            pass
                         with st.spinner('Loading text & audio..'):
-                            url = ch
                             driver = get_driver()
-                            try:
-                                driver.get(url)
-                            except:
-                                pass
+                            driver.get(url)
+
                             if not url:
                                 res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
                             else:
@@ -497,17 +498,18 @@ with col3:
                             img_url = title.img["src"]
                             if img_url:
                                 st.image(img_url, caption=ih)
-
+                        url = ih
                         submitted = st.button("Play:loud_sound:", key=generate_unique_key())
                         if submitted:
-                            driver.quit()
+                            try:
+                                driver.quit()
+                            except:
+                                pass
                             with st.spinner('Loading text & audio..'):
-                                url = ih
+                                
                                 driver = get_driver()
-                                try:
-                                    driver.get(url)
-                                except:
-                                    pass
+                                driver.get(url)
+
                                 if not url:
                                     res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
                                 else:
