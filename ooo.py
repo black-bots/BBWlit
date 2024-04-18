@@ -386,7 +386,7 @@ col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 3])
 
 with col1:
-    with st.expander(''):
+    with st.expander(':books: Random Titles'):
         resp = requests.get("https://daotranslate.us/?s=i")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -427,7 +427,9 @@ with col2:
                         key=generate_unique_key())
                 st.divider()
 with col3:
-    search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
+    #search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
+    search_variable = st.text_input(placeholder=":mag: Search..", key='search')
+    
     if search_variable:
         with st.spinner('Searching..'):
             with st.expander(":mag: Search"):
