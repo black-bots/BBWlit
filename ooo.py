@@ -389,7 +389,7 @@ with col1:
     show_titles = st.button(":books: Random Titles")
     
     if show_titles:
-        with st.expander(''):
+        with st.sidebar:
             resp = requests.get("https://daotranslate.us/?s=i")
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
