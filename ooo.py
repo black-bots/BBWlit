@@ -385,7 +385,7 @@ col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 3])
                             
 with col1:
-    with st.expander("Random Reads"):
+    with st.expander(":books:Random"):
         resp = requests.get("https://daotranslate.us/?s=i")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -395,19 +395,18 @@ with col1:
                 for title in titles:
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1].replace('/', '').title()
-                    ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                    st.write(f"[{title_name}]({ih})")
-                    ch = ih
+                    ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                    st.write(f"[{title_name}]({ch})")
                     img_url = title.img["src"]
                     if img_url:
-                        st.image(img_url, caption=ih, use_column_width='always')
+                        st.image(img_url, caption=ch, use_column_width='always')
 
-                    submitted = st.button("Play:loud_sound:", key=generate_unique_key())
-                    if submitted:
+                    submed = st.button("Play:loud_sound:", key=generate_unique_key())
+                    if submed:
                         readit(ch)
                     st.divider()
 with col2:        
-    with st.expander("Image Based"):
+    with st.expander(":frame_with_picture:Image"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -431,7 +430,7 @@ with col2:
                         key=generate_unique_key())
                 st.divider()
 with col3:    
-    with st.expander("Search"):
+    with st.expander(":mag:Search"):
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
         with st.spinner('Searching..'):
             if search_variable:
@@ -462,7 +461,7 @@ res_box = st.empty()
 
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
-ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
+ok = st.button(":green_book:Read", help="Read", key='readbutton', use_container_width=False)
 try:
     if genre_random:
         genre = genre_random
