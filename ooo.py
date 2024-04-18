@@ -209,6 +209,7 @@ def filter_english_words(text):
     return text
 
 def readit(url):
+    st.write("Attempting Read -")
     driver = get_driver()
     try:
         driver.get(url)
@@ -426,6 +427,7 @@ with st.sidebar:
                     goo = st.button("Link", key=generate_unique_key())
                         
                     if goo:
+                        st.write("Button clicked!")
                         xx = ch
                         with st.spinner('Loading text & audio..'):
                             readit(xx)
