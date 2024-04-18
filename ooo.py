@@ -368,9 +368,24 @@ genre = None
 with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
-    col1, col2 = st.columns(2)
-    outer_cols = st.columns([1, 1])
+        
+    st.divider()
+    st.header("Google Play Store")
+    st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
+    st.header("Official PC Version")
+    st.caption("Download from: https://blackbots.gumroad.com/l/manga")
+    st.caption("Join Our Discord: https://discord.gg/HcVPaSpF")
+    st.divider()
     
+    with st.expander("Help"):
+        st.caption("How to use BlackDao: Manga Dōjutsu")
+        st.caption("- Enter search term into field to search Mangas")
+        st.caption("- Copy & Paste link into input field on main window then press Read")
+        st.caption("- View Image Based Links with the Image Based Tab")
+
+col1, col2, col3 = st.columns(3)
+outer_cols = st.columns([1, 3])
+with col1:    
     with st.expander("Search"):
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
         with st.spinner('Searching..'):
@@ -409,7 +424,7 @@ with st.sidebar:
                             st.divider()
                             
     #on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
-
+with col2:
     with st.expander("Random Reads"):
         resp = requests.get("https://daotranslate.us/?s=i")
         if resp.status_code == 200:
@@ -443,7 +458,7 @@ with st.sidebar:
                         if submitted:
                             st.write('Ready')
                     st.divider()
-        
+with col3:        
     with st.expander("Image Based"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
@@ -467,21 +482,6 @@ with st.sidebar:
                         f"{cch}",
                         key=generate_unique_key())
                 st.divider()
-        
-    st.divider()
-    st.header("Google Play Store")
-    st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
-    st.header("Official PC Version")
-    st.caption("Download from: https://blackbots.gumroad.com/l/manga")
-    st.caption("Join Our Discord: https://discord.gg/HcVPaSpF")
-    st.divider()
-    
-    with st.expander("Help"):
-        st.caption("How to use BlackDao: Manga Dōjutsu")
-        st.caption("- Enter search term into field to search Mangas")
-        st.caption("- Copy & Paste link into input field on main window then press Read")
-        st.caption("- View Image Based Links with the Image Based Tab")
-
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
