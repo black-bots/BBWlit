@@ -67,7 +67,7 @@ from easyocr import Reader
 import streamlit as st
 import streamlit_nested_layout
 import streamlit.components.v1 as components
-import streamlit-extras
+from streamlit_extras.beta_expander import beta_expander
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -385,7 +385,7 @@ with st.sidebar:
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 3])
 
-expander =  st.sidebar.beta_expander("Adjust settings")
+expander =  st.beta_expander("Adjust settings")
 expander.write("Test")
 if expander.button("Reset Draft"):
     st.write('Draft resetted')
