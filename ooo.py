@@ -376,11 +376,10 @@ def get_manga_list():
                 title_url = title.a["href"]
                 title_name = title_url.split("series/")[1].replace('/', '').title()
                 ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                manga_titles.append((title_name, ih))
+                manga_titles.append((title_name, ih, title.img["src"]))  # Include img_url
             return manga_titles
-
+manga_list = get_manga_list()
 with st.sidebar:
-    manga_list = get_manga_list()
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
     col1, col2 = st.columns(2)
@@ -419,9 +418,8 @@ with st.sidebar:
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 
     with st.expander("Random Reads"):
-        for title_name, ih in manga_list:
+        for title_name, ih, img_url in manga_list:  # Unpack img_url here
             st.write(f"[{title_name}]({ih})")
-            img_url = title.img["src"]
             if img_url:
                 st.image(img_url, caption=ih, use_column_width='always')
             
