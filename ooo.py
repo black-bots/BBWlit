@@ -428,7 +428,7 @@ with col2:
                 st.divider()
 with col3:
     #search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
-    search_variable = st.text_input(placeholder=":mag: Search..", key='search')
+    search_variable = st.text_input(':mag:', placeholder=":mag: Search..", key='search')
     
     if search_variable:
         with st.spinner('Searching..'):
