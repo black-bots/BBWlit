@@ -424,9 +424,7 @@ with st.sidebar:
                         f"{ch}",
                         key=generate_unique_key())
                     go = st.button("Link", key=generate_unique_key())
-                    if go:
-                        xx = ch
-                        readit(xx)
+
                     st.divider()
         
     with st.expander("Image Based"):
@@ -469,7 +467,9 @@ with st.sidebar:
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
-
+if go:
+    xx = ch
+    readit(xx)
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
