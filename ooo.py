@@ -209,7 +209,6 @@ def filter_english_words(text):
     return text
 
 def readit(url):
-    st.write("Attempting Read -")
     driver = get_driver()
     try:
         driver.get(url)
@@ -384,25 +383,24 @@ with st.sidebar:
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 3])
                             
-with col1:
-    with st.expander(":books: Random"):
-        resp = requests.get("https://daotranslate.us/?s=i")
-        if resp.status_code == 200:
-            soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_list_div = soup.find("div", {"class": "listupd"})
-            if manga_list_div:
-                titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-                for title in titles:
-                    title_url = title.a["href"]
-                    title_name = title_url.split("series/")[1].replace('/', '').title()
-                    ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+with col1:    
+    resp = requests.get("https://daotranslate.us/?s=i")
+    if resp.status_code == 200:
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        manga_list_div = soup.find("div", {"class": "listupd"})
+        if manga_list_div:
+            titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+            for title in titles:
+                title_url = title.a["href"]
+                title_name = title_url.split("series/")[1].replace('/', '').title()
+                ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                with st.expander(":books: Random"):
                     st.write(f"[{title_name}]({ch})")
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ch, use_column_width='always')
-
-                    submed = st.button("Play:loud_sound:", key=generate_unique_key())
-                    st.divider()
+                submed = st.button("Play:loud_sound:", key=generate_unique_key())
+                st.divider()
 with col2:        
     with st.expander(":frame_with_picture: Image"):
         resp = requests.get("https://manhuaaz.com/")
@@ -428,30 +426,30 @@ with col2:
                         key=generate_unique_key())
                 st.divider()
 with col3:    
-    with st.expander(":mag: Search"):
         search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
-        with st.spinner('Searching..'):
-            if search_variable:
-                search_url = f"https://daotranslate.us/?s={search_variable}"
-                resp = requests.get(search_url)
-                if resp.status_code == 200:
-                    soup = BeautifulSoup(resp.text, 'html.parser')
-                    search_result_div = soup.find("div", {"class": "listupd"})
-                    if search_result_div:
-                        titles = search_result_div.find_all("div", {"class": "mdthumb"})
-                
-                        for title in titles:
-                            title_url = title.a["href"]
-                            title_name = title_url.split("series/")[1].replace('/', '').title()
-                            ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+        if search_variable:
+            search_url = f"https://daotranslate.us/?s={search_variable}"
+            resp = requests.get(search_url)
+            if resp.status_code == 200:
+                soup = BeautifulSoup(resp.text, 'html.parser')
+                search_result_div = soup.find("div", {"class": "listupd"})
+                if search_result_div:
+                    titles = search_result_div.find_all("div", {"class": "mdthumb"})
+            
+                    for title in titles:
+                        title_url = title.a["href"]
+                        title_name = title_url.split("series/")[1].replace('/', '').title()
+                        ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                        with st.expander(":mag: Search"):
+                            with st.spinner('Searching..'):
                             st.write(f"[{title_name}]({ih})")
                             img_url = title.img["src"]
                             if img_url:
                                 st.image(img_url, caption=ih)
-
+    
                             submitted = st.button("Play:loud_sound:", key=generate_unique_key())
 
-                            st.divider()
+                        st.divider()
                             
 st.image(main_image)
 res_box = st.empty()
