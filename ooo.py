@@ -388,9 +388,8 @@ outer_cols = st.columns([1, 3])
 
 with col1:
     show_titles = st.button(":books: Random Titles")
-    
     if show_titles:
-        with tab1:
+        with st.expander(':books:'):
             resp = requests.get("https://daotranslate.us/?s=i")
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
@@ -405,108 +404,57 @@ with col1:
                         img_url = title.img["src"]
                         if img_url:
                             st.image(img_url, caption=ch, use_column_width='always')
-                        submed = st.button("Play:loud_sound:", key=generate_unique_key())  # Fix: Button for text-based content
-                        if submed:
-                            readit(ch)
 
-with col2:        
-    with st.expander(":frame_with_picture: Image"):
-        resp = requests.get("https://manhuaaz.com/")
-        if resp.status_code == 200:
-            soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
-            for link in manga_links:
-                href = link.get("href")
-                manga_name = href.split("https://manhuaaz.com/manga/")[1]
-                if "chapter" not in manga_name.lower():
-                    cch = f"{href}chapter-1/"
-                else:
-                    cch = href
-                st.write(f"[{manga_name}]({cch})")
-                img_tag = link.find("img")
-                if img_tag:
-                    img_url = img_tag.get("data-src")
-                    st.image(img_url, caption=cch, use_column_width='always')
-                if cch:
-                    txt = st.text_area(
-                        "Link",
-                        f"{cch}",
-                        key=generate_unique_key())
-                st.divider()
-with col3:
-    with st.expander(":mag: Search"):
-        search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
-        if search_variable:
-            search_url = f"https://daotranslate.us/?s={search_variable}"
-            resp = requests.get(search_url)
+with col2:
+    image_titles = st.button(":frame_with_picture: Image")
+    if image_titles:
+        with st.expander(":frame_with_picture:"):
+            resp = requests.get("https://manhuaaz.com/")
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
-                search_result_div = soup.find("div", {"class": "listupd"})
-                if search_result_div:
-                    titles = search_result_div.find_all("div", {"class": "mdthumb"})
-            
-                    for title in titles:
-                        title_url = title.a["href"]
-                        title_name = title_url.split("series/")[1].replace('/', '').title()
-                        ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                        with st.spinner('Searching..'):
-                            st.write(f"[{title_name}]({ih})")
-                            img_url = title.img["src"]
-                            if img_url:
-                                st.image(img_url, caption=ih)
-                        url = ih
-                        submitted = st.button("Play:loud_sound:", key=generate_unique_key())
-                        if submitted:
-                            try:
-                                driver.quit()
-                            except:
-                                pass
-                            with st.spinner('Loading text & audio..'):
-                                
-                                driver = get_driver()
-                                driver.get(url)
-
-                                if not url:
-                                    res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
-                                else:
-                                    try:
-                                        resp = requests.get(url)
-                                        if resp.status_code == 200:
-                                            soup = BeautifulSoup(resp.text, 'html.parser')
-                                            d = soup.find("div", {"class": "epcontent entry-content"})
-                                            if d:
-                                                all_text = ""
-                                                num_paragraphs = len(d.findAll("p"))
-                                                paragraphs = d.findAll("p")
-                                                desired_group_size = 1  # Set your desired group size here
-                                                num_groups = num_paragraphs // desired_group_size  # Calculate the number of groups based on desired group size
-                                                groups = [paragraphs[i:i + desired_group_size] for i in range(0, len(paragraphs), desired_group_size)]
-                                                story = ""
-                                                for paragraph in paragraphs:
-                                                    story += paragraph.text + "\n"
-                                                story = story.replace('<p>', '')
-                                                story = story.replace('"', '')
-                                                
-                                                with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
-                                                    story = story.replace('"','')
-                                                    tts = gTTS(text=story, lang='en', slow=False)
-                                                    tts.save(tmp_file.name)                            
-                                                    audio = AudioSegment.from_mp3(tmp_file.name)
-                                                    new_file = speedup(audio,1.2,150)
-                                                    new_file.export("file.mp3", format="mp3")
-                                                    autoplay_audio("file.mp3")
-                                                    #st.download_button("file.mp3")
-                            
-                                                driver.quit()
-                                            else:
-                                                st.write('')
-                                        else:
-                                            st.write(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
-                                    except Exception as e:
-                                        st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
-                                driver.quit()
+                manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
+                for link in manga_links:
+                    href = link.get("href")
+                    manga_name = href.split("https://manhuaaz.com/manga/")[1]
+                    if "chapter" not in manga_name.lower():
+                        cch = f"{href}chapter-1/"
+                    else:
+                        cch = href
+                    st.write(f"[{manga_name}]({cch})")
+                    img_tag = link.find("img")
+                    if img_tag:
+                        img_url = img_tag.get("data-src")
+                        st.image(img_url, caption=cch, use_column_width='always')
+                    if cch:
+                        txt = st.text_area(
+                            "Link",
+                            f"{cch}",
+                            key=generate_unique_key())
                     st.divider()
-                            
+                    
+with col3:
+    search_titles = st.button(":books: Random Titles")
+    if search_titles:
+        with st.expander(":mag: Search"):
+            search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
+            if search_variable:
+                search_url = f"https://daotranslate.us/?s={search_variable}"
+                resp = requests.get(search_url)
+                if resp.status_code == 200:
+                    soup = BeautifulSoup(resp.text, 'html.parser')
+                    search_result_div = soup.find("div", {"class": "listupd"})
+                    if search_result_div:
+                        titles = search_result_div.find_all("div", {"class": "mdthumb"})
+                        for title in titles:
+                            title_url = title.a["href"]
+                            title_name = title_url.split("series/")[1].replace('/', '').title()
+                            ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                            with st.spinner('Searching..'):
+                                st.write(f"[{title_name}]({ih})")
+                                img_url = title.img["src"]
+                                if img_url:
+                                    st.image(img_url, caption=ih)
+
 st.image(main_image)
 res_box = st.empty()
 
