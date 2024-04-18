@@ -396,14 +396,14 @@ with st.sidebar:
                                 "Link",
                                 f"{ih}",
                                 key=generate_unique_key())
-                            with st.form("Read"):
+                            with st.form("Read", key=generate_unique_key()):
                                 genre_solid = st.radio(
                                     "",
                                     [f"***{title_name}***:loud_sound:"],
                                     index=None,
                                     key=generate_unique_key()
                                 )
-                                submitted = st.form_submit_button("Submit", key=generate_unique_key())
+                                submitted = st.form_submit_button("Submit")
                                 if submitted:
                                     st.write('Ready')
                             st.divider()
@@ -432,14 +432,14 @@ with st.sidebar:
                         f"{ch}",
                         key=generate_unique_key())
 
-                    with st.form("Read"):
+                    with st.form("Read", key=generate_unique_key()):
                         genre_random = st.radio(
                             "",
                             [f"***{title_name}***:loud_sound:"],
                             index=None,
                             key=generate_unique_key()
                         )
-                        submitted = st.form_submit_button("Submit", key=generate_unique_key())
+                        submitted = st.form_submit_button("Submit")
                         if submitted:
                             st.write('Ready')
                     st.divider()
