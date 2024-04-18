@@ -399,16 +399,16 @@ with col1:
                     ch = f"https://daotranslate.us/{title_name}-chapter-1/"                        
                     url = ch
 
-            st.markdown(f"""
-            <details>
-                <summary>{title_name}</summary>
-                <p><a href='{ch}'>{ch}</a></p>
-                <img src='{title.img['src']}' alt='{title_name}' style='max-width:100%;'>
-                <p>Click the button to play the audio.</p>
-                <button onclick='{readit(ch)}'>Play:loud_sound:</button>
-                <hr>
-            </details>
-            """, unsafe_allow_html=True)
+                    st.markdown(f"""
+                    <details>
+                        <summary>{title_name}</summary>
+                        <p><a href='{ch}'>{ch}</a></p>
+                        <img src='{title.img['src']}' alt='{title_name}' style='max-width:100%;'>
+                        <p>Click the button to play the audio.</p>
+                        <button onclick='{readit(ch)}'>Play:loud_sound:</button>
+                        <hr>
+                    </details>
+                    """, unsafe_allow_html=True)
             
                     submed = st.button("Play:loud_sound:", key=generate_unique_key())  # Fix: Button for text-based content
                     if submed:
