@@ -428,9 +428,9 @@ with col2:
                 st.divider()
 with col3:
     search_variable = st.text_input(":orange[Search:]", placeholder="", key='search', help="Enter a title here to search for")
-    with st.expander(":mag: Search"):
+    if search_variable:
         with st.spinner('Searching..'):
-            if search_variable:
+            with st.expander(":mag: Search"):
                 search_url = f"https://daotranslate.us/?s={search_variable}"
                 resp = requests.get(search_url)
                 if resp.status_code == 200:
