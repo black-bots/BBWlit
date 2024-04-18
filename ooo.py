@@ -382,7 +382,7 @@ with st.sidebar:
         st.caption("- Copy & Paste link into input field on main window then press Read")
         st.caption("- View Image Based Links with the Image Based Tab")
 
-tab1,tab2=st.tabs(['Text Based','Image Based'])
+
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 3])
 
@@ -462,6 +462,7 @@ xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotra
 
 ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
 
+tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:                  
     if "daotrans" in xx:
         if ok:
