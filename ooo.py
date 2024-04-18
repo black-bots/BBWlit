@@ -390,7 +390,7 @@ with col1:
     show_titles = st.button(":books: Random Titles")
     
     if show_titles:
-        with st.sidebar:
+        with tab1:
             resp = requests.get("https://daotranslate.us/?s=i")
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
@@ -406,8 +406,8 @@ with col1:
                         if img_url:
                             st.image(img_url, caption=ch, use_column_width='always')
                         submed = st.button("Play:loud_sound:", key=generate_unique_key())  # Fix: Button for text-based content
-if submed:
-    readit(ch)
+                        if submed:
+                            readit(ch)
 
 with col2:        
     with st.expander(":frame_with_picture: Image"):
