@@ -398,7 +398,7 @@ with st.sidebar:
                                 key=generate_unique_key())
                             genre_solid = st.radio(
                                 "",
-                                [f":rainbow[***{title_name}***]:loud_sound:"],
+                                [f"***{title_name}***:loud_sound:"],
                                 index=None,
                                 key=generate_unique_key()
                             )
@@ -430,7 +430,7 @@ with st.sidebar:
                         
                     genre_random = st.radio(
                         "",
-                        [f":rainbow[***{title_name}***]:loud_sound:"],
+                        [f"***{title_name}***:loud_sound:"],
                         index=None,
                         key=generate_unique_key()
                     )
@@ -477,13 +477,23 @@ with st.sidebar:
 xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
 ok = st.button("📚Read", help="Read", key='readbutton', use_container_width=False)
-if genre_random:
-    genre = genre_random
-    xx = ch
-if genre_solid:
-    genre = genre_solid
-    xx = ih
-st.caption("You selected:", genre)
+try:
+    if genre_random:
+        genre = genre_random
+        xx = ch
+except:
+    pass
+try:
+    if genre_solid:
+        genre = genre_solid
+        xx = ih
+except:
+    pass
+try:
+    st.caption("You selected:", genre)
+except:
+    pass
+    
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
