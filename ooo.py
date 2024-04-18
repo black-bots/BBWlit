@@ -403,7 +403,7 @@ with col1:
                         st.image(img_url, caption=ch, use_column_width='always')
                         
                     url = ch
-                    submed = st.button("Play:loud_sound:", key=generate_unique_key())
+                    submed = st.button("Play:loud_sound:", key=generate_unique_key())  # Fix: Button for text-based content
                     if submed:
                         try:
                             driver.quit()
@@ -412,7 +412,7 @@ with col1:
                         with st.spinner('Loading text & audio..'):
                             driver = get_driver()
                             driver.get(url)
-
+                    
                             if not url:
                                 res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
                             else:
@@ -443,7 +443,7 @@ with col1:
                                                 new_file.export("file.mp3", format="mp3")
                                                 autoplay_audio("file.mp3")
                                                 #st.download_button("file.mp3")
-                        
+                                        
                                             driver.quit()
                                         else:
                                             st.write('')
