@@ -255,11 +255,13 @@ def readit(url):
                         nxtchap = str(int(chap) + int(+1))
                         prvchap = str(int(chap))
                         nxtUrl = str(oldurl.replace(chap, nxtchap))
-                        st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + nxtUrl)
-                        txt = st.text_area(
-                            "Link",
-                            f"{nxtUrl}",
-                            key=generate_unique_key())
+                        obfuscated_text, mapping = obfuscate(nxtUrl)
+                        st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + obfuscated_text)
+                        st.caption('Copy Code')
+                        txt = f"""
+                        {obfuscated_text}
+                        """
+                        st.code(txt, language='java')
                     with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                         story = story.replace('"','')
                         tts = gTTS(text=story, lang='en', slow=False)
@@ -486,6 +488,18 @@ if ok:
                     st.image(image_link, use_column_width=True)
                 st.write(f"Total Images: {len(st.session_state.image_links)}")
                 transcribe_to_audio(st.session_state.image_links)
+                oldurl = url
+                chap = ''.join([n for n in oldurl if n.isdigit()])
+                nxtchap = str(int(chap) + int(+1))
+                prvchap = str(int(chap))
+                nxtUrl = str(oldurl.replace(chap, nxtchap))
+                obfuscated_text, mapping = obfuscate(nxtUrl)
+                st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + obfuscated_text)
+                st.caption('Copy Code')
+                txt = f"""
+                {obfuscated_text}
+                """
+                st.code(txt, language='java')
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
