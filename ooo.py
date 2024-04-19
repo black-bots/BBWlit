@@ -498,7 +498,7 @@ tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 
 with tab1:
-    if lens(xx) == 8:
+    if len(xx) == 8:
         readit(decoded_string)
     if "daotrans" in xx:
         if ok:
