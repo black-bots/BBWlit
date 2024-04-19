@@ -205,11 +205,16 @@ def load_model() -> Reader:
     return ocr.Reader(["en"], model_storage_directory=".")
 
 def filter_english_words(text):
-    english_word_pattern = r'\b[a-zA-Z]+(?:\'[a-zA-Z]+)?(?:-[a-zA-Z]+)?(?:[.,!?\'":;\[\]()*&^%$#@`~\\/]|\.\.\.)?\b'
-    english_words = re.findall(english_word_pattern, text)
-    english_text = ' '.join(english_words)
-    text = english_text.lower()
+    try:
+        english_word_pattern = r'\b[a-zA-Z]+(?:\'[a-zA-Z]+)?(?:-[a-zA-Z]+)?(?:[.,!?\'":;\[\]()*&^%$#@`~\\/]|\.\.\.)?\b'
+        english_words = re.findall(english_word_pattern, text)
+        english_text = ' '.join(english_words)
+        text = english_text.lower()
+    except Exception as e:
+        st.write(f"Error filtering English words: {e}")
+        text = ""  # Return empty string if an error occurs
     return text
+
 
 def readit(url):
     driver = get_driver()
