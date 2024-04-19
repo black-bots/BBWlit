@@ -165,8 +165,11 @@ def transcribe_to_audio(image_links):
             if not is_supported_image_format(img_link):
                 continue
             with st.spinner(" Getting image text "):
-                reader = ocr.Reader(['en'])
-                result = reader.readtext(img_link)
+                try:
+                    reader = ocr.Reader(['en'])
+                    result = reader.readtext(img_link)
+                except:
+                    pass
                 result_text = []
                 for text in result:
                     result_text.append(text[1].strip())
