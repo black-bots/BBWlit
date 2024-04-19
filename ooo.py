@@ -458,7 +458,7 @@ with col1:
         
                     st.divider()
 with col2:
-    with st.expander(f"{manga_name} :frame_with_picture: Image"):
+    with st.expander(f":frame_with_picture: Comics"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
