@@ -299,22 +299,24 @@ def readit(url):
 def deobfuscate(text): 
     result = "" 
     count = 0
+    key = random.randint(1, 255)  # Generate a random key
     for letter in text: 
         if count >= 10:
             break
         if letter not in ['.', ',', '`', '"', ':', ';', '[', ']', '{', '}']:
-            result += chr(ord(letter) - 1)
+            result += chr(ord(letter) - key)  # Use the random key for deobfuscation
             count += 1
     return result
 
 def obfuscate(text):
     result = ""
     count = 0
+    key = random.randint(1, 255)  # Generate a random key
     for letter in text:
         if count >= 10:
             break
         if letter not in ['.', ',', '`', '"', ':', ';', '[', ']', '{', '}']:
-            result += chr(ord(letter) + 1)
+            result += chr(ord(letter) + key)  # Use the same random key for obfuscation
             count += 1
     return result
 
