@@ -47,6 +47,7 @@
 import os
 import base64
 import time
+import string
 import random
 import tempfile
 import io
@@ -297,26 +298,15 @@ def readit(url):
     driver.quit()
 
 
-def deobfuscate(text):
-    result = ""
-    for letter in text:
-        offset = random.randint(1, 100)  # Generate a random offset
-        char_code = ord(letter) - offset
-        # Ensure the resulting character is an English alphabet
-        if 65 <= char_code <= 90 or 97 <= char_code <= 122:
-            result += chr(char_code)
-    return result[:10]  # Limit the output to 10 characters
-
 def obfuscate(text):
-    result = ""
-    for letter in text:
-        offset = random.randint(1, 100)  # Generate a random offset
-        char_code = ord(letter) + offset
-        # Ensure the resulting character is an English alphabet
-        if 65 <= char_code <= 90 or 97 <= char_code <= 122:
-            result += chr(char_code)
-    return result
+    char_map = {char: random.choice(string.ascii_letters) for char in text}
+    obfuscated_text = ''.join(char_map[char] for char in text)
+    return obfuscated_text, char_map
 
+def deobfuscate(obfuscated_text, char_map):
+    reverse_char_map = {value: key for key, value in char_map.items()}
+    original_text = ''.join(reverse_char_map.get(char, char) for char in obfuscated_text)
+    return original_text
 
 history = []
 ih = ""
@@ -431,13 +421,12 @@ if search_variable:
                                 st.image(img_url, caption=ih)
 
                             original_string = ih
-                            truncated_key = key_code(original_string)
-                            decoded_string = decode_key(truncated_key)
+                            obfuscated_text, char_map = obfuscate(original_string)
                             
                             if ih:
                                 txt = st.text_area(
                                     "Copy",
-                                    f"{truncated_key}",
+                                    f"{obfuscated_text}",
                                     key=generate_unique_key())
                             st.divider()
                             
@@ -460,11 +449,11 @@ with col1:
                         st.image(img_url, caption=ch, use_column_width='always')
                     
                     original_string = ch
-                    truncated_key = deobfuscate(original_string)
+                    obfuscated_text, char_map = obfuscate(original_string)
                     if ch:
                         txt = st.text_area(
                             "Copy",
-                            f"{truncated_key}",
+                            f"{obfuscated_text}",
                             key=generate_unique_key())
                     st.divider()
 
@@ -489,11 +478,12 @@ with col2:
                     st.image(img_url, caption=cch, use_column_width='always')
 
                 original_string = cch
-                truncated_key = deobfuscate(original_string)
+                obfuscated_text, char_map = obfuscate(original_string)
+                
                 if cch:
                     txt = st.text_area(
                         "Copy",
-                        f"{truncated_key}",
+                        f"{obfuscated_text}",
                         key=generate_unique_key())
                 st.divider()
                             
@@ -506,9 +496,9 @@ ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container
     
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
-if len(xx) == 10:    
-    decoded_key = obfuscate(xx)
-    st.write(decoded_key)
+if len(xx) < 3:
+    reverted_text = deobfuscate(xx, char_map)
+    st.write(reverted_text)
     #readit(decoded_string)
 
 with tab1:
