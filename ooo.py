@@ -206,6 +206,9 @@ def load_model() -> Reader:
 
 def filter_english_words(text):
     try:
+        if not isinstance(text, str):
+            raise ValueError("Input must be a string")
+        
         english_word_pattern = r'\b[a-zA-Z]+(?:\'[a-zA-Z]+)?(?:-[a-zA-Z]+)?(?:[.,!?\'":;\[\]()*&^%$#@`~\\/]|\.\.\.)?\b'
         english_words = re.findall(english_word_pattern, text)
         english_text = ' '.join(english_words)
@@ -214,6 +217,7 @@ def filter_english_words(text):
         st.write(f"Error filtering English words: {e}")
         text = ""  # Return empty string if an error occurs
     return text
+
 
 
 def readit(url):
