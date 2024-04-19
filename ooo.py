@@ -508,8 +508,8 @@ with tab1:
                                 
 
 with tab2:
-    if "daotrans" not in xx.lower() or if len(xx) > 8:
-        url = xx
+    url = xx
+    if "daotrans" not in xx.lower() and len(url) > 8:
         if tab2:
             if ok:
                 with st.spinner('Loading text & audio..'):
