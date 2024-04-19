@@ -445,7 +445,7 @@ with col1:
                     if ch:
                         txt = st.text_area(
                             "Copy",
-                            f"{key_code}",
+                            f"{key_code()}",
                             key=generate_unique_key())
                     st.divider()
 
