@@ -299,13 +299,16 @@ def readit(url):
 
 
 def obfuscate(text):
-    char_map = {char: random.choice(string.ascii_letters) for char in text}
-    obfuscated_text = ''.join(char_map[char] for char in text)
-    return obfuscated_text, char_map
+    mapping = {}
+    for i in range(26):
+        mapping[chr(65 + i)] = chr(((i + 1) % 26) + 65)
+        mapping[chr(97 + i)] = chr(((i + 1) % 26) + 97) 
+    obfuscated_text = ''.join(mapping.get(char, char) for char in text)
+    return obfuscated_text, mapping
 
-def deobfuscate(obfuscated_text, char_map):
-    reverse_char_map = {value: key for key, value in char_map.items()}
-    original_text = ''.join(reverse_char_map.get(char, char) for char in obfuscated_text)
+def deobfuscate(obfuscated_text, mapping):
+    inverted_mapping = {v: k for k, v in mapping.items()}
+    original_text = ''.join(inverted_mapping.get(char, char) for char in obfuscated_text)
     return original_text
 
 history = []
@@ -421,7 +424,7 @@ if search_variable:
                                 st.image(img_url, caption=ih)
 
                             original_string = ih
-                            obfuscated_text, char_map = obfuscate(original_string)
+                            obfuscated_text, mapping = obfuscate(original_string)
                             
                             if ih:
                                 txt = st.text_area(
@@ -449,7 +452,7 @@ with col1:
                         st.image(img_url, caption=ch, use_column_width='always')
                     
                     original_string = ch
-                    obfuscated_text, char_map = obfuscate(original_string)
+                    obfuscated_text, mapping = obfuscate(original_string)
                     if ch:
                         txt = st.text_area(
                             "Copy",
@@ -478,7 +481,7 @@ with col2:
                     st.image(img_url, caption=cch, use_column_width='always')
 
                 original_string = cch
-                obfuscated_text, char_map = obfuscate(original_string)
+                obfuscated_text, mapping = obfuscate(original_string)
                 
                 if cch:
                     txt = st.text_area(
@@ -500,7 +503,7 @@ tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
     if ok:
-        reverted_text = deobfuscate(xx, char_map)
+        reverted_text = deobfuscate(xx, mapping)
         st.write(reverted_text)
         #readit(decoded_string)
         if "daotrans" in xx:
