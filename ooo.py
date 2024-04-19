@@ -390,7 +390,7 @@ def generate_unique_key(input_string):
     return hashlib.sha256(input_string.encode()).hexdigest()
 
 def key_to_string(key):
-    return key[:16]  # Just an example, you might need a more complex logic here
+    return str(int(key, 16))  # Convert hexadecimal hash to integer and then to string
 
 if search_variable:
     with st.spinner('Searching..'):
@@ -413,15 +413,11 @@ if search_variable:
                             img_url = title.img["src"]
                             if img_url:
                                 st.image(img_url, caption=ih)
-                            keys = generate_unique_key()
-                            keyd = key_to_string(str(keys))  # Generate unique key
-                            st.write(f'Key: {keyd}')
-                            if keyd:
+                            if ih:
                                 txt = st.text_area(
                                     "Copy",
-                                    f"{keyd}",
-                                    key=generate_unique_key())  # Convert key to string for key
-
+                                    f"{ih}",
+                                    key=generate_unique_key())
                             st.divider()
                             
 with col1:
@@ -441,12 +437,18 @@ with col1:
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ch, use_column_width='always')
+
+                    # Example usage:
+                    input_string = title_name
+                    generated_key = generate_unique_key(input_string)
+                    string_key = key_to_string(generated_key)
+                    st.write(string_key)                    
+                    
                     if ch:
                         txt = st.text_area(
                             "Copy",
                             f"{ch}",
                             key=generate_unique_key())
-
                     st.divider()
 
 with col2:        
