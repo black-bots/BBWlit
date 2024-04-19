@@ -296,14 +296,16 @@ def readit(url):
             st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
 
-def key_code(ch):
-    hashed_key = hashlib.sha256(ch.encode()).hexdigest()
-    truncated_key = hashed_key[:8]
-    return truncated_key
-
-def decode_key(key):
-    return key[:8]
-
+def deobfuscate(text): 
+    result = "" 
+    for letter in text: 
+        result += chr(ord(letter) - 1) 
+    return result
+def obfuscate(text):
+    result = ""
+    for letter in text:
+        result += chr(ord(letter) + 1)
+    return result
 
 history = []
 ih = ""
@@ -447,8 +449,7 @@ with col1:
                         st.image(img_url, caption=ch, use_column_width='always')
                     
                     original_string = ch
-                    truncated_key = key_code(original_string)
-                    decoded_string = decode_key(truncated_key)
+                    truncated_key = deobfuscate(original_string)
                     if ch:
                         txt = st.text_area(
                             "Copy",
@@ -477,8 +478,7 @@ with col2:
                     st.image(img_url, caption=cch, use_column_width='always')
 
                 original_string = cch
-                truncated_key = key_code(original_string)
-                decoded_string = decode_key(truncated_key)
+                truncated_key = deobfuscate(original_string)
                 if cch:
                     txt = st.text_area(
                         "Copy",
@@ -499,10 +499,8 @@ tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
     if ok:
-        if len(xx) == 8:
-            copied_code = xx
-    
-            decoded_key = decode_key(copied_code)
+        if len(xx) == 8:    
+            decoded_key = obfuscate(xx)
             st.write(decoded_key)
             #readit(decoded_string)
         if "daotrans" in xx:
