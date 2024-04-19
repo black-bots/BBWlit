@@ -387,11 +387,9 @@ outer_cols = st.columns([1, 2])
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
 
 def generate_unique_key(input_string):
-    # Generate a unique key based on the input string
     return hashlib.sha256(input_string.encode()).hexdigest()
 
 def key_to_string(key):
-    # Convert the key back into the original string
     return key[:16]  # Just an example, you might need a more complex logic here
 
 if search_variable:
@@ -416,7 +414,7 @@ if search_variable:
                             if img_url:
                                 st.image(img_url, caption=ih)
                             keys = generate_unique_key()
-                            keyd = key_to_string(keys)  # Generate unique key
+                            keyd = key_to_string(str(keys))  # Generate unique key
                             st.write(f'Key: {keyd}')
                             if keyd:
                                 txt = st.text_area(
