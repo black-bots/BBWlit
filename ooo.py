@@ -456,7 +456,7 @@ with col1:
                         txt = f"""
                         {obfuscated_text}
                         """
-                        st.code(txt, language='markdown')
+                        st.code(txt, language='java')
         
                     st.divider()
 
