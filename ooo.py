@@ -388,8 +388,8 @@ with st.sidebar:
     
     with st.expander("Help"):
         st.caption("How to use BlackDao: Manga Dōjutsu")
-        st.caption("- `Copy` a Link")
-        st.caption("- `Paste` Link onto `Enter Link` field")
+        st.caption("- `Copy` a Code")
+        st.caption("- `Paste` Code onto `Enter Code` field")
         st.caption("- `Press Read`")
         st.caption("- View Image Based Links with the `Image Based` tab")
 
@@ -452,7 +452,10 @@ with col1:
                     original_string = ch
                     obfuscated_text, mapping = obfuscate(original_string)
                     if ch:
-                        txt = f'{obfuscated_text}'
+                        st.caption('Copy Code')
+                        txt = f"""
+                        {obfuscated_text}
+                        """
                         st.code(txt, language='python')
         
                     st.divider()
@@ -490,7 +493,7 @@ with col2:
 st.image(main_image)
 res_box = st.empty()
 
-xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
+xx = st.text_input(":orange[Enter Code:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
 ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
     
