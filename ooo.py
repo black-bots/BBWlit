@@ -452,10 +452,9 @@ with col1:
                     original_string = ch
                     obfuscated_text, mapping = obfuscate(original_string)
                     if ch:
-                        txt = st.text_area(
-                            "Copy",
-                            f"{obfuscated_text}",
-                            key=generate_unique_key())
+                        txt = f'{obfuscated_text}'
+                        st.code(txt, language='python')
+        
                     st.divider()
 
 with col2:        
