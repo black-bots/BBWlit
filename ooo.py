@@ -420,7 +420,7 @@ if search_variable:
                             if ih:
                                 txt = st.text_area(
                                     "Copy",
-                                    f"{keycode()}",
+                                    f"{key_code()}",
                                     key=generate_unique_key())
                             st.divider()
                             
