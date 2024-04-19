@@ -415,16 +415,15 @@ if search_variable:
                             img_url = title.img["src"]
                             if img_url:
                                 st.image(img_url, caption=ih)
-                            keyd = generate_unique_key(title_name)  # Generate unique key
+                            keys = generate_unique_key()
+                            keyd = key_to_string(keys)  # Generate unique key
                             st.write(f'Key: {keyd}')
                             if keyd:
-                                try:
-                                    txt = st.text_area(
-                                        "Copy",
-                                        f"{keyd}",
-                                        key=key_to_string(keyd))  # Convert key to string for key
-                                except:
-                                    pass
+                                txt = st.text_area(
+                                    "Copy",
+                                    f"{keyd}",
+                                    key=generate_unique_key())  # Convert key to string for key
+
                             st.divider()
                             
 with col1:
@@ -445,13 +444,11 @@ with col1:
                     if img_url:
                         st.image(img_url, caption=ch, use_column_width='always')
                     if ch:
-                        try:
-                            txt = st.text_area(
-                                "Copy",
-                                f"{ch}",
-                                key=generate_unique_key())
-                        except:
-                            pass
+                        txt = st.text_area(
+                            "Copy",
+                            f"{ch}",
+                            key=generate_unique_key())
+
                     st.divider()
 
 with col2:        
