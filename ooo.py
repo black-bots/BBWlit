@@ -386,8 +386,6 @@ outer_cols = st.columns([1, 2])
 
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
 
-def generate_unique_key(input_string):
-    return hashlib.sha256(input_string.encode()).hexdigest()
 
 def key_to_string(key):
     return str(int(key, 16))  # Convert hexadecimal hash to integer and then to string
