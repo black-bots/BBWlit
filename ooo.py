@@ -252,33 +252,34 @@ def readit(url):
                           </style>""",
                           unsafe_allow_html=True
                     )
-                    
-                    with st.expander("Read"):
-                        from annotated_text import annotated_text
-                        paragraphs = story.split("\n") 
-                        formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
-                        annotated_text(*formatted_paragraphs)
-                        st.caption(f'{len(story)} characters in this chapter.')
-
-                        oldurl = url
-                        chap = ''.join([n for n in oldurl if n.isdigit()])
-                        nxtchap = str(int(chap) + int(+1))
-                        prvchap = str(int(chap))
-                        nxtUrl = str(oldurl.replace(chap, nxtchap))
-                        st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + nxtUrl)
-                        txt = st.text_area(
-                            "Link",
-                            f"{nxtUrl}",
-                            key=generate_unique_key())
-                    with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
-                        story = story.replace('"','')
-                        tts = gTTS(text=story, lang='en', slow=False)
-                        tts.save(tmp_file.name)                            
-                        audio = AudioSegment.from_mp3(tmp_file.name)
-                        new_file = speedup(audio,1.2,150)
-                        new_file.export("file.mp3", format="mp3")
-                        autoplay_audio("file.mp3")
-                        #st.download_button("file.mp3")
+                    with st.spinner('Loading text..'):
+                        with st.expander("Read"):
+                            from annotated_text import annotated_text
+                            paragraphs = story.split("\n") 
+                            formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
+                            annotated_text(*formatted_paragraphs)
+                            st.caption(f'{len(story)} characters in this chapter.')
+    
+                            oldurl = url
+                            chap = ''.join([n for n in oldurl if n.isdigit()])
+                            nxtchap = str(int(chap) + int(+1))
+                            prvchap = str(int(chap))
+                            nxtUrl = str(oldurl.replace(chap, nxtchap))
+                            st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + nxtUrl)
+                            txt = st.text_area(
+                                "Link",
+                                f"{nxtUrl}",
+                                key=generate_unique_key())
+                    with st.spinner('Loading audio..'):
+                        with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
+                            story = story.replace('"','')
+                            tts = gTTS(text=story, lang='en', slow=False)
+                            tts.save(tmp_file.name)                            
+                            audio = AudioSegment.from_mp3(tmp_file.name)
+                            new_file = speedup(audio,1.2,150)
+                            new_file.export("file.mp3", format="mp3")
+                            autoplay_audio("file.mp3")
+                            #st.download_button("file.mp3")
                     for group in groups:
                         group_text = ""
                         for d_paragraph in group:
@@ -472,7 +473,7 @@ tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:                  
     if "daotrans" in xx:
         if ok:
-            with st.spinner('Loading text & audio..'):
+            with st.spinner('Loading, please be patient..'):
                 readit(xx)
 
 with tab2:
