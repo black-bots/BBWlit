@@ -452,6 +452,16 @@ with col1:
                     original_string = ch
                     obfuscated_text, mapping = obfuscate(original_string)
                     if ch:
+                        custom_css = """
+                        <style>
+                        .stCodeBlock.st-emotion-cache-12r09dv.e1ycw9pz1 {
+                            background-color: black;
+                        }
+                        </style>
+                        """
+                        
+                        # Inject the custom CSS
+                        st.markdown(custom_css, unsafe_allow_html=True)
                         st.caption('Copy Code')
                         txt = f"""
                         {obfuscated_text}
