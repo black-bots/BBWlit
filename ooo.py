@@ -302,7 +302,7 @@ def key_code(ch):
     return truncated_key
 
 def decode_key(key):
-    return key 
+    return key[:8]
 
 
 history = []
@@ -500,8 +500,8 @@ tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
     if ok:
         if len(xx) == 8:
-            decoded_string = decode_key(xx)
-            st.write(decoded_string)
+            decoded_key = decode_key(xx)
+            st.write(decoded_key)
             #readit(decoded_string)
         if "daotrans" in xx:
             with st.spinner('Loading, please be patient..'):
