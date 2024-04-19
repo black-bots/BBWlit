@@ -499,21 +499,18 @@ ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container
     
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
-
-
 with tab1:
     if ok:
-        reverted_text = deobfuscate(xx, mapping)
-        st.write(reverted_text)
-        #readit(decoded_string)
-        if "daotrans" in xx:
+        url = deobfuscate(xx, mapping)
+        if "daotrans" in url:
             with st.spinner('Loading, please be patient..'):
-                readit(xx)
+                readit(url)
                                 
 
 with tab2:
-    url = xx
-    if "daotrans" not in xx.lower() and len(url) > 10:
+    reverted_text = deobfuscate(xx, mapping)
+    url = reverted_text
+    if "daotrans" not in url.lower():
         if tab2:
             if ok:
                 driver = get_driver()
