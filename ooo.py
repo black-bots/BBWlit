@@ -487,7 +487,7 @@ with tab2:
         if tab2:
             if ok:
                 with st.spinner('Loading text & audio..'):
-                    driver = get_driver()
+                    #driver = get_driver()
                     st.session_state.image_links = get_image_links(url)
                     st.session_state.current_image_index = 0
                     if st.session_state.image_links:
