@@ -376,7 +376,6 @@ with st.sidebar:
     
     with st.expander("Help"):
         st.caption("How to use BlackDao: Manga Dōjutsu")
-        st.caption("- Enter search term into `Search` field to find `Links`")
         st.caption("- `Copy` a Link")
         st.caption("- `Paste` Link onto `Enter Link` field")
         st.caption("- `Press Read`")
@@ -386,6 +385,14 @@ col1, col2 = st.columns(2)
 outer_cols = st.columns([1, 2])
 
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
+
+def generate_unique_key(input_string):
+    # Generate a unique key based on the input string
+    return hashlib.sha256(input_string.encode()).hexdigest()
+
+def key_to_string(key):
+    # Convert the key back into the original string
+    return key[:16]  # Just an example, you might need a more complex logic here
 
 if search_variable:
     with st.spinner('Searching..'):
@@ -408,12 +415,15 @@ if search_variable:
                             img_url = title.img["src"]
                             if img_url:
                                 st.image(img_url, caption=ih)
-                            if ih:
+                            keyd = generate_unique_key(title_name)  # Generate unique key
+                            st.write(f'Key: {keyd}')
+                            if keyd:
                                 txt = st.text_area(
                                     "Copy",
-                                    f"{ih}",
-                                    key=generate_unique_key())
+                                    f"{keyd}",
+                                    key=key_to_string(keyd))  # Convert key to string for key
                             st.divider()
+                            
 with col1:
     with st.expander(':books: Random Titles'):
         resp = requests.get("https://daotranslate.us/?s=i")
