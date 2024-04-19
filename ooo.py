@@ -168,9 +168,10 @@ def transcribe_to_audio(image_links):
                 try:
                     reader = ocr.Reader(['en'])
                     result = reader.readtext(img_link)
+                    result_text = []
                 except:
                     pass
-                result_text = []
+                
                 for text in result:
                     result_text.append(text[1].strip())
             text = filter_english_words(result_text)
