@@ -356,8 +356,9 @@ st.markdown("""
         .viewerBadge_container__r5tak.styles_viewerBadge__CvC9N{display:none}
         [data-testid='stSidebarNav'] > ul {min-height: 50vh;}
         [data-testid='stSidebarNav'] > ul {color: red;}
-        div.stCodeBlock{background-color: black;}
-        div.stButton {
+        div.stCodeBlock{color: black;}
+        stCodeBlock{color: black;}
+        div.stButton > button:first-child {
             background-color: #0099ff;
             color:#ffffff;
         }
