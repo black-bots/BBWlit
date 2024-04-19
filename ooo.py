@@ -356,7 +356,15 @@ st.markdown("""
         .viewerBadge_container__r5tak.styles_viewerBadge__CvC9N{display:none}
         [data-testid='stSidebarNav'] > ul {min-height: 50vh;}
         [data-testid='stSidebarNav'] > ul {color: red;}
-        .stCodeBlock{background-color: black;}
+        div.stCodeBlock{background-color: black;}
+        div.stButton {
+            background-color: #0099ff;
+            color:#ffffff;
+        }
+        div.stButton > button:hover {
+            background-color: #ff0000;
+            color:#00ff00;
+            }
     </style>
 """, unsafe_allow_html=True)
 
