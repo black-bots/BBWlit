@@ -422,10 +422,11 @@ if search_variable:
                             obfuscated_text, mapping = obfuscate(original_string)
                             
                             if ih:
-                                txt = st.text_area(
-                                    "Copy",
-                                    f"{obfuscated_text}",
-                                    key=generate_unique_key())
+                                st.caption('Copy Code')
+                                txt = f"""
+                                {obfuscated_text}
+                                """
+                                st.code(txt, language='java')
                             st.divider()
                             
 with col1:
@@ -481,10 +482,11 @@ with col2:
                 obfuscated_text, mapping = obfuscate(original_string)
                 
                 if cch:
-                    txt = st.text_area(
-                        "Copy",
-                        f"{obfuscated_text}",
-                        key=generate_unique_key())
+                    st.caption('Copy Code')
+                    txt = f"""
+                    {obfuscated_text}
+                    """
+                    st.code(txt, language='java')
                 st.divider()
                             
 st.image(main_image)
