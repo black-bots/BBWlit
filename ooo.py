@@ -298,13 +298,24 @@ def readit(url):
 
 def deobfuscate(text): 
     result = "" 
+    count = 0
     for letter in text: 
-        result += chr(ord(letter) - 1) 
+        if count >= 10:
+            break
+        if letter not in ['.', ',', '`', '"', ':', ';', '[', ']', '{', '}']:
+            result += chr(ord(letter) - 1)
+            count += 1
     return result
+
 def obfuscate(text):
     result = ""
+    count = 0
     for letter in text:
-        result += chr(ord(letter) + 1)
+        if count >= 10:
+            break
+        if letter not in ['.', ',', '`', '"', ':', ';', '[', ']', '{', '}']:
+            result += chr(ord(letter) + 1)
+            count += 1
     return result
 
 history = []
