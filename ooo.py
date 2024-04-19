@@ -296,28 +296,24 @@ def readit(url):
             st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
 
-def deobfuscate(text): 
-    result = "" 
-    count = 0
-    key = random.randint(1, 255)  # Generate a random key
-    for letter in text: 
-        if count >= 10:
-            break
-        if letter not in ['.', ',', '`', '"', ':', ';', '[', ']', '{', '}']:
-            result += chr(ord(letter) - key)  # Use the random key for deobfuscation
-            count += 1
-    return result
+def deobfuscate(text):
+    result = ""
+    for letter in text:
+        offset = random.randint(1, 100)  # Generate a random offset
+        char_code = ord(letter) - offset
+        # Ensure the resulting Unicode code point is within the valid range
+        char_code = max(0, min(char_code, 0x10FFFF))
+        result += chr(char_code)
+    return result[:10]  # Limit the output to 10 characters
 
 def obfuscate(text):
     result = ""
-    count = 0
-    key = random.randint(1, 255)  # Generate a random key
     for letter in text:
-        if count >= 10:
-            break
-        if letter not in ['.', ',', '`', '"', ':', ';', '[', ']', '{', '}']:
-            result += chr(ord(letter) + key)  # Use the same random key for obfuscation
-            count += 1
+        offset = random.randint(1, 100)  # Generate a random offset
+        char_code = ord(letter) + offset
+        # Ensure the resulting Unicode code point is within the valid range
+        char_code = max(0, min(char_code, 0x10FFFF))
+        result += chr(char_code)
     return result
 
 history = []
