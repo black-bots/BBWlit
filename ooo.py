@@ -499,6 +499,7 @@ tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
     if len(xx) == 8:
+        decoded_string = decode_key(xx)
         readit(decoded_string)
     if "daotrans" in xx:
         if ok:
@@ -507,7 +508,8 @@ with tab1:
                                 
 
 with tab2:
-    if "daotrans" not in xx.lower():
+    if "daotrans" not in xx.lower() or if len(xx) > 8:
+        url = xx
         if tab2:
             if ok:
                 with st.spinner('Loading text & audio..'):
