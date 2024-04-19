@@ -354,12 +354,9 @@ st.markdown("""
         .styles_terminalButton__JBj5T{display:none}
         .viewerBadge_container__r5tak.styles_viewerBadge__CvC9N{visibility: hidden;}
         .viewerBadge_container__r5tak.styles_viewerBadge__CvC9N{display:none}
-        [data-testid='stSidebarNav'] > ul {
-            min-height: 50vh;
-        }
-        [data-testid='stSidebarNav'] > ul {
-            color: red;
-        }
+        [data-testid='stSidebarNav'] > ul {min-height: 50vh;}
+        [data-testid='stSidebarNav'] > ul {color: red;}
+        .stCodeBlock{background-color: black;}
     </style>
 """, unsafe_allow_html=True)
 
@@ -452,16 +449,6 @@ with col1:
                     original_string = ch
                     obfuscated_text, mapping = obfuscate(original_string)
                     if ch:
-                        custom_css = """
-                        <style>
-                        .stCodeBlock.st-emotion-cache-12r09dv.e1ycw9pz1 {
-                            background-color: black;
-                        }
-                        </style>
-                        """
-                        
-                        # Inject the custom CSS
-                        st.markdown(custom_css, unsafe_allow_html=True)
                         st.caption('Copy Code')
                         txt = f"""
                         {obfuscated_text}
