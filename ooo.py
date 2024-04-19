@@ -471,18 +471,12 @@ res_box = st.empty()
 
 xx = st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here")
 ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
-tab1,tab2=st.tabs(['Text Based','Image Based'])
 
-with tab1:
-    if ok:
-        url = deobfuscate(xx, mapping)
-        if "daotrans" in url:
-            with st.spinner('Loading, please be patient..'):
-                readit(url)
-
-with tab2:
-    reverted_text = deobfuscate(xx, mapping)
-    url = reverted_text
+if ok:
+    url = deobfuscate(xx, mapping)
+    if "daotrans" in url:
+        with st.spinner('Loading, please be patient..'):
+            readit(url)
     if "daotrans" not in url.lower():
         if tab2:
             if ok:
