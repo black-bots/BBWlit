@@ -418,10 +418,13 @@ if search_variable:
                             keyd = generate_unique_key(title_name)  # Generate unique key
                             st.write(f'Key: {keyd}')
                             if keyd:
-                                txt = st.text_area(
-                                    "Copy",
-                                    f"{keyd}",
-                                    key=key_to_string(keyd))  # Convert key to string for key
+                                try:
+                                    txt = st.text_area(
+                                        "Copy",
+                                        f"{keyd}",
+                                        key=key_to_string(keyd))  # Convert key to string for key
+                                except:
+                                    pass
                             st.divider()
                             
 with col1:
@@ -442,10 +445,13 @@ with col1:
                     if img_url:
                         st.image(img_url, caption=ch, use_column_width='always')
                     if ch:
-                        txt = st.text_area(
-                            "Copy",
-                            f"{ch}",
-                            key=generate_unique_key())
+                        try:
+                            txt = st.text_area(
+                                "Copy",
+                                f"{ch}",
+                                key=generate_unique_key())
+                        except:
+                            pass
                     st.divider()
 
 with col2:        
