@@ -45,30 +45,32 @@
 #                                     888P                                                      
 #                                   .J88" "                                                     
 import os
-import base64
-import time
-import string
-import random
-import tempfile
 import io
-from io import BytesIO
-import uuid
+import base64
 import hashlib
+import random
+import string
+import tempfile
+import time
+import uuid
+from io import BytesIO
 
 import re
 import requests
-from pydub import AudioSegment
-from pydub.effects import speedup
-from gtts import gTTS
 from PIL import Image
+import numpy as np
 
 import easyocr as ocr  # OCR
-import numpy as np  # Image Processing
 from easyocr import Reader
+from gtts import gTTS
+from pydub import AudioSegment
+from pydub.effects import speedup
 import streamlit as st
 import streamlit_nested_layout
 import streamlit.components.v1 as components
 import streamlit_extras
+
+from bs4 import BeautifulSoup
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -78,7 +80,6 @@ from selenium.common.exceptions import WebDriverException
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
-from bs4 import BeautifulSoup
 import webbrowser
 
 
@@ -132,13 +133,10 @@ def perform_img_actions(url):
     with st.spinner('Loading text & audio..'):
         st.session_state.image_links = get_image_links(url)
         st.session_state.current_image_index = 0
-
         if st.session_state.image_links:
             for image_link in st.session_state.image_links:
                 st.image(image_link, use_column_width=True)
-
             st.write(f"Total Images: {len(st.session_state.image_links)}")
-
             transcribe_to_audio(st.session_state.image_links)
 
 def get_image_links(url):
@@ -151,17 +149,12 @@ def get_image_links(url):
         else:
             st.write(f'Error loading URL: {ex}')
             return []
-
     image_links = []
-
     img_elements = driver.find_elements(By.CSS_SELECTOR, 'img')
-
     for img_element in img_elements:
         img_src = img_element.get_attribute('src')
-
         if img_src and is_image_link(img_src):
             image_links.append(img_src)
-
     driver.quit()
     return image_links
 
@@ -171,16 +164,13 @@ def transcribe_to_audio(image_links):
         try:
             if not is_supported_image_format(img_link):
                 continue
-
             with st.spinner(" Getting image text "):
                 reader = ocr.Reader(['en'])
                 result = reader.readtext(img_link)
-                result_text = []  # empty list for results
+                result_text = []
                 for text in result:
                     result_text.append(text[1].strip())
-
             text = filter_english_words(result_text)
-
             if text:
                 audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
                 if not os.path.exists(audio_file_path):
@@ -382,7 +372,6 @@ with st.sidebar:
     st.caption("Download from: https://blackbots.gumroad.com/l/manga")
     st.caption("Join Our Discord: https://discord.gg/HcVPaSpF")
     st.divider()
-    
     with st.expander("Help"):
         st.caption("How to use BlackDao: Manga Dōjutsu")
         st.caption("- `Copy` a Code")
@@ -392,9 +381,7 @@ with st.sidebar:
 
 col1, col2 = st.columns(2)
 outer_cols = st.columns([1, 2])
-
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
-
 
 if search_variable:
     with st.spinner('Searching..'):
@@ -406,7 +393,6 @@ if search_variable:
                 search_result_div = soup.find("div", {"class": "listupd"})
                 if search_result_div:
                     titles = search_result_div.find_all("div", {"class": "mdthumb"})
-            
                     for title in titles:
                         title_url = title.a["href"]
                         title_name = title_url.split("series/")[1].replace('/', '').title()
@@ -417,10 +403,8 @@ if search_variable:
                             img_url = title.img["src"]
                             if img_url:
                                 st.image(img_url, caption=ih)
-
                             original_string = ih
                             obfuscated_text, mapping = obfuscate(original_string)
-                            
                             if ih:
                                 st.caption('Copy Code')
                                 txt = f"""
@@ -428,7 +412,6 @@ if search_variable:
                                 """
                                 st.code(txt, language='java')
                             st.divider()
-                            
 with col1:
     with st.expander(':books: Random Titles'):
         resp = requests.get("https://daotranslate.us/?s=i")
@@ -446,7 +429,6 @@ with col1:
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ch, use_column_width='always')
-                    
                     original_string = ch
                     obfuscated_text, mapping = obfuscate(original_string)
                     if ch:
@@ -455,7 +437,6 @@ with col1:
                         {obfuscated_text}
                         """
                         st.code(txt, language='java')
-        
                     st.divider()
 with col2:
     with st.expander(f":frame_with_picture: Comics"):
@@ -463,24 +444,21 @@ with col2:
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
             manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
-            manga_names = [link.get("href").split("https://manhuaaz.com/manga/")[1].replace('-', ' ') for link in manga_links if "chapter" not in link.get("href")]
         
-            for link, manga_name in zip(manga_links, manga_names):
+            for link in manga_links:
                 href = link.get("href")
                 if "chapter" not in href:
                     cch = f"{href}chapter-1/"
                 else:
                     cch = href
-                
+                manga_name=href.split('https://manhuaaz.com/manga/')[1]
                 st.write(f"[{manga_name}]({cch})")
                 img_tag = link.find("img")
                 if img_tag:
                     img_url = img_tag.get("data-src")
                     st.image(img_url, caption=cch, use_column_width='always')
-        
                 original_string = cch
                 obfuscated_text, mapping = obfuscate(original_string)
-                
                 st.caption('Copy Code')
                 txt = f"""
                 {obfuscated_text}
@@ -488,14 +466,11 @@ with col2:
                 st.code(txt, language='java')
                 st.divider()
 
-                            
 st.image(main_image)
 res_box = st.empty()
 
 xx = st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here")
-
 ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
-    
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 with tab1:
@@ -504,7 +479,6 @@ with tab1:
         if "daotrans" in url:
             with st.spinner('Loading, please be patient..'):
                 readit(url)
-                                
 
 with tab2:
     reverted_text = deobfuscate(xx, mapping)
@@ -512,17 +486,14 @@ with tab2:
     if "daotrans" not in url.lower():
         if tab2:
             if ok:
-                driver = get_driver()
                 with st.spinner('Loading text & audio..'):
+                    driver = get_driver()
                     st.session_state.image_links = get_image_links(url)
                     st.session_state.current_image_index = 0
-            
                     if st.session_state.image_links:
                         for image_link in st.session_state.image_links:
                             st.image(image_link, use_column_width=True)
-            
                         st.write(f"Total Images: {len(st.session_state.image_links)}")
-            
                         transcribe_to_audio(st.session_state.image_links)
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
