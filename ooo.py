@@ -52,7 +52,6 @@ import tempfile
 import io
 from io import BytesIO
 import uuid
-import string
 import hashlib
 
 import re
@@ -297,13 +296,14 @@ def readit(url):
             st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
 
+
 def deobfuscate(text):
     result = ""
     for letter in text:
         offset = random.randint(1, 100)  # Generate a random offset
         char_code = ord(letter) - offset
         # Ensure the resulting character is an English alphabet
-        if 'a' <= chr(char_code) <= 'z' or 'A' <= chr(char_code) <= 'Z':
+        if 65 <= char_code <= 90 or 97 <= char_code <= 122:
             result += chr(char_code)
     return result[:10]  # Limit the output to 10 characters
 
@@ -313,9 +313,10 @@ def obfuscate(text):
         offset = random.randint(1, 100)  # Generate a random offset
         char_code = ord(letter) + offset
         # Ensure the resulting character is an English alphabet
-        if 'a' <= chr(char_code) <= 'z' or 'A' <= chr(char_code) <= 'Z':
+        if 65 <= char_code <= 90 or 97 <= char_code <= 122:
             result += chr(char_code)
     return result
+
 
 history = []
 ih = ""
