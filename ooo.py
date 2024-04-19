@@ -87,26 +87,23 @@ def generate_unique_key():
     return hashed_key
 
 def get_driver():
+    options = Options()
+    options.add_argument("--disable-gpu")
+    options.add_argument("--headless")
+    options.add_argument("--disable-blink-features=AutomationControlled")
+    options.add_experimental_option("useAutomationExtension", False)
+    options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36")
+    options.add_argument('--dns-prefetch-disable')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--lang=en-US')
+    options.add_argument('--disable-setuid-sandbox')
+    options.add_argument("--ignore-certificate-errors")
     return webdriver.Chrome(
         service=Service(
             ChromeDriverManager(chrome_type=ChromeType.CHROMIUM).install()
         ),
         options=options,
     )
-
-def autoplay_audio(file_path: str):
-    with open(file_path, "rb") as f:
-        data = f.read()
-        b64 = base64.b64encode(data).decode()
-        md = f"""
-            <audio controls autoplay="true">
-            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-            </audio>
-            """
-        st.markdown(
-            md,
-            unsafe_allow_html=True,
-        )
 
 def perform_img_actions(url):
     if 'image_links' not in st.session_state:
@@ -158,7 +155,6 @@ def transcribe_to_audio(image_links):
     for idx, img_link in enumerate(image_links, start=1):
         try:
             if not is_supported_image_format(img_link):
-                # st.write(f"Skipping image {img_link} as it is not in a supported format.")
                 continue
 
             with st.spinner(" Getting image text "):
@@ -198,7 +194,6 @@ def is_image_link(link):
             return True
     return False
 
-#@st.cache_resource
 def load_model() -> Reader:
     return ocr.Reader(["en"], model_storage_directory=".")
 
@@ -340,18 +335,6 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-
-options = Options()
-options.add_argument("--disable-gpu")
-options.add_argument("--headless")
-options.add_argument("--disable-blink-features=AutomationControlled")
-options.add_experimental_option("useAutomationExtension", False)
-options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36")
-options.add_argument('--dns-prefetch-disable')
-options.add_argument('--no-sandbox')
-options.add_argument('--lang=en-US')
-options.add_argument('--disable-setuid-sandbox')
-options.add_argument("--ignore-certificate-errors")
 
 main_image = Image.open('static/dojutsu.png')
 side_image = Image.open('static/4.png')
@@ -496,3 +479,4 @@ with tab2:
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
+
