@@ -377,7 +377,6 @@ with st.sidebar:
         st.caption("- `Copy` a Code")
         st.caption("- `Paste` Code onto `Manga Code` field")
         st.caption("- `Press Read`")
-        st.caption("- View Image Based Links with the `Image Based` tab")
 
 col1, col2 = st.columns(2)
 outer_cols = st.columns([1, 2])
@@ -478,17 +477,15 @@ if ok:
         with st.spinner('Loading, please be patient..'):
             readit(url)
     if "daotrans" not in url.lower():
-        if tab2:
-            if ok:
-                with st.spinner('Loading text & audio..'):
-                    driver = get_driver()
-                    st.session_state.image_links = get_image_links(url)
-                    st.session_state.current_image_index = 0
-                    if st.session_state.image_links:
-                        for image_link in st.session_state.image_links:
-                            st.image(image_link, use_column_width=True)
-                        st.write(f"Total Images: {len(st.session_state.image_links)}")
-                        transcribe_to_audio(st.session_state.image_links)
+        with st.spinner('Loading text & audio..'):
+            driver = get_driver()
+            st.session_state.image_links = get_image_links(url)
+            st.session_state.current_image_index = 0
+            if st.session_state.image_links:
+                for image_link in st.session_state.image_links:
+                    st.image(image_link, use_column_width=True)
+                st.write(f"Total Images: {len(st.session_state.image_links)}")
+                transcribe_to_audio(st.session_state.image_links)
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
