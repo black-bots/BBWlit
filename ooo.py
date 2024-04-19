@@ -187,13 +187,12 @@ def transcribe_to_audio(image_links):
                 res_box.markdown(f':blue[Dao: ]:orange[No Text]')
         except requests.exceptions.RequestException as e:
             st.write(f"Error downloading image from {img_link}: {e}")
-        except ocr.DecompressionBombError as e:
-            st.write(f"Decompression bomb detected in image from {img_link}: {e}")
         except ocr.OCRBeamSearchError as e:
             st.write(f"Error during OCR processing of image from {img_link}: {e}")
         except Exception as e:
             st.write(f"Error processing {img_link}: {e}")
     return audio_files
+
 
 
 def is_supported_image_format(image_url):
