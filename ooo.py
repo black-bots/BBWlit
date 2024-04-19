@@ -296,6 +296,12 @@ def readit(url):
             st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
 
+def key_code():
+    unique_id = str(uuid.uuid4())
+    hashed_key = hashlib.sha256(unique_id.encode()).hexdigest()
+    truncated_key = hashed_key[:8]  # Take the first 8 characters of the hashed key
+    return truncated_key
+
 
 history = []
 ih = ""
@@ -414,7 +420,7 @@ if search_variable:
                             if ih:
                                 txt = st.text_area(
                                     "Copy",
-                                    f"{ih}",
+                                    f"{keycode()}",
                                     key=generate_unique_key())
                             st.divider()
                             
@@ -434,18 +440,12 @@ with col1:
                     st.write(f"[{titlename}]({ch})")
                     img_url = title.img["src"]
                     if img_url:
-                        st.image(img_url, caption=ch, use_column_width='always')
-
-                    # Example usage:
-                    input_string = title_name
-                    generated_key = generate_unique_key(input_string)
-                    string_key = key_to_string(generated_key)
-                    st.write(string_key)                    
+                        st.image(img_url, caption=ch, use_column_width='always')                 
                     
                     if ch:
                         txt = st.text_area(
                             "Copy",
-                            f"{ch}",
+                            f"{key_code}",
                             key=generate_unique_key())
                     st.divider()
 
