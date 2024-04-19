@@ -506,14 +506,13 @@ ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container
     
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
-if len(xx) == 8:    
+if len(xx) == 10:    
     decoded_key = obfuscate(xx)
     st.write(decoded_key)
     #readit(decoded_string)
 
 with tab1:
     if ok:
-
         if "daotrans" in xx:
             with st.spinner('Loading, please be patient..'):
                 readit(xx)
@@ -521,9 +520,10 @@ with tab1:
 
 with tab2:
     url = xx
-    if "daotrans" not in xx.lower() and len(url) > 8:
+    if "daotrans" not in xx.lower() and len(url) > 10:
         if tab2:
             if ok:
+                driver = get_driver()
                 with st.spinner('Loading text & audio..'):
                     st.session_state.image_links = get_image_links(url)
                     st.session_state.current_image_index = 0
