@@ -1,5 +1,5 @@
 # ┌──────────────────────────────────┐
-# │ BlackGram - Manga Dōjutsu v1.23  │
+# │ BlackGram - Manga Dōjutsu v1.28  │
 # ├──────────────────────────────────┤
 # │ Copyright © 2024 BlackBots.net   │
 # │ (https://BlackBots.net)          │
@@ -160,6 +160,7 @@ def get_image_links(url):
 
 def transcribe_to_audio(image_links):
     audio_files = []
+    reader = load_model()  # Load OCR model outside the loop
     for idx, img_link in enumerate(image_links, start=1):
         try:
             if not is_supported_image_format(img_link):
@@ -170,7 +171,6 @@ def transcribe_to_audio(image_links):
                 img_data = requests.get(img_link).content
                 
                 # Read text from the image
-                reader = ocr.Reader(['en'])
                 result = reader.readtext(img_data)
                 result_text = [text[1].strip() for text in result]
                 
@@ -185,9 +185,16 @@ def transcribe_to_audio(image_links):
                     res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
             else:
                 res_box.markdown(f':blue[Dao: ]:orange[No Text]')
+        except requests.exceptions.RequestException as e:
+            st.write(f"Error downloading image from {img_link}: {e}")
+        except ocr.DecompressionBombError as e:
+            st.write(f"Decompression bomb detected in image from {img_link}: {e}")
+        except ocr.OCRBeamSearchError as e:
+            st.write(f"Error during OCR processing of image from {img_link}: {e}")
         except Exception as e:
             st.write(f"Error processing {img_link}: {e}")
     return audio_files
+
 
 def is_supported_image_format(image_url):
     supported_formats = ['.png', '.jpg', '.jpeg']
