@@ -496,13 +496,13 @@ ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container
     
 tab1,tab2=st.tabs(['Text Based','Image Based'])
 
-if len(xx) < 3:
-    reverted_text = deobfuscate(xx, char_map)
-    st.write(reverted_text)
-    #readit(decoded_string)
+
 
 with tab1:
     if ok:
+        reverted_text = deobfuscate(xx, char_map)
+        st.write(reverted_text)
+        #readit(decoded_string)
         if "daotrans" in xx:
             with st.spinner('Loading, please be patient..'):
                 readit(xx)
