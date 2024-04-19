@@ -401,9 +401,10 @@ if search_variable:
                     for title in titles:
                         title_url = title.a["href"]
                         title_name = title_url.split("series/")[1].replace('/', '').title()
+                        titlename = title_name.replace('-', ' ')
                         ih = f"https://daotranslate.us/{title_name}-chapter-1/"
                         with st.spinner('Searching..'):
-                            st.write(f"[{title_name}]({ih})")
+                            st.write(f"[{titlename}]({ih})")
                             img_url = title.img["src"]
                             if img_url:
                                 st.image(img_url, caption=ih)
@@ -424,8 +425,9 @@ with col1:
                 for title in titles:
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1].replace('/', '').title()
+                    titlename = title_name.replace('-', ' ')
                     ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                    st.write(f"[{title_name}]({ch})")
+                    st.write(f"[{titlename}]({ch})")
                     img_url = title.img["src"]
                     if img_url:
                         st.image(img_url, caption=ch, use_column_width='always')
@@ -449,7 +451,8 @@ with col2:
                     cch = f"{href}chapter-1/"
                 else:
                     cch = href
-                st.write(f"[{manga_name}]({cch})")
+                manganame = title_name.replace('-', ' ')
+                st.write(f"[{manganame}]({cch})")
                 img_tag = link.find("img")
                 if img_tag:
                     img_url = img_tag.get("data-src")
