@@ -500,7 +500,7 @@ with col2:
 st.image(main_image)
 res_box = st.empty()
 
-xx = st.text_input(":orange[Enter Link:]",  live=True, value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
+xx = st.text_input(":orange[Enter Link:]", value='', placeholder="https://daotranslate.us/solo-leveling-ragnarok-chapter-1/", key='readfield', help="Enter manga chapter URL here")
 
 ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
     
