@@ -86,11 +86,19 @@ def generate_unique_key():
     hashed_key = hashlib.sha256(unique_id.encode()).hexdigest()
     return hashed_key
 
-def autoplay_audio(file_path):
-        with open(file_path,'rb')as A:B=A.read()
-            C=base64.b64encode(B).decode()
-            D=f'\n            <audio controls autoplay="true">\n            <source src="data:audio/mp3;base64,{C}" type="audio/mp3">\n            </audio>\n            '
-            st.markdown(D,unsafe_allow_html=True)
+def autoplay_audio(file_path: str):
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+        md = f"""
+            <audio controls autoplay="true">
+            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+            </audio>
+            """
+        st.markdown(
+            md,
+            unsafe_allow_html=True,
+        )
 
 def get_driver():
     options = Options()
