@@ -498,12 +498,12 @@ tab1,tab2=st.tabs(['Text Based','Image Based'])
 
 
 with tab1:
-    if len(xx) == 8:
-        decoded_string = decode_key(xx)
-        st.write(decoded_string)
-        #readit(decoded_string)
-    if "daotrans" in xx:
-        if ok:
+    if ok:
+        if len(xx) == 8:
+            decoded_string = decode_key(xx)
+            st.write(decoded_string)
+            #readit(decoded_string)
+        if "daotrans" in xx:
             with st.spinner('Loading, please be patient..'):
                 readit(xx)
                                 
