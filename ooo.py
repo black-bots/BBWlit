@@ -500,7 +500,9 @@ tab1,tab2=st.tabs(['Text Based','Image Based'])
 with tab1:
     if ok:
         if len(xx) == 8:
-            decoded_key = decode_key(xx)
+            copied_code = xx
+    
+            decoded_key = decode_key(copied_code)
             st.write(decoded_key)
             #readit(decoded_string)
         if "daotrans" in xx:
