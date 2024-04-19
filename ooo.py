@@ -160,17 +160,15 @@ def get_image_links(url):
 
 def transcribe_to_audio(image_links):
     audio_files = []
+    result = []
     for idx, img_link in enumerate(image_links, start=1):
         try:
             if not is_supported_image_format(img_link):
                 continue
             with st.spinner(" Getting image text "):
-                try:
-                    reader = ocr.Reader(['en'])
-                    result = reader.readtext(img_link)
-                    result_text = []
-                except:
-                    pass
+                reader = ocr.Reader(['en'])
+                result = reader.readtext(img_link)
+                result_text = []
                 
                 for text in result:
                     result_text.append(text[1].strip())
