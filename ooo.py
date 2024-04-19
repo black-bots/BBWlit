@@ -162,37 +162,29 @@ def transcribe_to_audio(image_links):
     audio_files = []
     reader = load_model()  # Load OCR model outside the loop
     for idx, img_link in enumerate(image_links, start=1):
-        try:
-            if not is_supported_image_format(img_link):
-                continue
+        if not is_supported_image_format(img_link):
+            continue
+        
+        with st.spinner(" Getting image text "):
+            # Download the image
+            img_data = requests.get(img_link).content
             
-            with st.spinner(" Getting image text "):
-                # Download the image
-                img_data = requests.get(img_link).content
-                
-                # Read text from the image
-                result = reader.readtext(img_data)
-                result_text = [text[1].strip() for text in result]
-                
-            text = filter_english_words(result_text)
-            if text:
-                audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
-                if not os.path.exists(audio_file_path):
-                    tts = gTTS(text=text, lang='en', slow=False)
-                    tts.save(audio_file_path)
-                audio_files.append(audio_file_path)
-                if on:
-                    res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
-            else:
-                res_box.markdown(f':blue[Dao: ]:orange[No Text]')
-        except requests.exceptions.RequestException as e:
-            st.write(f"Error downloading image from {img_link}: {e}")
-        except ocr.OCRBeamSearchError as e:
-            st.write(f"Error during OCR processing of image from {img_link}: {e}")
-        except Exception as e:
-            st.write(f"Error processing {img_link}: {e}")
+            # Read text from the image
+            result = reader.readtext(img_data)
+            result_text = [text[1].strip() for text in result]
+            
+        text = filter_english_words(result_text)
+        if text:
+            audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
+            if not os.path.exists(audio_file_path):
+                tts = gTTS(text=text, lang='en', slow=False)
+                tts.save(audio_file_path)
+            audio_files.append(audio_file_path)
+            if on:
+                res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
+        else:
+            res_box.markdown(f':blue[Dao: ]:orange[No Text]')
     return audio_files
-
 
 
 def is_supported_image_format(image_url):
