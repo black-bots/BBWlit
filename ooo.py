@@ -413,10 +413,10 @@ if search_variable:
                         with st.spinner('Searching..'):
                             st.write(f"[{titlename}]({ih})")
                             img_url = title.img["src"]
-                            if img_url:
-                                st.image(img_url, caption=ih)
                             original_string = ih
                             obfuscated_text, mapping = obfuscate(original_string)
+                            if img_url:
+                                st.image(img_url, caption=obfuscated_text)
                             if ih:
                                 st.caption('Copy Code')
                                 txt = f"""
@@ -439,10 +439,11 @@ with col1:
                     ch = f"https://daotranslate.us/{title_name}-chapter-1/"
                     st.write(f"[{titlename}]({ch})")
                     img_url = title.img["src"]
-                    if img_url:
-                        st.image(img_url, caption=ch, use_column_width='always')
+                    
                     original_string = ch
                     obfuscated_text, mapping = obfuscate(original_string)
+                    if img_url:
+                        st.image(img_url, caption=obfuscated_text, use_column_width='always')
                     if ch:
                         st.caption('Copy Code')
                         txt = f"""
@@ -466,11 +467,11 @@ with col2:
                 manga_name=href.split('https://manhuaaz.com/manga/')[1]
                 st.write(f"[{manga_name}]({cch})")
                 img_tag = link.find("img")
-                if img_tag:
-                    img_url = img_tag.get("data-src")
-                    st.image(img_url, caption=cch, use_column_width='always')
                 original_string = cch
                 obfuscated_text, mapping = obfuscate(original_string)
+                if img_tag:
+                    img_url = img_tag.get("data-src")
+                    st.image(img_url, caption=obfuscated_text, use_column_width='always')
                 st.caption('Copy Code')
                 txt = f"""
                 {obfuscated_text}
