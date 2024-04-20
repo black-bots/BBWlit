@@ -465,11 +465,12 @@ with col2:
                 else:
                     cch = href
                 manga_name=href.split('https://manhuaaz.com/manga/')[1]
-                st.write(f"[{manga_name}]({cch})")
+                
                 img_tag = link.find("img")
                 original_string = cch
                 obfuscated_text, mapping = obfuscate(original_string)
                 if img_tag:
+                    st.write(f"[{manga_name}]({cch})")
                     img_url = img_tag.get("data-src")
                     st.image(img_url, caption=obfuscated_text, use_column_width='always')
                     st.caption('Copy Code')
@@ -477,7 +478,7 @@ with col2:
                     {obfuscated_text}
                     """
                     st.code(txt, language='java')
-                st.divider()
+                    st.divider()
 
 st.image(main_image)
 res_box = st.empty()
