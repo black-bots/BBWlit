@@ -404,7 +404,6 @@ if search_variable:
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
                 search_result_div = soup.find("div", {"class": "listupd"})
-                manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
                 if search_result_div:
                     titles = search_result_div.find_all("div", {"class": "mdthumb"})
                     for title in titles:
@@ -412,40 +411,46 @@ if search_variable:
                         title_name = title_url.split("series/")[1].replace('/', '').title()
                         titlename = title_name.replace('-', ' ')
                         ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-                        for link in manga_links:
-                            href = link.get("href")
-                            if "chapter" not in href:
-                                cch = f"{href}chapter-1/"
-                            else:
-                                cch = href
-                            with st.spinner('Searching..'):
-                                st.write(f"[{titlename}]({ih})")
-                                img_url = title.img["src"]
-                                original_string = ih
-                                obfuscated_text, mapping = obfuscate(original_string)
-                                if img_url:
-                                    st.image(img_url, caption=obfuscated_text)
-                                if ih:
-                                    st.caption('Copy Code')
-                                    txt = f"""
-                                    {obfuscated_text}
-                                    """
-                                    st.code(txt, language='java')
-                                    st.divider()
-                                manga_name=href.split('https://manhuaaz.com/manga/')[1]
-                                img_tag = link.find("img")
-                                original_string2 = cch
-                                obfuscated_text2, mapping = obfuscate(original_string2)
-                                if img_tag:
-                                    st.write(f"[{manga_name}]({cch})")
-                                    img_url = img_tag.get("data-src")
-                                    st.image(img_url, caption=obfuscated_text2, use_column_width='always')
-                                    st.caption('Copy Code')
-                                    txt = f"""
-                                    {obfuscated_text2}
-                                    """
-                                    st.code(txt, language='java')
-                                    st.divider()
+                        with st.spinner('Searching..'):
+                            st.write(f"[{titlename}]({ih})")
+                            img_url = title.img["src"]
+                            original_string = ih
+                            obfuscated_text, mapping = obfuscate(original_string)
+                            if img_url:
+                                st.image(img_url, caption=obfuscated_text)
+                            if ih:
+                                st.caption('Copy Code')
+                                txt = f"""
+                                {obfuscated_text}
+                                """
+                                st.code(txt, language='java')
+                            st.divider()
+            resp = requests.get(f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga&op=&author=&artist=&release=&adult=")
+            if resp.status_code == 200:
+               soup = BeautifulSoup(resp.text, 'html.parser')
+               manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
+            
+               for link in manga_links:
+                   href = link.get("href")
+                   if "chapter" not in href:
+                       cch = f"{href}chapter-1/"
+                   else:
+                       cch = href
+                   manga_name=href.split('https://manhuaaz.com/manga/')[1]
+                   
+                   img_tag = link.find("img")
+                   original_string = cch
+                   obfuscated_text, mapping = obfuscate(original_string)
+                   if img_tag:
+                       st.write(f"[{manga_name}]({cch})")
+                       img_url = img_tag.get("data-src")
+                       st.image(img_url, caption=obfuscated_text, use_column_width='always')
+                       st.caption('Copy Code')
+                       txt = f"""
+                       {obfuscated_text}
+                       """
+                       st.code(txt, language='java')
+                       st.divider()
 
 #########################################                     
 
