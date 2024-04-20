@@ -411,9 +411,10 @@ if search_variable:
                 search_result_div_1 = soup_1.find("div", {"class": "listupd"})
                 search_result_div_2 = soup_2.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
                 
-                if search_result_div_1:
+                if search_result_div_1 and search_result_div_2:
                     titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
-                    for title_index, title in enumerate(titles):
+                    manga_links = iter(search_result_div_2)
+                    for title in titles:
                         title_url = title.a["href"]
                         title_name = title_url.split("series/")[1].replace('/', '').title()
                         titlename = title_name.replace('-', ' ')
@@ -432,29 +433,32 @@ if search_variable:
                                 """
                                 st.code(txt, language='java')
                             st.divider()
-                
-                if search_result_div_2:
-                    for link_index, link in enumerate(search_result_div_2):
-                        href = link.get("href")
-                        if "chapter" not in href:
-                            cch = f"{href}chapter-1/"
-                        else:
-                            cch = href
-                        manga_name=href.split('https://manhuaaz.com/manga/')[1]
-                       
-                        img_tag = link.find("img")
-                        original_string = cch
-                        obfuscated_text, mapping = obfuscate(original_string)
-                        if img_tag:
-                            st.write(f"[{manga_name}]({cch})")
-                            img_url = img_tag.get("data-src")
-                            st.image(img_url, caption=obfuscated_text, use_column_width='always')
-                            st.caption('Copy Code')
-                            txt = f"""
-                            {obfuscated_text}
-                            """
-                            st.code(txt, language='java')
-                            st.divider()
+                            
+                            # Display results from search_result_div_2
+                            try:
+                                link = next(manga_links)
+                                href = link.get("href")
+                                if "chapter" not in href:
+                                    cch = f"{href}chapter-1/"
+                                else:
+                                    cch = href
+                                manga_name=href.split('https://manhuaaz.com/manga/')[1]
+                               
+                                img_tag = link.find("img")
+                                original_string = cch
+                                obfuscated_text, mapping = obfuscate(original_string)
+                                if img_tag:
+                                    st.write(f"[{manga_name}]({cch})")
+                                    img_url = img_tag.get("data-src")
+                                    st.image(img_url, caption=obfuscated_text, use_column_width='always')
+                                    st.caption('Copy Code')
+                                    txt = f"""
+                                    {obfuscated_text}
+                                    """
+                                    st.code(txt, language='java')
+                                    st.divider()
+                            except StopIteration:
+                                break 
 
 #########################################                     
 
