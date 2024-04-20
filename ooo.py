@@ -409,6 +409,8 @@ if search_variable:
                 search_result_div_dao = soup_dao.find("div", {"class": "listupd"})
                 if search_result_div_dao:
                     titles = search_result_div_dao.find_all("div", {"class": "mdthumb"})
+                    
+                    soup_manhua = BeautifulSoup(resp_manhua.text, 'html.parser')
                     manga_links = soup_manhua.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
                     
                     for title, manga_link in zip(titles, manga_links):
