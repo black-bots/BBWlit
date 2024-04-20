@@ -425,7 +425,7 @@ if search_variable:
                                 st.code(txt, language='java')
                             st.divider()
 with col1:
-    with st.expander(':books: Random Titles'):
+    with st.expander(':books: Random Titles(Text)'):
         resp = requests.get("https://daotranslate.us/?s=i")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -452,7 +452,7 @@ with col1:
                         st.code(txt, language='java')
                     st.divider()
 with col2:
-    with st.expander(f":frame_with_picture: Comics"):
+    with st.expander(f":frame_with_picture: Comics(Images)"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
