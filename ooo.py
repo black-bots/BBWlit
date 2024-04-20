@@ -406,7 +406,7 @@ if search_variable:
                 search_result_div = soup.find("div", {"class": "listupd"})
                 if search_result_div:
                     titles = search_result_div.find_all("div", {"class": "mdthumb"})
-                    for title in titles:
+                    for title_index, title in enumerate(titles):
                         title_url = title.a["href"]
                         title_name = title_url.split("series/")[1].replace('/', '').title()
                         titlename = title_name.replace('-', ' ')
@@ -430,7 +430,7 @@ if search_variable:
                soup = BeautifulSoup(resp.text, 'html.parser')
                manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
             
-               for link in manga_links:
+               for link_index, link in enumerate(manga_links):
                    href = link.get("href")
                    if "chapter" not in href:
                        cch = f"{href}chapter-1/"
@@ -451,6 +451,7 @@ if search_variable:
                        """
                        st.code(txt, language='java')
                        st.divider()
+
 
 #########################################                     
 
