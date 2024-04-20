@@ -472,11 +472,11 @@ with col2:
                 if img_tag:
                     img_url = img_tag.get("data-src")
                     st.image(img_url, caption=obfuscated_text, use_column_width='always')
-                st.caption('Copy Code')
-                txt = f"""
-                {obfuscated_text}
-                """
-                st.code(txt, language='java')
+                    st.caption('Copy Code')
+                    txt = f"""
+                    {obfuscated_text}
+                    """
+                    st.code(txt, language='java')
                 st.divider()
 
 st.image(main_image)
