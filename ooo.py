@@ -381,9 +381,7 @@ with st.sidebar:
     # Define function to update value
     def update_value():
         st.session_state.value = "Restart"
-    
-    # Display header and button
-    st.header(st.session_state.value, key='Header')
+
     st.button("Restart", on_click=update_value, key='keyy')
         
     st.image(side_image)
