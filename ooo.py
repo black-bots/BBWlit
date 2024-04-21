@@ -496,33 +496,32 @@ with col1:
 with col2:
     with st.expander(f":frame_with_picture: Comics(Images)"):
         resp = requests.get("https://manhuatop.org/")
-        if resp.status_code == 200:
-            soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_items = soup.find_all("div", class_="item-thumb")
-        
-            for item in manga_items:
-                link = item.find("a")
-                img_tag = item.find("img")
-                if link and img_tag:
-                    href = link.get("href")
-                    img_url = img_tag.get("data-src")
-                    
-                    manga_name = link.get("title")
-                    
-                    original_string = href
-                    obfuscated_text, mapping = obfuscate(original_string)
-                    url = deobfuscate(obfuscated_text, mapping)
-                    
-                    st.write(f"[{manga_name}]({href})")
-                    st.image(img_url, use_column_width='always')
-                    txt = f"""
-                    {obfuscated_text}
-                    """
-                    st.code(txt, language='java')
-                    st.caption('Copy Code')
-                    st.divider()
-        else:
-            st.write('Error')
+        soup = BeautifulSoup(resp.text, 'html.parser')
+        manga_items = soup.find_all("div", class_="item-thumb")
+    
+        for item in manga_items:
+            link = item.find("a")
+            img_tag = item.find("img")
+            if link and img_tag:
+                href = link.get("href")
+                img_url = img_tag.get("data-src")
+                
+                manga_name = link.get("title")
+                
+                original_string = href
+                obfuscated_text, mapping = obfuscate(original_string)
+                url = deobfuscate(obfuscated_text, mapping)
+                
+                st.write(f"[{manga_name}]({href})")
+                st.image(img_url, use_column_width='always')
+                txt = f"""
+                {obfuscated_text}
+                """
+                st.code(txt, language='java')
+                st.caption('Copy Code')
+                st.divider()
+    else:
+        st.write('Error')
 
 with col3:
     with st.expander(f":frame_with_picture: Image"):
