@@ -489,7 +489,7 @@ with col1:
                         {obfuscated_text}
                         """
                         st.code(txt, language='java')
-                        st.button('Play', on_click=readit, args=(obfuscated_text), key=generate_unique_key())
+                        st.button('Play', on_click=readit(obfuscated_text), key=generate_unique_key())
                     st.divider()
 with col2:
     with st.expander(f":frame_with_picture: Comics(Images)"):
