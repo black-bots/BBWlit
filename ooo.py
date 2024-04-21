@@ -296,6 +296,24 @@ def readit(url):
             st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
 
+def readit2():
+    with st.expander(':books: Random Titles(Text)'):
+        resp = requests.get("https://daotranslate.us/?s=i")
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            manga_list_div = soup.find("div", {"class": "listupd"})
+            if manga_list_div:
+                titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+                for title in titles:
+                    title_url = title.a["href"]
+                    title_name = title_url.split("series/")[1].replace('/', '').title()
+                    titlename = title_name.replace('-', ' ')
+                    ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                    st.write(f"[{titlename}]({ch})")
+                    img_url = title.img["src"]
+                    
+                    original_string = ch
+                    obfuscated_text, mapping = obfuscate(original_string)
 
 def obfuscate(text):
     mapping = {}
@@ -519,7 +537,7 @@ with col2:
                     """
                     url = deobfuscate(obfuscated_text, mapping)
                     st.code(txt, language='java')
-                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
+                    st.button('Read', on_click=readit2, args=[url], key=generate_unique_key())
                     st.divider()
 
 st.image(main_image)
