@@ -433,7 +433,7 @@ if search_variable:
                                 """
                                 url = deobfuscate(obfuscated_text, mapping)
                                 st.code(txt, language='java')
-                                st.button('Read', on_click=readit, args=url, key=generate_unique_key())
+                                st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                             st.divider()
                             
                             try:
@@ -458,7 +458,7 @@ if search_variable:
                                     """
                                     url = deobfuscate(obfuscated_text, mapping)
                                     st.code(txt, language='java')
-                                    st.button('Read', on_click=readit, args=url, key=generate_unique_key())
+                                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                                     st.divider()
                             except StopIteration:
                                 break 
@@ -493,7 +493,7 @@ with col1:
                         """
                         url = deobfuscate(obfuscated_text, mapping)
                         st.code(txt, language='java')
-                        st.button('Read', on_click=readit, args=url, key=generate_unique_key())
+                        st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                     st.divider()
 with col2:
     with st.expander(f":frame_with_picture: Comics(Images)"):
@@ -523,7 +523,7 @@ with col2:
                     """
                     url = deobfuscate(obfuscated_text, mapping)
                     st.code(txt, language='java')
-                    st.button('Read', on_click=readit, args=url, key=generate_unique_key())
+                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                     st.divider()
 
 st.image(main_image)
