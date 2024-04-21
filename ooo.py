@@ -427,16 +427,16 @@ if search_variable:
                             original_string = ih
                             obfuscated_text, mapping = obfuscate(original_string)
                             if img_url:
-                                st.image(img_url, use_column_width='always')
+                                st.image(img_url, caption=obfuscated_text)
                             if ih:
+                                st.caption('Copy Code')
                                 txt = f"""
                                 {obfuscated_text}
                                 """
-                                url = deobfuscate(obfuscated_text, mapping)
                                 st.code(txt, language='java')
-                                st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                             st.divider()
                             
+                            # Display results from search_result_div_2
                             try:
                                 link = next(manga_links)
                                 href = link.get("href")
@@ -452,13 +452,12 @@ if search_variable:
                                 if img_tag:
                                     st.write(f"[{manga_name}]({cch})")
                                     img_url = img_tag.get("data-src")
-                                    st.image(img_url, use_column_width='always')
+                                    st.image(img_url, caption=obfuscated_text, use_column_width='always')
+                                    st.caption('Copy Code')
                                     txt = f"""
                                     {obfuscated_text}
                                     """
-                                    url = deobfuscate(obfuscated_text, mapping)
                                     st.code(txt, language='java')
-                                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                                     st.divider()
                             except StopIteration:
                                 break 
