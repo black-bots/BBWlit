@@ -464,8 +464,9 @@ if search_variable:
                             except StopIteration:
                                 break 
 with col1:
+    ranchar = random.choice(string.ascii_uppercase)
     with st.expander(':books: Random Titles(Text)'):
-        resp = requests.get("https://daotranslate.us/?s=i")
+        resp = requests.get(f"https://daotranslate.us/?s={ranchar}")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
             manga_list_div = soup.find("div", {"class": "listupd"})
