@@ -512,12 +512,12 @@ with col2:
                     st.write(f"[{manga_name}]({cch})")
                     img_url = img_tag.get("data-src")
                     st.image(img_url, use_column_width='always')
+                    url = deobfuscate(obfuscated_text, mapping)
+                    st.caption('Copy Code')
                     txt = f"""
                     {obfuscated_text}
                     """
-                    url = deobfuscate(obfuscated_text, mapping)
                     st.code(txt, language='java')
-                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                     st.divider()
 
 st.image(main_image)
