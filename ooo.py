@@ -297,6 +297,7 @@ def readit(url):
     driver.quit()
 
 def readit2(url):
+    print(url)
     with st.spinner('Loading text & audio..'):
         driver = get_driver()
         st.session_state.image_links = get_image_links(url)
@@ -541,7 +542,7 @@ with col2:
                     """
                     url = deobfuscate(obfuscated_text, mapping)
                     st.code(txt, language='java')
-                    st.button('Read', on_click=readit2, args=[url], key=generate_unique_key())
+                    st.button('Read', on_click=readit2, args=(url,), key=generate_unique_key())
                     st.divider()
 
 st.image(main_image)
