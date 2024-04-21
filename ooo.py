@@ -375,12 +375,13 @@ if 'current_image_index' not in st.session_state:
 genre = None
 
 with st.sidebar:
-    container = st.container()
+    st.header(st.session_state.value)
     
-    if st.button("Restart"):
-        st.session_state.value = "Restart"    
-    container.header(st.session_state.value, key=generate_unique_key())
+    def update_value():
+        st.session_state.value = "Restart"
     
+    st.button("Restart", on_click=update_value, key=generate_unique_key())
+        
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
