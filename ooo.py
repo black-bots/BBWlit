@@ -495,7 +495,7 @@ with col1:
 
 with col2:
     with st.expander(f":frame_with_picture:"):
-    st.write('rawr')
+        st.write('rawr')
         resp = requests.get("https://manhuatop.org/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
