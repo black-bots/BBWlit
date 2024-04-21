@@ -431,7 +431,9 @@ if search_variable:
                                 txt = f"""
                                 {obfuscated_text}
                                 """
+                                url = deobfuscate(obfuscated_text, mapping)
                                 st.code(txt, language='java')
+                                st.button('Play', on_click=readit(url), key=generate_unique_key())
                             st.divider()
                             
                             # Display results from search_result_div_2
@@ -455,7 +457,9 @@ if search_variable:
                                     txt = f"""
                                     {obfuscated_text}
                                     """
+                                    url = deobfuscate(obfuscated_text, mapping)
                                     st.code(txt, language='java')
+                                    st.button('Play', on_click=readit(url), key=generate_unique_key())
                                     st.divider()
                             except StopIteration:
                                 break 
@@ -488,8 +492,9 @@ with col1:
                         txt = f"""
                         {obfuscated_text}
                         """
+                        url = deobfuscate(obfuscated_text, mapping)
                         st.code(txt, language='java')
-                        st.button('Play', on_click=readit(obfuscated_text), key=generate_unique_key())
+                        st.button('Play', on_click=readit(url), key=generate_unique_key())
                     st.divider()
 with col2:
     with st.expander(f":frame_with_picture: Comics(Images)"):
@@ -517,7 +522,9 @@ with col2:
                     txt = f"""
                     {obfuscated_text}
                     """
+                    url = deobfuscate(obfuscated_text, mapping)
                     st.code(txt, language='java')
+                    st.button('Play', on_click=readit(url), key=generate_unique_key())
                     st.divider()
 
 st.image(main_image)
