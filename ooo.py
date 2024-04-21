@@ -520,8 +520,6 @@ with col2:
                 st.code(txt, language='java')
                 st.caption('Copy Code')
                 st.divider()
-    else:
-        st.write('Error')
 
 with col3:
     with st.expander(f":frame_with_picture: Image"):
