@@ -537,7 +537,7 @@ with col2:
                     """
                     url = deobfuscate(obfuscated_text, mapping)
                     st.code(txt, language='java')
-                    st.button('Read', on_click=readit2, args=[url], key=generate_unique_key())
+                    st.button('Read', on_click=readit2, key=generate_unique_key())
                     st.divider()
 
 st.image(main_image)
