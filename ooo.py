@@ -297,17 +297,17 @@ def readit(url):
     driver.quit()
 
 def readit2(url):
-    url = deobfuscate(url, mapping)
+    xx = deobfuscate(url, mapping)
     with st.spinner('Loading text & audio..'):
         driver = get_driver()
-        st.session_state.image_links = get_image_links(url)
+        st.session_state.image_links = get_image_links(xx)
         st.session_state.current_image_index = 0
         if st.session_state.image_links:
             for image_link in st.session_state.image_links:
                 st.image(image_link, use_column_width=True)
             st.write(f"Total Images: {len(st.session_state.image_links)}")
             transcribe_to_audio(st.session_state.image_links)
-            oldurl = url
+            oldurl = xx
             chap = ''.join([n for n in oldurl if n.isdigit()])
             nxtchap = str(int(chap) + int(+1))
             prvchap = str(int(chap))
