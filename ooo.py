@@ -296,9 +296,9 @@ def readit(url):
             st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
 
-def readit2(url):
-    print(url)
-    with st.spinner('Loading text & audio..'):
+def readit2(xx):
+    url = xx
+    with st.spinner('Loading images & audio..'):
         driver = get_driver()
         st.session_state.image_links = get_image_links(url)
         st.session_state.current_image_index = 0
@@ -540,9 +540,9 @@ with col2:
                     txt = f"""
                     {obfuscated_text}
                     """
-                    url = deobfuscate(obfuscated_text, mapping)
+                    xx = deobfuscate(obfuscated_text, mapping)
                     st.code(txt, language='java')
-                    st.button('Read', on_click=readit2, args=(url,), key=generate_unique_key())
+                    st.button('Read', on_click=readit2, args=[xx], key=generate_unique_key())
                     st.divider()
 
 st.image(main_image)
