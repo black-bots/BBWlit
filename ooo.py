@@ -465,7 +465,7 @@ if search_variable:
                                 break 
 with col1:
     ranchar = random.choice(string.ascii_uppercase)
-    with st.expander(':books: Random Titles(Text)'):
+    with st.expander(':books: Text'):
         resp = requests.get(f"https://daotranslate.us/?s={ranchar}")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -521,9 +521,11 @@ with col2:
                     st.code(txt, language='java')
                     st.caption('Copy Code')
                     st.divider()
+        else:
+            st.write('Error')
 
 with col3:
-    with st.expander(f":frame_with_picture: Comics(Images)"):
+    with st.expander(f":frame_with_picture: Image"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
