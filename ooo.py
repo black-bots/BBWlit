@@ -379,7 +379,7 @@ with st.sidebar:
     
     if st.button("Restart"):
         st.session_state.value = "Restart"    
-    container.header(st.session_state.value)
+    container.header(st.session_state.value, key=generate_unique_key())
     
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
