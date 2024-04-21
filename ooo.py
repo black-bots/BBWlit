@@ -495,16 +495,16 @@ with col1:
 
 with col2:
     with st.expander(f":frame_with_picture: Manga Updates"):
-        resp = requests.get("https://mangaplus.shueisha.co.jp/updates")
+        resp = requests.get("https://nightcomic.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
-            updated_titles = soup.find_all("div", class_="UpdatedTitle-module_title_2KlMr")
+            manga_items = soup.find_all("div", class_="page-item-detail manga")
         
-            for title in updated_titles:
-                link = title.find("a")
-                img_tag = title.find("img")
-                title_name = title.find("p", class_="UpdatedTitle-module_titleName_1QO_s").text.strip()
-                author = title.find("p", class_="UpdatedTitle-module_author_1ltec").text.strip()
+            for item in manga_items:
+                link = item.find("a", class_="btn-link")
+                img_tag = item.find("img")
+                title = item.find("h3", class_="h5").text.strip()
+                rating = item.find("span", class_="score").text.strip()
                 
                 if link and img_tag:
                     href = link.get("href")
@@ -514,7 +514,7 @@ with col2:
                     obfuscated_text, mapping = obfuscate(original_string)
                     url = deobfuscate(obfuscated_text, mapping)
                     
-                    st.write(f"[{title_name}]({href}) by {author}")
+                    st.write(f"[{title}]({href}) - Rating: {rating}")
                     st.image(img_url, use_column_width='always')
                     txt = f"""
                     {obfuscated_text}
