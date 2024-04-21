@@ -394,8 +394,8 @@ with st.sidebar:
         st.caption("- `Press Read`")
     st.button("Restart", on_click=update_value, key='keyy')
 
-col1, col2, col3 = st.columns(3)
-outer_cols = st.columns([1, 3])
+col1, col2 = st.columns(2)
+outer_cols = st.columns([1, 2])
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
                             
 if search_variable:
@@ -492,38 +492,10 @@ with col1:
                         st.code(txt, language='java')
                         st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                     st.divider()
-with col2:
-    with st.expander(f":frame_with_picture: Comics(Images)"):
-        resp = requests.get("https://manhuaaz.com/")
-        if resp.status_code == 200:
-            soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
-        
-            for link in manga_links:
-                href = link.get("href")
-                if "chapter" not in href:
-                    cch = f"{href}chapter-1/"
-                else:
-                    cch = href
-                manga_name=href.split('https://manhuaaz.com/manga/')[1]
-                
-                img_tag = link.find("img")
-                original_string = cch
-                obfuscated_text, mapping = obfuscate(original_string)
-                if img_tag:
-                    st.write(f"[{manga_name}]({cch})")
-                    img_url = img_tag.get("data-src")
-                    st.image(img_url, use_column_width='always')
-                    url = deobfuscate(obfuscated_text, mapping)
-                    txt = f"""
-                    {obfuscated_text}
-                    """
-                    st.code(txt, language='java')
-                    st.caption('Copy Code')
-                    st.divider()
 
-with col3:
+with col2:
     with st.expander(f":frame_with_picture:"):
+    st.write('rawr')
         resp = requests.get("https://manhuatop.org/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
