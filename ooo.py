@@ -375,6 +375,12 @@ if 'current_image_index' not in st.session_state:
 genre = None
 
 with st.sidebar:
+    container = st.container()
+    
+    if st.button("Restart"):
+        st.session_state.value = "Restart"    
+    container.header(st.session_state.value)
+    
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
@@ -395,7 +401,6 @@ col1, col2 = st.columns(2)
 outer_cols = st.columns([1, 2])
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
                             
-###############################################################
 if search_variable:
     with st.spinner('Searching..'):
         with st.expander(":mag: Search"):
@@ -425,7 +430,7 @@ if search_variable:
                             original_string = ih
                             obfuscated_text, mapping = obfuscate(original_string)
                             if img_url:
-                                st.image(img_url, caption=obfuscated_text)
+                                st.image(img_url, use_column_width='always')
                             if ih:
                                 st.caption('Copy Code')
                                 txt = f"""
@@ -451,7 +456,7 @@ if search_variable:
                                 if img_tag:
                                     st.write(f"[{manga_name}]({cch})")
                                     img_url = img_tag.get("data-src")
-                                    st.image(img_url, caption=obfuscated_text, use_column_width='always')
+                                    st.image(img_url, use_column_width='always')
                                     st.caption('Copy Code')
                                     txt = f"""
                                     {obfuscated_text}
@@ -463,9 +468,6 @@ if search_variable:
                             except StopIteration:
                                 break 
 
-#########################################                     
-
-                   
 with col1:
     with st.expander(':books: Random Titles(Text)'):
         resp = requests.get("https://daotranslate.us/?s=i")
@@ -485,7 +487,7 @@ with col1:
                     original_string = ch
                     obfuscated_text, mapping = obfuscate(original_string)
                     if img_url:
-                        st.image(img_url, caption=obfuscated_text, use_column_width='always')
+                        st.image(img_url, use_column_width='always')
                     if ch:
                         st.caption('Copy Code')
                         txt = f"""
@@ -516,7 +518,7 @@ with col2:
                 if img_tag:
                     st.write(f"[{manga_name}]({cch})")
                     img_url = img_tag.get("data-src")
-                    st.image(img_url, caption=obfuscated_text, use_column_width='always')
+                    st.image(img_url, use_column_width='always')
                     st.caption('Copy Code')
                     txt = f"""
                     {obfuscated_text}
