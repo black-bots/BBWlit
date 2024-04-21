@@ -375,12 +375,16 @@ if 'current_image_index' not in st.session_state:
 genre = None
 
 with st.sidebar:
-    st.header(st.session_state.value, key='Header')
+    if 'value' not in st.session_state:
+        st.session_state.value = ""
     
+    # Define function to update value
     def update_value():
         st.session_state.value = "Restart"
     
-    st.button("Restart", on_click=update_value, key=generate_unique_key())
+    # Display header and button
+    st.header(st.session_state.value, key='Header')
+    st.button("Restart", on_click=update_value, key='keyy')
         
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
