@@ -375,7 +375,7 @@ if 'current_image_index' not in st.session_state:
 genre = None
 
 with st.sidebar:
-    st.header(st.session_state.value)
+    st.header(st.session_state.value, key='Header')
     
     def update_value():
         st.session_state.value = "Restart"
