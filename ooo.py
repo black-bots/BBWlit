@@ -454,11 +454,12 @@ if search_variable:
                                     st.write(f"[{manga_name}]({cch})")
                                     img_url = img_tag.get("data-src")
                                     st.image(img_url, caption=obfuscated_text, use_column_width='always')
-                                    st.caption('Copy Code')
+                                    
                                     txt = f"""
                                     {obfuscated_text}
                                     """
                                     st.code(txt, language='java')
+                                    st.caption('Copy Code')
                                     st.divider()
                             except StopIteration:
                                 break 
@@ -513,11 +514,11 @@ with col2:
                     img_url = img_tag.get("data-src")
                     st.image(img_url, use_column_width='always')
                     url = deobfuscate(obfuscated_text, mapping)
-                    st.caption('Copy Code')
                     txt = f"""
                     {obfuscated_text}
                     """
                     st.code(txt, language='java')
+                    st.caption('Copy Code')
                     st.divider()
 
 st.image(main_image)
@@ -548,11 +549,11 @@ if ok:
                 nxtUrl = str(oldurl.replace(chap, nxtchap))
                 obfuscated_text, mapping = obfuscate(nxtUrl)
                 st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + obfuscated_text)
-                st.caption('Copy Code')
                 txt = f"""
                 {obfuscated_text}
                 """
                 st.code(txt, language='java')
+                st.caption('Copy Code')
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
