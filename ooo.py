@@ -267,12 +267,10 @@ def readit(url):
                         prvchap = str(int(chap))
                         nxtUrl = str(oldurl.replace(chap, nxtchap))
                         obfuscated_text, mapping = obfuscate(nxtUrl)
-                        st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + obfuscated_text)
-                        st.caption('Copy Code')
-                        txt = f"""
-                        {obfuscated_text}
-                        """
-                        st.code(txt, language='java')
+                        st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + nxtchap)
+                        st.caption(obfuscated_text)
+                        url = deobfuscate(obfuscated_text, mapping)
+                        st.button('Continue', on_click=readit, args=[url], key=generate_unique_key())
                     with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                         story = story.replace('"','')
                         tts = gTTS(text=story, lang='en', slow=False)
@@ -377,12 +375,8 @@ genre = None
 with st.sidebar:
     if 'value' not in st.session_state:
         st.session_state.value = ""
-    
-    # Define function to update value
     def update_value():
         st.session_state.value = "Restart"
-
-    st.button("Restart", on_click=update_value, key='keyy')
         
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
@@ -399,6 +393,7 @@ with st.sidebar:
         st.caption("- `Copy` a Code")
         st.caption("- `Paste` Code onto `Manga Code` field")
         st.caption("- `Press Read`")
+    st.button("Restart", on_click=update_value, key='keyy')
 
 col1, col2 = st.columns(2)
 outer_cols = st.columns([1, 2])
@@ -435,7 +430,6 @@ if search_variable:
                             if img_url:
                                 st.image(img_url, use_column_width='always')
                             if ih:
-                                st.caption('Copy Code')
                                 txt = f"""
                                 {obfuscated_text}
                                 """
@@ -460,7 +454,6 @@ if search_variable:
                                     st.write(f"[{manga_name}]({cch})")
                                     img_url = img_tag.get("data-src")
                                     st.image(img_url, use_column_width='always')
-                                    st.caption('Copy Code')
                                     txt = f"""
                                     {obfuscated_text}
                                     """
@@ -492,7 +485,6 @@ with col1:
                     if img_url:
                         st.image(img_url, use_column_width='always')
                     if ch:
-                        st.caption('Copy Code')
                         txt = f"""
                         {obfuscated_text}
                         """
@@ -522,7 +514,6 @@ with col2:
                     st.write(f"[{manga_name}]({cch})")
                     img_url = img_tag.get("data-src")
                     st.image(img_url, use_column_width='always')
-                    st.caption('Copy Code')
                     txt = f"""
                     {obfuscated_text}
                     """
