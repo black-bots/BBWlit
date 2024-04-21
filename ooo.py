@@ -522,7 +522,7 @@ with col2:
                     st.caption('Copy Code')
                     st.divider()
 
-with st.expander(f":frame_with_picture: Comics(Images)"):
+with st.expander(f":frame_with_picture:"):
     resp = requests.get("https://manhuatop.org/")
     if resp.status_code == 200:
         soup = BeautifulSoup(resp.text, 'html.parser')
