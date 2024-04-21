@@ -296,30 +296,6 @@ def readit(url):
             st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
 
-def readit2(xx):
-    url = xx
-    with st.spinner('Loading images & audio..'):
-        driver = get_driver()
-        st.session_state.image_links = get_image_links(url)
-        st.session_state.current_image_index = 0
-        if st.session_state.image_links:
-            for image_link in st.session_state.image_links:
-                st.image(image_link, use_column_width=True)
-            st.write(f"Total Images: {len(st.session_state.image_links)}")
-            transcribe_to_audio(st.session_state.image_links)
-            oldurl = url
-            chap = ''.join([n for n in oldurl if n.isdigit()])
-            nxtchap = str(int(chap) + int(+1))
-            prvchap = str(int(chap))
-            nxtUrl = str(oldurl.replace(chap, nxtchap))
-            obfuscated_text, mapping = obfuscate(nxtUrl)
-            st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + obfuscated_text)
-            st.caption('Copy Code')
-            txt = f"""
-            {obfuscated_text}
-            """
-            st.code(txt, language='java')
-
 def obfuscate(text):
     mapping = {}
     for i in range(26):
@@ -540,9 +516,9 @@ with col2:
                     txt = f"""
                     {obfuscated_text}
                     """
-                    xx = deobfuscate(obfuscated_text, mapping)
+                    url = deobfuscate(obfuscated_text, mapping)
                     st.code(txt, language='java')
-                    st.button('Read', on_click=readit2, args=[xx], key=generate_unique_key())
+                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                     st.divider()
 
 st.image(main_image)
