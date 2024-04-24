@@ -424,16 +424,7 @@ with st.sidebar:
     simi_mat, df = load_data()
     dataframe = None
     st.session_state.option = st.selectbox('Popular Titles', options=df['ctitle'])
-    #@st.cache_data
-    def convert_df(df):
-        return df.to_csv().encode('utf-8')
-    csv = convert_df(my_large_df)
-    st.download_button(
-        label="Download data as CSV",
-        data=csv,
-        file_name='large_df.csv',
-        mime='text/csv',
-    )
+    st.write(df['ctitle'])
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
