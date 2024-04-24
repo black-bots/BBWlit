@@ -158,6 +158,25 @@ def get_image_links(url):
     driver.quit()
     return image_links
 
+def get_image_links2(url):
+    try:
+        driver.get(url)
+    except WebDriverException as ex:
+        if driver.current_url == url:
+            pass
+            return []
+        else:
+            st.write(f'Error loading URL: {ex}')
+            return []
+    image_links = []
+    img_elements = driver.find_elements(By.CSS_SELECTOR, 'img[id^="image-"]')
+    for img_element in img_elements:
+        img_src = img_element.get_attribute('src')
+        if img_src and is_image_link(img_src):
+            image_links.append(img_src)
+    driver.quit()
+    return image_links
+
 def transcribe_to_audio(image_links):
     audio_files = []
     reader = load_model()  # Load OCR model outside the loop
@@ -515,7 +534,6 @@ with col2:
                     url = deobfuscate(obfuscated_text, mapping)
                     
                     st.write(f"[{title}]({href}) - Rating: {rating}")
-                    st.write(href)
                     st.image(img_url, use_column_width='always')
                     txt = f"""
                     {obfuscated_text}
@@ -568,7 +586,10 @@ if ok:
     if "daotrans" not in url.lower():
         with st.spinner('Loading text & audio..'):
             driver = get_driver()
-            st.session_state.image_links = get_image_links(url)
+            if "nightcomic.com" in url.lower():
+                st.session_state.image_links = get_image_links2(url)
+            else:
+                st.session_state.image_links = get_image_links(url)
             st.session_state.current_image_index = 0
             if st.session_state.image_links:
                 for image_link in st.session_state.image_links:
