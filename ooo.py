@@ -1,5 +1,5 @@
 # ┌──────────────────────────────────┐
-# │ BlackDao: Manga Dōjutsu v1.0.44  │
+# │ BlackGram - Manga Dōjutsu v1.28  │
 # ├──────────────────────────────────┤
 # │ Copyright © 2024 BlackBots.net   │
 # │ (https://BlackBots.net)          │
@@ -45,13 +45,33 @@
 #                                     888P                                                      
 #                                   .J88" "                                                     
 import os
-import re
-import requests
+import io
+import base64
+import hashlib
+import random
 import string
 import tempfile
 import time
 import uuid
+from io import BytesIO
+
+import re
+import requests
+from PIL import Image
+import numpy as np
+
+import easyocr as ocr  # OCR
+from easyocr import Reader
+from gtts import gTTS
+from pydub import AudioSegment
+from pydub.effects import speedup
+import streamlit as st
+import streamlit_nested_layout
+import streamlit.components.v1 as components
+import streamlit_extras
+
 from bs4 import BeautifulSoup
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
@@ -60,58 +80,27 @@ from selenium.common.exceptions import WebDriverException
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
-import base64
-import hashlib
-import random
-from io import BytesIO
-
-import streamlit as st
-from PIL import Image
-
-import easyocr as ocr  # OCR
-from easyocr import Reader
-from gtts import gTTS
-from pydub import AudioSegment
-from pydub.effects import speedup
-
-# Constants
-SUPPORTED_IMAGE_FORMATS = ['.png', '.jpg', '.jpeg']
-IMAGE_EXTENSIONS = ['.png', '.jpg', '.jpeg']
+import webbrowser
 
 
-# Utility Functions
 def generate_unique_key():
     unique_id = str(uuid.uuid4())
     hashed_key = hashlib.sha256(unique_id.encode()).hexdigest()
     return hashed_key
 
-
-def is_supported_image_format(image_url):
-    return any(image_url.lower().endswith(format) for format in SUPPORTED_IMAGE_FORMATS)
-
-
-def is_image_link(link):
-    return any(link.lower().endswith(ext) for ext in IMAGE_EXTENSIONS)
-
-
-def load_model() -> Reader:
-    return ocr.Reader(["en"], model_storage_directory=".")
-
-
-def filter_english_words(text):
-    try:
-        if not isinstance(text, str):
-            raise ValueError("Input must be a string")
-
-        english_word_pattern = r'\b[a-zA-Z]+(?:\'[a-zA-Z]+)?(?:-[a-zA-Z]+)?(?:[.,!?\'":;\[\]()*&^%$#@`~\\/]|\.\.\.)?\b'
-        english_words = re.findall(english_word_pattern, text)
-        english_text = ' '.join(english_words)
-        text = english_text.lower()
-    except Exception as e:
-        st.write(f"Error filtering English words: {e}")
-        text = ""  # Return empty string if an error occurs
-    return text
-
+def autoplay_audio(file_path: str):
+    with open(file_path, "rb") as f:
+        data = f.read()
+        b64 = base64.b64encode(data).decode()
+        md = f"""
+            <audio controls autoplay="true">
+            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
+            </audio>
+            """
+        st.markdown(
+            md,
+            unsafe_allow_html=True,
+        )
 
 def get_driver():
     options = Options()
@@ -132,7 +121,6 @@ def get_driver():
         options=options,
     )
 
-
 def perform_img_actions(url):
     if 'image_links' not in st.session_state:
         st.session_state.image_links = []
@@ -151,9 +139,7 @@ def perform_img_actions(url):
             st.write(f"Total Images: {len(st.session_state.image_links)}")
             transcribe_to_audio(st.session_state.image_links)
 
-
 def get_image_links(url):
-    #driver = get_driver()
     try:
         driver.get(url)
     except WebDriverException as ex:
@@ -173,7 +159,7 @@ def get_image_links(url):
     return image_links
 
 def get_image_links2(url):
-    #driver = get_driver()
+    driver = get_driver()
     try:
         driver.get(url)
     except WebDriverException as ex:
@@ -191,22 +177,22 @@ def get_image_links2(url):
             image_links.append(img_src)
     driver.quit()
     return image_links
-    
+
 def transcribe_to_audio(image_links):
     audio_files = []
     reader = load_model()  # Load OCR model outside the loop
     for idx, img_link in enumerate(image_links, start=1):
         if not is_supported_image_format(img_link):
             continue
-
+        
         with st.spinner(" Getting image text "):
             # Download the image
             img_data = requests.get(img_link).content
-
+            
             # Read text from the image
             result = reader.readtext(img_data)
             result_text = [text[1].strip() for text in result]
-
+            
         text = filter_english_words(result_text)
         if text:
             audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
@@ -219,6 +205,40 @@ def transcribe_to_audio(image_links):
         else:
             res_box.markdown(f':blue[Dao: ]:orange[No Text]')
     return audio_files
+
+
+def is_supported_image_format(image_url):
+    supported_formats = ['.png', '.jpg', '.jpeg']
+    for format in supported_formats:
+        if image_url.lower().endswith(format):
+            return True
+    return False
+
+def is_image_link(link):
+    image_extensions = ['.png', '.jpg', '.jpeg']
+    for ext in image_extensions:
+        if link.lower().endswith(ext):
+            return True
+    return False
+
+def load_model() -> Reader:
+    return ocr.Reader(["en"], model_storage_directory=".")
+
+def filter_english_words(text):
+    try:
+        if not isinstance(text, str):
+            raise ValueError("Input must be a string")
+        
+        english_word_pattern = r'\b[a-zA-Z]+(?:\'[a-zA-Z]+)?(?:-[a-zA-Z]+)?(?:[.,!?\'":;\[\]()*&^%$#@`~\\/]|\.\.\.)?\b'
+        english_words = re.findall(english_word_pattern, text)
+        english_text = ' '.join(english_words)
+        text = english_text.lower()
+    except Exception as e:
+        st.write(f"Error filtering English words: {e}")
+        text = ""  # Return empty string if an error occurs
+    return text
+
+
 
 def readit(url):
     driver = get_driver()
@@ -246,7 +266,7 @@ def readit(url):
                         story += paragraph.text + "\n"
                     story = story.replace('<p>', '')
                     story = story.replace('"', '')
-
+                    
                     st.markdown("""<style>
                           .stMarkdown{color: black;}
                           .st-c8:hover{color:orange;}
@@ -256,7 +276,7 @@ def readit(url):
                     )
                     with st.expander("Read"):
                         from annotated_text import annotated_text
-                        paragraphs = story.split("\n")
+                        paragraphs = story.split("\n") 
                         formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
                         annotated_text(*formatted_paragraphs)
                         st.caption(f'{len(story)} characters in this chapter.')
@@ -274,15 +294,19 @@ def readit(url):
                     with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                         story = story.replace('"','')
                         tts = gTTS(text=story, lang='en', slow=False)
-                        tts.save(tmp_file.name)
+                        tts.save(tmp_file.name)                            
                         audio = AudioSegment.from_mp3(tmp_file.name)
                         new_file = speedup(audio,1.2,150)
                         new_file.export("file.mp3", format="mp3")
                         autoplay_audio("file.mp3")
+                        #st.download_button("file.mp3")
                     for group in groups:
                         group_text = ""
                         for d_paragraph in group:
                             group_text += d_paragraph.text + "\n"
+                        #if on:
+                        #    res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
+                        #    time.sleep(5)
                     driver.quit()
                 else:
                     st.write('')
@@ -293,51 +317,34 @@ def readit(url):
     driver.quit()
 
 def obfuscate(text):
-    mapping = {}
-    for i in range(26):
-        mapping[chr(65 + i)] = chr(((i + 1) % 26) + 65)
-        mapping[chr(97 + i)] = chr(((i + 1) % 26) + 97)
-    obfuscated_text = ''.join(mapping.get(char, char) for char in text)
-    if 'nightcomic.com' in text:
-        obfuscated_text = "TOP/" + obfuscated_text
-    if 'daotranslate' in text:
-        obfuscated_text = "NOVEL/" + obfuscated_text
-    if 'manhuaaz.com' in text:
-        obfuscated_text = "PANEL/" + obfuscated_text
-    return obfuscated_text, mapping
-
+	mapping = {}
+	for i in range(26):
+		mapping[chr(65 + i)] = chr(((i + 1) % 26) + 65)
+		mapping[chr(97 + i)] = chr(((i + 1) % 26) + 97) 
+	obfuscated_text = ''.join(mapping.get(char, char) for char in text)
+	if 'nightcomic.com' in text:
+		obfuscated_text = "TOP/" + obfuscated_text
+	if 'daotranslate' in text:
+		obfuscated_text = "NOVEL/" + obfuscated_text
+	if 'manhuaaz.com' in text:
+		obfuscated_text = "PANEL/" + obfuscated_text
+	return obfuscated_text, mapping
 
 def deobfuscate(obfuscated_text, mapping):
-    if obfuscated_text.startswith("TOP/"):
-        obfuscated_text = obfuscated_text[len("TOP/"):]
-    if obfuscated_text.startswith("NOVEL/"):
-        obfuscated_text = obfuscated_text[len("NOVEL/"):]
-    if obfuscated_text.startswith("PANEL/"):
-        obfuscated_text = obfuscated_text[len("PANEL/"):]
-    inverted_mapping = {v: k for k, v in mapping.items()}
-    original_text = ''.join(inverted_mapping.get(char, char) for char in obfuscated_text)
-    return original_text
+	if obfuscated_text.startswith("TOP/"):
+		obfuscated_text = obfuscated_text[len("TOP/"):]
+	if obfuscated_text.startswith("NOVEL/"):
+		obfuscated_text = obfuscated_text[len("NOVEL/"):]
+	if obfuscated_text.startswith("PANEL/"):
+		obfuscated_text = obfuscated_text[len("PANEL/"):]
+	inverted_mapping = {v: k for k, v in mapping.items()}
+	original_text = ''.join(inverted_mapping.get(char, char) for char in obfuscated_text)
+	return original_text
 
-
-def autoplay_audio(file_path: str):
-    with open(file_path, "rb") as f:
-        data = f.read()
-        b64 = base64.b64encode(data).decode()
-        md = f"""
-            <audio controls autoplay="true">
-            <source src="data:audio/mp3;base64,{b64}" type="audio/mp3">
-            </audio>
-            """
-        st.markdown(
-            md,
-            unsafe_allow_html=True,
-        )
-
-
-# Streamlit Configuration
 history = []
 ih = ""
 icob = Image.open('static/-.ico')
+ranum = random.randint(1,99999)
 st.set_page_config(
     page_title="Manga Dōjutsu",
     page_icon=icob,
@@ -345,7 +352,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# UI Components
 st.markdown("""
     <style>
         <br><hr><center>
@@ -548,7 +554,6 @@ with col2:
                     st.code(txt, language='java')
                     st.caption('Copy Code')
                     st.divider()
-
 with col3:
     with st.expander(f":frame_with_picture: Panels"):
         resp = requests.get("https://manhuaaz.com/")
@@ -579,6 +584,7 @@ with col3:
                     st.caption('Copy Code')
                     st.divider()
 
+
 st.image(main_image)
 res_box = st.empty()
 
@@ -587,6 +593,7 @@ url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="i
 ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
 
 if ok:
+    #url = deobfuscate(xx, mapping)
     if "daotrans" in url:
         with st.spinner('Loading, please be patient..'):
             readit(url)
