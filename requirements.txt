@@ -32,4 +32,5 @@ emoji
 tls_client 
 st-annotated-text
 pyperclip
-
+scikit-learn
+scipy
