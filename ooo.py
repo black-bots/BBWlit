@@ -592,13 +592,6 @@ with col3:
                     st.code(txt, language='java')
                     st.caption('Copy Code')
                     st.divider()
-#col1, col2, col3 = st.columns(3)
-#with col2:
-    #@st.cache_data(persist=True, show_spinner=False)
-    #def load_data():
-        #cos_simi_mat_desc = read_object('artifacts/cosine_similarity_desc.pkl')
-        #df_manga_rel = pd.read_csv('artifacts/manga_clean.csv', index_col='manga_id')
-        #return cos_simi_mat_desc, df_manga_rel
     
 def load_data():
     cos_simi_mat_desc = read_object('artifacts/cosine_similarity_desc.pkl')
@@ -606,16 +599,12 @@ def load_data():
     titles = df_manga_rel['ctitle'].dropna().tolist()
     return cos_simi_mat_desc, titles
 
-# Check if button is clicked
-poptit = st.button('Popular Titles', key='PopTitle')
-
 # Initialize titles dictionary
 if "titles_dict" not in st.session_state:
     st.session_state["titles_dict"] = {}
 
-if poptit:
-    simi_mat, titles = load_data()
-    st.session_state["titles_dict"]["titles"] = titles
+simi_mat, titles = load_data()
+st.session_state["titles_dict"]["titles"] = titles
 
 # Get titles from session state
 titles = st.session_state.get("titles_dict", {}).get("titles", [])
@@ -627,14 +616,12 @@ if "next_page" in st.session_state:
 elif "prev_page" in st.session_state:
     page_number -= 1
 
-# Display titles
 with st.expander('Popular Titles'):
     start_idx = page_number * 20
     end_idx = min((page_number + 1) * 20, len(titles))
     for title in titles[start_idx:end_idx]:
         st.write(title)
 
-    # Display next and previous buttons
     if page_number > 0:
         st.button("Previous", key="prev_page")
     st.write(f"Page {page_number + 1}")
@@ -646,7 +633,6 @@ st.session_state["page_number"] = page_number
 st.image(main_image)
 res_box = st.empty()
 
-#xx = st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here")
 url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
 ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
 
