@@ -505,7 +505,7 @@ with st.sidebar:
         st.caption("- `Copy` a Code")
         st.caption("- `Paste` Code onto `Manga Code` field")
         st.caption("- `Press Read`")
-        st.button("Restart", on_click=update_value, key='keyy')
+	st.button("Restart", on_click=update_value, key='keyy')
 
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
