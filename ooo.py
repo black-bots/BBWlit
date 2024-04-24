@@ -423,7 +423,9 @@ with st.sidebar:
         return cos_simi_mat_desc, df_manga_rel
     simi_mat, df = load_data()
     dataframe = None
-    st.write(df['ctitle'].dropna())
+    titles = df['ctitle'].dropna().tolist()
+    for title in titles:
+        st.write(title)
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
