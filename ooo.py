@@ -413,30 +413,30 @@ with st.sidebar:
         
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
-		on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
+    on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 	
-		@st.cache_data(persist=True, show_spinner=False)
-		def load_data():
-		    cos_simi_mat_desc = read_object('artifacts/cosine_similarity_desc.pkl')
-		    df_manga_rel = pd.read_csv('artifacts/manga_clean.csv', index_col='manga_id')
-		    return cos_simi_mat_desc, df_manga_rel
-		simi_mat, df = load_data()
-		dataframe = None
-		st.session_state.option = st.selectbox('select movie', options=df['ctitle'])
+    @st.cache_data(persist=True, show_spinner=False)
+    def load_data():
+        cos_simi_mat_desc = read_object('artifacts/cosine_similarity_desc.pkl')
+        df_manga_rel = pd.read_csv('artifacts/manga_clean.csv', index_col='manga_id')
+        return cos_simi_mat_desc, df_manga_rel
+    simi_mat, df = load_data()
+    dataframe = None
+    st.session_state.option = st.selectbox('select movie', options=df['ctitle'])
 
-		st.divider()
-		st.header("Google Play Store")
-		st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
-		st.header("Official PC Version")
-		st.caption("Download from: https://blackbots.gumroad.com/l/manga")
-		st.caption("Join Our Discord: https://discord.gg/HcVPaSpF")
-		st.divider()
-		with st.expander("Help"):
-			st.caption("How to use BlackDao: Manga Dōjutsu")
-			st.caption("- `Copy` a Code")
-			st.caption("- `Paste` Code onto `Manga Code` field")
-			st.caption("- `Press Read`")
-			st.button("Restart", on_click=update_value, key='keyy')
+    st.divider()
+    st.header("Google Play Store")
+    st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
+    st.header("Official PC Version")
+    st.caption("Download from: https://blackbots.gumroad.com/l/manga")
+    st.caption("Join Our Discord: https://discord.gg/HcVPaSpF")
+    st.divider()
+    with st.expander("Help"):
+        st.caption("How to use BlackDao: Manga Dōjutsu")
+        st.caption("- `Copy` a Code")
+        st.caption("- `Paste` Code onto `Manga Code` field")
+        st.caption("- `Press Read`")
+        st.button("Restart", on_click=update_value, key='keyy')
 
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
