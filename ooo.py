@@ -424,10 +424,10 @@ with st.sidebar:
     simi_mat, df = load_data()
     dataframe = None
     titles = df['ctitle'].dropna().tolist()
-    #for title in titles:
-    #    st.write(title)
+
     with st.expander('Popular Titles'):
-        st.write(titles)
+        for title in titles:
+            st.write(title)
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
