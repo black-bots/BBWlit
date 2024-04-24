@@ -425,11 +425,28 @@ with st.sidebar:
     poptit = st.button('Popular Titles', key='PopTitle')
     if poptit:
         simi_mat, df = load_data()
-        dataframe = None
         titles = df['ctitle'].dropna().tolist()
+        page_number = st.session_state.get("page_number", 0)
+        if "next_page" in st.session_state:
+            page_number += 1
+        elif "prev_page" in st.session_state:
+            page_number -= 1
+	
         with st.expander('Popular Titles'):
-            for title in titles:
+            start_idx = page_number * 20
+            end_idx = min((page_number + 1) * 20, len(titles))
+            for title in titles[start_idx:end_idx]:
                 st.write(title)
+	
+        col1, col2, col3 = st.columns([1, 8, 1])
+        with col2:
+            if page_number > 0:
+                st.button("Previous", key="prev_page")
+            st.write(f"Page {page_number + 1}")
+            if end_idx < len(titles):
+                st.button("Next", key="next_page")
+        st.session_state["page_number"] = page_number
+	
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
