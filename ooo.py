@@ -421,13 +421,15 @@ with st.sidebar:
         cos_simi_mat_desc = read_object('artifacts/cosine_similarity_desc.pkl')
         df_manga_rel = pd.read_csv('artifacts/manga_clean.csv', index_col='manga_id')
         return cos_simi_mat_desc, df_manga_rel
-    simi_mat, df = load_data()
-    dataframe = None
-    titles = df['ctitle'].dropna().tolist()
-
-    with st.expander('Popular Titles'):
-        for title in titles:
-            st.write(title)
+    
+    poptit = st.button('Popular Titles', key='PopTitle')
+    if poptit:
+        simi_mat, df = load_data()
+        dataframe = None
+        titles = df['ctitle'].dropna().tolist()
+        with st.expander('Popular Titles'):
+            for title in titles:
+                st.write(title)
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
