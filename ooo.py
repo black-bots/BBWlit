@@ -426,7 +426,8 @@ with st.sidebar:
     titles = df['ctitle'].dropna().tolist()
     #for title in titles:
     #    st.write(title)
-    st.write(titles)
+    with st.expander('Popular Titles'):
+        st.write(titles)
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
