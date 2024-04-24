@@ -433,8 +433,8 @@ with st.sidebar:
             page_number -= 1
 	
         with st.expander('Popular Titles'):
-            start_idx = page_number * 1
-            end_idx = min((page_number + 1) * 5, len(titles))
+            start_idx = page_number * 2
+            end_idx = min((page_number + 1) * 10, len(titles))
             for title in titles[start_idx:end_idx]:
                 st.write(title)
 	
