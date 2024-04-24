@@ -431,7 +431,7 @@ with st.sidebar:
 	        with st.expander(":mag: Found"):
 	            search_url_1 = f"https://daotranslate.us/?s={st.session_state.option}"
 	            resp_1 = requests.get(search_url_1)
-	            search_url_2 = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga&op=&author=&artist=&release=&adult="
+	            search_url_2 = f"https://manhuaaz.com/?s={st.session_state.option}&post_type=wp-manga&op=&author=&artist=&release=&adult="
 	            resp_2 = requests.get(search_url_2)
 	            
 	            if resp_1.status_code == 200 and resp_2.status_code == 200:
