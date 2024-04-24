@@ -580,7 +580,7 @@ url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="i
 ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
 
 if ok:
-    url = deobfuscate(xx, mapping)
+    #url = deobfuscate(xx, mapping)
     if "daotrans" in url:
         with st.spinner('Loading, please be patient..'):
             readit(url)
