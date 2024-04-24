@@ -429,7 +429,7 @@ with st.sidebar:
 	if lookup:
 	    with st.spinner('Searching..'):
 	        with st.expander(":mag: Found"):
-	            search_url_1 = f"https://daotranslate.us/?s={search_variable}"
+	            search_url_1 = f"https://daotranslate.us/?s={st.session_state.option}"
 	            resp_1 = requests.get(search_url_1)
 	            search_url_2 = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga&op=&author=&artist=&release=&adult="
 	            resp_2 = requests.get(search_url_2)
