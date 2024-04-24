@@ -438,8 +438,6 @@ with st.sidebar:
             for title in titles[start_idx:end_idx]:
                 st.write(title)
 	
-        col1, col2, col3 = st.columns([1, 8, 1])
-        with col2:
             if page_number > 0:
                 st.button("Previous", key="prev_page")
             st.write(f"Page {page_number + 1}")
