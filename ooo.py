@@ -430,8 +430,7 @@ with st.sidebar:
         st.caption("- `Press Read`")
     st.button("Restart", on_click=update_value, key='keyy')
 
-col1, col2, col3 = st.columns(3)
-outer_cols = st.columns([1, 2])
+
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
                             
 if search_variable:
@@ -500,7 +499,11 @@ if search_variable:
                                     st.caption('Copy Code')
                                     st.divider()
                             except StopIteration:
-                                break 
+                                break
+
+col1, col2, col3 = st.columns(3)
+outer_cols = st.columns([1, 2])
+
 with col1:
     ranchar = random.choice(string.ascii_uppercase)
     with st.expander(':books: Novels'):
