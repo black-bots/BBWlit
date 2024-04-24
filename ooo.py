@@ -159,6 +159,7 @@ def get_image_links(url):
     return image_links
 
 def get_image_links2(url):
+    driver = get_driver()
     try:
         driver.get(url)
     except WebDriverException as ex:
