@@ -423,8 +423,7 @@ with st.sidebar:
         return cos_simi_mat_desc, df_manga_rel
     simi_mat, df = load_data()
     dataframe = None
-    st.session_state.option = st.selectbox('Popular Titles', options=df['ctitle'].to_string(index=False))
-    st.write(df['ctitle'])
+    st.write(df['ctitle'].to_string(index=False))
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
