@@ -323,24 +323,20 @@ def obfuscate(text):
 		mapping[chr(97 + i)] = chr(((i + 1) % 26) + 97) 
 	obfuscated_text = ''.join(mapping.get(char, char) for char in text)
 	if 'nightcomic.com' in text:
-		obfuscated_text = "TOP:" + obfuscated_text
+		obfuscated_text = "TOP/" + obfuscated_text
 	if 'daotranslate' in text:
-		obfuscated_text = "NOVEL:" + obfuscated_text
+		obfuscated_text = "NOVEL/" + obfuscated_text
 	if 'manhuaaz.com' in text:
-		obfuscated_text = "PANEL:" + obfuscated_text
-	else:
-		obfuscated_text = "???:" + obfuscated_text
+		obfuscated_text = "PANEL/" + obfuscated_text
 	return obfuscated_text, mapping
 
 def deobfuscate(obfuscated_text, mapping):
-	if obfuscated_text.startswith("TOP:"):
-		obfuscated_text = obfuscated_text[len("TOP:"):]
-	if obfuscated_text.startswith("NOVEL:"):
-		obfuscated_text = obfuscated_text[len("NOVEL:"):]
-	if obfuscated_text.startswith("PANEL:"):
-		obfuscated_text = obfuscated_text[len("PANEL:"):]
-	if obfuscated_text.startswith("???:"):
-		obfuscated_text = obfuscated_text[len("???:"):]
+	if obfuscated_text.startswith("TOP/"):
+		obfuscated_text = obfuscated_text[len("TOP/"):]
+	if obfuscated_text.startswith("NOVEL/"):
+		obfuscated_text = obfuscated_text[len("NOVEL/"):]
+	if obfuscated_text.startswith("PANEL/"):
+		obfuscated_text = obfuscated_text[len("PANEL/"):]
 	inverted_mapping = {v: k for k, v in mapping.items()}
 	original_text = ''.join(inverted_mapping.get(char, char) for char in obfuscated_text)
 	return original_text
