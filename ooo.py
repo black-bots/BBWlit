@@ -424,9 +424,9 @@ with st.sidebar:
     simi_mat, df = load_data()
     dataframe = None
     st.session_state.option = st.selectbox('Popular Titles', options=df['ctitle'])
-	lookup = st.button('Look-Up', key='lookup')
+    lookup = st.button('Look-Up', key='lookup')
 
-	if lookup:
+    if lookup:
 	    with st.spinner('Searching..'):
 	        with st.expander(":mag: Found"):
 	            search_url_1 = f"https://daotranslate.us/?s={st.session_state.option}"
