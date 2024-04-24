@@ -416,35 +416,6 @@ with st.sidebar:
     st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 	
-    @st.cache_data(persist=True, show_spinner=False)
-    def load_data():
-        cos_simi_mat_desc = read_object('artifacts/cosine_similarity_desc.pkl')
-        df_manga_rel = pd.read_csv('artifacts/manga_clean.csv', index_col='manga_id')
-        return cos_simi_mat_desc, df_manga_rel
-    
-    poptit = st.button('Popular Titles', key='PopTitle')
-    if poptit:
-        simi_mat, df = load_data()
-        titles = df['ctitle'].dropna().tolist()
-        page_number = st.session_state.get("page_number", 0)
-        if "next_page" in st.session_state:
-            page_number += 1
-        elif "prev_page" in st.session_state:
-            page_number -= 1
-	
-        with st.expander('Popular Titles'):
-            start_idx = page_number * 2
-            end_idx = min((page_number + 1) * 10, len(titles))
-            for title in titles[start_idx:end_idx]:
-                st.write(title)
-	
-            if page_number > 0:
-                st.button("Previous", key="prev_page")
-            st.write(f"Page {page_number + 1}")
-            if end_idx < len(titles):
-                st.button("Next", key="next_page")
-        st.session_state["page_number"] = page_number
-	
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
@@ -618,8 +589,36 @@ with col3:
                     st.code(txt, language='java')
                     st.caption('Copy Code')
                     st.divider()
-
-
+col1, col2, col3 = st.columns(3)
+with col2:
+    @st.cache_data(persist=True, show_spinner=False)
+    def load_data():
+        cos_simi_mat_desc = read_object('artifacts/cosine_similarity_desc.pkl')
+        df_manga_rel = pd.read_csv('artifacts/manga_clean.csv', index_col='manga_id')
+        return cos_simi_mat_desc, df_manga_rel
+    
+    poptit = st.button('Popular Titles', key='PopTitle')
+    if poptit:
+        simi_mat, df = load_data()
+        titles = df['ctitle'].dropna().tolist()
+        page_number = st.session_state.get("page_number", 0)
+        if "next_page" in st.session_state:
+            page_number += 1
+        elif "prev_page" in st.session_state:
+            page_number -= 1
+	
+        with st.expander('Popular Titles'):
+            start_idx = page_number * 2
+            end_idx = min((page_number + 1) * 10, len(titles))
+            for title in titles[start_idx:end_idx]:
+                st.write(title)
+	
+            if page_number > 0:
+                st.button("Previous", key="prev_page")
+            st.write(f"Page {page_number + 1}")
+            if end_idx < len(titles):
+                st.button("Next", key="next_page")
+        st.session_state["page_number"] = page_number
 st.image(main_image)
 res_box = st.empty()
 
