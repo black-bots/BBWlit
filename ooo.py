@@ -564,7 +564,8 @@ with col3:
 st.image(main_image)
 res_box = st.empty()
 
-url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="NOVEL/iuuqt//ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
+#xx = st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here")
+url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
 ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
 
 if ok:
