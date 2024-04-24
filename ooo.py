@@ -416,7 +416,7 @@ with st.sidebar:
     st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 	
-    #@st.cache_data(persist=True, show_spinner=False)
+    @st.cache_data(persist=True, show_spinner=False)
     def load_data():
         cos_simi_mat_desc = read_object('artifacts/cosine_similarity_desc.pkl')
         df_manga_rel = pd.read_csv('artifacts/manga_clean.csv', index_col='manga_id')
