@@ -1,3 +1,6 @@
 artifacts/manga_clean.csv filter=lfs diff=lfs merge=lfs -text
 artifacts/tfidf_desc.pkl filter=lfs diff=lfs merge=lfs -text
 artifacts/cosine_similarity_desc.pkl filter=lfs diff=lfs merge=lfs -text
+Notebooks/Manga.ipynb filter=lfs diff=lfs merge=lfs -text
+Notebooks/manga_organized.ipynb filter=lfs diff=lfs merge=lfs -text
+Notebooks/numpy_tesst.ipynb filter=lfs diff=lfs merge=lfs -text
