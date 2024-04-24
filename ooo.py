@@ -465,7 +465,7 @@ if search_variable:
                                 break 
 with col1:
     ranchar = random.choice(string.ascii_uppercase)
-    with st.expander(':books: Text'):
+    with st.expander(':books: Novels'):
         resp = requests.get(f"https://daotranslate.us/?s={ranchar}")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -494,7 +494,7 @@ with col1:
                     st.divider()
 
 with col2:
-    with st.expander(f":frame_with_picture: Manga Updates"):
+    with st.expander(f":frame_with_picture: Top Rated"):
         resp = requests.get("https://nightcomic.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -515,6 +515,7 @@ with col2:
                     url = deobfuscate(obfuscated_text, mapping)
                     
                     st.write(f"[{title}]({href}) - Rating: {rating}")
+                    st.write(href)
                     st.image(img_url, use_column_width='always')
                     txt = f"""
                     {obfuscated_text}
@@ -523,7 +524,7 @@ with col2:
                     st.caption('Copy Code')
                     st.divider()
 with col3:
-    with st.expander(f":frame_with_picture: Image"):
+    with st.expander(f":frame_with_picture: Panels"):
         resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
