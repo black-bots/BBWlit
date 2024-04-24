@@ -153,7 +153,7 @@ def perform_img_actions(url):
 
 
 def get_image_links(url):
-    driver = get_driver()
+    #driver = get_driver()
     try:
         driver.get(url)
     except WebDriverException as ex:
@@ -172,7 +172,26 @@ def get_image_links(url):
     driver.quit()
     return image_links
 
-
+def get_image_links2(url):
+    #driver = get_driver()
+    try:
+        driver.get(url)
+    except WebDriverException as ex:
+        if driver.current_url == url:
+            pass
+            return []
+        else:
+            st.write(f'Error loading URL: {ex}')
+            return []
+    image_links = []
+    img_elements = driver.find_elements(By.CSS_SELECTOR, 'img[id^="image-"]')
+    for img_element in img_elements:
+        img_src = img_element.get_attribute('src')
+        if img_src and is_image_link(img_src):
+            image_links.append(img_src)
+    driver.quit()
+    return image_links
+    
 def transcribe_to_audio(image_links):
     audio_files = []
     reader = load_model()  # Load OCR model outside the loop
@@ -200,7 +219,6 @@ def transcribe_to_audio(image_links):
         else:
             res_box.markdown(f':blue[Dao: ]:orange[No Text]')
     return audio_files
-
 
 def readit(url):
     driver = get_driver()
@@ -273,7 +291,6 @@ def readit(url):
         except Exception as e:
             st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
-
 
 def obfuscate(text):
     mapping = {}
@@ -570,7 +587,6 @@ url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="i
 ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
 
 if ok:
-    #url = deobfuscate(xx, mapping)
     if "daotrans" in url:
         with st.spinner('Loading, please be patient..'):
             readit(url)
