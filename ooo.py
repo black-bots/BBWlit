@@ -424,7 +424,7 @@ with st.sidebar:
     simi_mat, df = load_data()
     dataframe = None
     st.session_state.option = st.selectbox('Popular Titles', options=df['ctitle'])
-    lookup = st.button('LookUp', key='lookup', use_column_width='always')
+    lookup = st.button('LookUp', key='lookup')
 
     if lookup:
 	    with st.spinner('Searching..'):
