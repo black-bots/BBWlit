@@ -404,7 +404,14 @@ if 'current_image_index' not in st.session_state:
     st.session_state.current_image_index = 0
 
 genre = None
-
+def fetch_and_parse_webpage(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        return soup.find_all('div', class_='st-emotion-cache-sy3zga e1gc5fo21')
+    else:
+        st.error("Failed to fetch the webpage.")
+        return []
 with st.sidebar:
     if 'value' not in st.session_state:
         st.session_state.value = ""
@@ -414,16 +421,6 @@ with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
-
-# Function to fetch and parse the webpage
-def fetch_and_parse_webpage(url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.content, 'html.parser')
-        return soup.find_all('div', class_='st-emotion-cache-sy3zga e1gc5fo21')
-    else:
-        st.error("Failed to fetch the webpage.")
-        return []
 
     url = "https://magaji-ahmed-manga-recommendation-content-based-srcapp-yuurdt.streamlit.app"
 	
