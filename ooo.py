@@ -416,32 +416,39 @@ with st.sidebar:
     st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 
-	def load_data():
-	    with open('titles.txt', 'r') as file:
-	        titles = file.read().splitlines()
-	    return titles
+# Function to fetch and parse the webpage
+def fetch_and_parse_webpage(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        return soup.find_all('div', class_='st-emotion-cache-sy3zga e1gc5fo21')
+    else:
+        st.error("Failed to fetch the webpage.")
+        return []
+
+    url = "https://magaji-ahmed-manga-recommendation-content-based-srcapp-yuurdt.streamlit.app"
 	
-	if "titles_dict" not in st.session_state:
-	    st.session_state["titles_dict"] = {}
-	titles = load_data()
-	st.session_state["titles_dict"]["titles"] = titles
-	titles = st.session_state.get("titles_dict", {}).get("titles", [])
-	page_number = st.session_state.get("page_number", 0)
-	if "next_page" in st.session_state:
-	    page_number += 1
-	elif "prev_page" in st.session_state:
-	    page_number -= 1
-	with st.expander('Popular Titles'):
-	    start_idx = page_number * 20
-	    end_idx = min((page_number + 1) * 20, len(titles))
-	    for title in titles[start_idx:end_idx]:
-	        st.write(title)
-	    if page_number > 0:
-	        st.button("Previous", key="prev_page")
-	    st.write(f"Page {page_number + 1}")
-	    if end_idx < len(titles):
-	        st.button("Next", key="next_page")
-	st.session_state["page_number"] = page_number
+    div_elements = fetch_and_parse_webpage(url)
+	
+    if div_elements:
+        page_number = st.session_state.get("page_number", 0)
+        items_per_page = 10
+        total_items = len(div_elements)
+	    
+        start_idx = page_number * items_per_page
+        end_idx = min((page_number + 1) * items_per_page, total_items)
+	    
+        for div_element in div_elements[start_idx:end_idx]:
+            st.write(div_element.text.strip())
+	    
+        if page_number > 0:
+            if st.button("Previous"):
+                page_number -= 1
+        if end_idx < total_items:
+            if st.button("Next"):
+                page_number += 1
+	    
+        st.session_state["page_number"] = page_number
 	
     st.divider()
     st.header("Google Play Store")
