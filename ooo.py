@@ -415,10 +415,10 @@ with st.sidebar:
     st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 
-    #########################################################	
+    #########################################################
+    with open("titles.txt", "r") as file:
+        file_contents = file.readlines()
     with st.expander("Popular Titles"):
-        with open("titles.txt", "r") as file:
-            file_contents = file.readlines()
         num_results = len(file_contents)
         num_groups = (num_results - 1) // 10 + 1
         group_index = st.slider("Select Group", 1, num_groups, 1)
@@ -551,7 +551,7 @@ with col1:
                     st.divider()
 
 with col2:
-    with st.expander(f":frame_with_picture: Top Rated"):
+    with st.expander(f":chart: Top Rated"):
         resp = requests.get("https://nightcomic.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
