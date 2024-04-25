@@ -1,5 +1,5 @@
 # ┌──────────────────────────────────┐
-# │ BlackGram - Manga Dōjutsu v1.28  │
+# │ BlackDao: Manga Dōjutsu v2.12.21 │
 # ├──────────────────────────────────┤
 # │ Copyright © 2024 BlackBots.net   │
 # │ (https://BlackBots.net)          │
@@ -83,7 +83,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
 import webbrowser
-from utils import recommendations, read_object
 
 
 def generate_unique_key():
@@ -415,84 +414,41 @@ with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
+
+# Function to fetch and parse the webpage
+def fetch_and_parse_webpage(url):
+    response = requests.get(url)
+    if response.status_code == 200:
+        soup = BeautifulSoup(response.content, 'html.parser')
+        return soup.find_all('div', class_='st-emotion-cache-sy3zga e1gc5fo21')
+    else:
+        st.error("Failed to fetch the webpage.")
+        return []
+
+    url = "https://magaji-ahmed-manga-recommendation-content-based-srcapp-yuurdt.streamlit.app"
 	
-    #@st.cache_data(persist=True, show_spinner=False)
-    def load_data():
-        cos_simi_mat_desc = read_object('artifacts/cosine_similarity_desc.pkl')
-        df_manga_rel = pd.read_csv('artifacts/manga_clean.csv', index_col='manga_id')
-        return cos_simi_mat_desc, df_manga_rel
-    simi_mat, df = load_data()
-    dataframe = None
-    st.session_state.option = st.selectbox('Popular Titles', options=df['ctitle'])
-    lookup = st.button('LookUp', key='lookup', use_column_width='always')
-
-    if lookup:
-	    with st.spinner('Searching..'):
-	        with st.expander(":mag: Found"):
-	            search_url_1 = f"https://daotranslate.us/?s={st.session_state.option}"
-	            resp_1 = requests.get(search_url_1)
-	            search_url_2 = f"https://manhuaaz.com/?s={st.session_state.option}&post_type=wp-manga&op=&author=&artist=&release=&adult="
-	            resp_2 = requests.get(search_url_2)
-	            
-	            if resp_1.status_code == 200 and resp_2.status_code == 200:
-	                soup_1 = BeautifulSoup(resp_1.text, 'html.parser')
-	                soup_2 = BeautifulSoup(resp_2.text, 'html.parser')
-	                
-	                search_result_div_1 = soup_1.find("div", {"class": "listupd"})
-	                search_result_div_2 = soup_2.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
-	                
-	                if search_result_div_1 and search_result_div_2:
-	                    titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
-	                    manga_links = iter(search_result_div_2)
-	                    for title in titles:
-	                        title_url = title.a["href"]
-	                        title_name = title_url.split("series/")[1].replace('/', '').title()
-	                        titlename = title_name.replace('-', ' ')
-	                        ih = f"https://daotranslate.us/{title_name}-chapter-1/"
-	                        with st.spinner('Searching..'):
-	                            st.write(f"[{titlename}]({ih})")
-	                            img_url = title.img["src"]
-	                            original_string = ih
-	                            obfuscated_text, mapping = obfuscate(original_string)
-	                            if img_url:
-	                                st.image(img_url, use_column_width='always')
-	                            if ih:
-	                                txt = f"""
-	                                {obfuscated_text}
-	                                """
-	                                url = deobfuscate(obfuscated_text, mapping)
-	                                st.code(txt, language='java')
-	                                st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
-	                            st.divider()
-	                            
-	                            # Display results from search_result_div_2
-	                            try:
-	                                link = next(manga_links)
-	                                href = link.get("href")
-	                                if "chapter" not in href:
-	                                    cch = f"{href}chapter-1/"
-	                                else:
-	                                    cch = href
-	                                manga_name=href.split('https://manhuaaz.com/manga/')[1]
-	                               
-	                                img_tag = link.find("img")
-	                                original_string = cch
-	                                obfuscated_text, mapping = obfuscate(original_string)
-	                                if img_tag:
-	                                    st.write(f"[{manga_name}]({cch})")
-	                                    img_url = img_tag.get("data-src")
-	                                    st.image(img_url, caption=obfuscated_text, use_column_width='always')
-	                                    
-	                                    txt = f"""
-	                                    {obfuscated_text}
-	                                    """
-	                                    st.code(txt, language='java')
-	                                    st.caption('Copy Code')
-	                                    st.divider()
-	                            except StopIteration:
-	                                break 
-
-
+    div_elements = fetch_and_parse_webpage(url)
+	
+    if div_elements:
+        page_number = st.session_state.get("page_number", 0)
+        items_per_page = 10
+        total_items = len(div_elements)
+	    
+        start_idx = page_number * items_per_page
+        end_idx = min((page_number + 1) * items_per_page, total_items)
+	    
+        for div_element in div_elements[start_idx:end_idx]:
+            st.write(div_element.text.strip())
+	    
+        if page_number > 0:
+            if st.button("Previous"):
+                page_number -= 1
+        if end_idx < total_items:
+            if st.button("Next"):
+                page_number += 1
+	    
+        st.session_state["page_number"] = page_number
+	
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
@@ -507,11 +463,11 @@ with st.sidebar:
         st.caption("- `Press Read`")
     st.button("Restart", on_click=update_value, key='keyy')
 
-col1, col2, col3 = st.columns(3)
-outer_cols = st.columns([1, 2])
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
                             
 if search_variable:
+    if '"' in search_variable:
+        search_variable = search_variable.replace('"', '')
     with st.spinner('Searching..'):
         with st.expander(":mag: Search"):
             search_url_1 = f"https://daotranslate.us/?s={search_variable}"
@@ -575,7 +531,11 @@ if search_variable:
                                     st.caption('Copy Code')
                                     st.divider()
                             except StopIteration:
-                                break 
+                                break
+
+col1, col2, col3 = st.columns(3)
+outer_cols = st.columns([1, 2])
+
 with col1:
     ranchar = random.choice(string.ascii_uppercase)
     with st.expander(':books: Novels'):
@@ -665,11 +625,9 @@ with col3:
                     st.caption('Copy Code')
                     st.divider()
 
-
 st.image(main_image)
 res_box = st.empty()
 
-#xx = st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here")
 url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
 ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
 
