@@ -404,14 +404,7 @@ if 'current_image_index' not in st.session_state:
     st.session_state.current_image_index = 0
 
 genre = None
-def fetch_and_parse_webpage(url):
-    response = requests.get(url)
-    if response.status_code == 200:
-        soup = BeautifulSoup(response.content, 'html.parser')
-        return soup.find_all('div', class_='st-emotion-cache-sy3zga e1gc5fo21')
-    else:
-        st.error("Failed to fetch the webpage.")
-        return []
+
 with st.sidebar:
     if 'value' not in st.session_state:
         st.session_state.value = ""
@@ -422,30 +415,24 @@ with st.sidebar:
     st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 
-    url = "https://magaji-ahmed-manga-recommendation-content-based-srcapp-yuurdt.streamlit.app"
-	
-    div_elements = fetch_and_parse_webpage(url)
-	
-    if div_elements:
-        page_number = st.session_state.get("page_number", 0)
-        items_per_page = 10
-        total_items = len(div_elements)
-	    
-        start_idx = page_number * items_per_page
-        end_idx = min((page_number + 1) * items_per_page, total_items)
-	    
-        for div_element in div_elements[start_idx:end_idx]:
-            st.write(div_element.text.strip())
-	    
-        if page_number > 0:
-            if st.button("Previous"):
-                page_number -= 1
-        if end_idx < total_items:
-            if st.button("Next"):
-                page_number += 1
-	    
-        st.session_state["page_number"] = page_number
-	
+    #########################################################	
+    with st.expander("Popular Titles"):
+        with open("titles.txt", "r") as file:
+            file_contents = file.readlines()
+        num_results = len(file_contents)
+        num_groups = (num_results - 1) // 10 + 1
+        group_index = st.slider("Select Group", 1, num_groups, 1)
+        start_index = (group_index - 1) * 10
+        end_index = min(group_index * 10, num_results)
+        st.text("Results:")
+        for i in range(start_index, end_index):
+            st.write(file_contents[i])
+        if group_index > 1:
+            st.button("Previous", key="prev_button")
+        if group_index < num_groups:
+            st.button("Next", key="next_button")
+    #########################################################
+
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
