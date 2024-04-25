@@ -83,7 +83,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
 import webbrowser
-from utils import recommendations, read_object
 
 
 def generate_unique_key():
