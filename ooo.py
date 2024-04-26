@@ -564,10 +564,9 @@ async def main():
                         """
                         url = await deobfuscate(obfuscated_text, mapping)
                         with col1:
-                            with st.expander(f"{category}"):
-                                st.code(txt, language='java')
-                                st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
-                                st.divider()
+                            st.code(txt, language='java')
+                            st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
+                            st.divider()
 
     urls = {
         "Top Rated": "https://nightcomic.com/",
