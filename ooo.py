@@ -551,23 +551,20 @@ async def display_manga_titles_and_images(url):
                 """
                 url = deobfuscate(obfuscated_text, mapping)
                 st.code(txt, language='java')
-                if st.button('Read'):
+                if st.button('Read', key=generate_unique_key()):
                     readit(url)
 
 async def main():
-    # Define URLs for fetching manga data
     urls = {
         "Novels": f"https://daotranslate.us/?s={random.choice(string.ascii_uppercase)}",
         "Top Rated": "https://nightcomic.com/",
         "Panels": "https://manhuaaz.com/"
     }
 
-    # Display manga data within expanders for each category
     for category, url in urls.items():
         with st.expander(f"{category}"):
             await display_manga_titles_and_images(url)
 
-# Run the main asynchronous function
 asyncio.run(main())
 
 st.image(main_image)
