@@ -529,14 +529,27 @@ async def display_manga_titles_and_images(url, mapping=None):
     html_content = await fetch_data(url)
     if html_content:
         soup = BeautifulSoup(html_content, 'html.parser')
-        manga_items = soup.find_all("div", class_="page-item-detail manga")
+        manga_items = soup.find_all("div", class_=["page-item-detail manga", "bsx"])
         for item in manga_items:
-            link = item.find("a", class_="btn-link")
-            img_tag = item.find("img")
-            title = item.find("h3", class_="h5").text.strip()
+            if item.has_attr('class') and "manga" in item["class"]:
+                link = item.find("a", class_="btn-link")
+                img_tag = item.find("img")
+                title = item.find("h3", class_="h5").text.strip()
+            else:
+                link = item.find("a", class_="tip")
+                img_tag = item.find("img")
+                title_span = item.find("span", class_="ntitle")
+                chapter_span = item.find("span", class_="nchapter")
+                if title_span and chapter_span:
+                    title = title_span.text.strip()
+                    chapter = chapter_span.text.strip()
+                    title = f"{title} {chapter}"
+                else:
+                    continue
+
             if link and img_tag:
                 href = link.get("href")
-                img_url = img_tag.get("data-src")
+                img_url = img_tag.get("src")
                 st.write(f"[{title}]({href})")
                 st.image(img_url, use_column_width='always')
                 st.caption('Copy Code')
@@ -552,6 +565,7 @@ async def display_manga_titles_and_images(url, mapping=None):
                 st.code(txt, language='java')
                 if st.button('Read', key=generate_unique_key()):
                     readit(url)
+
 
 async def main():
     urls = {
