@@ -532,7 +532,7 @@ async def display_manga_titles_and_images(url, mapping=None):
                 {obfuscated_text}
                 """
                 if mapping is not None:
-                    url = deobfuscate(obfuscated_text, mapping)
+                    url = await deobfuscate(obfuscated_text, mapping)
                 st.code(txt, language='java')
                 pass
 
@@ -562,7 +562,7 @@ async def main():
                             txt = f"""
                             {obfuscated_text}
                             """
-                            url = deobfuscate(obfuscated_text, mapping)
+                            url = await deobfuscate(obfuscated_text, mapping)
                             st.code(txt, language='java')
                             st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                         st.divider()
@@ -591,7 +591,7 @@ async def main():
     original_string = 'Random'
     obfuscated_text, mapping = await obfuscate(original_string)
     url_input = st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here")
-    url = deobfuscate(url_input, mapping)  # Pass the mapping here
+    url = await deobfuscate(url_input, mapping)  # Pass the mapping here
     ok = st.button(":green_book: Read", help="Read", key='readbutton')
 
     if ok:
@@ -619,7 +619,7 @@ async def main():
                 nxtchap = str(int(chap) + int(+1))
                 prvchap = str(int(chap))
                 nxtUrl = str(oldurl.replace(chap, nxtchap))
-                obfuscated_text, mapping = obfuscate(nxtUrl)
+                obfuscated_text, mapping = await obfuscate(nxtUrl)
                 st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + obfuscated_text)
                 txt = f"""
                 {obfuscated_text}
