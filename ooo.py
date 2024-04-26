@@ -557,8 +557,7 @@ async def main():
                     obfuscated_text, mapping = await obfuscate(original_string)
                     if img_url:
                         with col1:
-                            with st.expander(f"{category}"):  # This is where the error occurs
-                                st.image(img_url, use_column_width='always')
+                            st.image(img_url, use_column_width='always')
                     if ch:
                         txt = f"""
                         {obfuscated_text}
