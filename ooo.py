@@ -524,8 +524,7 @@ async def fetch_data(url):
             else:
                 return None
 
-# Function to display manga titles and images
-async def display_manga_titles_and_images(url, mapping):
+async def display_manga_titles_and_images(url, mapping=None):
     html_content = await fetch_data(url)
     if html_content:
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -548,7 +547,8 @@ async def display_manga_titles_and_images(url, mapping):
                 txt = f"""
                 {obfuscated_text}
                 """
-                url = deobfuscate(obfuscated_text, mapping)
+                if mapping is not None:
+                    url = deobfuscate(obfuscated_text, mapping)
                 st.code(txt, language='java')
                 if st.button('Read', key=generate_unique_key()):
                     readit(url)
@@ -562,7 +562,7 @@ async def main():
 
     for category, url in urls.items():
         with st.expander(f"{category}"):
-            mapping = None  # Initialize mapping here
+            mapping = None  # Initialize mapping here if needed
             if category == "Novels":
                 _, mapping = obfuscate(url)
             await display_manga_titles_and_images(url, mapping)
