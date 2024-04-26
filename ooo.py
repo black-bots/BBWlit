@@ -252,10 +252,10 @@ async def readit(url):
     except:
         pass
     if not url:
-        res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
+        st.markdown(':blue[Dao: ]:green[*Enter a valid URL before running.*]')
     else:
         try:
-            resp = await requests.get(url)
+            resp = await requests.get(url)  # Use await here
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
                 d = soup.find("div", {"class": "epcontent entry-content"})
@@ -271,24 +271,23 @@ async def readit(url):
                         story += paragraph.text + "\n"
                     story = story.replace('<p>', '')
                     story = story.replace('"', '')
-                    
+
                     st.markdown("""<style>
                           .stMarkdown{color: black;}
                           .st-c8:hover{color:orange;}
                           .streamlit-expander.st-bc.st-as.st-ar.st-bd.st-be.st-b8.st-bf.st-bg.st-bh.st-bi{display:none;}
-                          </style>""",
+                          </style>
+                    """,
                           unsafe_allow_html=True
                     )
                     with st.expander("Read"):
-                        from annotated_text import annotated_text
-                        paragraphs = story.split("\n") 
-                        formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
+                        formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in story.split("\n")]
                         annotated_text(*formatted_paragraphs)
                         st.caption(f'{len(story)} characters in this chapter.')
 
                         oldurl = url
                         chap = ''.join([n for n in oldurl if n.isdigit()])
-                        nxtchap = str(int(chap) + int(+1))
+                        nxtchap = str(int(chap) + 1)
                         prvchap = str(int(chap))
                         nxtUrl = str(oldurl.replace(chap, nxtchap))
                         obfuscated_text, mapping = obfuscate(nxtUrl)
@@ -296,30 +295,30 @@ async def readit(url):
                         st.caption(obfuscated_text)
                         url = deobfuscate(obfuscated_text, mapping)
                         st.button('Continue', on_click=readit, args=[url], key=generate_unique_key())
+
                     with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
-                        story = story.replace('"','')
+                        story = story.replace('"', '')
                         tts = gTTS(text=story, lang='en', slow=False)
-                        tts.save(tmp_file.name)                            
+                        tts.save(tmp_file.name)
                         audio = AudioSegment.from_mp3(tmp_file.name)
-                        new_file = speedup(audio,1.2,150)
+                        new_file = speedup(audio, 1.2, 150)
                         new_file.export("file.mp3", format="mp3")
                         autoplay_audio("file.mp3")
-                        #st.download_button("file.mp3")
+
                     for group in groups:
                         group_text = ""
                         for d_paragraph in group:
                             group_text += d_paragraph.text + "\n"
-                        #if on:
-                        #    res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                        #    time.sleep(5)
-                    driver.quit()
-                else:
-                    st.write('')
+
             else:
                 st.write(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
         except Exception as e:
             st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
+                        #if on:
+                        #    res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
+                        #    time.sleep(5)
+
 
 def obfuscate(text):
 	mapping = {}
