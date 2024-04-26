@@ -534,11 +534,10 @@ async def display_manga_titles_and_images(url, mapping=None):
             link = item.find("a", class_="btn-link")
             img_tag = item.find("img")
             title = item.find("h3", class_="h5").text.strip()
-            rating = item.find("span", class_="score").text.strip()
             if link and img_tag:
                 href = link.get("href")
                 img_url = img_tag.get("data-src")
-                st.write(f"[{title}]({href}) - Rating: {rating}")
+                st.write(f"[{title}]({href})")
                 st.image(img_url, use_column_width='always')
                 st.caption('Copy Code')
                 st.divider()
