@@ -582,8 +582,7 @@ async def display_manga_titles_and_images(url, mapping=None):
                 if mapping is not None:
                     url = deobfuscate(obfuscated_text, mapping)
                 st.code(txt, language='java')
-                if st.button('Read', key=generate_unique_key()):
-                    readit(url)
+
 
 async def main():
     urls = {
