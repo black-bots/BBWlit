@@ -415,23 +415,15 @@ with st.sidebar:
     st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 
-    #########################################################
-    with open("titles.txt", "r") as file:
-        file_contents = file.readlines()
-    with st.expander("Popular Titles"):
-        num_results = len(file_contents)
-        num_groups = (num_results - 1) // 10 + 1
-        group_index = st.slider("Select Group", 1, num_groups, 1)
-        start_index = (group_index - 1) * 10
-        end_index = min(group_index * 10, num_results)
-        st.text("Results:")
-        for i in range(start_index, end_index):
-            st.write(file_contents[i])
-        if group_index > 1:
-            st.button("Previous", key="prev_button")
-        if group_index < num_groups:
-            st.button("Next", key="next_button")
-    #########################################################
+    with open("titles.txt", "r") as tit:
+        file_contents = tit.readlines()
+    num_results = len(file_contents)
+    num_groups = (num_results - 1) // 10 + 1
+    group_index = st.slider("Popular Titles", 1, num_groups, 1)
+    start_index = (group_index - 1) * 10
+    end_index = min(group_index * 10, num_results)
+    for i in range(start_index, end_index):
+        st.write(file_contents[i])
 
     st.divider()
     st.header("Google Play Store")
