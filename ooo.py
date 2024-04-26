@@ -605,21 +605,20 @@ st.image(main_image)
 res_box = st.empty()
 
 async def main():
-    url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
+    url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"))
     ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
 
     if ok:
-        #url = deobfuscate(xx, mapping)
         if "daotrans" in url:
             with st.spinner('Loading, please be patient..'):
-                await readit(url)  # Use await here
+                await readit(url, mapping)  # Pass mapping here
         if "daotrans" not in url.lower():
             with st.spinner('Loading text & audio..'):
                 driver = get_driver()
                 if "nightcomic.com" in url.lower():
-                    st.session_state.image_links = await get_image_links2(url)  # Await here as well
+                    st.session_state.image_links = await get_image_links2(url)  
                 else:
-                    st.session_state.image_links = await get_image_links(url)  # Await here too
+                    st.session_state.image_links = await get_image_links(url)  
                 st.session_state.current_image_index = 0
                 if st.session_state.image_links:
                     for image_link in st.session_state.image_links:
