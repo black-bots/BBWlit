@@ -527,7 +527,7 @@ async def display_manga_titles_and_images(url, mapping=None):
                 st.divider()
 
                 original_string = href
-                obfuscated_text, _ = obfuscate(original_string)
+                obfuscated_text, _ = async obfuscate(original_string)
                 txt = f"""
                 {obfuscated_text}
                 """
@@ -555,7 +555,7 @@ async def main():
                         img_url = title.img["src"]
                     
                         original_string = ch
-                        obfuscated_text, mapping = obfuscate(original_string)
+                        obfuscated_text, mapping = async obfuscate(original_string)
                         if img_url:
                             st.image(img_url, use_column_width='always')
                         if ch:
