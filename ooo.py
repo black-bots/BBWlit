@@ -568,7 +568,7 @@ async def display_manga_titles_and_images(url, mapping=None):
 
 async def main():
     ranchar = random.choice(string.ascii_uppercase)
-    async with st.expander(':books: Novels'):
+    with st.expander(':books: Novels'):
         async with httpx.AsyncClient() as client:
             resp = await client.get(f"https://daotranslate.us/?s={ranchar}")
             if resp.status_code == 200:
