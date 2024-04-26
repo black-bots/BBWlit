@@ -107,7 +107,7 @@ def autoplay_audio(file_path: str):
             unsafe_allow_html=True,
         )
 
-def get_driver():
+async def get_driver():
     options = Options()
     options.add_argument("--disable-gpu")
     options.add_argument("--headless")
@@ -146,7 +146,7 @@ async def perform_img_actions(url):
             st.write(f"Total Images: {len(st.session_state.image_links)}")
             await transcribe_to_audio(st.session_state.image_links)
 
-async def get_image_links(url, driver):
+async def get_image_links(url):
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
@@ -156,22 +156,6 @@ async def get_image_links(url, driver):
         return []
     image_links = []
     img_elements = driver.find_elements(By.CSS_SELECTOR, 'img')
-    for img_element in img_elements:
-        img_src = img_element.get_attribute('src')
-        if img_src and is_image_link(img_src):
-            image_links.append(img_src)
-    driver.quit()
-    return image_links
-async def get_image_links2(url, driver):
-    try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as response:
-                html_content = await response.text()
-    except aiohttp.ClientConnectionError as e:
-        st.write(f'Error loading URL: {e}')
-        return []
-    image_links = []
-    img_elements = driver.find_elements(By.CSS_SELECTOR, 'img[id^="image-"]')
     for img_element in img_elements:
         img_src = img_element.get_attribute('src')
         if img_src and is_image_link(img_src):
@@ -244,7 +228,7 @@ def filter_english_words(text):
 
 
 async def readit(url):
-    driver = get_driver()
+    driver = await get_driver()
     try:
         driver.get(url)
     except:
@@ -270,13 +254,14 @@ async def readit(url):
                     story = story.replace('<p>', '')
                     story = story.replace('"', '')
 
-                    st.markdown("""<style>
-                          .stMarkdown{color: black;}
-                          .st-c8:hover{color:orange;}
-                          .streamlit-expander.st-bc.st-as.st-ar.st-bd.st-be.st-b8.st-bf.st-bg.st-bh.st-bi{display:none;}
-                          </style>
+                    st.markdown("""
+                        <style>
+                            .stMarkdown{color: black;}
+                            .st-c8:hover{color:orange;}
+                            .streamlit-expander.st-bc.st-as.st-ar.st-bd.st-be.st-b8.st-bf.st-bg.st-bh.st-bi{display:none;}
+                        </style>
                     """,
-                          unsafe_allow_html=True
+                    unsafe_allow_html=True
                     )
                     with st.expander("Read"):
                         formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in story.split("\n")]
@@ -308,45 +293,45 @@ async def readit(url):
                         for d_paragraph in group:
                             group_text += d_paragraph.text + "\n"
 
-            else:
-                st.write(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
         except Exception as e:
             st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
-                        #if on:
-                        #    res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                        #    time.sleep(5)
+                    # if on:
+                    #     res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
+                    #     time.sleep(5)
 
 
-def obfuscate(text):
-	mapping = {}
-	for i in range(26):
-		mapping[chr(65 + i)] = chr(((i + 1) % 26) + 65)
-		mapping[chr(97 + i)] = chr(((i + 1) % 26) + 97) 
-	obfuscated_text = ''.join(mapping.get(char, char) for char in text)
-	if 'nightcomic.com' in text:
-		obfuscated_text = "TOP/" + obfuscated_text
-	if 'daotranslate' in text:
-		obfuscated_text = "NOVEL/" + obfuscated_text
-	if 'manhuaaz.com' in text:
-		obfuscated_text = "PANEL/" + obfuscated_text
-	return obfuscated_text, mapping
+async def obfuscate(text):
+    mapping = {}
+    for i in range(26):
+        mapping[chr(65 + i)] = chr(((i + 1) % 26) + 65)
+        mapping[chr(97 + i)] = chr(((i + 1) % 26) + 97)
+    obfuscated_text = ''.join(mapping.get(char, char) for char in text)
+    if 'nightcomic.com' in text:
+        obfuscated_text = "TOP/" + obfuscated_text
+    if 'daotranslate' in text:
+        obfuscated_text = "NOVEL/" + obfuscated_text
+    if 'manhuaaz.com' in text:
+        obfuscated_text = "PANEL/" + obfuscated_text
+    return obfuscated_text, mapping
 
-def deobfuscate(obfuscated_text, mapping):
-	if obfuscated_text.startswith("TOP/"):
-		obfuscated_text = obfuscated_text[len("TOP/"):]
-	if obfuscated_text.startswith("NOVEL/"):
-		obfuscated_text = obfuscated_text[len("NOVEL/"):]
-	if obfuscated_text.startswith("PANEL/"):
-		obfuscated_text = obfuscated_text[len("PANEL/"):]
-	inverted_mapping = {v: k for k, v in mapping.items()}
-	original_text = ''.join(inverted_mapping.get(char, char) for char in obfuscated_text)
-	return original_text
+
+async def deobfuscate(obfuscated_text, mapping):
+    if obfuscated_text.startswith("TOP/"):
+        obfuscated_text = obfuscated_text[len("TOP/"):]
+    if obfuscated_text.startswith("NOVEL/"):
+        obfuscated_text = obfuscated_text[len("NOVEL/"):]
+    if obfuscated_text.startswith("PANEL/"):
+        obfuscated_text = obfuscated_text[len("PANEL/"):]
+    inverted_mapping = {v: k for k, v in mapping.items()}
+    original_text = ''.join(inverted_mapping.get(char, char) for char in obfuscated_text)
+    return original_text
+
 
 history = []
 ih = ""
 icob = Image.open('static/-.ico')
-ranum = random.randint(1,99999)
+ranum = random.randint(1, 99999)
 st.set_page_config(
     page_title="Manga Dōjutsu",
     page_icon=icob,
@@ -366,9 +351,9 @@ st.markdown("""
         cursor: pointer;
         }
         img {
-        width:75%;
+        width: 75%;
         }
-        width:578px;
+        width: 578px;
         vertical-align: middle;
         horizontal-align: middle;
         max-width: 300px;
@@ -412,7 +397,7 @@ with st.sidebar:
         st.session_state.value = "Restart"
         
     st.image(side_image)
-    st.caption("Manga Text or Image To Speach")
+    st.caption("Manga Text or Image To Speech")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 
     with open("titles.txt", "r") as tit:
@@ -420,7 +405,8 @@ with st.sidebar:
     num_results = len(file_contents)
     num_groups = (num_results - 1) // 10 + 1
     group_index = st.slider("Popular Titles", 1, num_groups, 1)
-    start_index = (group_index - 1) * 10
+    start_index = (group_index - 1)
+    * 10
     end_index = min(group_index * 10, num_results)
     for i in range(start_index, end_index):
         st.write(file_contents[i])
@@ -646,3 +632,4 @@ asyncio.run(main())
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
+
