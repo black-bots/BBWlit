@@ -604,39 +604,43 @@ asyncio.run(main())
 st.image(main_image)
 res_box = st.empty()
 
-url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
-ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
+async def main():
+    url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
+    ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
 
-if ok:
-    #url = deobfuscate(xx, mapping)
-    if "daotrans" in url:
-        with st.spinner('Loading, please be patient..'):
-            await readit(url)  # Use await here
-    if "daotrans" not in url.lower():
-        with st.spinner('Loading text & audio..'):
-            driver = get_driver()
-            if "nightcomic.com" in url.lower():
-                st.session_state.image_links = await get_image_links2(url)  # Await here as well
-            else:
-                st.session_state.image_links = await get_image_links(url)  # Await here too
-            st.session_state.current_image_index = 0
-            if st.session_state.image_links:
-                for image_link in st.session_state.image_links:
-                    st.image(image_link, use_column_width=True)
-                st.write(f"Total Images: {len(st.session_state.image_links)}")
-                transcribe_to_audio(st.session_state.image_links)
-                oldurl = url
-                chap = ''.join([n for n in oldurl if n.isdigit()])
-                nxtchap = str(int(chap) + int(+1))
-                prvchap = str(int(chap))
-                nxtUrl = str(oldurl.replace(chap, nxtchap))
-                obfuscated_text, mapping = obfuscate(nxtUrl)
-                st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + obfuscated_text)
-                txt = f"""
-                {obfuscated_text}
-                """
-                st.code(txt, language='java')
-                st.caption('Copy Code')
+    if ok:
+        #url = deobfuscate(xx, mapping)
+        if "daotrans" in url:
+            with st.spinner('Loading, please be patient..'):
+                await readit(url)  # Use await here
+        if "daotrans" not in url.lower():
+            with st.spinner('Loading text & audio..'):
+                driver = get_driver()
+                if "nightcomic.com" in url.lower():
+                    st.session_state.image_links = await get_image_links2(url)  # Await here as well
+                else:
+                    st.session_state.image_links = await get_image_links(url)  # Await here too
+                st.session_state.current_image_index = 0
+                if st.session_state.image_links:
+                    for image_link in st.session_state.image_links:
+                        st.image(image_link, use_column_width=True)
+                    st.write(f"Total Images: {len(st.session_state.image_links)}")
+                    transcribe_to_audio(st.session_state.image_links)
+                    oldurl = url
+                    chap = ''.join([n for n in oldurl if n.isdigit()])
+                    nxtchap = str(int(chap) + int(+1))
+                    prvchap = str(int(chap))
+                    nxtUrl = str(oldurl.replace(chap, nxtchap))
+                    obfuscated_text, mapping = obfuscate(nxtUrl)
+                    st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + obfuscated_text)
+                    txt = f"""
+                    {obfuscated_text}
+                    """
+                    st.code(txt, language='java')
+                    st.caption('Copy Code')
+
+# Launch the async function
+await main()
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
