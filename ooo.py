@@ -498,8 +498,8 @@ if search_variable:
 
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
-#original_string = "random"
-#obfuscated_text, mapping = obfuscate(original_string)
+original_string = "random"
+obfuscated_text, mapping = await obfuscate(original_string)
 
 with col1:
     ranchar = random.choice(string.ascii_uppercase)
@@ -519,7 +519,7 @@ with col1:
                     img_url = title.img["src"]
                     
                     original_string = ch
-                    obfuscated_text, mapping = await obfuscate(original_string)
+                    obfuscated_text, mapping = obfuscate(original_string)
                     if img_url:
                         st.image(img_url, use_column_width='always')
                     if ch:
