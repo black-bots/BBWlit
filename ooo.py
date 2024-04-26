@@ -548,7 +548,6 @@ with col1:
                         st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                     st.divider()
 
-
 async def fetch_html_content(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
@@ -556,6 +555,7 @@ async def fetch_html_content(url):
                 return await response.text()
             else:
                 return None
+		    
 async def display_manga_titles_and_images(url, mapping=None):
     html_content = await fetch_html_content(url)
     if html_content:
@@ -583,7 +583,6 @@ async def display_manga_titles_and_images(url, mapping=None):
                 st.code(txt, language='java')
                 pass
 
-
 async def main():
     urls = {
         "Top Rated": "https://nightcomic.com/",
@@ -604,9 +603,10 @@ asyncio.run(main())
 
 st.image(main_image)
 res_box = st.empty()
-original_string = 'Random'
-obfuscated_text, mapping = obfuscate(original_string)
+
 async def main():
+    original_string = 'Random'
+    obfuscated_text, mapping = obfuscate(original_string)
     url_input = st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here")
     url = deobfuscate(url_input, mapping)  # Pass the mapping here
     ok = st.button(":green_book: Read", help="Read", key='readbutton')
@@ -641,7 +641,6 @@ async def main():
                     st.code(txt, language='java')
                     st.caption('Copy Code')
 
-# Launch the async function
 asyncio.run(main())
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
