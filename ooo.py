@@ -556,9 +556,9 @@ async def main():
                     original_string = ch
                     obfuscated_text, mapping = await obfuscate(original_string)
                     if img_url:
-                        with col1:
-			    with st.expander(f"{category}"):
-                                st.image(img_url, use_column_width='always')
+                    with col1:
+                        with st.expander(f"{category}"):
+                            st.image(img_url, use_column_width='always')
                     if ch:
                         txt = f"""
                         {obfuscated_text}
@@ -568,7 +568,7 @@ async def main():
                             with st.expander(f"{category}"):
                                 st.code(txt, language='java')
                                 st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
-                    st.divider()
+                                st.divider()
 
     urls = {
         "Top Rated": "https://nightcomic.com/",
