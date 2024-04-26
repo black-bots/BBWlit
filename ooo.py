@@ -146,7 +146,7 @@ async def perform_img_actions(url):
             st.write(f"Total Images: {len(st.session_state.image_links)}")
             await transcribe_to_audio(st.session_state.image_links)
 
-async def get_image_links(url):
+async def get_image_links(url, driver):
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
@@ -162,9 +162,7 @@ async def get_image_links(url):
             image_links.append(img_src)
     driver.quit()
     return image_links
-
-async def get_image_links2(url):
-    driver = get_driver()
+async def get_image_links2(url, driver):
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
@@ -616,30 +614,33 @@ async def main():
             with st.spinner('Loading, please be patient..'):
                 await readit(url, mapping)  # Pass mapping here
         if "daotrans" not in url.lower():
-            with st.spinner('Loading text & audio..'):
-                driver = get_driver()
-                if "nightcomic.com" in url.lower():
-                    st.session_state.image_links = await get_image_links2(url)  
-                else:
-                    st.session_state.image_links = await get_image_links(url)  
-                st.session_state.current_image_index = 0
-                if st.session_state.image_links:
-                    for image_link in st.session_state.image_links:
-                        st.image(image_link, use_column_width=True)
-                    st.write(f"Total Images: {len(st.session_state.image_links)}")
-                    transcribe_to_audio(st.session_state.image_links)
-                    oldurl = url
-                    chap = ''.join([n for n in oldurl if n.isdigit()])
-                    nxtchap = str(int(chap) + int(+1))
-                    prvchap = str(int(chap))
-                    nxtUrl = str(oldurl.replace(chap, nxtchap))
-                    obfuscated_text, mapping = obfuscate(nxtUrl)
-                    st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + obfuscated_text)
-                    txt = f"""
-                    {obfuscated_text}
-                    """
-                    st.code(txt, language='java')
-                    st.caption('Copy Code')
+            if "nightcomic.com" in url.lower():
+                with st.spinner('Loading text & audio..'):
+                    driver = get_driver()
+                    st.session_state.image_links = await get_image_links2(url, driver)  
+            else:
+                with st.spinner('Loading text & audio..'):
+                    driver = get_driver()
+                    st.session_state.image_links = await get_image_links(url, driver)
+
+            st.session_state.current_image_index = 0
+            if st.session_state.image_links:
+                for image_link in st.session_state.image_links:
+                    st.image(image_link, use_column_width=True)
+                st.write(f"Total Images: {len(st.session_state.image_links)}")
+                transcribe_to_audio(st.session_state.image_links)
+                oldurl = url
+                chap = ''.join([n for n in oldurl if n.isdigit()])
+                nxtchap = str(int(chap) + int(+1))
+                prvchap = str(int(chap))
+                nxtUrl = str(oldurl.replace(chap, nxtchap))
+                obfuscated_text, mapping = obfuscate(nxtUrl)
+                st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + obfuscated_text)
+                txt = f"""
+                {obfuscated_text}
+                """
+                st.code(txt, language='java')
+                st.caption('Copy Code')
 
 asyncio.run(main())
  
