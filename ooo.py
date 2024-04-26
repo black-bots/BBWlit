@@ -526,7 +526,7 @@ async def fetch_data(url):
                 return None
 
 # Function to display manga titles and images
-async def display_manga_titles_and_images(url, title_prefix):
+async def display_manga_titles_and_images(url):
     html_content = await fetch_data(url)
     if html_content:
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -539,21 +539,20 @@ async def display_manga_titles_and_images(url, title_prefix):
             if link and img_tag:
                 href = link.get("href")
                 img_url = img_tag.get("data-src")
-                with st.expander(f"{title_prefix}: {title} - Rating: {rating}"):
-                    st.write(f"[{title_prefix}: {title}]({href})")
-                    st.image(img_url, use_column_width='always')
-                    st.caption('Copy Code')
-                    st.divider()
-                    
-                    original_string = href
-                    obfuscated_text, mapping = obfuscate(original_string)
-                    txt = f"""
-                    {obfuscated_text}
-                    """
-                    url = deobfuscate(obfuscated_text, mapping)
-                    st.code(txt, language='java')
-                    if st.button('Read', key=generate_unique_key()):
-                        readit(url)
+                st.write(f"[{title}]({href}) - Rating: {rating}")
+                st.image(img_url, use_column_width='always')
+                st.caption('Copy Code')
+                st.divider()
+
+                original_string = href
+                obfuscated_text, mapping = obfuscate(original_string)
+                txt = f"""
+                {obfuscated_text}
+                """
+                url = deobfuscate(obfuscated_text, mapping)
+                st.code(txt, language='java')
+                if st.button('Read'):
+                    readit(url)
 
 async def main():
     # Define URLs for fetching manga data
@@ -563,9 +562,10 @@ async def main():
         "Panels": "https://manhuaaz.com/"
     }
 
-    # Fetch and display manga data asynchronously
-    for title_prefix, url in urls.items():
-        await display_manga_titles_and_images(url, title_prefix)
+    # Display manga data within expanders for each category
+    for category, url in urls.items():
+        with st.expander(f"{category}"):
+            await display_manga_titles_and_images(url)
 
 # Run the main asynchronous function
 asyncio.run(main())
