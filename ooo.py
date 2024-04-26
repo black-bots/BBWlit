@@ -548,16 +548,16 @@ with col1:
                         st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                     st.divider()
 
-async def fetch_data(url):
+
+async def fetch_html_content(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
             if response.status == 200:
                 return await response.text()
             else:
                 return None
-
 async def display_manga_titles_and_images(url, mapping=None):
-    html_content = await fetch_data(url)
+    html_content = await fetch_html_content(url)
     if html_content:
         soup = BeautifulSoup(html_content, 'html.parser')
         manga_items = soup.find_all("div", class_="page-item-detail manga")
@@ -581,6 +581,7 @@ async def display_manga_titles_and_images(url, mapping=None):
                 if mapping is not None:
                     url = deobfuscate(obfuscated_text, mapping)
                 st.code(txt, language='java')
+                pass
 
 
 async def main():
