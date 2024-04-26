@@ -442,8 +442,10 @@ with st.sidebar:
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
                             
 if search_variable:
-    if '"' in search_variable:
-        search_variable = search_variable.replace('"', '')
+    search_variable = search_variable.replace('"', '')
+    search_variable = search_variable.replace('!', '')
+    search_variable = search_variable.replace('-', ' ')
+    search_variable = search_variable.replace('?', '')
     with st.spinner('Searching..'):
         with st.expander(":mag: Search"):
             search_url_1 = f"https://daotranslate.us/?s={search_variable}"
