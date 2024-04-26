@@ -498,8 +498,8 @@ if search_variable:
 
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
-original_string = "random"
-obfuscated_text, mapping = await obfuscate(original_string)
+#original_string = "random"
+#obfuscated_text, mapping = await obfuscate(original_string)
 
 with col1:
     ranchar = random.choice(string.ascii_uppercase)
@@ -589,7 +589,7 @@ res_box = st.empty()
 
 async def main():
     original_string = 'Random'
-    obfuscated_text, mapping = obfuscate(original_string)
+    obfuscated_text, mapping = await obfuscate(original_string)
     url_input = st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here")
     url = deobfuscate(url_input, mapping)  # Pass the mapping here
     ok = st.button(":green_book: Read", help="Read", key='readbutton')
