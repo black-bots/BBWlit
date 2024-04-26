@@ -227,7 +227,7 @@ def filter_english_words(text):
 
 
 
-async def readit(url):
+async def readit(url, mapping):
     driver = await get_driver()
     try:
         driver.get(url)
