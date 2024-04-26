@@ -566,7 +566,7 @@ async def display_manga_titles_and_images(url, mapping=None):
                 if st.button('Read', key=generate_unique_key()):
                     readit(url)
 
-async def main2():
+async def main():
     ranchar = random.choice(string.ascii_uppercase)
     async with st.expander(':books: Novels'):
         async with httpx.AsyncClient() as client:
@@ -597,7 +597,7 @@ async def main2():
                             st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                         st.divider()
 
-await main2()
+await main()
 
 async def fetch_data(url):
     async with aiohttp.ClientSession() as session:
@@ -635,7 +635,7 @@ async def display_manga_titles_and_images(url, mapping=None):
                 if st.button('Read', key=generate_unique_key()):
                     readit(url)
 
-async def main1():
+async def main():
     urls = {
         #"Novels": f"https://daotranslate.net/?s={random.choice(string.ascii_uppercase)}",
         "Top Rated": "https://nightcomic.com/",
@@ -649,7 +649,7 @@ async def main1():
                 _, mapping = obfuscate(url)
             await display_manga_titles_and_images(url, mapping)
 
-asyncio.run(main1())
+asyncio.run(main())
 
 st.image(main_image)
 res_box = st.empty()
