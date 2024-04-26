@@ -519,7 +519,7 @@ with col1:
                     img_url = title.img["src"]
                     
                     original_string = ch
-                    obfuscated_text, mapping = obfuscate(original_string)
+                    obfuscated_text, mapping = await obfuscate(original_string)
                     if img_url:
                         st.image(img_url, use_column_width='always')
                     if ch:
