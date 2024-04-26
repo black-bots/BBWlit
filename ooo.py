@@ -59,7 +59,6 @@ import uuid
 from io import BytesIO
 
 import re
-import requests
 from PIL import Image
 import numpy as np
 import pandas as pd
@@ -237,7 +236,7 @@ async def readit(url, mapping):
         st.markdown(':blue[Dao: ]:green[*Enter a valid URL before running.*]')
     else:
         try:
-            resp = await requests.get(url)  # Use await here
+            resp = await httpx.get(url)  # Use await here
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
                 d = soup.find("div", {"class": "epcontent entry-content"})
@@ -434,9 +433,9 @@ if search_variable:
     with st.spinner('Searching..'):
         with st.expander(":mag: Search"):
             search_url_1 = f"https://daotranslate.net/?s={search_variable}"
-            resp_1 = requests.get(search_url_1)
+            resp_1 = httpx.get(search_url_1)
             search_url_2 = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga&op=&author=&artist=&release=&adult="
-            resp_2 = requests.get(search_url_2)
+            resp_2 = httpx.get(search_url_2)
             
             if resp_1.status_code == 200 and resp_2.status_code == 200:
                 soup_1 = BeautifulSoup(resp_1.text, 'html.parser')
@@ -548,7 +547,7 @@ async def main():
         if category == "Novels":
             with col1:
                 with st.expander(f"{category}"):
-                    resp = requests.get(url)
+                    resp = httpx.get(url)
                     if resp.status_code == 200:
                         soup = BeautifulSoup(resp.text, 'html.parser')
                         manga_list_div = soup.find("div", {"class": "listupd"})
