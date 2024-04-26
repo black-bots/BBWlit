@@ -519,85 +519,35 @@ outer_cols = st.columns([1, 2])
 original_string = "random"
 obfuscated_text, mapping = obfuscate(original_string)
 
-async def fetch_data(url):
-    async with httpx.AsyncClient() as client:
-        response = await client.get(url)
-        if response.status_code == 200:
-            return response.text
-
-async def display_manga_titles_and_images(url, mapping=None):
-    html_content = await fetch_data(url)
-    if html_content:
-        soup = BeautifulSoup(html_content, 'html.parser')
-        manga_items = soup.find_all("div", class_=["page-item-detail manga", "bsx"])
-        for item in manga_items:
-            if item.has_attr('class') and "manga" in item["class"]:
-                link = item.find("a", class_="btn-link")
-                img_tag = item.find("img")
-                title = item.find("h3", class_="h5").text.strip()
-            else:
-                link = item.find("a", class_="tip")
-                img_tag = item.find("img")
-                title_span = item.find("span", class_="ntitle")
-                chapter_span = item.find("span", class_="nchapter")
-                if title_span and chapter_span:
-                    title = title_span.text.strip()
-                    chapter = chapter_span.text.strip()
-                    title = f"{title} {chapter}"
-                else:
-                    continue
-
-            if link and img_tag:
-                href = link.get("href")
-                img_url = img_tag.get("src")
-                st.write(f"[{title}]({href})")
-                st.image(img_url, use_column_width='always')
-                st.caption('Copy Code')
-                st.divider()
-
-                original_string = href
-                obfuscated_text, _ = obfuscate(original_string)
-                txt = f"""
-                {obfuscated_text}
-                """
-                if mapping is not None:
-                    url = deobfuscate(obfuscated_text, mapping)
-                st.code(txt, language='java')
-                if st.button('Read', key=generate_unique_key()):
-                    readit(url)
-
-async def main():
+with col1:
     ranchar = random.choice(string.ascii_uppercase)
     with st.expander(':books: Novels'):
-        async with httpx.AsyncClient() as client:
-            resp = await client.get(f"https://daotranslate.us/?s={ranchar}")
-            if resp.status_code == 200:
-                soup = BeautifulSoup(resp.text, 'html.parser')
-                manga_list_div = soup.find("div", {"class": "listupd"})
-                if manga_list_div:
-                    titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-                    for title in titles:
-                        title_url = title.a["href"]
-                        title_name = title_url.split("series/")[1].replace('/', '').title()
-                        titlename = title_name.replace('-', ' ')
-                        ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                        st.write(f"[{titlename}]({ch})")
-                        img_url = title.img["src"]
-                        
-                        original_string = ch
-                        obfuscated_text, mapping = obfuscate(original_string)
-                        if img_url:
-                            st.image(img_url, use_column_width='always')
-                        if ch:
-                            txt = f"""
-                            {obfuscated_text}
-                            """
-                            url = deobfuscate(obfuscated_text, mapping)
-                            st.code(txt, language='java')
-                            st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
-                        st.divider()
-
-asyncio.run(main())
+        resp = requests.get(f"https://daotranslate.us/?s={ranchar}")
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            manga_list_div = soup.find("div", {"class": "listupd"})
+            if manga_list_div:
+                titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+                for title in titles:
+                    title_url = title.a["href"]
+                    title_name = title_url.split("series/")[1].replace('/', '').title()
+                    titlename = title_name.replace('-', ' ')
+                    ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                    st.write(f"[{titlename}]({ch})")
+                    img_url = title.img["src"]
+                    
+                    original_string = ch
+                    obfuscated_text, mapping = obfuscate(original_string)
+                    if img_url:
+                        st.image(img_url, use_column_width='always')
+                    if ch:
+                        txt = f"""
+                        {obfuscated_text}
+                        """
+                        url = deobfuscate(obfuscated_text, mapping)
+                        st.code(txt, language='java')
+                        st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
+                    st.divider()
 
 async def fetch_data(url):
     async with aiohttp.ClientSession() as session:
