@@ -612,14 +612,14 @@ if ok:
     #url = deobfuscate(xx, mapping)
     if "daotrans" in url:
         with st.spinner('Loading, please be patient..'):
-            await readit(url)
+            await readit(url)  # Use await here
     if "daotrans" not in url.lower():
         with st.spinner('Loading text & audio..'):
             driver = get_driver()
             if "nightcomic.com" in url.lower():
-                st.session_state.image_links = get_image_links2(url)
+                st.session_state.image_links = await get_image_links2(url)  # Await here as well
             else:
-                st.session_state.image_links = get_image_links(url)
+                st.session_state.image_links = await get_image_links(url)  # Await here too
             st.session_state.current_image_index = 0
             if st.session_state.image_links:
                 for image_link in st.session_state.image_links:
