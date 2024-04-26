@@ -507,7 +507,7 @@ async def fetch_html_content(url):
                 return await response.text()
             else:
                 return None
-		    
+
 async def display_manga_titles_and_images(soup, mapping=None):
     manga_items = soup.find_all("div", class_="page-item-detail manga")
     for item in manga_items:
@@ -531,7 +531,6 @@ async def display_manga_titles_and_images(soup, mapping=None):
                 url = await deobfuscate(obfuscated_text, mapping)
             st.code(txt, language='java')
             pass
-
 async def main():
     ranchar = random.choice(string.ascii_uppercase)
     urls = {
@@ -544,12 +543,10 @@ async def main():
         if category == "Novels":
             with col1:
                 with st.expander(f"{category}"):
-                    resp = httpx.get(url)
-                    if resp.status_code == 200:
-                        soup = BeautifulSoup(resp.text, 'html.parser')
-                        manga_list_div = soup.find("div", {"class": "listupd"})
-                        if manga_list_div:
-                            await display_manga_titles_and_images(soup)
+                    html_content = await fetch_html_content(url)
+                    if html_content:
+                        soup = BeautifulSoup(html_content, 'html.parser')
+                        await display_manga_titles_and_images(soup)
         elif category == "Top Rated":
             with col2:
                 with st.expander(f"{category}"):
@@ -566,7 +563,6 @@ async def main():
                         await display_manga_titles_and_images(soup)
 
 asyncio.run(main())
-
 
 
 async def main():
