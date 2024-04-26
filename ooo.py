@@ -406,7 +406,6 @@ with st.sidebar:
     num_groups = (num_results - 1) // 10 + 1
     group_index = st.slider("Popular Titles", 1, num_groups, 1)
     start_index = (group_index - 1)
-    * 10
     end_index = min(group_index * 10, num_results)
     for i in range(start_index, end_index):
         st.write(file_contents[i])
