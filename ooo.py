@@ -586,10 +586,10 @@ async def main():
 
 asyncio.run(main())
 
-st.image(main_image)
-res_box = st.empty()
 
 async def main():
+    st.image(main_image)
+    res_box = st.empty()
     original_string = 'Random'
     obfuscated_text, mapping = await obfuscate(original_string)
     url_input = st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here")
