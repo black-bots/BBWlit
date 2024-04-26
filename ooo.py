@@ -544,6 +544,16 @@ async def display_manga_titles_and_images(url, title_prefix):
                     st.image(img_url, use_column_width='always')
                     st.caption('Copy Code')
                     st.divider()
+                    
+                    original_string = href
+                    obfuscated_text, mapping = obfuscate(original_string)
+                    txt = f"""
+                    {obfuscated_text}
+                    """
+                    url = deobfuscate(obfuscated_text, mapping)
+                    st.code(txt, language='java')
+                    if st.button('Read'):
+                        readit(url)
 
 async def main():
     # Define URLs for fetching manga data
@@ -554,10 +564,8 @@ async def main():
     }
 
     # Fetch and display manga data asynchronously
-    tasks = []
     for title_prefix, url in urls.items():
-        tasks.append(asyncio.ensure_future(display_manga_titles_and_images(url, title_prefix)))
-    await asyncio.gather(*tasks)
+        await display_manga_titles_and_images(url, title_prefix)
 
 # Run the main asynchronous function
 asyncio.run(main())
