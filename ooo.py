@@ -597,7 +597,7 @@ async def main():
                             st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                         st.divider()
 
-await main()
+asyncio.run(main())
 
 async def fetch_data(url):
     async with aiohttp.ClientSession() as session:
