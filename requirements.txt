@@ -25,6 +25,7 @@ streamlit-extras
 streamlit-nested-layout
 streamlit-aggrid
 streamlit_player
+streamlit_scrollable_textbox 
 st-annotated-text
 tls_client
 torch
