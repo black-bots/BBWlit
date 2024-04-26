@@ -46,6 +46,8 @@
 #                                   .J88" "                                                     
 import os
 import io
+import asyncio
+import aiohttp
 import base64
 import hashlib
 import random
@@ -514,94 +516,51 @@ if search_variable:
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
 
-with col1:
-    ranchar = random.choice(string.ascii_uppercase)
-    with st.expander(':books: Novels'):
-        resp = requests.get(f"https://daotranslate.us/?s={ranchar}")
-        if resp.status_code == 200:
-            soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_list_div = soup.find("div", {"class": "listupd"})
-            if manga_list_div:
-                titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-                for title in titles:
-                    title_url = title.a["href"]
-                    title_name = title_url.split("series/")[1].replace('/', '').title()
-                    titlename = title_name.replace('-', ' ')
-                    ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                    st.write(f"[{titlename}]({ch})")
-                    img_url = title.img["src"]
-                    
-                    original_string = ch
-                    obfuscated_text, mapping = obfuscate(original_string)
-                    if img_url:
-                        st.image(img_url, use_column_width='always')
-                    if ch:
-                        txt = f"""
-                        {obfuscated_text}
-                        """
-                        url = deobfuscate(obfuscated_text, mapping)
-                        st.code(txt, language='java')
-                        st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
+# Function to fetch data from URL asynchronously
+async def fetch_data(url):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            if response.status == 200:
+                return await response.text()
+            else:
+                return None
+
+# Function to display manga titles and images
+async def display_manga_titles_and_images(url, title_prefix):
+    html_content = await fetch_data(url)
+    if html_content:
+        soup = BeautifulSoup(html_content, 'html.parser')
+        manga_items = soup.find_all("div", class_="page-item-detail manga")
+        for item in manga_items:
+            link = item.find("a", class_="btn-link")
+            img_tag = item.find("img")
+            title = item.find("h3", class_="h5").text.strip()
+            rating = item.find("span", class_="score").text.strip()
+            if link and img_tag:
+                href = link.get("href")
+                img_url = img_tag.get("data-src")
+                with st.expander(f"{title_prefix}: {title} - Rating: {rating}"):
+                    st.write(f"[{title_prefix}: {title}]({href})")
+                    st.image(img_url, use_column_width='always')
+                    st.caption('Copy Code')
                     st.divider()
 
-with col2:
-    with st.expander(f":chart: Top Rated"):
-        resp = requests.get("https://nightcomic.com/")
-        if resp.status_code == 200:
-            soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_items = soup.find_all("div", class_="page-item-detail manga")
-        
-            for item in manga_items:
-                link = item.find("a", class_="btn-link")
-                img_tag = item.find("img")
-                title = item.find("h3", class_="h5").text.strip()
-                rating = item.find("span", class_="score").text.strip()
-                
-                if link and img_tag:
-                    href = link.get("href")
-                    img_url = img_tag.get("data-src")
-                    
-                    original_string = href
-                    obfuscated_text, mapping = obfuscate(original_string)
-                    url = deobfuscate(obfuscated_text, mapping)
-                    
-                    st.write(f"[{title}]({href}) - Rating: {rating}")
-                    st.image(img_url, use_column_width='always')
-                    txt = f"""
-                    {obfuscated_text}
-                    """
-                    st.code(txt, language='java')
-                    st.caption('Copy Code')
-                    st.divider()
-with col3:
-    with st.expander(f":frame_with_picture: Panels"):
-        resp = requests.get("https://manhuaaz.com/")
-        if resp.status_code == 200:
-            soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
-        
-            for link in manga_links:
-                href = link.get("href")
-                if "chapter" not in href:
-                    cch = f"{href}chapter-1/"
-                else:
-                    cch = href
-                manga_name=href.split('https://manhuaaz.com/manga/')[1]
-                
-                img_tag = link.find("img")
-                original_string = cch
-                obfuscated_text, mapping = obfuscate(original_string)
-                if img_tag:
-                    st.write(f"[{manga_name}]({cch})")
-                    img_url = img_tag.get("data-src")
-                    st.image(img_url, use_column_width='always')
-                    url = deobfuscate(obfuscated_text, mapping)
-                    txt = f"""
-                    {obfuscated_text}
-                    """
-                    st.code(txt, language='java')
-                    st.caption('Copy Code')
-                    st.divider()
+async def main():
+    # Define URLs for fetching manga data
+    urls = {
+        "Novels": f"https://daotranslate.us/?s={random.choice(string.ascii_uppercase)}",
+        "Top Rated": "https://nightcomic.com/",
+        "Panels": "https://manhuaaz.com/"
+    }
+
+    # Fetch and display manga data asynchronously
+    tasks = []
+    for title_prefix, url in urls.items():
+        tasks.append(asyncio.ensure_future(display_manga_titles_and_images(url, title_prefix)))
+    await asyncio.gather(*tasks)
+
+# Run the main asynchronous function
+asyncio.run(main())
 
 st.image(main_image)
 res_box = st.empty()
