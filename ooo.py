@@ -587,17 +587,19 @@ async def display_manga_titles_and_images(url, mapping=None):
 
 async def main():
     urls = {
-        #"Novels": f"https://daotranslate.net/?s={random.choice(string.ascii_uppercase)}",
         "Top Rated": "https://nightcomic.com/",
         "Panels": "https://manhuaaz.com/"
     }
 
-    for category, url in urls.items():
-        with st.expander(f"{category}"):
-            mapping = None  # Initialize mapping here if needed
-            if category == "Novels":
-                _, mapping = obfuscate(url)
-            await display_manga_titles_and_images(url, mapping)
+    for i, (category, url) in enumerate(urls.items()):
+        if i == 0:
+            with col2:
+                with st.expander(f"{category}"):
+                    await display_manga_titles_and_images(url)
+        else:
+            with col3:
+                with st.expander(f"{category}"):
+                    await display_manga_titles_and_images(url)
 
 asyncio.run(main())
 
