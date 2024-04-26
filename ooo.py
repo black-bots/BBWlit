@@ -245,7 +245,7 @@ def filter_english_words(text):
 
 
 
-def readit(url):
+async def readit(url):
     driver = get_driver()
     try:
         driver.get(url)
@@ -255,7 +255,7 @@ def readit(url):
         res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
     else:
         try:
-            resp = requests.get(url)
+            resp = await requests.get(url)
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
                 d = soup.find("div", {"class": "epcontent entry-content"})
@@ -612,7 +612,7 @@ if ok:
     #url = deobfuscate(xx, mapping)
     if "daotrans" in url:
         with st.spinner('Loading, please be patient..'):
-            readit(url)
+            await readit(url)
     if "daotrans" not in url.lower():
         with st.spinner('Loading text & audio..'):
             driver = get_driver()
