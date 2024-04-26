@@ -537,8 +537,7 @@ async def display_manga_titles_and_images(url, mapping=None):
                 pass
 
 async def main():
-
-
+    ranchar = random.choice(string.ascii_uppercase)
     urls = {
         "Novels": f"https://daotranslate.us/?s={ranchar}",
         "Top Rated": "https://nightcomic.com/",
