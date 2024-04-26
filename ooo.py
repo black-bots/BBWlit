@@ -555,16 +555,17 @@ async def main():
                 
                     original_string = ch
                     obfuscated_text, mapping = await obfuscate(original_string)
-                    if img_url:
-                        with col1:
-                            st.image(img_url, use_column_width='always')
-                    if ch:
-                        txt = f"""
-                        {obfuscated_text}
-                        """
-                        url = await deobfuscate(obfuscated_text, mapping)
-                        with col1:
-                            with st.expander(f'{titlename}'):
+                    with st.expander(f'{titlename}'):
+
+                        if img_url:
+                            with col1:
+                                st.image(img_url, use_column_width='always')
+                        if ch:
+                            txt = f"""
+                            {obfuscated_text}
+                            """
+                            url = await deobfuscate(obfuscated_text, mapping)
+                            with col1:
                                 st.code(txt, language='java')
                                 st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                                 st.divider()
@@ -595,14 +596,15 @@ async def main():
                                 
                                 original_string = ch
                                 obfuscated_text, mapping = await obfuscate(original_string)
-                                if img_url:
-                                    st.image(img_url, use_column_width='always')
-                                if ch:
-                                    txt = f"""
-                                    {obfuscated_text}
-                                    """
-                                    url = await deobfuscate(obfuscated_text, mapping)
-                                    with st.expander(f'{titlename}'):
+                                with st.expander(f'{titlename}'):
+                                    if img_url:
+                                        st.image(img_url, use_column_width='always')
+                                    if ch:
+                                        txt = f"""
+                                        {obfuscated_text}
+                                        """
+                                        url = await deobfuscate(obfuscated_text, mapping)
+                                        
                                         st.code(txt, language='java')
                                         st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                                         st.divider()
