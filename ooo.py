@@ -606,8 +606,9 @@ st.image(main_image)
 res_box = st.empty()
 
 async def main():
-    url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"))
-    ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
+    url_input = st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here")
+    url = deobfuscate(url_input, mapping)  # Pass the mapping here
+    ok = st.button(":green_book: Read", help="Read", key='readbutton')
 
     if ok:
         if "daotrans" in url:
