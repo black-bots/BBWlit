@@ -508,32 +508,29 @@ async def fetch_html_content(url):
             else:
                 return None
 		    
-async def display_manga_titles_and_images(url, mapping=None):
-    html_content = await fetch_html_content(url)
-    if html_content:
-        soup = BeautifulSoup(html_content, 'html.parser')
-        manga_items = soup.find_all("div", class_="page-item-detail manga")
-        for item in manga_items:
-            link = item.find("a", class_="btn-link")
-            img_tag = item.find("img")
-            title = item.find("h3", class_="h5").text.strip()
-            if link and img_tag:
-                href = link.get("href")
-                img_url = img_tag.get("data-src")
-                st.write(f"[{title}]({href})")
-                st.image(img_url, use_column_width='always')
-                st.caption('Copy Code')
-                st.divider()
+async def display_manga_titles_and_images(soup, mapping=None):
+    manga_items = soup.find_all("div", class_="page-item-detail manga")
+    for item in manga_items:
+        link = item.find("a", class_="btn-link")
+        img_tag = item.find("img")
+        title = item.find("h3", class_="h5").text.strip()
+        if link and img_tag:
+            href = link.get("href")
+            img_url = img_tag.get("data-src")
+            st.write(f"[{title}]({href})")
+            st.image(img_url, use_column_width='always')
+            st.caption('Copy Code')
+            st.divider()
 
-                original_string = href
-                obfuscated_text, mapping = await obfuscate(original_string)
-                txt = f"""
-                {obfuscated_text}
-                """
-                if mapping is not None:
-                    url = await deobfuscate(obfuscated_text, mapping)
-                st.code(txt, language='java')
-                pass
+            original_string = href
+            obfuscated_text, mapping = await obfuscate(original_string)
+            txt = f"""
+            {obfuscated_text}
+            """
+            if mapping is not None:
+                url = await deobfuscate(obfuscated_text, mapping)
+            st.code(txt, language='java')
+            pass
 
 async def main():
     ranchar = random.choice(string.ascii_uppercase)
@@ -552,37 +549,24 @@ async def main():
                         soup = BeautifulSoup(resp.text, 'html.parser')
                         manga_list_div = soup.find("div", {"class": "listupd"})
                         if manga_list_div:
-                            titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-                            for title in titles:
-                                title_url = title.a["href"]
-                                title_name = title_url.split("series/")[1].replace('/', '').title()
-                                titlename = title_name.replace('-', ' ')
-                                ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                                st.write(f"[{titlename}]({ch})")
-                                img_url = title.img["src"]
-                                
-                                original_string = ch
-                                obfuscated_text, mapping = await obfuscate(original_string)
-                                if img_url:
-                                    st.image(img_url, use_column_width='always')
-                                if ch:
-                                    txt = f"""
-                                    {obfuscated_text}
-                                    """
-                                    url = await deobfuscate(obfuscated_text, mapping)
-                                    st.code(txt, language='java')
-                                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
-                                    st.divider()
+                            await display_manga_titles_and_images(soup)
         elif category == "Top Rated":
             with col2:
                 with st.expander(f"{category}"):
-                    await display_manga_titles_and_images(url)
+                    html_content = await fetch_html_content(url)
+                    if html_content:
+                        soup = BeautifulSoup(html_content, 'html.parser')
+                        await display_manga_titles_and_images(soup)
         else:
             with col3:
                 with st.expander(f"{category}"):
-                    await display_manga_titles_and_images(url)
+                    html_content = await fetch_html_content(url)
+                    if html_content:
+                        soup = BeautifulSoup(html_content, 'html.parser')
+                        await display_manga_titles_and_images(soup)
 
 asyncio.run(main())
+
 
 
 async def main():
