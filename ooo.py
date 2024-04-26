@@ -125,34 +125,34 @@ def get_driver():
         options=options,
     )
 
-def perform_img_actions(url):
+async def perform_img_actions(url):
     if 'image_links' not in st.session_state:
         st.session_state.image_links = []
     if 'current_image_index' not in st.session_state:
         st.session_state.current_image_index = 0
     try:
-        driver.get(url)
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                html_content = await response.text()
     except:
         pass
     with st.spinner('Loading text & audio..'):
-        st.session_state.image_links = get_image_links(url)
+        st.session_state.image_links = await get_image_links(url)
         st.session_state.current_image_index = 0
         if st.session_state.image_links:
             for image_link in st.session_state.image_links:
                 st.image(image_link, use_column_width=True)
             st.write(f"Total Images: {len(st.session_state.image_links)}")
-            transcribe_to_audio(st.session_state.image_links)
+            await transcribe_to_audio(st.session_state.image_links)
 
-def get_image_links(url):
+async def get_image_links(url):
     try:
-        driver.get(url)
-    except WebDriverException as ex:
-        if driver.current_url == url:
-            pass
-            return []
-        else:
-            st.write(f'Error loading URL: {ex}')
-            return []
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                html_content = await response.text()
+    except aiohttp.ClientConnectionError as e:
+        st.write(f'Error loading URL: {e}')
+        return []
     image_links = []
     img_elements = driver.find_elements(By.CSS_SELECTOR, 'img')
     for img_element in img_elements:
@@ -162,17 +162,15 @@ def get_image_links(url):
     driver.quit()
     return image_links
 
-def get_image_links2(url):
+async def get_image_links2(url):
     driver = get_driver()
     try:
-        driver.get(url)
-    except WebDriverException as ex:
-        if driver.current_url == url:
-            pass
-            return []
-        else:
-            st.write(f'Error loading URL: {ex}')
-            return []
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                html_content = await response.text()
+    except aiohttp.ClientConnectionError as e:
+        st.write(f'Error loading URL: {e}')
+        return []
     image_links = []
     img_elements = driver.find_elements(By.CSS_SELECTOR, 'img[id^="image-"]')
     for img_element in img_elements:
@@ -182,7 +180,7 @@ def get_image_links2(url):
     driver.quit()
     return image_links
 
-def transcribe_to_audio(image_links):
+async def transcribe_to_audio(image_links):
     audio_files = []
     reader = load_model()  # Load OCR model outside the loop
     for idx, img_link in enumerate(image_links, start=1):
@@ -191,7 +189,9 @@ def transcribe_to_audio(image_links):
         
         with st.spinner(" Getting image text "):
             # Download the image
-            img_data = requests.get(img_link).content
+            async with aiohttp.ClientSession() as session:
+                async with session.get(img_link) as response:
+                    img_data = await response.read()
             
             # Read text from the image
             result = reader.readtext(img_data)
@@ -516,7 +516,6 @@ if search_variable:
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
 
-# Function to fetch data from URL asynchronously
 async def fetch_data(url):
     async with aiohttp.ClientSession() as session:
         async with session.get(url) as response:
@@ -526,7 +525,7 @@ async def fetch_data(url):
                 return None
 
 # Function to display manga titles and images
-async def display_manga_titles_and_images(url):
+async def display_manga_titles_and_images(url, mapping):
     html_content = await fetch_data(url)
     if html_content:
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -545,7 +544,7 @@ async def display_manga_titles_and_images(url):
                 st.divider()
 
                 original_string = href
-                obfuscated_text, mapping = obfuscate(original_string)
+                obfuscated_text, _ = obfuscate(original_string)
                 txt = f"""
                 {obfuscated_text}
                 """
@@ -563,7 +562,10 @@ async def main():
 
     for category, url in urls.items():
         with st.expander(f"{category}"):
-            await display_manga_titles_and_images(url)
+            mapping = None  # Initialize mapping here
+            if category == "Novels":
+                _, mapping = obfuscate(url)
+            await display_manga_titles_and_images(url, mapping)
 
 asyncio.run(main())
 
