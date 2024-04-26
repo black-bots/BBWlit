@@ -537,35 +537,36 @@ async def display_manga_titles_and_images(url, mapping=None):
                 pass
 
 async def main():
-    with col1:
-        ranchar = random.choice(string.ascii_uppercase)
-        with st.expander(':books: Novels'):
-            resp = requests.get(f"https://daotranslate.us/?s={ranchar}")
-            if resp.status_code == 200:
-                soup = BeautifulSoup(resp.text, 'html.parser')
-                manga_list_div = soup.find("div", {"class": "listupd"})
-                if manga_list_div:
-                    titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-                    for title in titles:
-                        title_url = title.a["href"]
-                        title_name = title_url.split("series/")[1].replace('/', '').title()
-                        titlename = title_name.replace('-', ' ')
-                        ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                        st.write(f"[{titlename}]({ch})")
-                        img_url = title.img["src"]
-                    
-                        original_string = ch
-                        obfuscated_text, mapping = await obfuscate(original_string)
-                        if img_url:
+    ranchar = random.choice(string.ascii_uppercase)
+    with st.expander(':books: Novels'):
+        resp = requests.get(f"https://daotranslate.us/?s={ranchar}")
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            manga_list_div = soup.find("div", {"class": "listupd"})
+            if manga_list_div:
+                titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+                for title in titles:
+                    title_url = title.a["href"]
+                    title_name = title_url.split("series/")[1].replace('/', '').title()
+                    titlename = title_name.replace('-', ' ')
+                    ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                    st.write(f"[{titlename}]({ch})")
+                    img_url = title.img["src"]
+                
+                    original_string = ch
+                    obfuscated_text, mapping = await obfuscate(original_string)
+                    if img_url:
+                        with col1:
                             st.image(img_url, use_column_width='always')
-                        if ch:
-                            txt = f"""
-                            {obfuscated_text}
-                            """
-                            url = await deobfuscate(obfuscated_text, mapping)
+                    if ch:
+                        txt = f"""
+                        {obfuscated_text}
+                        """
+                        url = await deobfuscate(obfuscated_text, mapping)
+                        with col1:
                             st.code(txt, language='java')
                             st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
-                        st.divider()
+                    st.divider()
 
     urls = {
         "Top Rated": "https://nightcomic.com/",
