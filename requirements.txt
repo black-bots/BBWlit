@@ -8,6 +8,7 @@ st-annotated-text
 easyocr
 ffmpeg-python
 g4f
+httpx
 gTTS
 instagrapi
 instaloader
