@@ -450,7 +450,7 @@ if search_variable:
     search_variable = search_variable.replace('?', '')
     with st.spinner('Searching..'):
         with st.expander(":mag: Search"):
-            search_url_1 = f"https://daotranslate.us/?s={search_variable}"
+            search_url_1 = f"https://daotranslate.net/?s={search_variable}"
             resp_1 = requests.get(search_url_1)
             search_url_2 = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga&op=&author=&artist=&release=&adult="
             resp_2 = requests.get(search_url_2)
@@ -469,7 +469,7 @@ if search_variable:
                         title_url = title.a["href"]
                         title_name = title_url.split("series/")[1].replace('/', '').title()
                         titlename = title_name.replace('-', ' ')
-                        ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                        ih = f"https://daotranslate.net/{title_name}-chapter-1/"
                         with st.spinner('Searching..'):
                             st.write(f"[{titlename}]({ih})")
                             img_url = title.img["src"]
@@ -555,7 +555,7 @@ async def display_manga_titles_and_images(url, mapping=None):
 
 async def main():
     urls = {
-        "Novels": f"https://daotranslate.us/?s={random.choice(string.ascii_uppercase)}",
+        "Novels": f"https://daotranslate.net/?s={random.choice(string.ascii_uppercase)}",
         "Top Rated": "https://nightcomic.com/",
         "Panels": "https://manhuaaz.com/"
     }
