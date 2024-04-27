@@ -531,10 +531,11 @@ async def display_manga_titles_and_images(soup, mapping=None):
                 url = await deobfuscate(obfuscated_text, mapping)
             st.code(txt, language='java')
             pass
+            
 async def main():
     ranchar = random.choice(string.ascii_uppercase)
     urls = {
-        "Novels": f"https://daotranslate.us/?s={ranchar}",
+        "Novels": f"https://daotranslate.net/?s={ranchar}",
         "Top Rated": "https://nightcomic.com/",
         "Panels": "https://manhuaaz.com/"
     }
@@ -543,43 +544,26 @@ async def main():
         if category == "Novels":
             with col1:
                 with st.expander(f"{category}"):
-                    resp = httpx.get(url)
-                    if resp.status_code == 200:
-                        soup = BeautifulSoup(resp.text, 'html.parser')
-                        manga_list_div = soup.find("div", {"class": "listupd"})
-                        if manga_list_div:
-                            titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-                            for title in titles:
-                                title_url = title.a["href"]
-                                title_name = title_url.split("series/")[1].replace('/', '').title()
-                                titlename = title_name.replace('-', ' ')
-                                ch = f"https://daotranslate.us/{title_name}-chapter-1/"
-                                st.write(f"[{titlename}]({ch})")
-                                img_url = title.img["src"]
-                                
-                                original_string = ch
-                                obfuscated_text, mapping = await obfuscate(original_string)
-                                if img_url:
-                                    st.image(img_url, use_column_width='always')
-                                if ch:
-                                    txt = f"""
-                                    {obfuscated_text}
-                                    """
-                                    url = await deobfuscate(obfuscated_text, mapping)
-                                    st.code(txt, language='java')
-                                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
-                                    st.divider()
+                    html_content = await fetch_html_content(url)
+                    if html_content:
+                        soup = BeautifulSoup(html_content, 'html.parser')
+                        await display_manga_titles_and_images(soup)
         elif category == "Top Rated":
             with col2:
                 with st.expander(f"{category}"):
-                    await display_manga_titles_and_images(url)
+                    html_content = await fetch_html_content(url)
+                    if html_content:
+                        soup = BeautifulSoup(html_content, 'html.parser')
+                        await display_manga_titles_and_images(soup)
         else:
             with col3:
                 with st.expander(f"{category}"):
-                    await display_manga_titles_and_images(url)
+                    html_content = await fetch_html_content(url)
+                    if html_content:
+                        soup = BeautifulSoup(html_content, 'html.parser')
+                        await display_manga_titles_and_images(soup)
 
 asyncio.run(main())
-
 
 async def main():
     st.image(main_image)
