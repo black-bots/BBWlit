@@ -199,21 +199,22 @@ def transcribe_to_audio(image_links):
             	result_text = [text[1].strip() for text in result]
             	st.write("Result Text:", result_text)
             	text = ' '.join(result_text)  # Joining the list of strings into a single string
-            	text = filter_english_words(text)  # Passing the single string to the filter function
+
+            	text = filter_english_words(result_text)
+            	if text:
+                    audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
+                    if not os.path.exists(audio_file_path):
+                    	tts = gTTS(text=text, lang='en', slow=False)
+                    	tts.save(audio_file_path)
+                    audio_files.append(audio_file_path)
+                    if on:
+                    	res_box.markdown(f':blue[Streaming: ]:green[*{text}*]')
+            	else:
+                    res_box.markdown(f':blue[Dao: ]:orange[No Text]')
             except Exception as e:
             	st.write(f"Error processing text: {e}")
             	text = ""
-        text = filter_english_words(result_text)
-        if text:
-            audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
-            if not os.path.exists(audio_file_path):
-                tts = gTTS(text=text, lang='en', slow=False)
-                tts.save(audio_file_path)
-            audio_files.append(audio_file_path)
-            if on:
-                res_box.markdown(f':blue[Streaming: ]:green[*{text}*]')
-        else:
-            res_box.markdown(f':blue[Dao: ]:orange[No Text]')
+
     return audio_files
 
 
