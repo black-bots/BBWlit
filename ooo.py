@@ -173,7 +173,7 @@ def get_image_links(url):
 
 def transcribe_to_audio(image_links):
     audio_files = []
-    reader = load_model()  # Load OCR model outside the loop
+    ocr = PaddleOCR(use_angle_cls=True, lang='en')
     for idx, img_link in enumerate(image_links, start=1):
         if not is_supported_image_format(img_link):
             continue
@@ -183,7 +183,6 @@ def transcribe_to_audio(image_links):
             img_data = requests.get(img_link).content
             # Read text from the image
             try:
-            	ocr = PaddleOCR(use_angle_cls=True, lang='en')
             	result = ocr.ocr(img_data, cls=True)
             	#result = reader.readtext(img_data)
             	result_text = [text[1].strip() for text in result]
