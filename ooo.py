@@ -541,7 +541,7 @@ async def display_manga_titles_and_images(soup, mapping=None):
 async def main():
     ranchar = random.choice(string.ascii_uppercase)
     urls = {
-        "Novels": f"https://daotranslate.net/?s={ranchar}",
+        #"Novels": f"https://daotranslate.net/?s={ranchar}",
         "Top Rated": "https://nightcomic.com/",
         "Panels": "https://manhuaaz.com/"
     }
