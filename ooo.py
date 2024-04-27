@@ -162,7 +162,6 @@ def get_image_links(url):
     return image_links
 
 def get_image_links2(url):
-    driver = get_driver()
     try:
         driver.get(url)
     except WebDriverException as ex:
@@ -240,8 +239,6 @@ def filter_english_words(text):
         st.write(f"Error filtering English words: {e}")
         text = ""  # Return empty string if an error occurs
     return text
-
-
 
 def readit(url):
     driver = get_driver()
