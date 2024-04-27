@@ -549,7 +549,7 @@ outer_cols = st.columns([1, 2])
 counter = 0
 with col1:
     ranchar = random.choice(string.ascii_uppercase)
-    with st.expander(':books: Novels'):
+    with st.expander(':loud_sound: Text & Audio '):
         resp = requests.get(f"https://daotranslate.net/?s={ranchar}")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
