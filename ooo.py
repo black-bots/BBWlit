@@ -499,7 +499,7 @@ async def search_function():
 async def main():
     await search_function()
 
-await main()
+asyncio.run(main())
 
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
