@@ -447,7 +447,8 @@ def resize_image(img_url, scale_factor):
     return resized_image
 
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
-                            
+searched = 0 
+searched2 = 0
 if search_variable:
     search_variable = search_variable.replace('"', '')
     search_variable = search_variable.replace('-', ' ')
@@ -471,6 +472,8 @@ if search_variable:
                     titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
                     manga_links = iter(search_result_div_2)
                     for title in titles:
+                        if searched >= 10:
+                            break
                         title_url = title.a["href"]
                         title_name = title_url.split("series/")[1].replace('/', '').title()
                         titlename = title_name.replace('-', ' ')
@@ -500,6 +503,7 @@ if search_variable:
                                     st.code(txt, language='java')
                                     st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                             st.divider()
+                            searched += 1
                             
                             # Display results from search_result_div_2
                             try:
@@ -515,6 +519,8 @@ if search_variable:
                                 original_string = cch
                                 obfuscated_text, mapping = obfuscate(original_string)
                                 if img_tag:
+                                    if searched2 >= 10:
+                                    	break
                                     left_co, cent_co,last_co = st.columns(3)
                                     with cent_co:
                                     	st.write(f"[{manga_name}]({cch})")
@@ -534,6 +540,7 @@ if search_variable:
                                     	st.code(txt, language='java')
                                     	st.caption('Copy Code')
                                     	st.divider()
+                                    	searched2 += 1
                             except StopIteration:
                                 break
 	
@@ -575,7 +582,7 @@ with col1:
                         st.code(txt, language='java')
                         st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                     st.divider()
-					counter += 1
+                    counter += 1
 counter2 = 0
 with col2:
     with st.expander(f":chart_with_upwards_trend: Top Rated"):
@@ -612,7 +619,7 @@ with col2:
                     st.code(txt, language='java')
                     st.caption('Copy Code')
                     st.divider()
-					counter2 += 1
+                    counter2 += 1
 counter3 = 0
 with col3:
     with st.expander(f":frame_with_picture: Panels"):
