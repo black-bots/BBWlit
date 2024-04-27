@@ -437,6 +437,15 @@ with st.sidebar:
         st.caption("- `Press Read`")
     st.button("Restart", on_click=update_value, key='keyy')
 
+def resize_image(img_url, scale_factor):
+    response = requests.get(img_url)
+    image = Image.open(BytesIO(response.content))
+    width, height = image.size
+    new_width = int(width * scale_factor)
+    new_height = int(height * scale_factor)
+    resized_image = image.resize((new_width, new_height), Image.ANTIALIAS)
+    return resized_image
+
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
                             
 if search_variable:
@@ -509,16 +518,6 @@ if search_variable:
                                     st.divider()
                             except StopIteration:
                                 break
-
-
-def resize_image(img_url, scale_factor):
-    response = requests.get(img_url)
-    image = Image.open(BytesIO(response.content))
-    width, height = image.size
-    new_width = int(width * scale_factor)
-    new_height = int(height * scale_factor)
-    resized_image = image.resize((new_width, new_height), Image.ANTIALIAS)
-    return resized_image
 	
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
