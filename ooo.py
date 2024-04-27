@@ -405,7 +405,7 @@ with st.sidebar:
         
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
-    on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
+    on = st.checkbox('Stream Story (Experimental)', value=False, disabled=False)
 
     with open("titles.txt", "r") as tit:
         file_contents = tit.readlines()
