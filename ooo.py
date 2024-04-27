@@ -476,7 +476,9 @@ if search_variable:
                         titlename = title_name.replace('-', ' ')
                         ih = f"https://daotranslate.net/{title_name}-chapter-1/"
                         with st.spinner('Searching..'):
-                            st.write(f"[{titlename}]({ih})")
+							left_co, cent_co,last_co = st.columns(3)
+							with cent_co:
+								st.write(f"[{titlename}]({ih})")
                             img_url = title.img["src"]
                             original_string = ih
                             obfuscated_text, mapping = obfuscate(original_string)
@@ -513,7 +515,9 @@ if search_variable:
                                 original_string = cch
                                 obfuscated_text, mapping = obfuscate(original_string)
                                 if img_tag:
-                                    st.write(f"[{manga_name}]({cch})")
+									left_co, cent_co,last_co = st.columns(3)
+									with cent_co:
+                                    	st.write(f"[{manga_name}]({cch})")
                                     img_url = img_tag.get("data-src")
                                     try:
                                     	resized_img = resize_image(img_url, scale_factor=2)
