@@ -554,7 +554,7 @@ async def main():
                                 title_url = title.a["href"]
                                 title_name = title_url.split("series/")[1].replace('/', '').title()
                                 titlename = title_name.replace('-', ' ')
-                                ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                                ch = f"https://daotranslate.net/{title_name}-chapter-1/"
                                 st.write(f"[{titlename}]({ch})")
                                 img_url = title.img["src"]
                                 
