@@ -483,7 +483,9 @@ if search_variable:
                             if img_url:
                                 try:
                                     resized_img = resize_image(img_url, scale_factor=2)
-                                    st.image(resized_img, use_column_width=None)
+                                    left_co, cent_co,last_co = st.columns(3)
+                                    with cent_co:
+                                    	st.image(resized_img, use_column_width=None)
                                 except:
                                     pass
                             if ih:
