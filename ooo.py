@@ -489,12 +489,14 @@ if search_variable:
                                 except:
                                     pass
                             if ih:
-                                txt = f"""
-                                {obfuscated_text}
-                                """
-                                url = deobfuscate(obfuscated_text, mapping)
-                                st.code(txt, language='java')
-                                st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
+                                left_co, cent_co,last_co = st.columns(3)
+                                with cent_co:
+                                    txt = f"""
+                                    {obfuscated_text}
+                                    """
+                                    url = deobfuscate(obfuscated_text, mapping)
+                                    st.code(txt, language='java')
+                                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                             st.divider()
                             
                             # Display results from search_result_div_2
@@ -515,15 +517,19 @@ if search_variable:
                                     img_url = img_tag.get("data-src")
                                     try:
                                     	resized_img = resize_image(img_url, scale_factor=2)
-                                    	st.image(resized_img, use_column_width=None)
+                                    	left_co, cent_co,last_co = st.columns(3)
+                                    	with cent_co:
+                                    		st.image(resized_img, use_column_width=None)
                                     except:
-                                    	pass                                 
-                                    txt = f"""
-                                    {obfuscated_text}
-                                    """
-                                    st.code(txt, language='java')
-                                    st.caption('Copy Code')
-                                    st.divider()
+                                    	pass
+                                    left_co, cent_co,last_co = st.columns(3)
+                                    with cent_co:
+                                    	txt = f"""
+                                    	{obfuscated_text}
+                                    	"""
+                                    	st.code(txt, language='java')
+                                    	st.caption('Copy Code')
+                                    	st.divider()
                             except StopIteration:
                                 break
 	
