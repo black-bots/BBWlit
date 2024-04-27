@@ -56,7 +56,7 @@ import uuid
 from io import BytesIO
 
 import re
-import httpx
+import requests
 from PIL import Image
 import numpy as np
 import pandas as pd
@@ -190,7 +190,7 @@ def transcribe_to_audio(image_links):
         
         with st.spinner(" Getting image text "):
             # Download the image
-            img_data = httpx.get(img_link).content
+            img_data = requests.get(img_link).content
             
             # Read text from the image
             result = reader.readtext(img_data)
@@ -253,7 +253,7 @@ def readit(url):
         res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
     else:
         try:
-            resp = httpx.get(url)
+            resp = requests.get(url)
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
                 d = soup.find("div", {"class": "epcontent entry-content"})
@@ -439,9 +439,9 @@ if search_variable:
     with st.spinner('Searching..'):
         with st.expander(":mag: Search"):
             search_url_1 = f"https://daotranslate.us/?s={search_variable}"
-            resp_1 = httpx.get(search_url_1)
+            resp_1 = requests.get(search_url_1)
             search_url_2 = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga&op=&author=&artist=&release=&adult="
-            resp_2 = httpx.get(search_url_2)
+            resp_2 = requests.get(search_url_2)
             
             if resp_1.status_code == 200 and resp_2.status_code == 200:
                 soup_1 = BeautifulSoup(resp_1.text, 'html.parser')
@@ -508,7 +508,7 @@ outer_cols = st.columns([1, 2])
 with col1:
     ranchar = random.choice(string.ascii_uppercase)
     with st.expander(':books: Novels'):
-        resp = httpx.get(f"https://daotranslate.us/?s={ranchar}")
+        resp = requests.get(f"https://daotranslate.us/?s={ranchar}")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
             manga_list_div = soup.find("div", {"class": "listupd"})
@@ -537,7 +537,7 @@ with col1:
 
 with col2:
     with st.expander(f":frame_with_picture: Top Rated"):
-        resp = httpx.get("https://nightcomic.com/")
+        resp = requests.get("https://nightcomic.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
             manga_items = soup.find_all("div", class_="page-item-detail manga")
@@ -566,7 +566,7 @@ with col2:
                     st.divider()
 with col3:
     with st.expander(f":frame_with_picture: Panels"):
-        resp = httpx.get("https://manhuaaz.com/")
+        resp = requests.get("https://manhuaaz.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
             manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
