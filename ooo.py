@@ -190,11 +190,12 @@ def transcribe_to_audio(image_links):
         with st.spinner(" Getting image text "):
             # Download the image
             img_data = requests.get(img_link).content
-            
             # Read text from the image
-            result = reader.readtext(img_data)
-            result_text = [text[1].strip() for text in result]
-            
+            try:
+            	result = reader.readtext(img_data)
+            	result_text = [text[1].strip() for text in result]
+            except:
+            	pass
         text = filter_english_words(result_text)
         if text:
             audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
@@ -203,7 +204,7 @@ def transcribe_to_audio(image_links):
                 tts.save(audio_file_path)
             audio_files.append(audio_file_path)
             if on:
-                res_box.markdown(f':blue[RAWR: ]:green[*{text}*]')
+                res_box.markdown(f':blue[Streaming: ]:green[*{text}*]')
         else:
             res_box.markdown(f':blue[Dao: ]:orange[No Text]')
     return audio_files
