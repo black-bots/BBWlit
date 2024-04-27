@@ -539,7 +539,7 @@ if search_variable:
 	
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
-
+counter = 0
 with col1:
     ranchar = random.choice(string.ascii_uppercase)
     with st.expander(':books: Novels'):
@@ -550,6 +550,8 @@ with col1:
             if manga_list_div:
                 titles = manga_list_div.find_all("div", {"class": "mdthumb"})
                 for title in titles:
+                    if counter >= 10:  # Check if the counter exceeds 10
+                        break
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1].replace('/', '').title()
                     titlename = title_name.replace('-', ' ')
@@ -573,7 +575,8 @@ with col1:
                         st.code(txt, language='java')
                         st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                     st.divider()
-
+					counter += 1
+counter2 = 0
 with col2:
     with st.expander(f":chart_with_upwards_trend: Top Rated"):
         resp = requests.get("https://nightcomic.com/")
@@ -588,6 +591,8 @@ with col2:
                 rating = item.find("span", class_="score").text.strip()
                 
                 if link and img_tag:
+                    if counter2 >= 10:  # Check if the counter exceeds 10
+                        break
                     href = link.get("href")
                     img_url = img_tag.get("data-src")
                     
@@ -607,6 +612,8 @@ with col2:
                     st.code(txt, language='java')
                     st.caption('Copy Code')
                     st.divider()
+					counter2 += 1
+counter3 = 0
 with col3:
     with st.expander(f":frame_with_picture: Panels"):
         resp = requests.get("https://manhuaaz.com/")
@@ -626,6 +633,8 @@ with col3:
                 original_string = cch
                 obfuscated_text, mapping = obfuscate(original_string)
                 if img_tag:
+                    if counter3 >= 10:  # Check if the counter exceeds 10
+                        break
                     st.write(f"[{manga_name}]({cch})")
                     img_url = img_tag.get("data-src")
                     try:
@@ -640,6 +649,7 @@ with col3:
                     st.code(txt, language='java')
                     st.caption('Copy Code')
                     st.divider()
+                    counter3 += 1
 
 st.image(main_image)
 res_box = st.empty()
