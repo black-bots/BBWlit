@@ -496,10 +496,7 @@ async def search_function():
                                 except StopIteration:
                                     break
 
-async def main():
-    await search_function()
-
-asyncio.run(main())
+asyncio.run(search_function())
 
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
