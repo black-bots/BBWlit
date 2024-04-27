@@ -145,7 +145,7 @@ async def perform_img_actions(url):
             st.write(f"Total Images: {len(st.session_state.image_links)}")
             await transcribe_to_audio(st.session_state.image_links)
 
-async def get_image_links(url):
+async def get_image_links(url, driver):
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(url) as response:
