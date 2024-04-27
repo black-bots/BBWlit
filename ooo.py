@@ -143,6 +143,7 @@ def perform_img_actions(url):
             transcribe_to_audio(st.session_state.image_links)
 
 def get_image_links(url):
+    driver = get_driver()
     try:
         driver.get(url)
     except WebDriverException as ex:
