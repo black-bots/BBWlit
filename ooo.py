@@ -443,7 +443,7 @@ def resize_image(img_url, scale_factor):
     width, height = image.size
     new_width = int(width * scale_factor)
     new_height = int(height * scale_factor)
-    resized_image = image.resize((new_width, new_height), Image.Resampling.LANCZOS)
+    resized_image = image.resize((new_width, new_height), Image.LANCZOS)
     return resized_image
 
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
