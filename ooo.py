@@ -440,11 +440,13 @@ with st.sidebar:
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
                             
 if search_variable:
-    if '"' in search_variable:
-        search_variable = search_variable.replace('"', '')
+    search_variable = search_variable.replace('"', '')
+    search_variable = search_variable.replace('-', ' ')
+    search_variable = search_variable.replace(':', '')
+
     with st.spinner('Searching..'):
         with st.expander(":mag: Search"):
-            search_url_1 = f"https://daotranslate.us/?s={search_variable}"
+            search_url_1 = f"https://daotranslate.net/?s={search_variable}"
             resp_1 = requests.get(search_url_1)
             search_url_2 = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga&op=&author=&artist=&release=&adult="
             resp_2 = requests.get(search_url_2)
@@ -463,7 +465,7 @@ if search_variable:
                         title_url = title.a["href"]
                         title_name = title_url.split("series/")[1].replace('/', '').title()
                         titlename = title_name.replace('-', ' ')
-                        ih = f"https://daotranslate.us/{title_name}-chapter-1/"
+                        ih = f"https://daotranslate.net/{title_name}-chapter-1/"
                         with st.spinner('Searching..'):
                             st.write(f"[{titlename}]({ih})")
                             img_url = title.img["src"]
@@ -514,7 +516,7 @@ outer_cols = st.columns([1, 2])
 with col1:
     ranchar = random.choice(string.ascii_uppercase)
     with st.expander(':books: Novels'):
-        resp = requests.get(f"https://daotranslate.us/?s={ranchar}")
+        resp = requests.get(f"https://daotranslate.net/?s={ranchar}")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
             manga_list_div = soup.find("div", {"class": "listupd"})
@@ -524,7 +526,7 @@ with col1:
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1].replace('/', '').title()
                     titlename = title_name.replace('-', ' ')
-                    ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                    ch = f"https://daotranslate.net/{title_name}-chapter-1/"
                     st.write(f"[{titlename}]({ch})")
                     img_url = title.img["src"]
                     
