@@ -219,8 +219,6 @@ def is_image_link(link):
             return True
     return False
 
-def load_model() -> Reader:
-    return ocr.Reader(["en"], model_storage_directory=".")
 
 def filter_english_words(text):
     try:
