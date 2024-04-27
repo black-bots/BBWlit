@@ -183,21 +183,12 @@ def transcribe_to_audio(image_links):
             img_data = requests.get(img_link).content
             # Read text from the image
             try:
-            	result = ocr.ocr(img_data, cls=True)
-            	text = ""
-            	for item in result:
-                    if isinstance(item, list):
-                        for sub_item in item:
-                            if isinstance(sub_item, list):
-                            	text += sub_item[0] + " "
-                            elif isinstance(sub_item, str):
-                            	text += sub_item + " "
-                    elif isinstance(item, str):
-                    	text += item + " "
+            	result = ocr.ocr(img_data, det=False, rec=False, use_gpu=False, cls=False,)
+
             	st.write("OCR Result:", result)
-            	st.write("TEXT Result:", text)
             	result_text = [text[1].strip() for text in result]
             	st.write("Result Text:", result_text)
+		    
             	text = ' '.join(result_text)  # Joining the list of strings into a single string
 
             	text = filter_english_words(result_text)
