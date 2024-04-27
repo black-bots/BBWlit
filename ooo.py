@@ -184,8 +184,9 @@ def transcribe_to_audio(image_links):
             # Read text from the image
             try:
             	result = ocr.ocr(img_data, cls=True)
-            	#result = reader.readtext(img_data)
+            	st.write("OCR Result:", result)
             	result_text = [text[1].strip() for text in result]
+            	st.write("Result Text:", result_text)
             	text = ' '.join(result_text)  # Joining the list of strings into a single string
             	text = filter_english_words(text)  # Passing the single string to the filter function
             except Exception as e:
@@ -466,7 +467,7 @@ if search_variable:
                     titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
                     manga_links = iter(search_result_div_2)
                     for title in titles:
-                        if searched >= 10:
+                        if searched >= 3:
                             break
                         title_url = title.a["href"]
                         title_name = title_url.split("series/")[1].replace('/', '').title()
@@ -513,7 +514,7 @@ if search_variable:
                                 original_string = cch
                                 obfuscated_text, mapping = obfuscate(original_string)
                                 if img_tag:
-                                    if searched2 >= 10:
+                                    if searched2 >= 3:
                                     	break
                                     left_co, cent_co,last_co = st.columns(3)
                                     with cent_co:
@@ -551,7 +552,7 @@ with col1:
             if manga_list_div:
                 titles = manga_list_div.find_all("div", {"class": "mdthumb"})
                 for title in titles:
-                    if counter >= 10:  # Check if the counter exceeds 10
+                    if counter >= 3:  # Check if the counter exceeds 10
                         break
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1].replace('/', '').title()
@@ -592,7 +593,7 @@ with col2:
                 rating = item.find("span", class_="score").text.strip()
                 
                 if link and img_tag:
-                    if counter2 >= 10:  # Check if the counter exceeds 10
+                    if counter2 >= 3:  # Check if the counter exceeds 10
                         break
                     href = link.get("href")
                     img_url = img_tag.get("data-src")
@@ -635,7 +636,7 @@ with col3:
                 original_string = cch
                 obfuscated_text, mapping = obfuscate(original_string)
                 if img_tag:
-                    if counter3 >= 10:  # Check if the counter exceeds 10
+                    if counter3 >= 3:  # Check if the counter exceeds 10
                         break
                     st.write(f"[{manga_name}]({cch})")
                     img_url = img_tag.get("data-src")
