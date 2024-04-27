@@ -561,7 +561,7 @@ with col1:
                     obfuscated_text, mapping = obfuscate(original_string)
                     if img_url:
                         try:
-                            resized_img = resize_image(img_url, scale_factor=2)
+                            resized_img = resize_image(img_url, scale_factor=4)
                             st.image(resized_img, use_column_width='always')
                         except:
                             pass
@@ -575,7 +575,7 @@ with col1:
                     st.divider()
 
 with col2:
-    with st.expander(f":frame_with_picture: Top Rated"):
+    with st.expander(f":chart_with_upwards_trend: Top Rated"):
         resp = requests.get("https://nightcomic.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -597,7 +597,7 @@ with col2:
                     
                     st.write(f"[{title}]({href}) - Rating: {rating}")
                     try:
-                    	resized_img = resize_image(img_url, scale_factor=2)
+                    	resized_img = resize_image(img_url, scale_factor=4)
                     	st.image(resized_img, use_column_width='always')
                     except:
                     	pass                  
@@ -629,7 +629,7 @@ with col3:
                     st.write(f"[{manga_name}]({cch})")
                     img_url = img_tag.get("data-src")
                     try:
-                    	resized_img = resize_image(img_url, scale_factor=2)
+                    	resized_img = resize_image(img_url, scale_factor=4)
                     	st.image(resized_img, use_column_width='always')
                     except:
                     	pass                 
