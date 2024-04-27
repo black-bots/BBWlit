@@ -514,7 +514,7 @@ if search_variable:
                                 else:
                                     cch = href
                                 manga_name=href.split('https://manhuaaz.com/manga/')[1]
-                               
+                                manga_name = manga_name.replace("/","")
                                 img_tag = link.find("img")
                                 original_string = cch
                                 obfuscated_text, mapping = obfuscate(original_string)
@@ -635,6 +635,7 @@ with col3:
                 else:
                     cch = href
                 manga_name=href.split('https://manhuaaz.com/manga/')[1]
+                manga_name = manga_name.replace("/","")
                 
                 img_tag = link.find("img")
                 original_string = cch
