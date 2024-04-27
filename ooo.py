@@ -183,7 +183,7 @@ def transcribe_to_audio(image_links):
             img_data = requests.get(img_link).content
             # Read text from the image
             try:
-            	result = ocr.ocr(img_data, det=False, rec=False, use_gpu=False, cls=False,)
+            	result = ocr.ocr(img_data, det=False, rec=False, cls=False,)
 
             	st.write("OCR Result:", result)
             	#result_text = [text[1].strip() for text in result]
