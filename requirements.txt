@@ -6,6 +6,7 @@ streamlit_player
 streamlit_scrollable_textbox 
 st-annotated-text
 easyocr
+paddleocr
 ffmpeg-python
 g4f
 httpx
