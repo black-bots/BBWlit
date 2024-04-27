@@ -481,8 +481,11 @@ if search_variable:
                             original_string = ih
                             obfuscated_text, mapping = obfuscate(original_string)
                             if img_url:
-                                resized_img = resize_image(img_url, scale_factor=2)  # Adjust scale_factor as needed
-                                st.image(resized_img, use_column_width='always')  
+                                try:
+                                    resized_img = resize_image(img_url, scale_factor=2)
+                                    st.image(resized_img, use_column_width='always')
+                                except:
+                                    pass
                             if ih:
                                 txt = f"""
                                 {obfuscated_text}
@@ -508,8 +511,11 @@ if search_variable:
                                 if img_tag:
                                     st.write(f"[{manga_name}]({cch})")
                                     img_url = img_tag.get("data-src")
-                                    resized_img = resize_image(img_url, scale_factor=2)  # Adjust scale_factor as needed
-                                    st.image(resized_img, use_column_width='always')                                    
+                                    try:
+                                    	resized_img = resize_image(img_url, scale_factor=2)
+                                    	st.image(resized_img, use_column_width='always')
+                                    except:
+                                    	pass                                 
                                     txt = f"""
                                     {obfuscated_text}
                                     """
@@ -542,9 +548,11 @@ with col1:
                     original_string = ch
                     obfuscated_text, mapping = obfuscate(original_string)
                     if img_url:
-                        # Resize the image to a higher resolution
-                        resized_img = resize_image(img_url, scale_factor=2)  # Adjust scale_factor as needed
-                        st.image(resized_img, use_column_width='always')
+                        try:
+                            resized_img = resize_image(img_url, scale_factor=2)
+                            st.image(resized_img, use_column_width='always')
+                        except:
+                            pass
                     if ch:
                         txt = f"""
                         {obfuscated_text}
@@ -576,8 +584,11 @@ with col2:
                     url = deobfuscate(obfuscated_text, mapping)
                     
                     st.write(f"[{title}]({href}) - Rating: {rating}")
-                    resized_img = resize_image(img_url, scale_factor=2)  # Adjust scale_factor as needed
-                    st.image(resized_img, use_column_width='always')                    
+                    try:
+                    	resized_img = resize_image(img_url, scale_factor=2)
+                    	st.image(resized_img, use_column_width='always')
+                    except:
+                    	pass                  
                     txt = f"""
                     {obfuscated_text}
                     """
@@ -605,8 +616,11 @@ with col3:
                 if img_tag:
                     st.write(f"[{manga_name}]({cch})")
                     img_url = img_tag.get("data-src")
-                    resized_img = resize_image(img_url, scale_factor=2)  # Adjust scale_factor as needed
-                    st.image(resized_img, use_column_width='always')                   
+                    try:
+                    	resized_img = resize_image(img_url, scale_factor=2)
+                    	st.image(resized_img, use_column_width='always')
+                    except:
+                    	pass                 
                     url = deobfuscate(obfuscated_text, mapping)
                     txt = f"""
                     {obfuscated_text}
