@@ -483,7 +483,7 @@ if search_variable:
                             if img_url:
                                 try:
                                     resized_img = resize_image(img_url, scale_factor=2)
-                                    st.image(resized_img, use_column_width='always')
+                                    st.image(resized_img, use_column_width=None)
                                 except:
                                     pass
                             if ih:
@@ -513,7 +513,7 @@ if search_variable:
                                     img_url = img_tag.get("data-src")
                                     try:
                                     	resized_img = resize_image(img_url, scale_factor=2)
-                                    	st.image(resized_img, use_column_width='always')
+                                    	st.image(resized_img, use_column_width=None)
                                     except:
                                     	pass                                 
                                     txt = f"""
