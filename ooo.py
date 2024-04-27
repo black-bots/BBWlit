@@ -298,9 +298,9 @@ def readit(url):
                         group_text = ""
                         for d_paragraph in group:
                             group_text += d_paragraph.text + "\n"
-                        #if on:
-                        #    res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                        #    time.sleep(5)
+                        if on:
+                            res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
+                            time.sleep(5)
                     driver.quit()
                 else:
                     st.write('')
