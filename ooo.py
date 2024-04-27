@@ -62,8 +62,8 @@ import numpy as np
 import pandas as pd
 import pickle
 
-import easyocr as ocr  # OCR
-from easyocr import Reader
+#import easyocr as ocr  # OCR
+#from easyocr import Reader
 from paddleocr import PaddleOCR
 from gtts import gTTS
 from pydub import AudioSegment
@@ -183,8 +183,8 @@ def transcribe_to_audio(image_links):
             img_data = requests.get(img_link).content
             # Read text from the image
             try:
-				reader_ppocr = PaddleOCR(lang='en')
-				result = reader_ppocr.ocr(img_data, det=False, cls=False)
+            	ocr = PaddleOCR(use_angle_cls=True, lang='en')
+            	result = ocr.ocr(img_data, cls=True)
             	#result = reader.readtext(img_data)
             	result_text = [text[1].strip() for text in result]
             	text = ' '.join(result_text)  # Joining the list of strings into a single string
