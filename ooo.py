@@ -184,8 +184,11 @@ def transcribe_to_audio(image_links):
             try:
             	result = reader.readtext(img_data)
             	result_text = [text[1].strip() for text in result]
-            except:
-            	pass
+            	text = ' '.join(result_text)  # Joining the list of strings into a single string
+            	text = filter_english_words(text)  # Passing the single string to the filter function
+            except Exception as e:
+            	st.write(f"Error processing text: {e}")
+            	text = ""
         text = filter_english_words(result_text)
         if text:
             audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
