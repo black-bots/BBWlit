@@ -484,7 +484,7 @@ if search_variable:
                             obfuscated_text, mapping = obfuscate(original_string)
                             if img_url:
                                 try:
-                                    resized_img = resize_image(img_url, scale_factor=2)
+                                    resized_img = resize_image(img_url, scale_factor=4)
                                     left_co, cent_co,last_co = st.columns(3)
                                     with cent_co:
                                     	st.image(resized_img, use_column_width=None)
@@ -520,7 +520,7 @@ if search_variable:
                                     	st.write(f"[{manga_name}]({cch})")
                                     img_url = img_tag.get("data-src")
                                     try:
-                                    	resized_img = resize_image(img_url, scale_factor=2)
+                                    	resized_img = resize_image(img_url, scale_factor=4)
                                     	left_co, cent_co,last_co = st.columns(3)
                                     	with cent_co:
                                     		st.image(resized_img, use_column_width=None)
