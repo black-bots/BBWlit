@@ -1,5 +1,5 @@
 # ┌──────────────────────────────────┐
-# │ BlackDao: Manga Dōjutsu v2.12.21 │
+# │ BlackDao: Manga Dōjutsu v3.12.21 │
 # ├──────────────────────────────────┤
 # │ Copyright © 2024 BlackBots.net   │
 # │ (https://BlackBots.net)          │
