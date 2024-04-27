@@ -565,7 +565,7 @@ with col2:
                     url = deobfuscate(obfuscated_text, mapping)
                     
                     st.write(f"[{title}]({href}) - Rating: {rating}")
-                    st.image(img_url, use_column_width='always')
+                    st.image(img_url, use_column_width='always', clear_cache=True)
                     txt = f"""
                     {obfuscated_text}
                     """
