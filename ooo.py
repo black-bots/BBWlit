@@ -10,11 +10,11 @@
 # │ (https://BlackBots.net/license)  │
 # └──────────────────────────────────┘
 #            マンガアプリ
-
+ 
 # 010011010110000101101110011001110110000101000100011011110110101001110101011101000111001101110101
-
+ 
 # 77971101039768111106117116115117 
-
+                                                                      
 #    x*8888x.:*8888: -"888:                                                                     
 #   X   48888X `8888H  8888                                                         
 #  X8x.  8888X  8888X  !888>               x@88k u@88c.                  
@@ -46,9 +46,6 @@
 #                                   .J88" "                                                     
 import os
 import io
-import asyncio
-import httpx
-import aiohttp
 import base64
 import hashlib
 import random
@@ -59,6 +56,7 @@ import uuid
 from io import BytesIO
 
 import re
+import httpx
 from PIL import Image
 import numpy as np
 import pandas as pd
@@ -85,6 +83,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
 
 import webbrowser
+from utils import recommendations, read_object
 
 
 def generate_unique_key():
@@ -106,7 +105,7 @@ def autoplay_audio(file_path: str):
             unsafe_allow_html=True,
         )
 
-async def get_driver():
+def get_driver():
     options = Options()
     options.add_argument("--disable-gpu")
     options.add_argument("--headless")
@@ -125,34 +124,34 @@ async def get_driver():
         options=options,
     )
 
-async def perform_img_actions(url):
+def perform_img_actions(url):
     if 'image_links' not in st.session_state:
         st.session_state.image_links = []
     if 'current_image_index' not in st.session_state:
         st.session_state.current_image_index = 0
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as response:
-                html_content = await response.text()
+        driver.get(url)
     except:
         pass
     with st.spinner('Loading text & audio..'):
-        st.session_state.image_links = await get_image_links(url)
+        st.session_state.image_links = get_image_links(url)
         st.session_state.current_image_index = 0
         if st.session_state.image_links:
             for image_link in st.session_state.image_links:
                 st.image(image_link, use_column_width=True)
             st.write(f"Total Images: {len(st.session_state.image_links)}")
-            await transcribe_to_audio(st.session_state.image_links)
+            transcribe_to_audio(st.session_state.image_links)
 
-async def get_image_links(url, driver):
+def get_image_links(url):
     try:
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url) as response:
-                html_content = await response.text()
-    except aiohttp.ClientConnectionError as e:
-        st.write(f'Error loading URL: {e}')
-        return []
+        driver.get(url)
+    except WebDriverException as ex:
+        if driver.current_url == url:
+            pass
+            return []
+        else:
+            st.write(f'Error loading URL: {ex}')
+            return []
     image_links = []
     img_elements = driver.find_elements(By.CSS_SELECTOR, 'img')
     for img_element in img_elements:
@@ -162,7 +161,27 @@ async def get_image_links(url, driver):
     driver.quit()
     return image_links
 
-async def transcribe_to_audio(image_links):
+def get_image_links2(url):
+    driver = get_driver()
+    try:
+        driver.get(url)
+    except WebDriverException as ex:
+        if driver.current_url == url:
+            pass
+            return []
+        else:
+            st.write(f'Error loading URL: {ex}')
+            return []
+    image_links = []
+    img_elements = driver.find_elements(By.CSS_SELECTOR, 'img[id^="image-"]')
+    for img_element in img_elements:
+        img_src = img_element.get_attribute('src')
+        if img_src and is_image_link(img_src):
+            image_links.append(img_src)
+    driver.quit()
+    return image_links
+
+def transcribe_to_audio(image_links):
     audio_files = []
     reader = load_model()  # Load OCR model outside the loop
     for idx, img_link in enumerate(image_links, start=1):
@@ -171,9 +190,7 @@ async def transcribe_to_audio(image_links):
         
         with st.spinner(" Getting image text "):
             # Download the image
-            async with aiohttp.ClientSession() as session:
-                async with session.get(img_link) as response:
-                    img_data = await response.read()
+            img_data = httpx.get(img_link).content
             
             # Read text from the image
             result = reader.readtext(img_data)
@@ -226,17 +243,17 @@ def filter_english_words(text):
 
 
 
-async def readit(url, mapping):
-    driver = await get_driver()
+def readit(url):
+    driver = get_driver()
     try:
         driver.get(url)
     except:
         pass
     if not url:
-        st.markdown(':blue[Dao: ]:green[*Enter a valid URL before running.*]')
+        res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
     else:
         try:
-            resp = await httpx.get(url)  # Use await here
+            resp = httpx.get(url)
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
                 d = soup.find("div", {"class": "epcontent entry-content"})
@@ -252,24 +269,24 @@ async def readit(url, mapping):
                         story += paragraph.text + "\n"
                     story = story.replace('<p>', '')
                     story = story.replace('"', '')
-
-                    st.markdown("""
-                        <style>
-                            .stMarkdown{color: black;}
-                            .st-c8:hover{color:orange;}
-                            .streamlit-expander.st-bc.st-as.st-ar.st-bd.st-be.st-b8.st-bf.st-bg.st-bh.st-bi{display:none;}
-                        </style>
-                    """,
-                    unsafe_allow_html=True
+                    
+                    st.markdown("""<style>
+                          .stMarkdown{color: black;}
+                          .st-c8:hover{color:orange;}
+                          .streamlit-expander.st-bc.st-as.st-ar.st-bd.st-be.st-b8.st-bf.st-bg.st-bh.st-bi{display:none;}
+                          </style>""",
+                          unsafe_allow_html=True
                     )
                     with st.expander("Read"):
-                        formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in story.split("\n")]
+                        from annotated_text import annotated_text
+                        paragraphs = story.split("\n") 
+                        formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
                         annotated_text(*formatted_paragraphs)
                         st.caption(f'{len(story)} characters in this chapter.')
 
                         oldurl = url
                         chap = ''.join([n for n in oldurl if n.isdigit()])
-                        nxtchap = str(int(chap) + 1)
+                        nxtchap = str(int(chap) + int(+1))
                         prvchap = str(int(chap))
                         nxtUrl = str(oldurl.replace(chap, nxtchap))
                         obfuscated_text, mapping = obfuscate(nxtUrl)
@@ -277,60 +294,60 @@ async def readit(url, mapping):
                         st.caption(obfuscated_text)
                         url = deobfuscate(obfuscated_text, mapping)
                         st.button('Continue', on_click=readit, args=[url], key=generate_unique_key())
-
                     with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
-                        story = story.replace('"', '')
+                        story = story.replace('"','')
                         tts = gTTS(text=story, lang='en', slow=False)
-                        tts.save(tmp_file.name)
+                        tts.save(tmp_file.name)                            
                         audio = AudioSegment.from_mp3(tmp_file.name)
-                        new_file = speedup(audio, 1.2, 150)
+                        new_file = speedup(audio,1.2,150)
                         new_file.export("file.mp3", format="mp3")
                         autoplay_audio("file.mp3")
-
+                        #st.download_button("file.mp3")
                     for group in groups:
                         group_text = ""
                         for d_paragraph in group:
                             group_text += d_paragraph.text + "\n"
-
+                        #if on:
+                        #    res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
+                        #    time.sleep(5)
+                    driver.quit()
+                else:
+                    st.write('')
+            else:
+                st.write(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
         except Exception as e:
             st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
     driver.quit()
-                    # if on:
-                    #     res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                    #     time.sleep(5)
 
+def obfuscate(text):
+	mapping = {}
+	for i in range(26):
+		mapping[chr(65 + i)] = chr(((i + 1) % 26) + 65)
+		mapping[chr(97 + i)] = chr(((i + 1) % 26) + 97) 
+	obfuscated_text = ''.join(mapping.get(char, char) for char in text)
+	if 'nightcomic.com' in text:
+		obfuscated_text = "TOP/" + obfuscated_text
+	if 'daotranslate' in text:
+		obfuscated_text = "NOVEL/" + obfuscated_text
+	if 'manhuaaz.com' in text:
+		obfuscated_text = "PANEL/" + obfuscated_text
+	return obfuscated_text, mapping
 
-async def obfuscate(text):
-    mapping = {}
-    for i in range(26):
-        mapping[chr(65 + i)] = chr(((i + 1) % 26) + 65)
-        mapping[chr(97 + i)] = chr(((i + 1) % 26) + 97)
-    obfuscated_text = ''.join(mapping.get(char, char) for char in text)
-    if 'nightcomic.com' in text:
-        obfuscated_text = "TOP/" + obfuscated_text
-    if 'daotranslate' in text:
-        obfuscated_text = "NOVEL/" + obfuscated_text
-    if 'manhuaaz.com' in text:
-        obfuscated_text = "PANEL/" + obfuscated_text
-    return obfuscated_text, mapping
-
-
-async def deobfuscate(obfuscated_text, mapping):
-    if obfuscated_text.startswith("TOP/"):
-        obfuscated_text = obfuscated_text[len("TOP/"):]
-    if obfuscated_text.startswith("NOVEL/"):
-        obfuscated_text = obfuscated_text[len("NOVEL/"):]
-    if obfuscated_text.startswith("PANEL/"):
-        obfuscated_text = obfuscated_text[len("PANEL/"):]
-    inverted_mapping = {v: k for k, v in mapping.items()}
-    original_text = ''.join(inverted_mapping.get(char, char) for char in obfuscated_text)
-    return original_text
-
+def deobfuscate(obfuscated_text, mapping):
+	if obfuscated_text.startswith("TOP/"):
+		obfuscated_text = obfuscated_text[len("TOP/"):]
+	if obfuscated_text.startswith("NOVEL/"):
+		obfuscated_text = obfuscated_text[len("NOVEL/"):]
+	if obfuscated_text.startswith("PANEL/"):
+		obfuscated_text = obfuscated_text[len("PANEL/"):]
+	inverted_mapping = {v: k for k, v in mapping.items()}
+	original_text = ''.join(inverted_mapping.get(char, char) for char in obfuscated_text)
+	return original_text
 
 history = []
 ih = ""
 icob = Image.open('static/-.ico')
-ranum = random.randint(1, 99999)
+ranum = random.randint(1,99999)
 st.set_page_config(
     page_title="Manga Dōjutsu",
     page_icon=icob,
@@ -350,9 +367,9 @@ st.markdown("""
         cursor: pointer;
         }
         img {
-        width: 75%;
+        width:75%;
         }
-        width: 578px;
+        width:578px;
         vertical-align: middle;
         horizontal-align: middle;
         max-width: 300px;
@@ -396,19 +413,10 @@ with st.sidebar:
         st.session_state.value = "Restart"
         
     st.image(side_image)
-    st.caption("Manga Text or Image To Speech")
+    st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Disabled)', value=False, disabled=True)
 
-    with open("titles.txt", "r") as tit:
-        file_contents = tit.readlines()
-    num_results = len(file_contents)
-    num_groups = (num_results - 1) // 10 + 1
-    group_index = st.slider("Popular Titles", 1, num_groups, 1)
-    start_index = (group_index - 1)
-    end_index = min(group_index * 10, num_results)
-    for i in range(start_index, end_index):
-        st.write(file_contents[i])
-
+	
     st.divider()
     st.header("Google Play Store")
     st.caption("Download from: https://play.google.com/store/apps/details?id=com.blackbots.blackdao")
@@ -493,121 +501,117 @@ if search_variable:
                             except StopIteration:
                                 break
 
+
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
-#original_string = "random"
-#obfuscated_text, mapping = await obfuscate(original_string)
 
-async def fetch_html_content(url):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            if response.status == 200:
-                return await response.text()
-            else:
-                return None
-
-async def display_manga_titles_and_images(soup, mapping=None):
-    manga_items = soup.find_all("div", class_="page-item-detail manga")
-    for item in manga_items:
-        link = item.find("a", class_="btn-link")
-        img_tag = item.find("img")
-        title = item.find("h3", class_="h5").text.strip()
-        if link and img_tag:
-            href = link.get("href")
-            img_url = img_tag.get("data-src")
-            st.write(f"[{title}]({href})")
-            st.image(img_url, use_column_width='always')
-            st.caption('Copy Code')
-            st.divider()
-
-            original_string = href
-            obfuscated_text, mapping = await obfuscate(original_string)
-            txt = f"""
-            {obfuscated_text}
-            """
-            if mapping is not None:
-                url = await deobfuscate(obfuscated_text, mapping)
-            st.code(txt, language='java')
-            pass
-            
-async def main():
+with col1:
     ranchar = random.choice(string.ascii_uppercase)
-    urls = {
-        #"Novels": f"https://daotranslate.net/?s={ranchar}",
-        "Top Rated": "https://nightcomic.com/",
-        "Panels": "https://manhuaaz.com/"
-    }
+    with st.expander(':books: Novels'):
+        resp = httpx.get(f"https://daotranslate.us/?s={ranchar}")
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            manga_list_div = soup.find("div", {"class": "listupd"})
+            if manga_list_div:
+                titles = manga_list_div.find_all("div", {"class": "mdthumb"})
+                for title in titles:
+                    title_url = title.a["href"]
+                    title_name = title_url.split("series/")[1].replace('/', '').title()
+                    titlename = title_name.replace('-', ' ')
+                    ch = f"https://daotranslate.us/{title_name}-chapter-1/"
+                    st.write(f"[{titlename}]({ch})")
+                    img_url = title.img["src"]
+                    
+                    original_string = ch
+                    obfuscated_text, mapping = obfuscate(original_string)
+                    if img_url:
+                        st.image(img_url, use_column_width='always')
+                    if ch:
+                        txt = f"""
+                        {obfuscated_text}
+                        """
+                        url = deobfuscate(obfuscated_text, mapping)
+                        st.code(txt, language='java')
+                        st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
+                    st.divider()
 
-    for category, url in urls.items():
-        if category == "Novels":
-            with col1:
-                with st.expander(f"{category}"):
-                    resp = httpx.get(url)
-                    if resp.status_code == 200:
-                        soup = BeautifulSoup(resp.text, 'html.parser')
-                        manga_list_div = soup.find("div", {"class": "listupd"})
-                        if manga_list_div:
-                            titles = manga_list_div.find_all("div", {"class": "mdthumb"})
-                            for title in titles:
-                                title_url = title.a["href"]
-                                title_name = title_url.split("series/")[1].replace('/', '').title()
-                                titlename = title_name.replace('-', ' ')
-                                ch = f"https://daotranslate.net/{title_name}-chapter-1/"
-                                st.write(f"[{titlename}]({ch})")
-                                img_url = title.img["src"]
-                                
-                                original_string = ch
-                                obfuscated_text, mapping = await obfuscate(original_string)
-                                if img_url:
-                                    st.image(img_url, use_column_width='always')
-                                if ch:
-                                    txt = f"""
-                                    {obfuscated_text}
-                                    """
-                                    url = await deobfuscate(obfuscated_text, mapping)
-                                    st.code(txt, language='java')
-                                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
-                                    st.divider()
-        elif category == "Top Rated":
-            with col2:
-                with st.expander(f"{category}"):
-                    html_content = await fetch_html_content(url)
-                    if html_content:
-                        soup = BeautifulSoup(html_content, 'html.parser')
-                        await display_manga_titles_and_images(soup)
-        else:
-            with col3:
-                with st.expander(f"{category}"):
-                    html_content = await fetch_html_content(url)
-                    if html_content:
-                        soup = BeautifulSoup(html_content, 'html.parser')
-                        await display_manga_titles_and_images(soup)
+with col2:
+    with st.expander(f":frame_with_picture: Top Rated"):
+        resp = httpx.get("https://nightcomic.com/")
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            manga_items = soup.find_all("div", class_="page-item-detail manga")
+        
+            for item in manga_items:
+                link = item.find("a", class_="btn-link")
+                img_tag = item.find("img")
+                title = item.find("h3", class_="h5").text.strip()
+                rating = item.find("span", class_="score").text.strip()
+                
+                if link and img_tag:
+                    href = link.get("href")
+                    img_url = img_tag.get("data-src")
+                    
+                    original_string = href
+                    obfuscated_text, mapping = obfuscate(original_string)
+                    url = deobfuscate(obfuscated_text, mapping)
+                    
+                    st.write(f"[{title}]({href}) - Rating: {rating}")
+                    st.image(img_url, use_column_width='always')
+                    txt = f"""
+                    {obfuscated_text}
+                    """
+                    st.code(txt, language='java')
+                    st.caption('Copy Code')
+                    st.divider()
+with col3:
+    with st.expander(f":frame_with_picture: Panels"):
+        resp = httpx.get("https://manhuaaz.com/")
+        if resp.status_code == 200:
+            soup = BeautifulSoup(resp.text, 'html.parser')
+            manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
+        
+            for link in manga_links:
+                href = link.get("href")
+                if "chapter" not in href:
+                    cch = f"{href}chapter-1/"
+                else:
+                    cch = href
+                manga_name=href.split('https://manhuaaz.com/manga/')[1]
+                
+                img_tag = link.find("img")
+                original_string = cch
+                obfuscated_text, mapping = obfuscate(original_string)
+                if img_tag:
+                    st.write(f"[{manga_name}]({cch})")
+                    img_url = img_tag.get("data-src")
+                    st.image(img_url, use_column_width='always')
+                    url = deobfuscate(obfuscated_text, mapping)
+                    txt = f"""
+                    {obfuscated_text}
+                    """
+                    st.code(txt, language='java')
+                    st.caption('Copy Code')
+                    st.divider()
 
-asyncio.run(main())
+st.image(main_image)
+res_box = st.empty()
 
-async def main():
-    st.image(main_image)
-    res_box = st.empty()
-    original_string = 'Random'
-    obfuscated_text, mapping = await obfuscate(original_string)
-    url_input = st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here")
-    url = await deobfuscate(url_input, mapping)  # Pass the mapping here
-    ok = st.button(":green_book: Read", help="Read", key='readbutton')
+url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
+ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
 
-    if ok:
-        if "daotrans" in url:
-            with st.spinner('Loading, please be patient..'):
-                await readit(url, mapping)  # Pass mapping here
-        if "daotrans" not in url.lower():
+if ok:
+    #url = deobfuscate(xx, mapping)
+    if "daotrans" in url:
+        with st.spinner('Loading, please be patient..'):
+            readit(url)
+    if "daotrans" not in url.lower():
+        with st.spinner('Loading text & audio..'):
+            driver = get_driver()
             if "nightcomic.com" in url.lower():
-                with st.spinner('Loading text & audio..'):
-                    driver = get_driver()
-                    st.session_state.image_links = await get_image_links2(url, driver)  
+                st.session_state.image_links = get_image_links2(url)
             else:
-                with st.spinner('Loading text & audio..'):
-                    driver = get_driver()
-                    st.session_state.image_links = await get_image_links(url, driver)
-
+                st.session_state.image_links = get_image_links(url)
             st.session_state.current_image_index = 0
             if st.session_state.image_links:
                 for image_link in st.session_state.image_links:
@@ -619,16 +623,14 @@ async def main():
                 nxtchap = str(int(chap) + int(+1))
                 prvchap = str(int(chap))
                 nxtUrl = str(oldurl.replace(chap, nxtchap))
-                obfuscated_text, mapping = await obfuscate(nxtUrl)
+                obfuscated_text, mapping = obfuscate(nxtUrl)
                 st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + obfuscated_text)
                 txt = f"""
                 {obfuscated_text}
                 """
                 st.code(txt, language='java')
                 st.caption('Copy Code')
-
-asyncio.run(main())
  
 st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
 st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
-
+ 
