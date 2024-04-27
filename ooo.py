@@ -43,7 +43,7 @@
 #          ^"***"`                    888E                                                      
 #                                     888E                                                      
 #                                     888P                                                      
-#                                   .J88" "                                                     
+#                                   .J88" "  
 import os
 import io
 import base64
@@ -64,6 +64,7 @@ import pickle
 
 import easyocr as ocr  # OCR
 from easyocr import Reader
+from paddleocr import PaddleOCR
 from gtts import gTTS
 from pydub import AudioSegment
 from pydub.effects import speedup
@@ -182,7 +183,9 @@ def transcribe_to_audio(image_links):
             img_data = requests.get(img_link).content
             # Read text from the image
             try:
-            	result = reader.readtext(img_data)
+				reader_ppocr = PaddleOCR(lang='en')
+				result = reader_ppocr.ocr(img_data, det=False, cls=False)
+            	#result = reader.readtext(img_data)
             	result_text = [text[1].strip() for text in result]
             	text = ' '.join(result_text)  # Joining the list of strings into a single string
             	text = filter_english_words(text)  # Passing the single string to the filter function
