@@ -579,8 +579,8 @@ with col1:
                         url = deobfuscate(obfuscated_text, mapping)
                         st.code(txt, language='java')
                         st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
-                    st.divider()
-                    counter += 1
+                        st.divider()
+                        counter += 1
 counter2 = 0
 with col2:
     with st.expander(f":chart_with_upwards_trend: Top Rated"):
