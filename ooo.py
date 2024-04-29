@@ -596,7 +596,7 @@ with col2:
                 rating = item.find("span", {"class": "score"}).text.strip()
                 
                 if link and img_tag:
-                    if counter2 >= 3:  # Check if the counter exceeds 10
+                    if counter2 >= 10:  # Check if the counter exceeds 10
                         break
                     href = link.get("href")
                     img_url = img_tag.get("data-src")
@@ -618,6 +618,7 @@ with col2:
                     st.caption('Copy Code')
                     st.divider()
                     counter2 += 1
+
 counter3 = 0
 with col3:
     with st.expander(f":frame_with_picture: Panels"):
