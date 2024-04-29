@@ -1,5 +1,7 @@
 [server]
 enableStaticServing = true
+[client]
+showErrorDetails = false
 [theme]
 base = 'dark'
 primaryColor="#FF4B4B"
