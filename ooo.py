@@ -403,9 +403,6 @@ st.markdown("""
         visibility: collapse;
         height: 0px;
         }
-	.st-emotion-cache-1aege4m {
-	    display: none;
-	}
 	 .stException {
 	    display: none;
 	}
