@@ -198,13 +198,13 @@ def transcribe_to_audio(image_links):
             	st.write("Error converting image:", e)
 
             try:
-            	result = ocr.ocr("converted_img.jpg", det=False, cls=True)
-
+            	listresult = ocr.ocr("converted_img.jpg", det=False, cls=True)
+				result = listresult[0]
             	st.write("OCR Result:", result)
 		    
-            	text = ' '.join(result_text)  # Joining the list of strings into a single string
+            	#text = ' '.join(result_text)  # Joining the list of strings into a single string
 
-            	text = filter_english_words(str(result_text))
+            	text = filter_english_words(str(result))
             	if text:
                     audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
                     if not os.path.exists(audio_file_path):
