@@ -403,6 +403,12 @@ st.markdown("""
         visibility: collapse;
         height: 0px;
         }
+	.st-emotion-cache-1aege4m {
+	    display: none;
+	}
+	 .stException {
+	    display: none;
+	}
     </style>
 """, unsafe_allow_html=True)
 
