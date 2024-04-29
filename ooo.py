@@ -608,20 +608,29 @@ with col2:
                 img_tag = item.find("img", src=True)
                 if img_tag:
                     img_url = img_tag['src']
+                   # try:
+                   #     resized_img = resize_image(img_url, scale_factor=4)
+                   #     st.image(resized_img, use_column_width='always')
+                   # except:
+                   #     pass
                     try:
-                        resized_img = resize_image(img_url, scale_factor=4)
-                        st.image(resized_img, use_column_width='always')
-                    except:
-                        pass
-                
+                        # Convert .webp image to PNG format
+                        img_data = requests.get(img_url).content
+                        img = Image.open(io.BytesIO(img_data))
+                        img = img.convert("RGB")  # Convert to RGB format
+                        img_byte_array = io.BytesIO()
+                        img.save(img_byte_array, format="PNG")
+                        img_byte_array = img_byte_array.getvalue()
+                        
+                        st.image(img_byte_array, use_column_width='always')
+                    except Exception as e:
+                        print(e)
                 obfuscated_text, mapping = obfuscate(chapter_link)
                 txt = f"{obfuscated_text}"
                 st.code(txt, language='java')
                 st.caption('Copy Code')
                 st.divider()
                 counter2 += 1
-
-
 
 counter3 = 0
 with col3:
