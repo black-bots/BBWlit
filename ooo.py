@@ -587,13 +587,13 @@ with col2:
         resp = requests.get("https://nightcomic.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_items = soup.find_all("div", class_="page-item-detail manga")
+            manga_items = soup.find_all("div", {"class": "page-item-detail manga"})
         
             for item in manga_items:
-                link = item.find("a", class_="btn-link")
+                link = item.find("a", {"class": "btn-link"})
                 img_tag = item.find("img")
-                title = item.find("h3", class_="h5").text.strip()
-                rating = item.find("span", class_="score").text.strip()
+                title = item.find("h3", {"class": "h5"}).text.strip()
+                rating = item.find("span", {"class": "score"}).text.strip()
                 
                 if link and img_tag:
                     if counter2 >= 3:  # Check if the counter exceeds 10
