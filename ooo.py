@@ -492,7 +492,7 @@ if search_variable:
                     titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
                     manga_links = iter(search_result_div_2)
                     for title in titles:
-                        if searched >= 3:
+                        if searched >= 10:
                             break
                         title_url = title.a["href"]
                         title_name = title_url.split("series/")[1].replace('/', '').title()
@@ -539,7 +539,7 @@ if search_variable:
                                 original_string = cch
                                 obfuscated_text, mapping = obfuscate(original_string)
                                 if img_tag:
-                                    if searched2 >= 3:
+                                    if searched2 >= 10:
                                     	break
                                     left_co, cent_co,last_co = st.columns(3)
                                     with cent_co:
@@ -577,7 +577,7 @@ with col1:
             if manga_list_div:
                 titles = manga_list_div.find_all("div", {"class": "mdthumb"})
                 for title in titles:
-                    if counter >= 3:  # Check if the counter exceeds 10
+                    if counter >= 10:  # Check if the counter exceeds 10
                         break
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1].replace('/', '').title()
@@ -613,7 +613,7 @@ with col2:
             manga_items = soup.find_all("div", {"class": "page-item-detail manga"})
         
             for item in manga_items:
-                if counter2 >= 3:  # Check if the counter exceeds 3
+                if counter2 >= 10:  # Check if the counter exceeds 3
                     break
                 
                 manga_title = item.find("h3", {"class": "h5"}).text.strip()
@@ -651,7 +651,7 @@ with col3:
             manga_items = soup.find_all("div", {"class": "page-item-detail manga"})
         
             for item in manga_items:
-                if counter3 >= 3:  # Check if the counter exceeds 3
+                if counter3 >= 10:  # Check if the counter exceeds 3
                     break
                 
                 manga_title = item.find("h3", {"class": "h5"}).text.strip()
