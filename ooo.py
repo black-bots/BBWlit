@@ -181,43 +181,48 @@ def get_image_links(url):
 def transcribe_to_audio(image_links):
     audio_files = []
     ocr = PaddleOCR(use_angle_cls=True, lang='en')
+    all_text = []  # List to accumulate all text from images
     for idx, img_link in enumerate(image_links, start=1):
-        st.write(img_link)
         if not is_supported_image_format(img_link):
             continue
         
         with st.spinner(" Getting image text "):
             try:
-            	img_data = requests.get(img_link).content
-            	img_file = io.BytesIO(img_data)
-            	img_webp = Image.open(img_file)
-            	img_jpg = img_webp.convert('RGB')
-            	img_jpg.save("converted_img.jpg", 'JPEG')
-            	st.write("Image conversion successful.")
+                img_data = requests.get(img_link).content
+                img_file = io.BytesIO(img_data)
+                img_webp = Image.open(img_file)
+                img_jpg = img_webp.convert('RGB')
+                img_jpg.save("converted_img.jpg", 'JPEG')
             except Exception as e:
-            	st.write("Error converting image:", e)
+                continue
 
             try:
-            	listresult = ocr.ocr("converted_img.jpg", det=False, cls=True)
-            	text_string = listresult[0][0][0]
-            	st.write("OCR Result:", text_string)
-		    
-            	text = filter_english_words(str(text_string))
-            	if text:
+                listresult = ocr.ocr("converted_img.jpg", det=False, cls=True)
+                text_string = listresult[0][0][0]
+                st.write("OCR Result:", text_string)
+                
+                text = filter_english_words(str(text_string))
+                all_text.append(text)  # Accumulate text from each image
+                if text:
                     audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
                     if not os.path.exists(audio_file_path):
-                    	tts = gTTS(text=text, lang='en', slow=False)
-                    	tts.save(audio_file_path)
+                        tts = gTTS(text=text, lang='en', slow=False)
+                        tts.save(audio_file_path)
                     audio_files.append(audio_file_path)
                     if on:
-                    	res_box.markdown(f':blue[Streaming: ]:green[*{text}*]')
-            	else:
+                        res_box.markdown(f':blue[Streaming: ]:green[*{text}*]')
+                else:
                     res_box.markdown(f':blue[Dao: ]:orange[No Text]')
             except Exception as e:
-            	st.write(f"Error processing text: {e}")
-            	text = ""
+                st.write(f"Error processing text: {e}")
+                text = ""
+
+    # Join all text from different images into one paragraph
+    joined_text = " ".join(all_text)
+    st.write("All Text:", joined_text)
 
     return audio_files
+
 
 
 def is_supported_image_format(image_url):
@@ -645,7 +650,7 @@ with col2:
 
 counter3 = 0
 with col3:
-    with st.expander(f":frame_with_picture: Panels"):
+    with st.expander(f":frame_with_picture: Updated"):
         resp = requests.get("https://www.mangaread.org/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
@@ -676,14 +681,12 @@ with col3:
                     except Exception as e:
                         print(e)
                 
-                rating = item.find("span", {"class": "score"}).text.strip()
-                st.write(f"Rating: {rating}")
-                
                 chapter_items = item.select(".list-chapter .chapter-item")
                 for chapter_item in chapter_items:
                     chapter_name = chapter_item.find("a", class_="btn-link").text.strip()
                     chapter_date = chapter_item.find("span", class_="post-on").text.strip()
-                    st.write(f"Chapter: {chapter_name}, Date: {chapter_date}")
+                    st.write(f"Chapter: {chapter_name}")
+                    st.write(f"Released: {chapter_date}")
                 
                 obfuscated_text, mapping = obfuscate(chapter_link)
                 txt = f"{obfuscated_text}"
