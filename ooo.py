@@ -133,6 +133,7 @@ def perform_img_actions(url):
     try:
         driver.get(url)
     except:
+        st.stop()
         pass
     with st.spinner('Loading text & audio..'):
         st.session_state.image_links = get_image_links(url)
@@ -152,7 +153,7 @@ def get_image_links(url):
             pass
             return []
         else:
-            st.write(f'Error loading URL: {ex}')
+            st.stop()
             return []
     image_links = []
     
@@ -322,7 +323,7 @@ def readit(url):
             else:
                 st.write(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
         except Exception as e:
-            st.write(f':blue[Dao: ]:green[*Error occurred: {e}*]')
+            pass
     driver.quit()
 
 def obfuscate(text):
@@ -634,7 +635,7 @@ with col2:
                         resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
                         st.image(resized_img_byte_array, use_column_width='always')
                     except Exception as e:
-                        print(e)
+                        pass
                 obfuscated_text, mapping = obfuscate(chapter_link)
                 txt = f"{obfuscated_text}"
                 st.code(txt, language='java')
@@ -672,7 +673,7 @@ with col3:
                         resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
                         st.image(resized_img_byte_array, use_column_width='always')
                     except Exception as e:
-                        print(e)
+                        pass
                 
                 chapter_items = item.select(".list-chapter .chapter-item")
                 for chapter_item in chapter_items:
