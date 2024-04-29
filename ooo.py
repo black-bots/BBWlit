@@ -646,54 +646,52 @@ with col2:
 counter3 = 0
 with col3:
     with st.expander(f":frame_with_picture: Panels"):
-        resp = requests.get("https://mangahub.io/")
+        resp = requests.get("https://www.mangaread.org/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_items = soup.find_all("div", class_="media")
+            manga_items = soup.find_all("div", {"class": "page-item-detail manga"})
         
             for item in manga_items:
                 if counter3 >= 3:  # Check if the counter exceeds 3
                     break
                 
-                manga_link_tag = item.find("a", class_="text-secondary", href=True)
-                if manga_link_tag:
-                    manga_link = manga_link_tag["href"]
-                    manga_name = manga_link_tag.get_text()
-                    
-                    img_tag = item.find("img", src=True)
-                    if img_tag:
-                        img_url = img_tag["src"]
-                        
-                        # Original string
-                        if "chapter" not in manga_link:
-                            cch = f"{manga_link}chapter-1/"
-                        else:
-                            cch = manga_link
-                        original_string = cch
-                        
-                        # Obfuscate original string
-                        obfuscated_text, mapping = obfuscate(original_string)
-                        
-                        # Display manga name and link
-                        st.write(f"[{manga_name}]({manga_link})")
-                        
-                        # Display manga image
-                        try:
-                            resized_img = resize_image(img_url, scale_factor=4)
-                            st.image(resized_img, use_column_width='always')
-                        except Exception as e:
-                            print("Error displaying image:", e)
-                    
-                        # Display obfuscated text
-                        txt = f"""
-                        {obfuscated_text}
-                        """
-                        st.code(txt, language='java')
-                        st.caption('Copy Code')
-                        st.divider()
-                    
-                        # Increment counter
-                        counter3 += 1
+                manga_title = item.find("h3", {"class": "h5"}).text.strip()
+                manga_link = item.find("a", href=True)['href']
+                
+                chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
+                if chapter_links:
+                    chapter_link = chapter_links[0]['href']
+                else:
+                    chapter_link = ''
+                
+                st.write(f"[{manga_title}]({chapter_link})")
+                
+                img_tag = item.find("img", src=True)
+                if img_tag:
+                    img_url = img_tag['src']
+                    try:
+                        # Resize and display the image
+                        resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
+                        st.image(resized_img_byte_array, use_column_width='always')
+                    except Exception as e:
+                        print(e)
+                
+                rating = item.find("span", {"class": "score"}).text.strip()
+                st.write(f"Rating: {rating}")
+                
+                chapter_items = item.select(".list-chapter .chapter-item")
+                for chapter_item in chapter_items:
+                    chapter_name = chapter_item.find("a", class_="btn-link").text.strip()
+                    chapter_date = chapter_item.find("span", class_="post-on").text.strip()
+                    st.write(f"Chapter: {chapter_name}, Date: {chapter_date}")
+                
+                obfuscated_text, mapping = obfuscate(chapter_link)
+                txt = f"{obfuscated_text}"
+                st.code(txt, language='java')
+                st.caption('Copy Code')
+                st.divider()
+                counter3 += 1
+
 
 
 st.image(main_image)
