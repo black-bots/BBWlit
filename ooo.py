@@ -581,23 +581,24 @@ with col1:
                         st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                         st.divider()
                         counter += 1
-counter2 = 0
+						
 with col2:
     with st.expander(f":chart_with_upwards_trend: Top Rated"):
+        counter2 = 0
         resp = requests.get("https://nightcomic.com/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
             manga_items = soup.find_all("div", {"class": "page-item-detail manga"})
         
             for item in manga_items:
+                if counter2 >= 10:
+                    break
                 link = item.find("a", {"class": "btn-link"})
                 img_tag = item.find("img")
                 title = item.find("h3", {"class": "h5"}).text.strip()
                 rating = item.find("span", {"class": "score"}).text.strip()
                 
                 if link and img_tag:
-                    if counter2 >= 10:  # Check if the counter exceeds 10
-                        break
                     href = link.get("href")
                     img_url = img_tag.get("data-src")
                     
@@ -607,16 +608,14 @@ with col2:
                     
                     st.write(f"[{title}]({href}) - Rating: {rating}")
                     try:
-                    	resized_img = resize_image(img_url, scale_factor=4)
-                    	st.image(resized_img, use_column_width='always')
+                        resized_img = resize_image(img_url, scale_factor=4)
+                        st.image(resized_img, use_column_width='always')
                     except:
-                    	pass                  
-                    txt = f"""
-                    {obfuscated_text}
-                    """
+                        pass                  
+                    txt = f"{obfuscated_text}"
                     st.code(txt, language='java')
                     st.caption('Copy Code')
-                    st.divider()
+                    st.markdown("---")
                     counter2 += 1
 
 counter3 = 0
