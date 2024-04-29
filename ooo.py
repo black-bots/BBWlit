@@ -588,7 +588,7 @@ with col2:
         resp = requests.get("https://mangatx.to/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_items = soup.find_all("div", {"class": "page-item-detail manga"})
+            manga_items = soup.find_all("div", {"class": "page-item-detail manga  "})
         
             for item in manga_items:
                 if counter2 >= 10:
