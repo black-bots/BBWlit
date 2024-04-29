@@ -399,6 +399,10 @@ st.markdown("""
         [data-testid='stSidebarNav'] > ul {min-height: 50vh;}
         [data-testid='stSidebarNav'] > ul {color: red;}
         .language-java {color: black;}
+        .css-nps9tx, .e1m3hlzs0, .css-1p0bytv, .e1m3hlzs1 {
+        visibility: collapse;
+        height: 0px;
+        }
     </style>
 """, unsafe_allow_html=True)
 
