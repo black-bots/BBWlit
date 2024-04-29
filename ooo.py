@@ -193,8 +193,8 @@ def transcribe_to_audio(image_links):
             	result = ocr.ocr(img_data, det=False, rec=False, cls=False,)
 
             	st.write("OCR Result:", result)
-            	#result_text = [text[1].strip() for text in result]
-            	#st.write("Result Text:", result_text)
+            	result_text = [text[1].strip() for text in result]
+            	st.write("Result Text:", result_text)
 		    
             	text = ' '.join(result_text)  # Joining the list of strings into a single string
 
