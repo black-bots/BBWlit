@@ -450,6 +450,17 @@ def resize_image(img_url, scale_factor):
     new_height = int(height * scale_factor)
     resized_image = image.resize((new_width, new_height), Image.LANCZOS)
     return resized_image
+def resize_displayed_image(img_url, scale_factor):
+    response = requests.get(img_url)
+    image = Image.open(BytesIO(response.content))
+    width, height = image.size
+    new_width = int(width * scale_factor)
+    new_height = int(height * scale_factor)
+    resized_image = image.resize((new_width, new_height), Image.LANCZOS)
+    img_byte_array = io.BytesIO()
+    resized_image.save(img_byte_array, format="PNG")  # Convert to PNG format for display
+    img_byte_array = img_byte_array.getvalue()
+    return img_byte_array
 
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
 searched = 0 
@@ -616,17 +627,9 @@ with col2:
                 if img_tag:
                     img_url = img_tag['src']
                     try:
-                        # Convert .webp image to PNG format
-                        img_data = requests.get(img_url).content
-                        img = Image.open(io.BytesIO(img_data))
-                        img = img.convert("RGB")  # Convert to RGB format
-                        img_byte_array = io.BytesIO()
-                        img.save(img_byte_array, format="PNG")
-                        img_byte_array = img_byte_array.getvalue()
-                        resized_img = resize_image(img_byte_array, scale_factor=4)
-                        st.image(resized_img, use_column_width='always')
-
-                        #st.image(img_byte_array, use_column_width='always')
+                        # Resize and display the image
+                        resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
+                        st.image(resized_img_byte_array, use_column_width='always')
                     except Exception as e:
                         print(e)
                 obfuscated_text, mapping = obfuscate(chapter_link)
