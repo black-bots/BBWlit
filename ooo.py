@@ -199,7 +199,6 @@ def transcribe_to_audio(image_links):
             try:
                 listresult = ocr.ocr("converted_img.jpg", det=False, cls=True)
                 text_string = listresult[0][0][0]
-                st.write("OCR Result:", text_string)
                 
                 text = filter_english_words(str(text_string))
                 all_text.append(text)  # Accumulate text from each image
@@ -636,7 +635,6 @@ with col2:
                 if img_tag:
                     img_url = img_tag['src']
                     try:
-                        # Resize and display the image
                         resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
                         st.image(resized_img_byte_array, use_column_width='always')
                     except Exception as e:
@@ -675,7 +673,6 @@ with col3:
                 if img_tag:
                     img_url = img_tag['src']
                     try:
-                        # Resize and display the image
                         resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
                         st.image(resized_img_byte_array, use_column_width='always')
                     except Exception as e:
@@ -685,8 +682,8 @@ with col3:
                 for chapter_item in chapter_items:
                     chapter_name = chapter_item.find("a", class_="btn-link").text.strip()
                     chapter_date = chapter_item.find("span", class_="post-on").text.strip()
-                    st.write(f"Chapter: {chapter_name}")
-                    st.write(f"Released: {chapter_date}")
+                st.write(f"Chapter: {chapter_name}")
+                st.write(f"Released: {chapter_date}")
                 
                 obfuscated_text, mapping = obfuscate(chapter_link)
                 txt = f"{obfuscated_text}"
