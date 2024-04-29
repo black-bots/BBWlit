@@ -187,7 +187,6 @@ def transcribe_to_audio(image_links):
             continue
         
         with st.spinner(" Getting image text "):
-            # Download the image
             img_data = requests.get(img_link).content
             try:
             	img_file = io.BytesIO(img_data)
@@ -199,7 +198,7 @@ def transcribe_to_audio(image_links):
             	st.write("Error converting image:", e)
 
             try:
-            	result = ocr.ocr(img_data, cls=True)
+            	result = ocr.ocr("converted_img.jpg", cls=True)
 
             	st.write("OCR Result:", result)
             	result_text = [text[1].strip() for text in result]
