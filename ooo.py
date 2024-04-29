@@ -155,18 +155,25 @@ def get_image_links(url):
             st.write(f'Error loading URL: {ex}')
             return []
     image_links = []
+    
     img_elements = driver.find_elements(By.CSS_SELECTOR, 'img')
     for img_element in img_elements:
         img_src = img_element.get_attribute('src')
         if img_src and is_image_link(img_src):
             image_links.append(img_src)
-
+    
     img_elements_with_id = driver.find_elements(By.CSS_SELECTOR, 'img[id^="image-"]')
     for img_element_with_id in img_elements_with_id:
         img_src_with_id = img_element_with_id.get_attribute('src')
         if img_src_with_id and is_image_link(img_src_with_id):
             image_links.append(img_src_with_id)
-
+    
+    img_elements_with_class = driver.find_elements(By.CSS_SELECTOR, 'img.wp-manga-chapter-img')
+    for img_element_with_class in img_elements_with_class:
+        img_src_with_class = img_element_with_class.get_attribute('src')
+        if img_src_with_class and is_image_link(img_src_with_class):
+            image_links.append(img_src_with_class)
+    
     driver.quit()
     return image_links
 
@@ -210,14 +217,14 @@ def transcribe_to_audio(image_links):
 
 
 def is_supported_image_format(image_url):
-    supported_formats = ['.png', '.jpg', '.jpeg']
+    supported_formats = ['.png', '.jpg', '.jpeg', '.webp']
     for format in supported_formats:
         if image_url.lower().endswith(format):
             return True
     return False
 
 def is_image_link(link):
-    image_extensions = ['.png', '.jpg', '.jpeg']
+    image_extensions = ['.png', '.jpg', '.jpeg', '.webp']
     for ext in image_extensions:
         if link.lower().endswith(ext):
             return True
