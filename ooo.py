@@ -615,11 +615,6 @@ with col2:
                 img_tag = item.find("img", src=True)
                 if img_tag:
                     img_url = img_tag['src']
-                   # try:
-                   #     resized_img = resize_image(img_url, scale_factor=4)
-                   #     st.image(resized_img, use_column_width='always')
-                   # except:
-                   #     pass
                     try:
                         # Convert .webp image to PNG format
                         img_data = requests.get(img_url).content
@@ -628,8 +623,10 @@ with col2:
                         img_byte_array = io.BytesIO()
                         img.save(img_byte_array, format="PNG")
                         img_byte_array = img_byte_array.getvalue()
-                        
-                        st.image(img_byte_array, use_column_width='always')
+                        resized_img = resize_image(img_byte_array, scale_factor=4)
+                        st.image(resized_img, use_column_width='always')
+
+                        #st.image(img_byte_array, use_column_width='always')
                     except Exception as e:
                         print(e)
                 obfuscated_text, mapping = obfuscate(chapter_link)
