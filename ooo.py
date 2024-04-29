@@ -585,7 +585,7 @@ with col1:
 with col2:
     with st.expander(f":chart_with_upwards_trend: Top Rated"):
         counter2 = 0
-        resp = requests.get("https://nightcomic.com/")
+        resp = requests.get("https://mangatx.to/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
             manga_items = soup.find_all("div", {"class": "page-item-detail manga"})
@@ -593,18 +593,14 @@ with col2:
             for item in manga_items:
                 if counter2 >= 10:
                     break
-                link = item.find("a", {"class": "btn-link"})
-                img_tag = item.find("img")
+                link = item.find("a", href=True)
+                img_tag = item.find("img", src=True)
                 title = item.find("h3", {"class": "h5"}).text.strip()
                 rating = item.find("span", {"class": "score"}).text.strip()
                 
                 if link and img_tag:
                     href = link.get("href")
-                    img_url = img_tag.get("data-src")
-                    
-                    original_string = href
-                    obfuscated_text, mapping = obfuscate(original_string)
-                    url = deobfuscate(obfuscated_text, mapping)
+                    img_url = img_tag.get("src")
                     
                     st.write(f"[{title}]({href}) - Rating: {rating}")
                     try:
@@ -612,11 +608,12 @@ with col2:
                         st.image(resized_img, use_column_width='always')
                     except:
                         pass                  
-                    txt = f"{obfuscated_text}"
+                    txt = f"{href}"
                     st.code(txt, language='java')
                     st.caption('Copy Code')
                     st.markdown("---")
                     counter2 += 1
+
 
 counter3 = 0
 with col3:
