@@ -582,37 +582,45 @@ with col1:
                         st.divider()
                         counter += 1
 						
+counter2 = 0
 with col2:
     with st.expander(f":chart_with_upwards_trend: Top Rated"):
-        counter2 = 0
         resp = requests.get("https://mangatx.to/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_items = soup.find_all("div", {"class": "page-item-detail manga  "})
+            manga_items = soup.find_all("div", {"class": "page-item-detail manga"})
         
             for item in manga_items:
-                if counter2 >= 10:
+                if counter2 >= 3:  # Check if the counter exceeds 3
                     break
-                link = item.find("a", href=True)
-                img_tag = item.find("img", src=True)
-                title = item.find("h3", {"class": "h5"}).text.strip()
-                rating = item.find("span", {"class": "score"}).text.strip()
                 
-                if link and img_tag:
-                    href = link.get("href")
-                    img_url = img_tag.get("src")
-                    
-                    st.write(f"[{title}]({href}) - Rating: {rating}")
+                manga_title = item.find("h3", {"class": "h5"}).text.strip()
+                manga_link = item.find("a", href=True)['href']
+                
+                chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
+                if chapter_links:
+                    chapter_link = chapter_links[0]['href']
+                else:
+                    chapter_link = ''
+                
+                st.write(f"[{manga_title}]({chapter_link})")
+                
+                img_tag = item.find("img", src=True)
+                if img_tag:
+                    img_url = img_tag['src']
                     try:
                         resized_img = resize_image(img_url, scale_factor=4)
                         st.image(resized_img, use_column_width='always')
                     except:
-                        pass                  
-                    txt = f"{href}"
-                    st.code(txt, language='java')
-                    st.caption('Copy Code')
-                    st.markdown("---")
-                    counter2 += 1
+                        pass
+                
+                obfuscated_text, mapping = obfuscate(chapter_link)
+                txt = f"{obfuscated_text}"
+                st.code(txt, language='java')
+                st.caption('Copy Code')
+                st.divider()
+                counter2 += 1
+
 
 
 counter3 = 0
