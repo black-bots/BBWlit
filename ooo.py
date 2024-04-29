@@ -173,7 +173,7 @@ def get_image_links(url):
         img_src_with_class = img_element_with_class.get_attribute('src')
         if img_src_with_class and is_image_link(img_src_with_class):
             image_links.append(img_src_with_class)
-    
+	
     driver.quit()
     return image_links
 
@@ -189,9 +189,17 @@ def transcribe_to_audio(image_links):
         with st.spinner(" Getting image text "):
             # Download the image
             img_data = requests.get(img_link).content
-            
             try:
-            	result = ocr.ocr(img_data)
+            	img_file = io.BytesIO(img_data)
+            	img_webp = Image.open(img_file)
+            	img_jpg = img_webp.convert('RGB')
+            	img_jpg.save("converted_img.jpg", 'JPEG')
+            	st.write("Image conversion successful.")
+            except Exception as e:
+            	st.write("Error converting image:", e)
+
+            try:
+            	result = ocr.ocr(img_data, cls=True)
 
             	st.write("OCR Result:", result)
             	result_text = [text[1].strip() for text in result]
