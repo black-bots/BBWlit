@@ -646,41 +646,55 @@ with col2:
 counter3 = 0
 with col3:
     with st.expander(f":frame_with_picture: Panels"):
-        resp = requests.get("https://manhuaaz.com/")
+        resp = requests.get("https://mangahub.io/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
-            manga_links = soup.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
+            manga_items = soup.find_all("div", class_="media")
         
-            for link in manga_links:
-                href = link.get("href")
-                if "chapter" not in href:
-                    cch = f"{href}chapter-1/"
-                else:
-                    cch = href
-                manga_name=href.split('https://manhuaaz.com/manga/')[1]
-                manga_name = manga_name.replace("/","")
+            for item in manga_items:
+                if counter3 >= 3:  # Check if the counter exceeds 3
+                    break
                 
-                img_tag = link.find("img")
-                original_string = cch
-                obfuscated_text, mapping = obfuscate(original_string)
-                if img_tag:
-                    if counter3 >= 3:  # Check if the counter exceeds 10
-                        break
-                    st.write(f"[{manga_name}]({cch})")
-                    img_url = img_tag.get("data-src")
-                    try:
-                    	resized_img = resize_image(img_url, scale_factor=4)
-                    	st.image(resized_img, use_column_width='always')
-                    except:
-                    	pass                 
-                    url = deobfuscate(obfuscated_text, mapping)
-                    txt = f"""
-                    {obfuscated_text}
-                    """
-                    st.code(txt, language='java')
-                    st.caption('Copy Code')
-                    st.divider()
-                    counter3 += 1
+                manga_link_tag = item.find("a", class_="text-secondary", href=True)
+                if manga_link_tag:
+                    manga_link = manga_link_tag["href"]
+                    manga_name = manga_link_tag.get_text()
+                    
+                    img_tag = item.find("img", src=True)
+                    if img_tag:
+                        img_url = img_tag["src"]
+                        
+                        # Original string
+                        if "chapter" not in manga_link:
+                            cch = f"{manga_link}chapter-1/"
+                        else:
+                            cch = manga_link
+                        original_string = cch
+                        
+                        # Obfuscate original string
+                        obfuscated_text, mapping = obfuscate(original_string)
+                        
+                        # Display manga name and link
+                        st.write(f"[{manga_name}]({manga_link})")
+                        
+                        # Display manga image
+                        try:
+                            resized_img = resize_image(img_url, scale_factor=4)
+                            st.image(resized_img, use_column_width='always')
+                        except Exception as e:
+                            print("Error displaying image:", e)
+                    
+                        # Display obfuscated text
+                        txt = f"""
+                        {obfuscated_text}
+                        """
+                        st.code(txt, language='java')
+                        st.caption('Copy Code')
+                        st.divider()
+                    
+                        # Increment counter
+                        counter3 += 1
+
 
 st.image(main_image)
 res_box = st.empty()
