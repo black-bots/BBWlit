@@ -182,15 +182,16 @@ def transcribe_to_audio(image_links):
     audio_files = []
     ocr = PaddleOCR(use_angle_cls=True, lang='en')
     for idx, img_link in enumerate(image_links, start=1):
+        st.write(img_link)
         if not is_supported_image_format(img_link):
             continue
         
         with st.spinner(" Getting image text "):
             # Download the image
             img_data = requests.get(img_link).content
-            # Read text from the image
+            
             try:
-            	result = ocr.ocr(img_data, det=False, rec=False, cls=False,)
+            	result = ocr.ocr(img_data)
 
             	st.write("OCR Result:", result)
             	result_text = [text[1].strip() for text in result]
