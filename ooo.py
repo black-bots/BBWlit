@@ -498,10 +498,11 @@ if search_variable:
                 search_result_div_2 = soup_2.find_all("div", {"class": "page-item-detail manga"})
                 search_result_div_3 = soup_3.find_all("div", {"class": "page-item-detail manga"})
                 
+                if search_result_div_1:
                 titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
                 for title in titles:
-                    if searched >= 3:
-                        pass
+                    if searched >= 0:
+                        break
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1].replace('/', '').title()
                     titlename = title_name.replace('-', ' ')
@@ -534,9 +535,12 @@ if search_variable:
                         st.divider()
                         searched += 1
             
+            if search_result_div_2:
+                st.write('working')
                 for item in search_result_div_2:
-                    if searched >= 3:
-                        pass
+                    st.write('working')
+                    if searched >= 5:
+                        break
                     manga_title = item.find("h3", {"class": "h5"}).text.strip()
                     manga_link = item.find("a", href=True)['href']
                     chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
@@ -560,9 +564,10 @@ if search_variable:
                     st.divider()
                     searched += 1
             
+            if search_result_div_3:
                 for item in search_result_div_3:
-                    if searched >= 3:
-                        pass
+                    if searched >= 5:
+                        break
                     manga_title = item.find("h3", {"class": "h5"}).text.strip()
                     manga_link = item.find("a", href=True)['href']
                     chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
