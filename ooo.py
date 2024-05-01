@@ -535,53 +535,55 @@ if search_variable:
                         st.divider()
                         searched += 1
             
-            if search_result_div_2:
-                for item in search_result_div_2:
-                    if searched >= 3:
-                        break
-                    manga_title = item.find("h3", {"class": "h4"}).text.strip()
-                    manga_link = item.find("a", href=True)['href']
-                    img_tag = item.find("img", src=True)
-                    if img_tag:
-                        img_url = img_tag['src']
-                        try:
-                            resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
-                            st.image(resized_img_byte_array, use_column_width='always')
-                        except Exception as e:
-                            pass
-                    latest_chapter = item.find("span", {"class": "chapter"}).text.strip()
-                    st.write(f"[{manga_title}]({manga_link})")
-                    st.write(f"Latest Chapter: {latest_chapter}")
-                    obfuscated_text, mapping = obfuscate(manga_link)
-                    txt = f"{obfuscated_text}"
-                    st.code(txt, language='java')
-                    st.caption('Copy Code')
-                    st.divider()
-                    searched += 1
-            
-            if search_result_div_3:
-                for item in search_result_div_3:
-                    if searched >= 5:
-                        break
-                    manga_title = item.find("h3", {"class": "h4"}).text.strip()
-                    manga_link = item.find("a", href=True)['href']
-                    img_tag = item.find("img", src=True)
-                    if img_tag:
-                        img_url = img_tag['src']
-                        try:
-                            resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
-                            st.image(resized_img_byte_array, use_column_width='always')
-                        except Exception as e:
-                            pass
-                    latest_chapter = item.find("span", {"class": "chapter"}).text.strip()
-                    st.write(f"[{manga_title}]({manga_link})")
-                    st.write(f"Latest Chapter: {latest_chapter}")
-                    obfuscated_text, mapping = obfuscate(manga_link)
-                    txt = f"{obfuscated_text}"
-                    st.code(txt, language='java')
-                    st.caption('Copy Code')
-                    st.divider()
-                    searched += 1
+                if search_result_div_2:
+                    searched2
+                    for item in search_result_div_2:
+                        if searched2 >= 5:
+                            break
+                        manga_title = item.find("h3", {"class": "h4"}).text.strip()
+                        manga_link = item.find("a", href=True)['href']
+                        img_tag = item.find("img", src=True)
+                        if img_tag:
+                            img_url = img_tag['src']
+                            try:
+                                resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
+                                st.image(resized_img_byte_array, use_column_width='always')
+                            except Exception as e:
+                                pass
+                        latest_chapter = item.find("span", {"class": "chapter"}).text.strip()
+                        st.write(f"[{manga_title}]({manga_link})")
+                        st.write(f"Latest Chapter: {latest_chapter}")
+                        obfuscated_text, mapping = obfuscate(manga_link)
+                        txt = f"{obfuscated_text}"
+                        st.code(txt, language='java')
+                        st.caption('Copy Code')
+                        st.divider()
+                        searched2 += 1
+                
+                if search_result_div_3:
+                    searched3
+                    for item in search_result_div_3:
+                        if searched3 >= 5:
+                            break
+                        manga_title = item.find("h3", {"class": "h4"}).text.strip()
+                        manga_link = item.find("a", href=True)['href']
+                        img_tag = item.find("img", src=True)
+                        if img_tag:
+                            img_url = img_tag['src']
+                            try:
+                                resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
+                                st.image(resized_img_byte_array, use_column_width='always')
+                            except Exception as e:
+                                pass
+                        latest_chapter = item.find("span", {"class": "chapter"}).text.strip()
+                        st.write(f"[{manga_title}]({manga_link})")
+                        st.write(f"Latest Chapter: {latest_chapter}")
+                        obfuscated_text, mapping = obfuscate(manga_link)
+                        txt = f"{obfuscated_text}"
+                        st.code(txt, language='java')
+                        st.caption('Copy Code')
+                        st.divider()
+                        searched3 += 1
 
 		
 col1, col2, col3 = st.columns(3)
