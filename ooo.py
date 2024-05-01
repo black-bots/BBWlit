@@ -537,6 +537,7 @@ if search_variable:
                 if search_result_div_2:
                     searched2 = 0
                     for item in search_result_div_2:
+                        st.write(item)
                         if searched2 >= 5:
                             break
                         manga_title = item.find("h3", {"class": "h4"}).text.strip()
