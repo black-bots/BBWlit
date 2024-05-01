@@ -502,7 +502,7 @@ if search_variable:
                     titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
                     for title in titles:
                         if searched >= 3:
-                            break
+                            continue
                         title_url = title.a["href"]
                         title_name = title_url.split("series/")[1].replace('/', '').title()
                         titlename = title_name.replace('-', ' ')
@@ -538,7 +538,7 @@ if search_variable:
                 if search_result_div_2:
                     for item in search_result_div_2:
                         if searched >= 3:
-                            break
+                            continue
                         manga_title = item.find("h3", {"class": "h5"}).text.strip()
                         manga_link = item.find("a", href=True)['href']
                         chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
