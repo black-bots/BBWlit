@@ -499,7 +499,7 @@ if search_variable:
                 search_result_div_3 = soup_3.find_all("div", {"class": "page-item-detail manga"})
                 
                 if search_result_div_1:
-                titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
+                    titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
                 for title in titles:
                     if searched >= 0:
                         break
