@@ -498,96 +498,93 @@ if search_variable:
                 search_result_div_2 = soup_2.find_all("div", {"class": "page-item-detail manga"})
                 search_result_div_3 = soup_3.find_all("div", {"class": "page-item-detail manga"})
                 
-                if search_result_div_1:
-                    titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
-                    for title in titles:
-                        if searched >= 3:
-                            continue
-                        title_url = title.a["href"]
-                        title_name = title_url.split("series/")[1].replace('/', '').title()
-                        titlename = title_name.replace('-', ' ')
-                        ih = f"https://daotranslate.net/{title_name}-chapter-1/"
-                        with st.spinner('Searching..'):
-                            left_co, cent_co,last_co = st.columns(3)
-                            with cent_co:
-                                st.write(f"[{titlename}]({ih})")
-                            img_url = title.img["src"]
-                            original_string = ih
-                            obfuscated_text, mapping = obfuscate(original_string)
-                            if img_url:
-                                try:
-                                    resized_img = resize_image(img_url, scale_factor=4)
-                                    left_co, cent_co,last_co = st.columns(3)
-                                    with cent_co:
-                                    	st.image(resized_img, use_column_width=None)
-                                except Exception as e:
-                                    st.error(f"Error loading image: {e}")
-                            
-                            if ih:
+                titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
+                for title in titles:
+                    if searched >= 3:
+                        pass
+                    title_url = title.a["href"]
+                    title_name = title_url.split("series/")[1].replace('/', '').title()
+                    titlename = title_name.replace('-', ' ')
+                    ih = f"https://daotranslate.net/{title_name}-chapter-1/"
+                    with st.spinner('Searching..'):
+                        left_co, cent_co,last_co = st.columns(3)
+                        with cent_co:
+                            st.write(f"[{titlename}]({ih})")
+                        img_url = title.img["src"]
+                        original_string = ih
+                        obfuscated_text, mapping = obfuscate(original_string)
+                        if img_url:
+                            try:
+                                resized_img = resize_image(img_url, scale_factor=4)
                                 left_co, cent_co,last_co = st.columns(3)
                                 with cent_co:
-                                    txt = f"""
-                                    {obfuscated_text}
-                                    """
-                                    url = deobfuscate(obfuscated_text, mapping)
-                                    st.code(txt, language='java')
-                                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
-                            st.divider()
-                            searched += 1
-                
-                if search_result_div_2:
-                    for item in search_result_div_2:
-                        if searched >= 3:
-                            continue
-                        manga_title = item.find("h3", {"class": "h5"}).text.strip()
-                        manga_link = item.find("a", href=True)['href']
-                        chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
-                        if chapter_links:
-                            chapter_link = chapter_links[0]['href']
-                        else:
-                            chapter_link = ''
-                        st.write(f"[{manga_title}]({chapter_link})")
-                        img_tag = item.find("img", src=True)
-                        if img_tag:
-                            img_url = img_tag['src']
-                            try:
-                                resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
-                                st.image(resized_img_byte_array, use_column_width='always')
+                                    st.image(resized_img, use_column_width=None)
                             except Exception as e:
-                                pass
-                        obfuscated_text, mapping = obfuscate(chapter_link)
-                        txt = f"{obfuscated_text}"
-                        st.code(txt, language='java')
-                        st.caption('Copy Code')
+                                st.error(f"Error loading image: {e}")
+                        
+                        if ih:
+                            left_co, cent_co,last_co = st.columns(3)
+                            with cent_co:
+                                txt = f"""
+                                {obfuscated_text}
+                                """
+                                url = deobfuscate(obfuscated_text, mapping)
+                                st.code(txt, language='java')
+                                st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                         st.divider()
                         searched += 1
-                
-                if search_result_div_3:
-                    for item in search_result_div_3:
-                        if searched >= 3:
-                            break
-                        manga_title = item.find("h3", {"class": "h5"}).text.strip()
-                        manga_link = item.find("a", href=True)['href']
-                        chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
-                        if chapter_links:
-                            chapter_link = chapter_links[0]['href']
-                        else:
-                            chapter_link = ''
-                        st.write(f"[{manga_title}]({chapter_link})")
-                        img_tag = item.find("img", src=True)
-                        if img_tag:
-                            img_url = img_tag['src']
-                            try:
-                                resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
-                                st.image(resized_img_byte_array, use_column_width='always')
-                            except Exception as e:
-                                pass
-                        obfuscated_text, mapping = obfuscate(chapter_link)
-                        txt = f"{obfuscated_text}"
-                        st.code(txt, language='java')
-                        st.caption('Copy Code')
-                        st.divider()
-                        searched += 1
+            
+                for item in search_result_div_2:
+                    if searched >= 3:
+                        pass
+                    manga_title = item.find("h3", {"class": "h5"}).text.strip()
+                    manga_link = item.find("a", href=True)['href']
+                    chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
+                    if chapter_links:
+                        chapter_link = chapter_links[0]['href']
+                    else:
+                        chapter_link = ''
+                    st.write(f"[{manga_title}]({chapter_link})")
+                    img_tag = item.find("img", src=True)
+                    if img_tag:
+                        img_url = img_tag['src']
+                        try:
+                            resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
+                            st.image(resized_img_byte_array, use_column_width='always')
+                        except Exception as e:
+                            pass
+                    obfuscated_text, mapping = obfuscate(chapter_link)
+                    txt = f"{obfuscated_text}"
+                    st.code(txt, language='java')
+                    st.caption('Copy Code')
+                    st.divider()
+                    searched += 1
+            
+                for item in search_result_div_3:
+                    if searched >= 3:
+                        pass
+                    manga_title = item.find("h3", {"class": "h5"}).text.strip()
+                    manga_link = item.find("a", href=True)['href']
+                    chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
+                    if chapter_links:
+                        chapter_link = chapter_links[0]['href']
+                    else:
+                        chapter_link = ''
+                    st.write(f"[{manga_title}]({chapter_link})")
+                    img_tag = item.find("img", src=True)
+                    if img_tag:
+                        img_url = img_tag['src']
+                        try:
+                            resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
+                            st.image(resized_img_byte_array, use_column_width='always')
+                        except Exception as e:
+                            pass
+                    obfuscated_text, mapping = obfuscate(chapter_link)
+                    txt = f"{obfuscated_text}"
+                    st.code(txt, language='java')
+                    st.caption('Copy Code')
+                    st.divider()
+                    searched += 1
 
 		
 col1, col2, col3 = st.columns(3)
