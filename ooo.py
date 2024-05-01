@@ -489,7 +489,7 @@ if search_variable:
             search_url_3 = f"https://mangatx.to/?s={search_variable}&post_type=wp-manga&post_type=wp-manga"
             resp_3 = requests.get(search_url_3)
             
-            if resp_1.status_code == 200 and resp_2.status_code == 200:
+            if resp_1.status_code == 200 and resp_2.status_code == 200 and resp_3.status_code == 200:
                 soup_1 = BeautifulSoup(resp_1.text, 'html.parser')
                 soup_2 = BeautifulSoup(resp_2.text, 'html.parser')
                 soup_3 = BeautifulSoup(resp_3.text, 'html.parser')
@@ -534,22 +534,19 @@ if search_variable:
                                     st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
                             st.divider()
                             searched += 1
-                            
+                
                 if search_result_div_2:
                     for item in search_result_div_2:
-                        if searched2 >= 3:
+                        if searched >= 3:
                             break
                         manga_title = item.find("h3", {"class": "h5"}).text.strip()
                         manga_link = item.find("a", href=True)['href']
-        
                         chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
                         if chapter_links:
                             chapter_link = chapter_links[0]['href']
                         else:
                             chapter_link = ''
-        
                         st.write(f"[{manga_title}]({chapter_link})")
-        
                         img_tag = item.find("img", src=True)
                         if img_tag:
                             img_url = img_tag['src']
@@ -557,14 +554,41 @@ if search_variable:
                                 resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
                                 st.image(resized_img_byte_array, use_column_width='always')
                             except Exception as e:
-                                st.error(f"Error loading image: {e}")
-                        
+                                pass
                         obfuscated_text, mapping = obfuscate(chapter_link)
                         txt = f"{obfuscated_text}"
                         st.code(txt, language='java')
                         st.caption('Copy Code')
                         st.divider()
-                        searched2 += 1
+                        searched += 1
+                
+                if search_result_div_3:
+                    for item in search_result_div_3:
+                        if searched >= 3:
+                            break
+                        manga_title = item.find("h3", {"class": "h5"}).text.strip()
+                        manga_link = item.find("a", href=True)['href']
+                        chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
+                        if chapter_links:
+                            chapter_link = chapter_links[0]['href']
+                        else:
+                            chapter_link = ''
+                        st.write(f"[{manga_title}]({chapter_link})")
+                        img_tag = item.find("img", src=True)
+                        if img_tag:
+                            img_url = img_tag['src']
+                            try:
+                                resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
+                                st.image(resized_img_byte_array, use_column_width='always')
+                            except Exception as e:
+                                pass
+                        obfuscated_text, mapping = obfuscate(chapter_link)
+                        txt = f"{obfuscated_text}"
+                        st.code(txt, language='java')
+                        st.caption('Copy Code')
+                        st.divider()
+                        searched += 1
+
 		
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
