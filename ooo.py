@@ -563,8 +563,8 @@ if search_variable:
                                     st.caption('Copy Code')
                                     st.divider()
                                     searched3 += 1
-                                    except:
-                                    	pass
+                            except:
+                                    pass
 		
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
