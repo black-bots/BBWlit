@@ -435,7 +435,7 @@ with st.sidebar:
         file_contents = tit.readlines()
 
     long_text = file_contents
-    st.write('Popular Titles')
+    st.write(':orange[Popular Titles]')
     stx.scrollableTextbox(long_text,height = 300,border = None)
 	
     st.divider()
