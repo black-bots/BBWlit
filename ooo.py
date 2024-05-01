@@ -70,6 +70,7 @@ from pydub import AudioSegment
 from pydub.effects import speedup
 import streamlit as st
 import streamlit_nested_layout
+from streamlit.components.v1 import html
 import streamlit.components.v1 as components
 import streamlit_extras
 
@@ -429,16 +430,18 @@ with st.sidebar:
     st.image(side_image)
     st.caption("Manga Text or Image To Speach")
     on = st.checkbox('Stream Story (Experimental)', value=False, disabled=False)
-
+	
     with open("titles.txt", "r") as tit:
         file_contents = tit.readlines()
-    num_results = len(file_contents)
-    num_groups = (num_results - 1) // 10 + 1
-    group_index = st.slider("Popular Titles", 1, num_groups, 1)
-    start_index = (group_index - 1) * 10
-    end_index = min(group_index * 10, num_results)
-    for i in range(start_index, end_index):
-        st.write(file_contents[i])
+
+    lorem = (
+    f"""
+    <p>{file_contents}</p>
+    """
+    * 10
+    )
+
+    html(lorem, height=100, scrolling=True)
 	
     st.divider()
     st.header("Google Play Store")
