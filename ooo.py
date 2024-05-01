@@ -474,8 +474,6 @@ def resize_displayed_image(img_url, scale_factor):
 
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
 searched = 0 
-searched2 = 0
-searched3 = 0
 if search_variable:
     search_variable = search_variable.replace('"', '')
     search_variable = search_variable.replace('-', ' ')
@@ -501,42 +499,43 @@ if search_variable:
                 
                 if search_result_div_1:
                     titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
-                for title in titles:
-                    if searched >= 5:
-                        break
-                    title_url = title.a["href"]
-                    title_name = title_url.split("series/")[1].replace('/', '').title()
-                    titlename = title_name.replace('-', ' ')
-                    ih = f"https://daotranslate.net/{title_name}-chapter-1/"
-                    with st.spinner('Searching..'):
-                        left_co, cent_co,last_co = st.columns(3)
-                        with cent_co:
-                            st.write(f"[{titlename}]({ih})")
-                        img_url = title.img["src"]
-                        original_string = ih
-                        obfuscated_text, mapping = obfuscate(original_string)
-                        if img_url:
-                            try:
-                                resized_img = resize_image(img_url, scale_factor=4)
-                                left_co, cent_co,last_co = st.columns(3)
-                                with cent_co:
-                                    st.image(resized_img, use_column_width=None)
-                            except Exception as e:
-                                st.error(f"Error loading image: {e}")
-                        
-                        if ih:
+                    for title in titles:
+                        if searched >= 5:
+                            break
+                        title_url = title.a["href"]
+                        title_name = title_url.split("series/")[1].replace('/', '').title()
+                        titlename = title_name.replace('-', ' ')
+                        ih = f"https://daotranslate.net/{title_name}-chapter-1/"
+                        with st.spinner('Searching..'):
                             left_co, cent_co,last_co = st.columns(3)
                             with cent_co:
-                                txt = f"""
-                                {obfuscated_text}
-                                """
-                                url = deobfuscate(obfuscated_text, mapping)
-                                st.code(txt, language='java')
-                                st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
-                        st.divider()
-                        searched += 1
+                                st.write(f"[{titlename}]({ih})")
+                            img_url = title.img["src"]
+                            original_string = ih
+                            obfuscated_text, mapping = obfuscate(original_string)
+                            if img_url:
+                                try:
+                                    resized_img = resize_image(img_url, scale_factor=4)
+                                    left_co, cent_co,last_co = st.columns(3)
+                                    with cent_co:
+                                        st.image(resized_img, use_column_width=None)
+                                except Exception as e:
+                                    st.error(f"Error loading image: {e}")
+                            
+                            if ih:
+                                left_co, cent_co,last_co = st.columns(3)
+                                with cent_co:
+                                    txt = f"""
+                                    {obfuscated_text}
+                                    """
+                                    url = deobfuscate(obfuscated_text, mapping)
+                                    st.code(txt, language='java')
+                                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
+                            st.divider()
+                            searched += 1
             
                 if search_result_div_2:
+                    searched2 = 0
                     for item in search_result_div_2:
                         if searched2 >= 5:
                             break
@@ -561,6 +560,7 @@ if search_variable:
                         searched2 += 1
                 
                 if search_result_div_3:
+                    searched3 = 0
                     for item in search_result_div_3:
                         if searched3 >= 5:
                             break
