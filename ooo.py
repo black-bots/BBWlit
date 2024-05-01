@@ -501,7 +501,7 @@ if search_variable:
                 if search_result_div_1:
                     titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
                 for title in titles:
-                    if searched >= 0:
+                    if searched >= 10:
                         break
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1].replace('/', '').title()
@@ -536,9 +536,7 @@ if search_variable:
                         searched += 1
             
             if search_result_div_2:
-                st.write('working')
                 for item in search_result_div_2:
-                    st.write('working')
                     if searched >= 5:
                         break
                     manga_title = item.find("h3", {"class": "h5"}).text.strip()
