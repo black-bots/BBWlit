@@ -435,6 +435,7 @@ with st.sidebar:
         file_contents = tit.readlines()
 
     long_text = file_contents
+    st.write('Popular Titles')
     stx.scrollableTextbox(long_text,height = 300,border = None)
 	
     st.divider()
@@ -649,7 +650,7 @@ with col2:
 
 counter3 = 0
 with col3:
-    with st.expander(f":frame_with_picture: Updated"):
+    with st.expander(f":frame_with_picture: Recently Updated"):
         resp = requests.get("https://www.mangaread.org/")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
