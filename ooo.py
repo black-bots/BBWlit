@@ -475,6 +475,7 @@ def resize_displayed_image(img_url, scale_factor):
 search_variable = st.text_input(":orange[Search:]", placeholder="Search..", key='search', help="Enter a title here to search for")
 searched = 0 
 searched2 = 0
+searched3 = 0
 if search_variable:
     search_variable = search_variable.replace('"', '')
     search_variable = search_variable.replace('-', ' ')
@@ -501,7 +502,7 @@ if search_variable:
                 if search_result_div_1:
                     titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
                 for title in titles:
-                    if searched >= 10:
+                    if searched >= 5:
                         break
                     title_url = title.a["href"]
                     title_name = title_url.split("series/")[1].replace('/', '').title()
@@ -536,7 +537,6 @@ if search_variable:
                         searched += 1
             
                 if search_result_div_2:
-                    searched2
                     for item in search_result_div_2:
                         if searched2 >= 5:
                             break
@@ -561,7 +561,6 @@ if search_variable:
                         searched2 += 1
                 
                 if search_result_div_3:
-                    searched3
                     for item in search_result_div_3:
                         if searched3 >= 5:
                             break
