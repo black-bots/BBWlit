@@ -70,8 +70,8 @@ from pydub import AudioSegment
 from pydub.effects import speedup
 import streamlit as st
 import streamlit_nested_layout
-from streamlit.components.v1 import html
 import streamlit.components.v1 as components
+import streamlit_scrollable_textbox as stx
 import streamlit_extras
 
 from bs4 import BeautifulSoup
@@ -434,14 +434,8 @@ with st.sidebar:
     with open("titles.txt", "r") as tit:
         file_contents = tit.readlines()
 
-    lorem = (
-    f"""
-    <p>{file_contents}</p>
-    """
-    * 10
-    )
-
-    html(lorem, height=100, scrolling=True)
+    long_text = file_contents
+    stx.scrollableTextbox(long_text,height = 300)
 	
     st.divider()
     st.header("Google Play Store")
