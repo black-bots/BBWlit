@@ -484,17 +484,21 @@ if search_variable:
         with st.expander(":mag: Search"):
             search_url_1 = f"https://daotranslate.net/?s={search_variable}"
             resp_1 = requests.get(search_url_1)
-            search_url_2 = f"https://manhuaaz.com/?s={search_variable}&post_type=wp-manga&op=&author=&artist=&release=&adult="
+            search_url_2 = f"https://www.mangaread.org/?s={search_variable}&post_type=wp-manga"
             resp_2 = requests.get(search_url_2)
+            search_url_3 = f"https://mangatx.to/?s={search_variable}&post_type=wp-manga&post_type=wp-manga"
+            resp_3 = requests.get(search_url_3)
             
             if resp_1.status_code == 200 and resp_2.status_code == 200:
                 soup_1 = BeautifulSoup(resp_1.text, 'html.parser')
                 soup_2 = BeautifulSoup(resp_2.text, 'html.parser')
-                
+                soup_3 = BeautifulSoup(resp_3.text, 'html.parser')
+		    
                 search_result_div_1 = soup_1.find("div", {"class": "listupd"})
-                search_result_div_2 = soup_2.find_all("a", href=lambda href: href and href.startswith("https://manhuaaz.com/manga/"))
+                search_result_div_2 = soup_2.find_all("div", {"class": "page-item-detail manga"})
+                search_result_div_3 = soup_3.find_all("div", {"class": "page-item-detail manga"})
                 
-                if search_result_div_1 and search_result_div_2:
+                if search_result_div_1:
                     titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
                     manga_links = iter(search_result_div_2)
                     for title in titles:
@@ -533,44 +537,35 @@ if search_variable:
                             
                             # Display results from search_result_div_2
                             try:
-                                link = next(manga_links)
-                                href = link.get("href")
-                                if "chapter" not in href:
-                                    cch = f"{href}chapter-1/"
-                                else:
-                                    cch = href
-                                manga_name=href.split('https://manhuaaz.com/manga/')[1]
-                                manga_name = manga_name.replace("/","")
-                                img_tag = link.find("img")
-                                original_string = cch
-                                obfuscated_text, mapping = obfuscate(original_string)
-                                if img_tag:
-                                    if searched2 >= 3:
-                                    	break
-                                    left_co, cent_co,last_co = st.columns(3)
-                                    with cent_co:
-                                    	st.write(f"[{manga_name}]({cch})")
-                                    img_url = img_tag.get("data-src")
-                                    try:
-                                    	resized_img = resize_image(img_url, scale_factor=4)
-                                    	left_co, cent_co,last_co = st.columns(3)
-                                    	with cent_co:
-                                    		st.image(resized_img, use_column_width=None)
+                                for item in search_result_div_2:
+                                    manga_title = item.find("h3", {"class": "h5"}).text.strip()
+                                    manga_link = item.find("a", href=True)['href']
+                
+                                    chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
+                                    if chapter_links:
+                                    	chapter_link = chapter_links[0]['href']
+                                    else:
+                                    	chapter_link = ''
+                
+                                    st.write(f"[{manga_title}]({chapter_link})")
+                
+                                    img_tag = item.find("img", src=True)
+                                    if img_tag:
+                                    	img_url = img_tag['src']
+                                    	try:
+                                    	    resized_img_byte_array = resize_displayed_image(img_url, scale_factor=4)
+                                    	    st.image(resized_img_byte_array, use_column_width='always')
+                                    	except Exception as e:
+                                    	    pass
+                                    obfuscated_text, mapping = obfuscate(chapter_link)
+                                    txt = f"{obfuscated_text}"
+                                    st.code(txt, language='java')
+                                    st.caption('Copy Code')
+                                    st.divider()
+                                    searched3 += 1
                                     except:
                                     	pass
-                                    left_co, cent_co,last_co = st.columns(3)
-                                    with cent_co:
-                                    	txt = f"""
-                                    	{obfuscated_text}
-                                    	"""
-                                    	st.code(txt, language='java')
-                                    	st.caption('Copy Code')
-                                    	st.divider()
-                                    	searched2 += 1
-                            except StopIteration:
-                                break
-
-	
+		
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
 counter = 0
