@@ -500,7 +500,7 @@ if search_variable:
                 if search_result_div_1:
                     titles = search_result_div_1.find_all("div", {"class": "mdthumb"})
                     for title in titles:
-                        if searched >= 5:
+                        if searched >= 20:
                             break
                         title_url = title.a["href"]
                         title_name = title_url.split("series/")[1].replace('/', '').title()
