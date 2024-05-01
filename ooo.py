@@ -537,16 +537,10 @@ if search_variable:
             
             if search_result_div_2:
                 for item in search_result_div_2:
-                    if searched >= 5:
+                    if searched >= 3:
                         break
-                    manga_title = item.find("h3", {"class": "h5"}).text.strip()
+                    manga_title = item.find("h3", {"class": "h4"}).text.strip()
                     manga_link = item.find("a", href=True)['href']
-                    chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
-                    if chapter_links:
-                        chapter_link = chapter_links[0]['href']
-                    else:
-                        chapter_link = ''
-                    st.write(f"[{manga_title}]({chapter_link})")
                     img_tag = item.find("img", src=True)
                     if img_tag:
                         img_url = img_tag['src']
@@ -555,7 +549,10 @@ if search_variable:
                             st.image(resized_img_byte_array, use_column_width='always')
                         except Exception as e:
                             pass
-                    obfuscated_text, mapping = obfuscate(chapter_link)
+                    latest_chapter = item.find("span", {"class": "chapter"}).text.strip()
+                    st.write(f"[{manga_title}]({manga_link})")
+                    st.write(f"Latest Chapter: {latest_chapter}")
+                    obfuscated_text, mapping = obfuscate(manga_link)
                     txt = f"{obfuscated_text}"
                     st.code(txt, language='java')
                     st.caption('Copy Code')
@@ -566,14 +563,8 @@ if search_variable:
                 for item in search_result_div_3:
                     if searched >= 5:
                         break
-                    manga_title = item.find("h3", {"class": "h5"}).text.strip()
+                    manga_title = item.find("h3", {"class": "h4"}).text.strip()
                     manga_link = item.find("a", href=True)['href']
-                    chapter_links = item.select(".list-chapter .chapter-item a.btn-link")
-                    if chapter_links:
-                        chapter_link = chapter_links[0]['href']
-                    else:
-                        chapter_link = ''
-                    st.write(f"[{manga_title}]({chapter_link})")
                     img_tag = item.find("img", src=True)
                     if img_tag:
                         img_url = img_tag['src']
@@ -582,7 +573,10 @@ if search_variable:
                             st.image(resized_img_byte_array, use_column_width='always')
                         except Exception as e:
                             pass
-                    obfuscated_text, mapping = obfuscate(chapter_link)
+                    latest_chapter = item.find("span", {"class": "chapter"}).text.strip()
+                    st.write(f"[{manga_title}]({manga_link})")
+                    st.write(f"Latest Chapter: {latest_chapter}")
+                    obfuscated_text, mapping = obfuscate(manga_link)
                     txt = f"{obfuscated_text}"
                     st.code(txt, language='java')
                     st.caption('Copy Code')
