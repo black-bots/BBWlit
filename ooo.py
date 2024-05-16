@@ -327,6 +327,82 @@ def readit(url):
             pass
     driver.quit()
 
+def readit2(url):
+    driver = get_driver()
+    try:
+        driver.get(url)
+    except:
+        pass
+    if not url:
+        res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
+    else:
+        try:
+            resp = requests.get(url)
+            if resp.status_code == 200:
+                soup = BeautifulSoup(resp.text, 'html.parser')
+                d = soup.find("div", {"class": "entry-content"})
+                if d:
+                    all_text = ""
+                    num_paragraphs = len(d.findAll("p"))
+                    paragraphs = d.findAll("p")
+                    desired_group_size = 1  # Set your desired group size here
+                    num_groups = num_paragraphs // desired_group_size  # Calculate the number of groups based on desired group size
+                    groups = [paragraphs[i:i + desired_group_size] for i in range(0, len(paragraphs), desired_group_size)]
+                    story = ""
+                    for paragraph in paragraphs:
+                        story += paragraph.text + "\n"
+                    story = story.replace('<p>', '')
+                    story = story.replace('"', '')
+                    
+                    st.markdown("""<style>
+                          .stMarkdown{color: black;}
+                          .st-c8:hover{color:orange;}
+                          .streamlit-expander.st-bc.st-as.st-ar.st-bd.st-be.st-b8.st-bf.st-bg.st-bh.st-bi{display:none;}
+                          </style>""",
+                          unsafe_allow_html=True
+                    )
+                    with st.expander("Read"):
+                        from annotated_text import annotated_text
+                        paragraphs = story.split("\n") 
+                        formatted_paragraphs = [(paragraph, "", "#fea") for paragraph in paragraphs]
+                        annotated_text(*formatted_paragraphs)
+                        st.caption(f'{len(story)} characters in this chapter.')
+
+                        oldurl = url
+                        chap = ''.join([n for n in oldurl if n.isdigit()])
+                        nxtchap = str(int(chap) + int(+1))
+                        prvchap = str(int(chap))
+                        nxtUrl = str(oldurl.replace(chap, nxtchap))
+                        obfuscated_text, mapping = obfuscate(nxtUrl)
+                        st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + nxtchap)
+                        st.caption(obfuscated_text)
+                        url = deobfuscate(obfuscated_text, mapping)
+                        st.button('Continue', on_click=readit, args=[url], key=generate_unique_key())
+                    with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
+                        story = story.replace('"','')
+                        tts = gTTS(text=story, lang='en', slow=False)
+                        tts.save(tmp_file.name)                            
+                        audio = AudioSegment.from_mp3(tmp_file.name)
+                        new_file = speedup(audio,1.2,150)
+                        new_file.export("file.mp3", format="mp3")
+                        autoplay_audio("file.mp3")
+                        #st.download_button("file.mp3")
+                    for group in groups:
+                        group_text = ""
+                        for d_paragraph in group:
+                            group_text += d_paragraph.text + "\n"
+                        if on:
+                            res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
+                            time.sleep(5)
+                    driver.quit()
+                else:
+                    st.write('')
+            else:
+                st.write(f':blue[Dao: ]:green[*Failed to fetch URL. Check your internet connection or the validity of the URL.*]')
+        except Exception as e:
+            pass
+    driver.quit()
+
 def obfuscate(text):
 	mapping = {}
 	for i in range(26):
@@ -721,8 +797,14 @@ st.image(main_image)
 res_box = st.empty()
 
 url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
-ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
-
+col1, col2, col3 = st.columns(3)
+with col1:
+	ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
+with col3:
+	ok2 = st.button("Using Outside Novel URL", help="Read", key='readbutton', use_container_width=False)
+	
+if ok2:
+    readit2(url)
 if ok:
     #url = deobfuscate(xx, mapping)
     if "daotrans" in url:
