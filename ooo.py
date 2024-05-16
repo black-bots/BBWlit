@@ -377,7 +377,11 @@ def readit2(url):
                         st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + nxtchap)
                         st.caption(obfuscated_text)
                         url = deobfuscate(obfuscated_text, mapping)
-                        st.button('Continue', on_click=readit, args=[url], key=generate_unique_key())
+                        #st.button('Continue', on_click=readit, args=[url], key=generate_unique_key())
+                        cntu = st.button('Continue', key=generate_unique_key())
+                        if cntu:
+                            with st.spinner('Loading, please be patient..'):
+                                readit2(url)
                         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                             story = story.replace('"','')
                             tts = gTTS(text=story, lang='en', slow=False)
