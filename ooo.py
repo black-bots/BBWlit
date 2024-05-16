@@ -327,17 +327,17 @@ def readit(url):
             pass
     driver.quit()
 
-def readit2(url):
+def readit2(url2):
     driver = get_driver()
     try:
-        driver.get(url)
+        driver.get(url2)
     except:
         pass
     if not url:
         res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
     else:
         try:
-            resp = requests.get(url)
+            resp = requests.get(url2)
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
                 d = soup.find("div", {"class": "epcontent entry-content"})
