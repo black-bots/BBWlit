@@ -805,7 +805,8 @@ with col3:
     ok2 = st.button("Use URL", help="Read", key='readbutton2', use_container_width=False)
 	
 if ok2:
-    readit2(url2)
+    with st.spinner('Loading, please be patient..'):
+        readit2(url2)
 if ok:
     #url = deobfuscate(xx, mapping)
     if "daotrans" in url:
