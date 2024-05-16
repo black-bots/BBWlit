@@ -251,6 +251,7 @@ def filter_english_words(text):
         text = ""  # Return empty string if an error occurs
     return text
 
+@st.experimental_fragment
 def readit(url):
     driver = get_driver()
     try:
@@ -327,6 +328,7 @@ def readit(url):
             pass
     driver.quit()
 
+@st.experimental_fragment
 def readit2(url):
     driver = get_driver()
     try:
@@ -669,7 +671,7 @@ outer_cols = st.columns([1, 2])
 counter = 0
 with col1:
     ranchar = random.choice(string.ascii_uppercase)
-    with st.expander(':loud_sound: Text & Audio '):
+    with st.expander(':loud_sound: Novels '):
         resp = requests.get(f"https://daotranslate.net/?s={ranchar}")
         if resp.status_code == 200:
             soup = BeautifulSoup(resp.text, 'html.parser')
