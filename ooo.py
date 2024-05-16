@@ -333,7 +333,7 @@ def readit2(url2):
         driver.get(url2)
     except:
         pass
-    if not url:
+    if not url2:
         res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
     else:
         try:
