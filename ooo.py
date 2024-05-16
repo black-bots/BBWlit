@@ -310,7 +310,7 @@ def readit(url):
                         new_file = speedup(audio,1.2,150)
                         new_file.export("file.mp3", format="mp3")
                         autoplay_audio("file.mp3")
-                        #st.download_button("file.mp3")
+                        st.download_button("file.mp3")
                     for group in groups:
                         group_text = ""
                         for d_paragraph in group:
@@ -378,22 +378,22 @@ def readit2(url):
                         st.caption(obfuscated_text)
                         url = deobfuscate(obfuscated_text, mapping)
                         st.button('Continue', on_click=readit, args=[url], key=generate_unique_key())
-                    with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
-                        story = story.replace('"','')
-                        tts = gTTS(text=story, lang='en', slow=False)
-                        tts.save(tmp_file.name)                            
-                        audio = AudioSegment.from_mp3(tmp_file.name)
-                        new_file = speedup(audio,1.2,150)
-                        new_file.export("file.mp3", format="mp3")
-                        autoplay_audio("file.mp3")
-                        #st.download_button("file.mp3")
-                    for group in groups:
-                        group_text = ""
-                        for d_paragraph in group:
-                            group_text += d_paragraph.text + "\n"
-                        if on:
-                            res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                            time.sleep(5)
+                        with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
+			    story = story.replace('"','')
+			    tts = gTTS(text=story, lang='en', slow=False)
+			    tts.save(tmp_file.name)                            
+			    audio = AudioSegment.from_mp3(tmp_file.name)
+			    new_file = speedup(audio,1.2,150)
+			    new_file.export(f"Chapter{prvchap}.mp3", format="mp3")
+			    autoplay_audio(f"Chapter{prvchap}.mp3")
+			    st.download_button(f"Chapter{prvchap}.mp3")
+		    for group in groups:
+			group_text = ""
+			for d_paragraph in group:
+			    group_text += d_paragraph.text + "\n"
+			if on:
+			    res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
+			    time.sleep(5)
                     driver.quit()
                 else:
                     st.write('')
