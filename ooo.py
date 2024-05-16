@@ -799,9 +799,11 @@ res_box = st.empty()
 url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
 col1, col2, col3 = st.columns(3)
 with col1:
-	ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
+    ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
+with col2:
+    st.write('-')
 with col3:
-	ok2 = st.button("Using Outside Novel URL", help="Read", key='readbutton', use_container_width=False)
+    ok2 = st.button("Using Outside Novel URL", help="Read", key='readbutton', use_container_width=False)
 	
 if ok2:
     readit2(url)
