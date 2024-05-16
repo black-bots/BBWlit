@@ -803,7 +803,7 @@ with col1:
 with col2:
     st.write('-')
 with col3:
-    ok2 = st.button("Using Outside Novel URL", help="Read", key='readbutton', use_container_width=False)
+    ok2 = st.button("Using Outside Novel URL", help="Read", key='readbutton2', use_container_width=False)
 	
 if ok2:
     readit2(url)
