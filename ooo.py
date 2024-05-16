@@ -327,20 +327,20 @@ def readit(url):
             pass
     driver.quit()
 
-def readit2(url2):
+def readit2(url):
     driver = get_driver()
     try:
-        driver.get(url2)
+        driver.get(url)
     except:
         pass
-    if not url2:
+    if not url:
         res_box.markdown(f':blue[Dao: ]:green[*Enter a valid URL before running.*]')
     else:
         try:
-            resp = requests.get(url2)
+            resp = requests.get(url)
             if resp.status_code == 200:
                 soup = BeautifulSoup(resp.text, 'html.parser')
-                d = soup.find("div", {"class": "epcontent entry-content"})
+                d = soup.find("div", {"class": "entry-content"})
                 if d:
                     all_text = ""
                     num_paragraphs = len(d.findAll("p"))
@@ -368,31 +368,25 @@ def readit2(url2):
                         annotated_text(*formatted_paragraphs)
                         st.caption(f'{len(story)} characters in this chapter.')
 
-                        oldurl = url2
+                        oldurl = url
                         chap = ''.join([n for n in oldurl if n.isdigit()])
                         nxtchap = str(int(chap) + int(+1))
                         prvchap = str(int(chap))
                         nxtUrl = str(oldurl.replace(chap, nxtchap))
+                        obfuscated_text, mapping = obfuscate(nxtUrl)
                         st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + nxtchap)
-                        st.caption(nxtUrl)
-                        url2 = nxtUrl
-                        st.button('Continue', on_click=readit, args=[url2], key=generate_unique_key())
-                    with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
-                        story = story.replace('"','')
-                        tts = gTTS(text=story, lang='en', slow=False)
-                        tts.save(tmp_file.name)                            
-                        audio = AudioSegment.from_mp3(tmp_file.name)
-                        new_file = speedup(audio,1.2,150)
-                        new_file.export("file.mp3", format="mp3")
-                        autoplay_audio("file.mp3")
-                        st.download_button("file.mp3")
-                    for group in groups:
-                        group_text = ""
-                        for d_paragraph in group:
-                            group_text += d_paragraph.text + "\n"
-                        if on:
-                            res_box.markdown(f':blue[Dao: ]:green[*{d_paragraph.text}*]')
-                            time.sleep(5)
+                        st.caption(obfuscated_text)
+                        url = deobfuscate(obfuscated_text, mapping)
+                        st.button('Continue', on_click=readit, args=[url], key=generate_unique_key())
+                        with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
+                            story = story.replace('"','')
+                            tts = gTTS(text=story, lang='en', slow=False)
+                            tts.save(tmp_file.name)                            
+                            audio = AudioSegment.from_mp3(tmp_file.name)
+                            new_file = speedup(audio,1.2,150)
+                            new_file.export(f"Chapter{prvchap}.mp3", format="mp3")
+                            autoplay_audio(f"Chapter{prvchap}.mp3")
+                            st.download_button(f"Chapter{prvchap}.mp3")
                     driver.quit()
                 else:
                     st.write('')
