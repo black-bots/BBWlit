@@ -368,15 +368,15 @@ def readit2(url2):
                         annotated_text(*formatted_paragraphs)
                         st.caption(f'{len(story)} characters in this chapter.')
 
-                        oldurl = url
+                        oldurl = url2
                         chap = ''.join([n for n in oldurl if n.isdigit()])
                         nxtchap = str(int(chap) + int(+1))
                         prvchap = str(int(chap))
                         nxtUrl = str(oldurl.replace(chap, nxtchap))
                         st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + nxtchap)
                         st.caption(nxtUrl)
-                        url = nxtUrl
-                        st.button('Continue', on_click=readit, args=[url], key=generate_unique_key())
+                        url2 = nxtUrl
+                        st.button('Continue', on_click=readit, args=[url2], key=generate_unique_key())
                     with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                         story = story.replace('"','')
                         tts = gTTS(text=story, lang='en', slow=False)
@@ -795,14 +795,14 @@ with col3:
 st.image(main_image)
 res_box = st.empty()
 
-url = deobfuscate(st.text_input(":orange[Manga Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
+url = deobfuscate(st.text_input(":orange[Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
 col1, col2, col3 = st.columns(3)
 with col1:
     ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
 with col2:
-    url2 = st.text_input(":orange[Novel URL:]", value='', placeholder="https://asuralightnovel.com/novel/hi..", key='readfield2', help="Enter Novel URL here")
+    url2 = st.text_input(":orange[URL:]", value='', placeholder="https://asuralightnovel.com/novel/hi..", key='readfield2', help="Enter Novel URL here")
 with col3:
-    ok2 = st.button("Using URL", help="Read", key='readbutton2', use_container_width=False)
+    ok2 = st.button("Use URL", help="Read", key='readbutton2', use_container_width=False)
 	
 if ok2:
     readit2(url2)
