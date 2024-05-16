@@ -801,9 +801,9 @@ col1, col2, col3 = st.columns(3)
 with col1:
     ok = st.button(":green_book: Read", help="Read", key='readbutton', use_container_width=False)
 with col2:
-    st.write('-')
+    st.text_input(":orange[Novel URL:]", value='', placeholder="https://asuralightnovel.com/novel/hi..", key='readfield2', help="Enter Novel URL here"
 with col3:
-    ok2 = st.button("Using Outside Novel URL", help="Read", key='readbutton2', use_container_width=False)
+    ok2 = st.button("Using URL", help="Read", key='readbutton2', use_container_width=False)
 	
 if ok2:
     readit2(url)
