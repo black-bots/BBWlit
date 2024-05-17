@@ -16,9 +16,9 @@ import numpy as np
 import pandas as pd
 import pickle
 
-#import easyocr as ocr  # OCR
+import easyocr
 #from easyocr import Reader
-from paddleocr import PaddleOCR
+#from paddleocr import PaddleOCR
 from gtts import gTTS
 from pydub import AudioSegment
 from pydub.effects import speedup
@@ -135,7 +135,10 @@ def get_image_links(url):
 
 def transcribe_to_audio(image_links):
     audio_files = []
-    ocr = PaddleOCR(use_angle_cls=False, lang='en')
+	
+    #ocr = PaddleOCR(use_angle_cls=False, lang='en')
+    reader = easyocr.Reader(['ch_tra', 'en'])
+
     all_text = []  # List to accumulate all text from images
     for idx, img_link in enumerate(image_links, start=1):
         if not is_supported_image_format(img_link):
@@ -152,10 +155,11 @@ def transcribe_to_audio(image_links):
                 continue
 
             try:
-                listresult = ocr.ocr("converted_img.jpg", det=False, cls=False)
-                #listresult = ocr.ocr(img_jpg, det=False, cls=False)
-		    
-                text_string = listresult[0][0][0]
+                #listresult = ocr.ocr("converted_img.jpg", det=False, cls=False)
+                listresult = reader.readtext(img_jpg, detail = 0, paragraph=True)
+                st.write(listresult)
+                print(listresult)
+                text_string = listresult
                 
                 text = filter_english_words(str(text_string))
                 all_text.append(text)  # Accumulate text from each image
