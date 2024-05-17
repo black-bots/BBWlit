@@ -175,7 +175,6 @@ def transcribe_to_audio(image_links):
 
     return audio_files
 
-
 def is_supported_image_format(image_url):
     supported_formats = ['.png', '.jpg', '.jpeg', '.webp']
     for format in supported_formats:
@@ -234,62 +233,7 @@ history = []
 ih = ""
 icob = Image.open('static/-.ico')
 ranum = random.randint(1,99999)
-st.set_page_config(
-    page_title="Manga Dōjutsu",
-    page_icon=icob,
-    layout="centered",
-    initial_sidebar_state="expanded"
-)
 
-st.markdown("""
-    <style>
-        <br><hr><center>
-        .reportview-container {background: black;}
-        .sidebar .siderbar-content {background: black;}
-        .st-ck:hover {
-        color: #gold;
-        }
-        color: lime;
-        cursor: pointer;
-        }
-        img {
-        width:75%;
-        }
-        width:578px;
-        vertical-align: middle;
-        horizontal-align: middle;
-        max-width: 300px;
-        margin: auto;
-        }
-        .css-yhwc6k{
-        text-align: center;
-        }
-        #audio{autoplay:true;}
-        #MainMenu{visibility: hidden;}
-        footer{visibility: hidden;}
-        .css-14xtw13 e8zbici0{visibility: hidden;}
-        .css-m70y {display:none}
-        .st-emotion-cache-zq5wmm.ezrtsby0{visibility: hidden;}
-        .st-emotion-cache-zq5wmm.ezrtsby0{display:none}
-        .styles_terminalButton__JBj5T{visibility: hidden;}
-        .styles_terminalButton__JBj5T{display:none}
-        .viewerBadge_container__r5tak.styles_viewerBadge__CvC9N{visibility: hidden;}
-        .viewerBadge_container__r5tak.styles_viewerBadge__CvC9N{display:none}
-        [data-testid='stSidebarNav'] > ul {min-height: 50vh;}
-        [data-testid='stSidebarNav'] > ul {color: red;}
-        .language-java {color: black;}
-        .css-nps9tx, .e1m3hlzs0, .css-1p0bytv, .e1m3hlzs1 {
-        visibility: collapse;
-        height: 0px;
-        }
-	 .stException {
-	    display: none;
-	}
-    </style>
-""", unsafe_allow_html=True)
-
-main_image = Image.open('static/dojutsu.png')
-side_image = Image.open('static/4.png')
 st.sidebar.write('BlackDao: Manga Dōjutsu')
 
 if 'image_links' not in st.session_state:
@@ -301,7 +245,6 @@ genre = None
 
 with st.sidebar:
     on = st.checkbox('Stream Story (Experimental)', value=False, disabled=False)
-	
 
 def resize_image(img_url, scale_factor):
     response = requests.get(img_url)
@@ -311,6 +254,7 @@ def resize_image(img_url, scale_factor):
     new_height = int(height * scale_factor)
     resized_image = image.resize((new_width, new_height), Image.LANCZOS)
     return resized_image
+
 def resize_displayed_image(img_url, scale_factor):
     response = requests.get(img_url)
     image = Image.open(BytesIO(response.content))
@@ -322,9 +266,6 @@ def resize_displayed_image(img_url, scale_factor):
     resized_image.save(img_byte_array, format="PNG")  # Convert to PNG format for display
     img_byte_array = img_byte_array.getvalue()
     return img_byte_array
-
-
-
 		
 col1, col2, col3 = st.columns(3)
 outer_cols = st.columns([1, 2])
@@ -416,8 +357,6 @@ with col3:
                 st.caption('Copy Code')
                 st.divider()
                 counter3 += 1
-
-
 
 st.image(main_image)
 res_box = st.empty()
