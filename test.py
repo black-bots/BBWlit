@@ -136,8 +136,7 @@ def get_image_links(url):
 def transcribe_to_audio(image_links):
     audio_files = []
 	
-    #ocr = PaddleOCR(use_angle_cls=False, lang='en')
-    reader = easyocr.Reader(['ch_tra', 'en'])
+    reader = easyocr.Reader(['ja', 'en'])
 
     all_text = []  # List to accumulate all text from images
     for idx, img_link in enumerate(image_links, start=1):
@@ -155,8 +154,7 @@ def transcribe_to_audio(image_links):
                 continue
 
             try:
-                #listresult = ocr.ocr("converted_img.jpg", det=False, cls=False)
-                listresult = reader.readtext(img_jpg, detail = 0, paragraph=True)
+                listresult = reader.readtext("converted_img.jpg", detail=0, paragraph=True)
                 st.write(listresult)
                 print(listresult)
                 text_string = listresult
