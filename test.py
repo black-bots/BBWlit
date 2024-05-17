@@ -152,8 +152,8 @@ def transcribe_to_audio(image_links):
                 continue
 
             try:
-                #listresult = ocr.ocr("converted_img.jpg", det=False, cls=False)
-                listresult = ocr.ocr(img_jpg, det=True, cls=False)
+                listresult = ocr.ocr("converted_img.jpg", det=False, cls=False)
+                #listresult = ocr.ocr(img_jpg, det=False, cls=False)
 		    
                 text_string = listresult[0][0][0]
                 
