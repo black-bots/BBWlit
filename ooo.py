@@ -251,7 +251,7 @@ def filter_english_words(text):
         text = ""  # Return empty string if an error occurs
     return text
 
-@st.experimental_fragment
+@st.cache
 def readit(url):
     driver = get_driver()
     try:
@@ -328,7 +328,7 @@ def readit(url):
             pass
     driver.quit()
 
-@st.experimental_fragment
+@st.cache
 def readit2(url):
     driver = get_driver()
     try:
