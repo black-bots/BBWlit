@@ -198,7 +198,7 @@ def transcribe_to_audio(image_links):
                 continue
 
             try:
-                listresult = ocr.ocr("converted_img.jpg", det=False, cls=True)
+                listresult = ocr.ocr("converted_img.jpg", det=True, cls=True)
                 text_string = listresult[0][0][0]
                 
                 text = filter_english_words(str(text_string))
