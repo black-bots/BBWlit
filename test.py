@@ -143,11 +143,13 @@ def transcribe_to_audio(image_links):
     reader = easyocr.Reader(['ja', 'en'])
 
     all_text = []  # List to accumulate all text from images
+    
+    # Initialize progress bar outside the loop
+    progress_bar = st.progress(0, text='Generating audio from images..')
+
     for idx, img_link in enumerate(image_links, start=1):
         if not is_supported_image_format(img_link):
             continue
-        
-        progress_bar = st.progress(0, text='Generating audio from images..')  # Initialize progress bar
         
         try:
             img_data = requests.get(img_link).content
@@ -185,6 +187,9 @@ def transcribe_to_audio(image_links):
         # Update progress bar
         progress_bar.progress(idx / len(image_links) * 100)
     
+    # Clear progress bar after completion
+    progress_bar.empty()
+
     st.write(joined_text)
     return audio_files
 
