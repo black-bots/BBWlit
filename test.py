@@ -358,7 +358,6 @@ with col3:
                 st.divider()
                 counter3 += 1
 
-st.image(main_image)
 res_box = st.empty()
 
 url = deobfuscate(st.text_input(":orange[Code:]", value='', placeholder="iuuqt://ebhdrrghmbuf.vt/..", key='readfield', help="Enter Manga Code here"), mapping)
