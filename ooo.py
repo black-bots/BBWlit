@@ -252,7 +252,7 @@ def filter_english_words(text):
     return text
 
 @st.cache
-def readit(url):
+def readeng(url):
     driver = get_driver()
     try:
         driver.get(url)
@@ -302,7 +302,7 @@ def readit(url):
                         st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + nxtchap)
                         st.caption(obfuscated_text)
                         url = deobfuscate(obfuscated_text, mapping)
-                        st.button('Continue', on_click=readit, args=[url], key=generate_unique_key())
+                        st.button('Continue', on_click=readeng, args=[url], key=generate_unique_key())
                     with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                         story = story.replace('"','')
                         tts = gTTS(text=story, lang='en', slow=False)
@@ -329,7 +329,7 @@ def readit(url):
     driver.quit()
 
 @st.cache
-def readit2(url):
+def reading(url):
     driver = get_driver()
     try:
         driver.get(url)
@@ -375,15 +375,14 @@ def readit2(url):
                         nxtchap = str(int(chap) + int(+1))
                         prvchap = str(int(chap))
                         nxtUrl = str(oldurl.replace(chap, nxtchap))
-                        obfuscated_text, mapping = obfuscate(nxtUrl)
                         st.caption(":green[Chapter Complete:] " + prvchap + "\n\n:orange[Next Chapter:] " + nxtchap)
-                        st.caption(obfuscated_text)
-                        url = deobfuscate(obfuscated_text, mapping)
-                        #st.button('Continue', on_click=readit, args=[url], key=generate_unique_key())
+                        st.caption(nxtUrl)
+                        url = nxtUrl
+                        #st.button('Continue', on_click=readeng, args=[url], key=generate_unique_key())
                         cntu = st.button('Continue', key=generate_unique_key())
                         if cntu:
                             with st.spinner('Loading, please be patient..'):
-                                readit2(url)
+                                reading(url)
                         with tempfile.NamedTemporaryFile(suffix=".mp3", delete=False) as tmp_file:
                             story = story.replace('"','')
                             tts = gTTS(text=story, lang='en', slow=False)
@@ -605,7 +604,7 @@ if search_variable:
                                     """
                                     url = deobfuscate(obfuscated_text, mapping)
                                     st.code(txt, language='java')
-                                    st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
+                                    st.button('Read', on_click=readeng, args=[url], key=generate_unique_key())
                             st.divider()
                             searched += 1
             
@@ -702,7 +701,7 @@ with col1:
                         """
                         url = deobfuscate(obfuscated_text, mapping)
                         st.code(txt, language='java')
-                        st.button('Read', on_click=readit, args=[url], key=generate_unique_key())
+                        st.button('Read', on_click=readeng, args=[url], key=generate_unique_key())
                         st.divider()
                         counter += 1
 						
@@ -806,12 +805,12 @@ with col3:
 	
 if ok2:
     with st.spinner('Loading, please be patient..'):
-        readit2(url2)
+        reading(url2)
 if ok:
     #url = deobfuscate(xx, mapping)
     if "daotrans" in url:
         with st.spinner('Loading, please be patient..'):
-            readit(url)
+            readeng(url)
     if "daotrans" not in url.lower():
         with st.spinner('Loading text & audio..'):
             driver = get_driver()
