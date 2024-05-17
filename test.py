@@ -147,37 +147,45 @@ def transcribe_to_audio(image_links):
         if not is_supported_image_format(img_link):
             continue
         
-        with st.spinner(" Getting image text "):
-            try:
-                img_data = requests.get(img_link).content
-                img_file = io.BytesIO(img_data)
-                img_webp = Image.open(img_file)
-                img_jpg = img_webp.convert('RGB')
-                img_jpg.save("converted_img.jpg", 'JPEG')
-            except Exception as e:
-                continue
+        progress_bar = st.progress(0, text='Generating audio from images..')  # Initialize progress bar
+        
+        try:
+            img_data = requests.get(img_link).content
+            img_file = io.BytesIO(img_data)
+            img_webp = Image.open(img_file)
+            img_jpg = img_webp.convert('RGB')
+            img_jpg.save("converted_img.jpg", 'JPEG')
+        except Exception as e:
+            continue
 
-            try:
-                listresult = reader.readtext("converted_img.jpg", detail=0, paragraph=True)
-                text_string = listresult
-                
-                text = filter_english_words(str(text_string))
-                all_text.append(text)  # Accumulate text from each image
-                joined_text = " ".join(all_text)
-                if joined_text:
-                    audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
-                    if not os.path.exists(audio_file_path):
-                        tts = gTTS(text=joined_text, lang='en', slow=False)
-                        tts.save(audio_file_path)
-                    audio_files.append(audio_file_path)
-                    if on:
-                        res_box.markdown(f':blue[Streaming: ]:green[*{text}*]')
-                else:
-                    res_box.markdown(f':blue[Dao: ]:orange[No Text]')
-            except Exception as e:
-                st.write(f"Error processing text: {e}")
-                text = ""
-    st.write("All Text:", joined_text)
+        try:
+            listresult = reader.readtext("converted_img.jpg", detail=0, paragraph=True)
+            text_string = listresult
+            
+            text = filter_english_words(str(text_string))
+		
+            all_text.append(text)  # Accumulate text from each image
+            #joined_text = " ".join(all_text)
+            joined_text = all_text
+		
+            if joined_text:
+                audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
+                if not os.path.exists(audio_file_path):
+                    tts = gTTS(text=joined_text, lang='en', slow=False)
+                    tts.save(audio_file_path)
+                audio_files.append(audio_file_path)
+                if on:
+                    res_box.markdown(f':blue[Streaming: ]:green[*{text}*]')
+            else:
+                res_box.markdown(f':blue[Dao: ]:orange[No Text]')
+        except Exception as e:
+            st.write(f"Error processing text: {e}")
+            text = ""
+        
+        # Update progress bar
+        progress_bar.progress(idx / len(image_links) * 100)
+    
+    st.write(joined_text)
     return audio_files
 
 def is_supported_image_format(image_url):
