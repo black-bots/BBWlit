@@ -135,7 +135,11 @@ def get_image_links(url):
 
 def transcribe_to_audio(image_links):
     audio_files = []
-	
+    
+    # Create the 'audio' directory if it doesn't exist
+    if not os.path.exists('audio'):
+        os.makedirs('audio')
+    
     reader = easyocr.Reader(['ja', 'en'])
 
     all_text = []  # List to accumulate all text from images
@@ -389,7 +393,4 @@ if ok:
                 """
                 st.code(txt, language='java')
                 st.caption('Copy Code')
- 
-st.markdown("<br><hr><center>© Cloud Bots™ BlackBots. All rights reserved.  <a href='mailto:admin@blackbots.net?subject=MangaDojutsu!&body=Please specify the issue you are facing with the app.'><strong>BlackBots.net</strong></a></center><hr>", unsafe_allow_html=True)
-st.markdown("<style> footer {visibility: hidden;} </style>", unsafe_allow_html=True)
  
