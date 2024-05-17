@@ -155,18 +155,15 @@ def transcribe_to_audio(image_links):
 
             try:
                 listresult = reader.readtext("converted_img.jpg", detail=0, paragraph=True)
-                st.write(listresult)
-                print(listresult)
                 text_string = listresult
                 
                 text = filter_english_words(str(text_string))
                 all_text.append(text)  # Accumulate text from each image
                 joined_text = " ".join(all_text)
-                st.write("All Text:", joined_text)
                 if joined_text:
                     audio_file_path = os.path.join('audio', os.path.splitext(os.path.basename(img_link))[0] + '.mp3')
                     if not os.path.exists(audio_file_path):
-                        tts = gTTS(text=text, lang='en', slow=False)
+                        tts = gTTS(text=joined_text, lang='en', slow=False)
                         tts.save(audio_file_path)
                     audio_files.append(audio_file_path)
                     if on:
@@ -176,7 +173,7 @@ def transcribe_to_audio(image_links):
             except Exception as e:
                 st.write(f"Error processing text: {e}")
                 text = ""
-
+    st.write("All Text:", joined_text)
     return audio_files
 
 def is_supported_image_format(image_url):
