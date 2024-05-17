@@ -133,7 +133,9 @@ def get_image_links(url):
     driver.quit()
     return image_links
 
-def transcribe_to_audio(image_links):
+##################### VVVVVVVVVVVVVVV #################################
+##################### VVVVVVVVVVVVVVV #################################
+def transcribe_to_audio(image_links, progress_bar):
     audio_files = []
     
     # Create the 'audio' directory if it doesn't exist
@@ -143,9 +145,6 @@ def transcribe_to_audio(image_links):
     reader = easyocr.Reader(['ja', 'en'])
 
     all_text = []  # List to accumulate all text from images
-    
-    # Initialize progress bar outside the loop
-    progress_bar = st.progress(0, text='Generating audio from images..')
 
     for idx, img_link in enumerate(image_links, start=1):
         if not is_supported_image_format(img_link):
@@ -192,6 +191,8 @@ def transcribe_to_audio(image_links):
 
     st.write(joined_text)
     return audio_files
+##################### ^^^^^^^^^^^^^^^ #################################
+##################### ^^^^^^^^^^^^^^^ #################################
 
 def is_supported_image_format(image_url):
     supported_formats = ['.png', '.jpg', '.jpeg', '.webp']
@@ -393,7 +394,8 @@ if ok:
                 for image_link in st.session_state.image_links:
                     st.image(image_link, use_column_width=True)
                 st.write(f"Total Images: {len(st.session_state.image_links)}")
-                transcribe_to_audio(st.session_state.image_links)
+                progress_bar = st.progress(0, text='Generating audio from images..')
+                transcribe_to_audio(st.session_state.image_links, progress_bar)
                 oldurl = url
                 chap = ''.join([n for n in oldurl if n.isdigit()])
                 nxtchap = str(int(chap) + int(+1))
